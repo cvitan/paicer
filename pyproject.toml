@@ -1,0 +1,17 @@
+[project]
+name = "paicer"
+version = "0.1.0"
+description = "Training plan tool: YAML to Garmin workouts and readable documents"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "garminconnect>=0.2.38",
+    "markdown>=3.10.2",
+    "python-dotenv>=1.2.1",
+    "pyyaml>=6.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.2",
+]
