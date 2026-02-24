@@ -48,37 +48,38 @@
 - Triathlon race simulation
 - Transition practice
 
-### 3. New Integrations
+### 3. Reviews Section
+- Add a reviews section to the YAML schema, format is a the following example:
+```
+reviews:
+  - week: 4
+    date: "2026-04-15"
+    notes: "HR averaged 162 during easy runs (target <145). Suggest slowing easy pace to 6:15/km."
+    adjustments:
+      - field: "phases[0].weeks[3].workouts[0].description"
+        change: "Easy pace adjusted from 6:00 to 6:15/km"
+```
+- Update the CLAUDE_GUIDE.md and  schema docs to reflect it.
 
-Potential integrations to add:
-- **Apple Watch / Apple Fitness**
-- **TrainingPeaks**
-- **Strava** (workout library)
-- **Zwift** (cycling workouts)
 
-Each implements `WorkoutIntegration` interface in `src/integrations/base.py`.
+### 4. Agent Skill
 
-### 4. Claude Code Skill
-
-Create a `/coach` skill for interactive plan building:
+Create an Agent Skill for interactive plan building and weekly reviews with adjustments:
 
 **Concept:**
-```bash
-/coach "I want to train for a marathon in 16 weeks"
-```
-
-Claude:
 - Asks about current fitness, training days
 - Suggests methodology (Pfitzinger, Daniels, etc.)
 - Builds YAML plan interactively
 - Generates and uploads workouts
+- SKILL.md with iomnformation on how to coach someone through plan creation (the questions to ask, methodology knowledge), the YAML schema reference, how to use the formatters, potentially how to do Garmin sync, and how to run a weekly review (pull data, compare to plan, suggest adjustments, append to reviews section). 
+- Pace adjustment based on race results
+- Recovery week auto-insertion
+- Taper week builder
+- Race prediction calculator
+- Weekly check-in prompts
+- Progress tracking
+- Auto-adjust paces based on actual performance
 
-**Implementation:**
-- Create `.claude/skills/coach/` directory
-- Skill prompts user for requirements
-- Uses CLAUDE_GUIDE.md for methodology
-- Outputs to `plans/my-plan.yaml`
-- Offers to upload to Garmin
 
 ### 5. Additional Formatters
 
@@ -88,36 +89,9 @@ Potential output formats:
 - **JSON** (for API consumption)
 - **CSV** (spreadsheet import)
 
-Each implements `DocumentFormatter` interface in `src/formatters/base.py`.
 
-### 6. Features
+### 6. New Integrations
 
-**Training plan features:**
-- Pace adjustment based on race results
-- Recovery week auto-insertion
-- Taper week builder
-- Race prediction calculator
-
-**Workflow features:**
-- Weekly check-in prompts
-- Progress tracking
-- Auto-adjust paces based on actual performance
-
-### 7. Documentation
-
-- Add examples for Phase 2-3 workouts once complete
-- Document swim/bike workout structures
-- Add troubleshooting for common issues
-- Video/GIF showing Garmin sync workflow
-
-## Reference Files
-
-**Keep:**
-- `build_plan_v3.py` - Source for Phase 2-3 data
-- `rgactive_16_week_triathlon_training plan.pdf` - Source for Phase 3 details
-- `integrations/garmin.md` - Technical reference
-- `CLAUDE_GUIDE.md` - Workflow guide
-
-**Removed:**
-- ~~`context.md`~~ - Info moved here
-- ~~`training_plan_v3.pdf`~~ - Output of build_plan_v3.py (regenerate if needed)
+Potential integrations to add:
+- **Strava** (workout library)
+- **Zwift** (cycling workouts)
