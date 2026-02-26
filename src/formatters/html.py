@@ -80,7 +80,7 @@ class HTMLFormatter(DocumentFormatter):
     .workout-table {{ width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9px; }}
     .workout-table th {{ background-color: #2c3e50; color: white; padding: 6px; text-align: left; font-size: 9px; }}
     .workout-table td {{ border: 1px solid #cccccc; padding: 8px; vertical-align: top; }}
-    .workout-table tr:nth-child(even) {{ background-color: #eef2f7; }}
+    .workout-table tr.row-shaded {{ background-color: #eef2f7; }}
     .workout-day {{ font-weight: bold; color: #1a1a2e; font-size: 9px; }}
     .workout-name {{ font-weight: bold; color: #1a1a2e; margin-bottom: 5px; }}
     .workout-desc {{ font-size: 9px; color: #1a1a2e; line-height: 1.4; }}
@@ -172,6 +172,10 @@ class HTMLFormatter(DocumentFormatter):
                 html.append("        <th>Details</th>")
                 html.append("      </tr>")
 
+                weekday_names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+                prev_day = None
+                row_group = 0
+
                 for workout in week["workouts"]:
                     day_num = workout.get("day")
 
@@ -179,17 +183,15 @@ class HTMLFormatter(DocumentFormatter):
                     if day_num and day_num > len(phase_training_days):
                         continue
 
+                    # Track day groups for alternating colors
+                    same_day = day_num is not None and day_num == prev_day
+                    if not same_day:
+                        row_group += 1
+                    row_class = " class='row-shaded'" if row_group % 2 == 0 else ""
+
                     name = workout["name"]
                     desc = workout["description"]
                     distance = workout.get("distance")
-
-                    # Calculate date
-                    date_str = ""
-                    if day_num:
-                        workout_date = calculate_workout_date(
-                            start_date, week_num, day_num, phase_training_days
-                        )
-                        date_str = f" ({workout_date})"
 
                     # Workout title
                     workout_title = name
@@ -197,18 +199,23 @@ class HTMLFormatter(DocumentFormatter):
                         distance_km = distance / 1000
                         workout_title = f"{name} — {distance_km}km"
 
-                    html.append("      <tr>")
+                    html.append(f"      <tr{row_class}>")
                     html.append("        <td></td>")
-                    if day_num:
+                    if day_num and not same_day:
+                        workout_date = calculate_workout_date(
+                            start_date, week_num, day_num, phase_training_days
+                        )
+                        day_label = weekday_names[phase_training_days[day_num - 1] - 1]
                         html.append(
-                            f"        <td><div class='workout-name'>Day {day_num}{date_str}</div><div class='workout-day'>{workout_title}</div></td>"
+                            f"        <td><div class='workout-name'>{day_label} ({workout_date})</div><div class='workout-day'>{workout_title}</div></td>"
                         )
                     else:
                         html.append(
-                            f"        <td><div class='workout-name'>{workout_title}</div></td>"
+                            f"        <td><div class='workout-day'>{workout_title}</div></td>"
                         )
                     html.append(f"        <td class='workout-desc'>{desc}</td>")
                     html.append("      </tr>")
+                    prev_day = day_num
 
                 html.append("    </table>")
                 html.append("  </div>")
