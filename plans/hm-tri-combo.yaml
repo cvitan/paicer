@@ -702,3 +702,796 @@ phases:
             name: "Easy Ride (optional, 1-2x this week)"
             skip_garmin: true
             description: "45–60 min easy spin at RPE 5."
+
+  - phase: 2
+    name: "HM Peak + Tri Begins"
+    training_days: [1, 2, 3, 4, 6, 7]
+    description: |
+      Continue progressing HM-specific running while introducing structured swim and bike from the RG Active triathlon plan (weeks 1–7). Taper all disciplines into Brooklyn Half race day.
+
+      **Format:** 4 runs + 2 swims + 1 bike per week (9 sessions). ~8–10 hours/week.
+
+      **CRITICAL RULE:** Maximum 2 hard sessions per week across all disciplines. Tuesday quality run = always hard #1. Hard #2 = either Saturday long run (when it has a tempo finish) or harder bike — never both. If fatigued → reduce bike first, then swim. Protect the running.
+
+    weeks:
+      - week: 7
+        description: |
+          Introduce tri sessions. Maintain Phase 1 running fitness.
+
+          **Volume:** ~45 km run  •  2.5 km swim  •  20 km bike
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Drills/Intervals"
+            skip_garmin: true
+            description: "Tri PDF Session #2. 1.5 km. Drills/Intervals at RPE 5–7. First structured swim in months. Focus on feel, breathing, technique."
+
+          # Day 2 (Tue) - Quality Run: WU 2km + 3×10min @ 5:15/km + 2min recovery + CD 2km
+          - day: 2
+            type: "run"
+            name: "Run: Tempo Intervals"
+            garmin_name: "W7D2: Tempo 3x10min"
+            description: "Warm-up: 2 km easy (RPE 4). Main: 3 × 10 min @ 5:15/km (RPE 7). Recovery: 2 min jog. Cool-down: 2 km easy (RPE 4). ~14 km total. Reservoir. Extending from Phase 1."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "repeat"
+                  numberOfIterations: 3
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 600
+                      targetType: "pace.zone"
+                      targetValueOne: 3.3333  # 5:00/km in m/s (faster)
+                      targetValueTwo: 3.0303  # 5:30/km in m/s (slower)
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      targetType: "no.target"
+                      childStepId: 1
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 3 (Wed) - Bike
+          - day: 3
+            type: "bike"
+            name: "Bike: Steady State Ride"
+            skip_garmin: true
+            description: "20 km at RPE 5–6 steady state. 'Just ride.' From Tri PDF Wk 1 Sunday session."
+
+          # Day 4 (Thu) - Swim + Easy Run combo
+          - day: 4
+            type: "swim"
+            name: "Swim: Drills/Intervals"
+            skip_garmin: true
+            description: "Tri PDF Session #1. 1 km. Drills/Intervals at RPE 5–7. Shorter technique session."
+
+          - day: 4
+            type: "run"
+            name: "Run: Easy"
+            garmin_name: "W7D4: Easy 8km"
+            distance: 8000
+            description: "8 km easy/conversational at RPE 4–5."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 8000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Sat) - Easy + Strides
+          - day: 5
+            type: "run"
+            name: "Run: Easy + Strides"
+            garmin_name: "W7D5: Easy 7km + Strides"
+            description: "7 km easy (RPE 4–5). 4 × 20-sec strides (RPE 8 briefly)."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 7000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 20
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
+          # Day 6 (Sun) - Long Run
+          - day: 6
+            type: "run"
+            name: "Run: Long Run"
+            garmin_name: "W7D6: Long 17km"
+            distance: 17000
+            description: "17 km easy at RPE 5. Big loop."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 17000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+      - week: 8
+        description: |
+          Push tempo duration. Swims progressing per PDF.
+
+          **Volume:** ~46 km run  •  3 km swim  •  25 km bike
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Drills/Intervals"
+            skip_garmin: true
+            description: "Tri PDF Session #3. 1.5 km. Drills/Intervals at RPE 5–7."
+
+          # Day 2 (Tue) - Quality Run: WU 2km + 30min continuous @ 5:15/km + CD 2km
+          - day: 2
+            type: "run"
+            name: "Run: Continuous Tempo"
+            garmin_name: "W8D2: Tempo 30min"
+            description: "Warm-up: 2 km easy (RPE 4). Main: 30 min continuous @ 5:15/km (RPE 7). Cool-down: 2 km easy (RPE 4). ~13 km total. Reservoir. Sustained effort."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "time"
+                  endConditionValue: 1800
+                  targetType: "pace.zone"
+                  targetValueOne: 3.3333  # 5:00/km in m/s (faster)
+                  targetValueTwo: 3.0303  # 5:30/km in m/s (slower)
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 3 (Wed) - Bike
+          - day: 3
+            type: "bike"
+            name: "Bike: Steady Ride"
+            skip_garmin: true
+            description: "25 km at RPE 5–7 steady. From Tri PDF Wk 2."
+
+          # Day 4 (Thu) - Swim + Easy Run combo
+          - day: 4
+            type: "swim"
+            name: "Swim: Drills/Intervals"
+            skip_garmin: true
+            description: "1.5 km swim (Tri PDF Session #2, RPE 5–7). Per Tri PDF Wk 2 combo session."
+
+          - day: 4
+            type: "run"
+            name: "Run: Easy"
+            garmin_name: "W8D4: Easy 8km"
+            distance: 8000
+            description: "8 km easy at RPE 4–5."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 8000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Sat) - Easy + Strides
+          - day: 5
+            type: "run"
+            name: "Run: Easy + Strides"
+            garmin_name: "W8D5: Easy 7km + Strides"
+            description: "7 km easy (RPE 4–5). 5 × 20-sec strides (RPE 8 briefly)."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 7000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "repeat"
+                  numberOfIterations: 5
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 20
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
+          # Day 6 (Sun) - Long Run
+          - day: 6
+            type: "run"
+            name: "Run: Long Run"
+            garmin_name: "W8D6: Long 18km"
+            distance: 18000
+            description: "18 km easy at RPE 5."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 18000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+      - week: 9
+        description: |
+          First brick week. Introduce race pace touches.
+
+          **Volume:** ~47 km run  •  3.5 km swim  •  35 km bike (incl. brick)
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Drills/Intervals"
+            skip_garmin: true
+            description: "Tri PDF Session #4. 2 km. Drills/Intervals at RPE 5–7."
+
+          # Day 2 (Tue) - Quality Run: WU 2km + 2×12min @ 5:10/km + 3min recovery + CD 2km
+          - day: 2
+            type: "run"
+            name: "Run: Tempo Intervals"
+            garmin_name: "W9D2: Tempo 2x12min"
+            description: "Warm-up: 2 km easy (RPE 4). Main: 2 × 12 min @ 5:10/km (RPE 7–8). Recovery: 3 min jog. Cool-down: 2 km easy (RPE 4). ~13 km total. First time at 5:10 — should feel firm but manageable."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "repeat"
+                  numberOfIterations: 2
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 720
+                      targetType: "pace.zone"
+                      targetValueOne: 3.3898  # 4:55/km in m/s (faster)
+                      targetValueTwo: 3.0769  # 5:25/km in m/s (slower)
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      targetType: "no.target"
+                      childStepId: 1
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 3 (Wed) - Bike
+          - day: 3
+            type: "bike"
+            name: "Bike: Mixed Effort Ride"
+            skip_garmin: true
+            description: "20 km at RPE 5–7 mixed effort. From Tri PDF Wk 3."
+
+          # Day 4 (Thu) - Swim + Easy Run combo
+          - day: 4
+            type: "swim"
+            name: "Swim: Drills/Intervals"
+            skip_garmin: true
+            description: "Tri PDF Session #3. 1.5 km at RPE 5–7."
+
+          - day: 4
+            type: "run"
+            name: "Run: Easy"
+            garmin_name: "W9D4: Easy 8km"
+            distance: 8000
+            description: "8 km easy at RPE 4–5."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 8000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Sat) - Brick: Bike + Run
+          - day: 5
+            type: "brick"
+            name: "Brick: Bike + Run"
+            skip_garmin: true
+            description: "15 km bike (RPE 5–6) → 3 km easy run (RPE 6–7). From Tri PDF Wk 3. Start the run slow — legs will feel odd."
+
+          # Day 6 (Sun) - Long Run with steady finish
+          - day: 6
+            type: "run"
+            name: "Run: Long Run (steady finish)"
+            garmin_name: "W9D6: Long 18km + finish"
+            distance: 18000
+            description: "18 km total. First 15 km easy (RPE 5), last 3 km @ 5:20/km (RPE 6–7)."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 15000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 3000
+                  targetType: "pace.zone"
+                  targetValueOne: 3.2787  # 5:05/km in m/s (faster)
+                  targetValueTwo: 2.9851  # 5:35/km in m/s (slower)
+
+      - week: 10
+        description: |
+          Peak quality week. Longest long run.
+
+          **Volume:** ~49 km run  •  3.5 km swim  •  30 km bike
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Drills/Intervals"
+            skip_garmin: true
+            description: "Tri PDF Session #5. 2 km. Drills/Intervals at RPE 5–8."
+
+          # Day 2 (Tue) - Quality Run: WU 2km + 3×2km @ 5:05-5:10/km + 2min recovery + CD 2km
+          - day: 2
+            type: "run"
+            name: "Run: HM Intervals"
+            garmin_name: "W10D2: 3x2km"
+            description: "Warm-up: 2 km easy (RPE 4). Main: 3 × 2 km @ 5:05–5:10/km (RPE 7–8). Recovery: 2 min jog. Cool-down: 2 km easy (RPE 4). ~14 km total. Hardest run session in the plan. If 5:05 feels like a stretch, stay at 5:10."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "repeat"
+                  numberOfIterations: 3
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 2000
+                      targetType: "pace.zone"
+                      targetValueOne: 3.4483  # 4:50/km in m/s (faster)
+                      targetValueTwo: 3.0769  # 5:25/km in m/s (slower)
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      targetType: "no.target"
+                      childStepId: 1
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 3 (Wed) - Bike
+          - day: 3
+            type: "bike"
+            name: "Bike: Intervals/Hills Ride"
+            skip_garmin: true
+            description: "30 km. Intervals/hills (RPE 5–8). From Tri PDF Wk 4. This is week's 2nd hard session. If Tuesday was tough, ride at RPE 6 steady instead."
+
+          # Day 4 (Thu) - Swim + Easy Run combo
+          - day: 4
+            type: "swim"
+            name: "Swim: Drills/Intervals"
+            skip_garmin: true
+            description: "1.5 km swim (Tri PDF Session #3, RPE 5–7)."
+
+          - day: 4
+            type: "run"
+            name: "Run: Easy"
+            garmin_name: "W10D4: Easy 9km"
+            distance: 9000
+            description: "9 km easy at RPE 4–5."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 9000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Sat) - Easy + Strides
+          - day: 5
+            type: "run"
+            name: "Run: Easy + Strides"
+            garmin_name: "W10D5: Easy 7km + Strides"
+            description: "7 km easy (RPE 4–5). 4 × 20-sec strides (RPE 8 briefly)."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 7000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 20
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
+          # Day 6 (Sun) - Long Run
+          - day: 6
+            type: "run"
+            name: "Run: Long Run"
+            garmin_name: "W10D6: Long 20km"
+            distance: 20000
+            description: "20 km easy at RPE 5. Peak long run. Do not push — pure endurance."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 20000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+      - week: 11
+        description: |
+          Second brick. Sustained race-pace running.
+
+          **Volume:** ~47 km run  •  3.5 km swim  •  35 km bike (incl. brick)
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Drill/Intervals"
+            skip_garmin: true
+            description: "Tri PDF Session #6. 2 km. Drill/Intervals at RPE 5–8."
+
+          # Day 2 (Tue) - Quality Run: WU 2km + 20min @ 5:10 + 10min @ 5:05 + CD 2km
+          - day: 2
+            type: "run"
+            name: "Run: Split Tempo"
+            garmin_name: "W11D2: Split Tempo"
+            description: "Warm-up: 2 km easy (RPE 4). Main: 20 min @ 5:10/km + 10 min @ 5:05/km (RPE 7–8). Cool-down: 2 km easy (RPE 4). ~14 km total. Split tempo — first block settles you, second simulates late-race push."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                # Block 1: 20min @ 5:10/km (±15 sec = 4:55-5:25)
+                - stepType: "interval"
+                  endCondition: "time"
+                  endConditionValue: 1200
+                  targetType: "pace.zone"
+                  targetValueOne: 3.3898  # 4:55/km in m/s (faster)
+                  targetValueTwo: 3.0769  # 5:25/km in m/s (slower)
+
+                # Block 2: 10min @ 5:05/km (±15 sec = 4:50-5:20)
+                - stepType: "interval"
+                  endCondition: "time"
+                  endConditionValue: 600
+                  targetType: "pace.zone"
+                  targetValueOne: 3.4483  # 4:50/km in m/s (faster)
+                  targetValueTwo: 3.1250  # 5:20/km in m/s (slower)
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 3 (Wed) - Bike
+          - day: 3
+            type: "bike"
+            name: "Bike: Interval Ride"
+            skip_garmin: true
+            description: "20 km at RPE 5–7 intervals. From Tri PDF Wk 5."
+
+          # Day 4 (Thu) - Swim + Easy Run combo
+          - day: 4
+            type: "swim"
+            name: "Swim: Drills/Intervals"
+            skip_garmin: true
+            description: "Tri PDF Session #2. 1.5 km at RPE 5–7."
+
+          - day: 4
+            type: "run"
+            name: "Run: Easy"
+            garmin_name: "W11D4: Easy 8km"
+            distance: 8000
+            description: "8 km easy at RPE 4–5."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 8000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Sat) - Brick: Bike + Run
+          - day: 5
+            type: "brick"
+            name: "Brick: Bike + Run"
+            skip_garmin: true
+            description: "15 km bike (RPE 5–6) → 3 km run (RPE 6). From Tri PDF Wk 5. Keep the run controlled."
+
+          # Day 6 (Sun) - Long Run with steady finish
+          - day: 6
+            type: "run"
+            name: "Run: Long Run (steady finish)"
+            garmin_name: "W11D6: Long 19km + finish"
+            distance: 19000
+            description: "19 km total. First 15 km easy (RPE 5), last 4 km @ 5:15/km (RPE 6–7)."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 15000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 4000
+                  targetType: "pace.zone"
+                  targetValueOne: 3.3333  # 5:00/km in m/s (faster)
+                  targetValueTwo: 3.0303  # 5:30/km in m/s (slower)
+
+      - week: 12
+        description: |
+          Volume drops. First real touches of goal pace. Stay sharp, stay fresh.
+
+          **Volume:** ~42 km run  •  2 km swim  •  20 km bike
+
+        workouts:
+          # Day 1 (Mon) - Swim (only 1 swim this week)
+          - day: 1
+            type: "swim"
+            name: "Swim: Drills/Intervals"
+            skip_garmin: true
+            description: "Tri PDF Session #4. 2 km at RPE 5–7. Only 1 swim this week — keep it moderate."
+
+          # Day 2 (Tue) - Quality Run: WU 2km + 4×1km @ 5:00-5:05/km + 90sec recovery + CD 2km
+          - day: 2
+            type: "run"
+            name: "Run: Goal Pace Intervals"
+            garmin_name: "W12D2: 4x1km goal pace"
+            description: "Warm-up: 2 km easy (RPE 4). Main: 4 × 1 km @ 5:00–5:05/km (RPE 8). Recovery: 90 sec jog. Cool-down: 2 km easy (RPE 4). ~12 km total. First time touching 5:00/km. Fast but not desperate. If 5:00 feels like a sprint, run at 5:05."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 1000
+                      targetType: "pace.zone"
+                      targetValueOne: 3.5088  # 4:45/km in m/s (faster)
+                      targetValueTwo: 3.1746  # 5:15/km in m/s (slower)
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "time"
+                      endConditionValue: 90
+                      targetType: "no.target"
+                      childStepId: 1
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 3 (Wed) - Bike
+          - day: 3
+            type: "bike"
+            name: "Bike: Easy Ride"
+            skip_garmin: true
+            description: "20 km at RPE 5–6 easy. Reduced from PDF Wk 6."
+
+          # Day 4 (Thu) - Swim (optional) + Easy Run combo
+          - day: 4
+            type: "swim"
+            name: "Swim: (optional)"
+            skip_garmin: true
+            description: "Listen to your body. If fresh, easy 30 min swim (RPE 4–5). If tired, skip."
+
+          - day: 4
+            type: "run"
+            name: "Run: Easy"
+            garmin_name: "W12D4: Easy 7km"
+            distance: 7000
+            description: "7 km easy at RPE 4–5."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 7000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Sat) - Easy Run
+          - day: 5
+            type: "run"
+            name: "Run: Easy"
+            garmin_name: "W12D5: Easy 6km"
+            distance: 6000
+            description: "6 km easy at RPE 4–5. Strides optional."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 6000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 6 (Sun) - Long Run (moderate)
+          - day: 6
+            type: "run"
+            name: "Run: Long Run (moderate)"
+            garmin_name: "W12D6: Long 16km + finish"
+            distance: 16000
+            description: "16 km total. First 13 km easy (RPE 5), last 3 km @ 5:20/km (RPE 6–7)."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 13000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 3000
+                  targetType: "pace.zone"
+                  targetValueOne: 3.2787  # 5:05/km in m/s (faster)
+                  targetValueTwo: 2.9851  # 5:35/km in m/s (slower)
+
+      - week: 13
+        description: |
+          Taper everything. Arrive rested, sharp, confident.
+
+          **Volume:** ~16–19 km running pre-race  •  light swim/bike
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Easy"
+            skip_garmin: true
+            description: "Easy 1.5 km at RPE 4–5. Technique focus. Loosen up."
+
+          # Day 2 (Tue) - Sharpener Run: WU 2km + 3×3min @ 5:05/km + 2min recovery + CD 2km
+          - day: 2
+            type: "run"
+            name: "Run: Sharpener"
+            garmin_name: "W13D2: Sharpener 3x3min"
+            description: "8 km total. Warm-up: 2 km easy (RPE 4). Main: 3 × 3 min @ 5:05/km (RPE 7–8). Recovery: 2 min jog. Cool-down: 2 km easy (RPE 4). Short, sharp — remind your legs what race pace feels like."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "repeat"
+                  numberOfIterations: 3
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      targetType: "pace.zone"
+                      targetValueOne: 3.4483  # 4:50/km in m/s (faster)
+                      targetValueTwo: 3.1250  # 5:20/km in m/s (slower)
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      targetType: "no.target"
+                      childStepId: 1
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 3 (Wed) - Bike
+          - day: 3
+            type: "bike"
+            name: "Bike: Easy Spin"
+            skip_garmin: true
+            description: "15 km easy spin at RPE 5. Just keep the legs moving."
+
+          # Day 4 (Thu) - Easy Run
+          - day: 4
+            type: "run"
+            name: "Run: Easy Shakeout"
+            garmin_name: "W13D4: Easy 5km"
+            distance: 5000
+            description: "5 km very easy at RPE 4. Gentle shakeout."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 5000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Sat) - Optional shakeout
+          - day: 5
+            type: "run"
+            name: "Run: Shakeout (optional)"
+            skip_garmin: true
+            description: "20–30 min easy walk or 3 km very easy jog (RPE 3–4). Or rest."
+
+          # Day 6 (Sun) - RACE DAY
+          - day: 6
+            type: "run"
+            name: "RACE: Brooklyn Half Marathon"
+            skip_garmin: true
+            description: "Brooklyn Half Marathon — May 17. Start: 5:10–5:15/km through Prospect Park (RPE 7). Settle: 5:05–5:10/km on flat (RPE 7–8). At 15 km: if controlled, push toward 5:00/km (RPE 8+). Do NOT start at goal pace."
