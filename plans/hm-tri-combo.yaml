@@ -56,7 +56,7 @@ phases:
           - day: 1
             type: "run"
             name: "Easy"
-            garmin_name: "W1D1: Easy 8km"
+            garmin_name: "W1: Easy 8km"
             distance: 8000
             description: "8 km easy/conversational at RPE 4–5 (~6:00–6:15/km). Big loop or easy route. Note natural pace and average HR — this is your baseline."
             garmin:
@@ -71,7 +71,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo Intervals"
-            garmin_name: "W1D2: Tempo 3x8min"
+            garmin_name: "W1: Tempo 3x8min"
             description: "Warm-up: 2 km easy (RPE 4). Main: 3 × 8 min @ 5:25/km (RPE 7). Recovery: 2 min easy jog. Cool-down: 2 km easy (RPE 4). ~12 km total. Reservoir for pace control."
             garmin:
               steps:
@@ -114,7 +114,7 @@ phases:
           - day: 3
             type: "run"
             name: "Easy + Strides"
-            garmin_name: "W1D3: Easy 7km + Strides"
+            garmin_name: "W1: Easy 7km + Strides"
             description: "7 km easy at RPE 4–5. After: 4 × 20-sec relaxed strides (RPE 8 briefly). Strides are smooth accelerations, not sprints. Full recovery between each."
             garmin:
               steps:
@@ -147,7 +147,7 @@ phases:
           - day: 4
             type: "run"
             name: "Long Run"
-            garmin_name: "W1D4: Long 12km"
+            garmin_name: "W1: Long 12km"
             distance: 12000
             description: "12 km easy/conversational at RPE 5. Big loop. Finish feeling you could run another 3–4 km."
             garmin:
@@ -176,7 +176,7 @@ phases:
           - day: 1
             type: "run"
             name: "Easy"
-            garmin_name: "W2D1: Easy 9km"
+            garmin_name: "W2: Easy 9km"
             distance: 9000
             description: "9 km easy/conversational at RPE 4–5."
             garmin:
@@ -191,7 +191,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo Intervals"
-            garmin_name: "W2D2: Tempo 2x15min"
+            garmin_name: "W2: Tempo 2x15min"
             description: "Warm-up: 2 km easy (RPE 4). Main: 2 × 15 min @ 5:25/km (RPE 7). Recovery: 3 min easy jog. Cool-down: 2 km easy (RPE 4). ~13 km total. Reservoir."
             garmin:
               steps:
@@ -234,7 +234,7 @@ phases:
           - day: 3
             type: "run"
             name: "Easy + Strides"
-            garmin_name: "W2D3: Easy 8km + Strides"
+            garmin_name: "W2: Easy 8km + Strides"
             description: "8 km easy at RPE 4–5. After: 5 × 20-sec strides (RPE 8 briefly)."
             garmin:
               steps:
@@ -267,7 +267,7 @@ phases:
           - day: 4
             type: "run"
             name: "Long Run"
-            garmin_name: "W2D4: Long 14km"
+            garmin_name: "W2: Long 14km"
             distance: 14000
             description: "14 km easy at RPE 5."
             garmin:
@@ -296,7 +296,7 @@ phases:
           - day: 1
             type: "run"
             name: "Easy"
-            garmin_name: "W3D1: Easy 9km"
+            garmin_name: "W3: Easy 9km"
             distance: 9000
             description: "9 km easy at RPE 4–5."
             garmin:
@@ -311,7 +311,7 @@ phases:
           - day: 2
             type: "run"
             name: "Cruise Intervals"
-            garmin_name: "W3D2: 4x1km"
+            garmin_name: "W3: 4x1km"
             description: "Warm-up: 2 km easy (RPE 4). Main: 4 × 1 km @ 5:15/km (RPE 7–8). Recovery: 90 sec easy jog. Cool-down: 2 km easy (RPE 4). ~12 km total. Reservoir. Should feel firm but controlled — not a race."
             garmin:
               steps:
@@ -354,7 +354,7 @@ phases:
           - day: 3
             type: "run"
             name: "Easy + Strides"
-            garmin_name: "W3D3: Easy 8km + Strides"
+            garmin_name: "W3: Easy 8km + Strides"
             description: "8 km easy at RPE 4–5. After: 6 × 20-sec strides (RPE 8 briefly)."
             garmin:
               steps:
@@ -387,7 +387,7 @@ phases:
           - day: 4
             type: "run"
             name: "Long Run"
-            garmin_name: "W3D4: Long 15km"
+            garmin_name: "W3: Long 15km"
             distance: 15000
             description: "15 km easy at RPE 5."
             garmin:
@@ -416,7 +416,7 @@ phases:
           - day: 1
             type: "run"
             name: "Easy"
-            garmin_name: "W4D1: Easy 10km"
+            garmin_name: "W4: Easy 10km"
             distance: 10000
             description: "10 km easy at RPE 4–5."
             garmin:
@@ -431,7 +431,7 @@ phases:
           - day: 2
             type: "run"
             name: "Continuous Tempo"
-            garmin_name: "W4D2: Tempo 20-25min"
+            garmin_name: "W4: Tempo 20-25min"
             description: "Warm-up: 2 km easy (RPE 4). Main: 20–25 min @ 5:20/km (RPE 7). Cool-down: 2 km easy (RPE 4). ~12–13 km total. One sustained effort, no breaks. Big step up from intervals."
             garmin:
               steps:
@@ -461,7 +461,7 @@ phases:
           - day: 3
             type: "run"
             name: "Easy"
-            garmin_name: "W4D3: Easy 8km"
+            garmin_name: "W4: Easy 8km"
             distance: 8000
             description: "8 km easy at RPE 4–5."
             garmin:
@@ -476,7 +476,7 @@ phases:
           - day: 4
             type: "run"
             name: "Long Run (steady finish)"
-            garmin_name: "W4D4: Long 16km + finish"
+            garmin_name: "W4: Long 16km + finish"
             distance: 16000
             description: "16 km total. First 14 km easy (RPE 5), last 2 km @ ~5:30/km (RPE 6–7). Don't start the faster portion too early."
             garmin:
@@ -514,7 +514,7 @@ phases:
           - day: 1
             type: "run"
             name: "Easy"
-            garmin_name: "W5D1: Easy 10km"
+            garmin_name: "W5: Easy 10km"
             distance: 10000
             description: "10 km easy at RPE 4–5."
             garmin:
@@ -529,7 +529,7 @@ phases:
           - day: 2
             type: "run"
             name: "HM Intervals"
-            garmin_name: "W5D2: 2x4km"
+            garmin_name: "W5: 2x4km"
             description: "Warm-up: 2 km easy (RPE 4). Main: 2 × 4 km @ 5:15/km (RPE 7–8). Recovery: 3 min easy jog. Cool-down: 2 km easy (RPE 4). ~14 km total. Key session of Phase 1 — sustained hard effort at near-goal pace."
             garmin:
               steps:
@@ -572,7 +572,7 @@ phases:
           - day: 3
             type: "run"
             name: "Easy"
-            garmin_name: "W5D3: Easy 8km"
+            garmin_name: "W5: Easy 8km"
             distance: 8000
             description: "8 km easy at RPE 4–5."
             garmin:
@@ -587,7 +587,7 @@ phases:
           - day: 4
             type: "run"
             name: "Long Run"
-            garmin_name: "W5D4: Long 18km"
+            garmin_name: "W5: Long 18km"
             distance: 18000
             description: "18 km easy at RPE 5."
             garmin:
@@ -616,7 +616,7 @@ phases:
           - day: 1
             type: "run"
             name: "Easy"
-            garmin_name: "W6D1: Easy 8km"
+            garmin_name: "W6: Easy 8km"
             distance: 8000
             description: "8 km easy at RPE 4–5."
             garmin:
@@ -631,7 +631,7 @@ phases:
           - day: 2
             type: "run"
             name: "Extended Tempo"
-            garmin_name: "W6D2: Tempo 30min"
+            garmin_name: "W6: Tempo 30min"
             description: "Warm-up: 2 km easy (RPE 4). Main: 30 min @ 5:15/km (RPE 7). Cool-down: 2 km easy (RPE 4). ~13 km total. 30 min continuous is a big achievement — trust the process."
             garmin:
               steps:
@@ -661,7 +661,7 @@ phases:
           - day: 3
             type: "run"
             name: "Easy"
-            garmin_name: "W6D3: Easy 7km"
+            garmin_name: "W6: Easy 7km"
             distance: 7000
             description: "7 km easy at RPE 4–5."
             garmin:
@@ -676,7 +676,7 @@ phases:
           - day: 4
             type: "run"
             name: "Long Run (steady finish)"
-            garmin_name: "W6D4: Long 16km + finish"
+            garmin_name: "W6: Long 16km + finish"
             distance: 16000
             description: "16 km total. First 13 km easy (RPE 5), last 3 km @ ~5:25/km (RPE 6–7)."
             garmin:
@@ -734,7 +734,7 @@ phases:
           - day: 2
             type: "run"
             name: "Run: Tempo Intervals"
-            garmin_name: "W7D2: Tempo 3x10min"
+            garmin_name: "W7: Tempo 3x10min"
             description: "Warm-up: 2 km easy (RPE 4). Main: 3 × 10 min @ 5:15/km (RPE 7). Recovery: 2 min jog. Cool-down: 2 km easy (RPE 4). ~14 km total. Reservoir. Extending from Phase 1."
             garmin:
               steps:
@@ -785,7 +785,7 @@ phases:
           - day: 4
             type: "run"
             name: "Run: Easy"
-            garmin_name: "W7D4: Easy 8km"
+            garmin_name: "W7: Easy 8km"
             distance: 8000
             description: "8 km easy/conversational at RPE 4–5."
             garmin:
@@ -800,7 +800,7 @@ phases:
           - day: 5
             type: "run"
             name: "Run: Easy + Strides"
-            garmin_name: "W7D5: Easy 7km + Strides"
+            garmin_name: "W7: Easy 7km + Strides"
             description: "7 km easy (RPE 4–5). 4 × 20-sec strides (RPE 8 briefly)."
             garmin:
               steps:
@@ -829,7 +829,7 @@ phases:
           - day: 6
             type: "run"
             name: "Run: Long Run"
-            garmin_name: "W7D6: Long 17km"
+            garmin_name: "W7: Long 17km"
             distance: 17000
             description: "17 km easy at RPE 5. Big loop."
             garmin:
@@ -860,7 +860,7 @@ phases:
           - day: 2
             type: "run"
             name: "Run: Continuous Tempo"
-            garmin_name: "W8D2: Tempo 30min"
+            garmin_name: "W8: Tempo 30min"
             description: "Warm-up: 2 km easy (RPE 4). Main: 30 min continuous @ 5:15/km (RPE 7). Cool-down: 2 km easy (RPE 4). ~13 km total. Reservoir. Sustained effort."
             garmin:
               steps:
@@ -900,7 +900,7 @@ phases:
           - day: 4
             type: "run"
             name: "Run: Easy"
-            garmin_name: "W8D4: Easy 8km"
+            garmin_name: "W8: Easy 8km"
             distance: 8000
             description: "8 km easy at RPE 4–5."
             garmin:
@@ -915,7 +915,7 @@ phases:
           - day: 5
             type: "run"
             name: "Run: Easy + Strides"
-            garmin_name: "W8D5: Easy 7km + Strides"
+            garmin_name: "W8: Easy 7km + Strides"
             description: "7 km easy (RPE 4–5). 5 × 20-sec strides (RPE 8 briefly)."
             garmin:
               steps:
@@ -944,7 +944,7 @@ phases:
           - day: 6
             type: "run"
             name: "Run: Long Run"
-            garmin_name: "W8D6: Long 18km"
+            garmin_name: "W8: Long 18km"
             distance: 18000
             description: "18 km easy at RPE 5."
             garmin:
@@ -975,7 +975,7 @@ phases:
           - day: 2
             type: "run"
             name: "Run: Tempo Intervals"
-            garmin_name: "W9D2: Tempo 2x12min"
+            garmin_name: "W9: Tempo 2x12min"
             description: "Warm-up: 2 km easy (RPE 4). Main: 2 × 12 min @ 5:10/km (RPE 7–8). Recovery: 3 min jog. Cool-down: 2 km easy (RPE 4). ~13 km total. First time at 5:10 — should feel firm but manageable."
             garmin:
               steps:
@@ -1026,7 +1026,7 @@ phases:
           - day: 4
             type: "run"
             name: "Run: Easy"
-            garmin_name: "W9D4: Easy 8km"
+            garmin_name: "W9: Easy 8km"
             distance: 8000
             description: "8 km easy at RPE 4–5."
             garmin:
@@ -1048,7 +1048,7 @@ phases:
           - day: 6
             type: "run"
             name: "Run: Long Run (steady finish)"
-            garmin_name: "W9D6: Long 18km + finish"
+            garmin_name: "W9: Long 18km + finish"
             distance: 18000
             description: "18 km total. First 15 km easy (RPE 5), last 3 km @ 5:20/km (RPE 6–7)."
             garmin:
@@ -1086,7 +1086,7 @@ phases:
           - day: 2
             type: "run"
             name: "Run: HM Intervals"
-            garmin_name: "W10D2: 3x2km"
+            garmin_name: "W10: 3x2km"
             description: "Warm-up: 2 km easy (RPE 4). Main: 3 × 2 km @ 5:05–5:10/km (RPE 7–8). Recovery: 2 min jog. Cool-down: 2 km easy (RPE 4). ~14 km total. Hardest run session in the plan. If 5:05 feels like a stretch, stay at 5:10."
             garmin:
               steps:
@@ -1137,7 +1137,7 @@ phases:
           - day: 4
             type: "run"
             name: "Run: Easy"
-            garmin_name: "W10D4: Easy 9km"
+            garmin_name: "W10: Easy 9km"
             distance: 9000
             description: "9 km easy at RPE 4–5."
             garmin:
@@ -1152,7 +1152,7 @@ phases:
           - day: 5
             type: "run"
             name: "Run: Easy + Strides"
-            garmin_name: "W10D5: Easy 7km + Strides"
+            garmin_name: "W10: Easy 7km + Strides"
             description: "7 km easy (RPE 4–5). 4 × 20-sec strides (RPE 8 briefly)."
             garmin:
               steps:
@@ -1181,7 +1181,7 @@ phases:
           - day: 6
             type: "run"
             name: "Run: Long Run"
-            garmin_name: "W10D6: Long 20km"
+            garmin_name: "W10: Long 20km"
             distance: 20000
             description: "20 km easy at RPE 5. Peak long run. Do not push — pure endurance."
             garmin:
@@ -1212,7 +1212,7 @@ phases:
           - day: 2
             type: "run"
             name: "Run: Split Tempo"
-            garmin_name: "W11D2: Split Tempo"
+            garmin_name: "W11: Split Tempo"
             description: "Warm-up: 2 km easy (RPE 4). Main: 20 min @ 5:10/km + 10 min @ 5:05/km (RPE 7–8). Cool-down: 2 km easy (RPE 4). ~14 km total. Split tempo — first block settles you, second simulates late-race push."
             garmin:
               steps:
@@ -1261,7 +1261,7 @@ phases:
           - day: 4
             type: "run"
             name: "Run: Easy"
-            garmin_name: "W11D4: Easy 8km"
+            garmin_name: "W11: Easy 8km"
             distance: 8000
             description: "8 km easy at RPE 4–5."
             garmin:
@@ -1283,7 +1283,7 @@ phases:
           - day: 6
             type: "run"
             name: "Run: Long Run (steady finish)"
-            garmin_name: "W11D6: Long 19km + finish"
+            garmin_name: "W11: Long 19km + finish"
             distance: 19000
             description: "19 km total. First 15 km easy (RPE 5), last 4 km @ 5:15/km (RPE 6–7)."
             garmin:
@@ -1321,7 +1321,7 @@ phases:
           - day: 2
             type: "run"
             name: "Run: Goal Pace Intervals"
-            garmin_name: "W12D2: 4x1km goal pace"
+            garmin_name: "W12: 4x1km goal pace"
             description: "Warm-up: 2 km easy (RPE 4). Main: 4 × 1 km @ 5:00–5:05/km (RPE 8). Recovery: 90 sec jog. Cool-down: 2 km easy (RPE 4). ~12 km total. First time touching 5:00/km. Fast but not desperate. If 5:00 feels like a sprint, run at 5:05."
             garmin:
               steps:
@@ -1372,7 +1372,7 @@ phases:
           - day: 4
             type: "run"
             name: "Run: Easy"
-            garmin_name: "W12D4: Easy 7km"
+            garmin_name: "W12: Easy 7km"
             distance: 7000
             description: "7 km easy at RPE 4–5."
             garmin:
@@ -1387,7 +1387,7 @@ phases:
           - day: 5
             type: "run"
             name: "Run: Easy"
-            garmin_name: "W12D5: Easy 6km"
+            garmin_name: "W12: Easy 6km"
             distance: 6000
             description: "6 km easy at RPE 4–5. Strides optional."
             garmin:
@@ -1402,7 +1402,7 @@ phases:
           - day: 6
             type: "run"
             name: "Run: Long Run (moderate)"
-            garmin_name: "W12D6: Long 16km + finish"
+            garmin_name: "W12: Long 16km + finish"
             distance: 16000
             description: "16 km total. First 13 km easy (RPE 5), last 3 km @ 5:20/km (RPE 6–7)."
             garmin:
@@ -1440,7 +1440,7 @@ phases:
           - day: 2
             type: "run"
             name: "Run: Sharpener"
-            garmin_name: "W13D2: Sharpener 3x3min"
+            garmin_name: "W13: Sharpener 3x3min"
             description: "8 km total. Warm-up: 2 km easy (RPE 4). Main: 3 × 3 min @ 5:05/km (RPE 7–8). Recovery: 2 min jog. Cool-down: 2 km easy (RPE 4). Short, sharp — remind your legs what race pace feels like."
             garmin:
               steps:
@@ -1485,7 +1485,7 @@ phases:
           - day: 4
             type: "run"
             name: "Run: Easy Shakeout"
-            garmin_name: "W13D4: Easy 5km"
+            garmin_name: "W13: Easy 5km"
             distance: 5000
             description: "5 km very easy at RPE 4. Gentle shakeout."
             garmin:
@@ -1580,7 +1580,7 @@ phases:
           - day: 3
             type: "run"
             name: "Run: Track Session #1"
-            garmin_name: "W15D3: Track Session #1"
+            garmin_name: "W15: Track Session #1"
             distance: 5000
             description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Aim to better times from last time you did this session."
             garmin:
@@ -1613,7 +1613,7 @@ phases:
           - day: 6
             type: "run"
             name: "Run: Long Steady"
-            garmin_name: "W15D6: Long Steady 9km"
+            garmin_name: "W15: Long Steady 9km"
             distance: 9000
             description: "9 km @RPE 5–6. Pace should be kept well within comfort. Focus on holding pace for whole duration. Good benchmark for base pace after 2 months of training — use this to pace longer runs for the rest of the program."
             garmin:
@@ -1664,7 +1664,7 @@ phases:
           - day: 3
             type: "run"
             name: "Run: Best Effort 10km"
-            garmin_name: "W16D3: Best Effort 10km"
+            garmin_name: "W16: Best Effort 10km"
             distance: 10000
             description: "Aim for your fastest sustainable pace for 10 km @RPE 8. Best effort 'test' — may be slower than race-day target but gives rough idea of progress and whether target time is realistic."
             garmin:
@@ -1678,7 +1678,7 @@ phases:
           - day: 5
             type: "run"
             name: "Run: Track Session #1"
-            garmin_name: "W16D5: Track Session #1"
+            garmin_name: "W16: Track Session #1"
             distance: 5000
             description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Aim to hit the 800s at 5 sec/lap faster than the 1600, and the 400s another 3–5 sec/lap quicker. Each repeated distance must be consistent."
             garmin:
@@ -1741,7 +1741,7 @@ phases:
           - day: 3
             type: "run"
             name: "Run: Sub-max Steady"
-            garmin_name: "W17D3: Sub-max Steady 10km"
+            garmin_name: "W17: Sub-max Steady 10km"
             distance: 10000
             description: "10 km sub-max steady @RPE 6. Aim for comfortable good run form with minimal changes in HR. Can do as off-road run with minimal undulation. Warm up with foam rolling & mobility for better run form."
             garmin:
@@ -1756,7 +1756,7 @@ phases:
           - day: 5
             type: "run"
             name: "Run: Fartlek"
-            garmin_name: "W17D5: Fartlek 5.5km"
+            garmin_name: "W17: Fartlek 5.5km"
             distance: 5500
             description: "5.5 km fartlek — random intervals on a route of your choosing. Average pace ~@RPE 6, with time spent between RPE 5–9. Good session to do with a friend (take turns calling sprints/efforts)."
             garmin:
@@ -1813,7 +1813,7 @@ phases:
           - day: 3
             type: "run"
             name: "Run: Track Session #3"
-            garmin_name: "W18D3: Track Session #3"
+            garmin_name: "W18: Track Session #3"
             distance: 7500
             description: "7.5 km. Track Session #3 (1x1200 m, 3x400 m, 1x1200 m, 3x400 m, 1x1200 m, 3x400 m = 7600 m total). Sets of same distance should be repeated at the same speed/time. Aim to beat times from previous attempts. Longer sets closer to goal race pace; shorter sets faster."
             garmin:
@@ -1839,7 +1839,7 @@ phases:
           - day: 5
             type: "run"
             name: "Run: Steady Tempo"
-            garmin_name: "W18D5: Steady Tempo 5km"
+            garmin_name: "W18: Steady Tempo 5km"
             distance: 5000
             description: "5 km steady tempo @RPE 7. Focus on run form and posture. Aim to keep 1 km splits as similar as possible. Ensure hydrated; practice with race-day energy products."
             garmin:
@@ -1891,7 +1891,7 @@ phases:
           - day: 3
             type: "run"
             name: "Run: Variable Effort"
-            garmin_name: "W19D3: Variable Effort 10km"
+            garmin_name: "W19: Variable Effort 10km"
             distance: 10000
             description: "10 km @RPE 6–9. Break into 4x2.5 km at RPE 6→8→7→9. Working at RPE 9 towards end will feel very tough but is good race-day prep and mental prep for working hard."
             garmin:
@@ -1905,7 +1905,7 @@ phases:
           - day: 5
             type: "run"
             name: "Run: Track Session #1"
-            garmin_name: "W19D5: Track Session #1"
+            garmin_name: "W19: Track Session #1"
             distance: 5000
             description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Aim to match or beat times from last track session."
             garmin:
@@ -1974,7 +1974,7 @@ phases:
           - day: 3
             type: "run"
             name: "Run: Negative Split"
-            garmin_name: "W20D3: Negative Split 10km"
+            garmin_name: "W20: Negative Split 10km"
             distance: 10000
             description: "10 km. Complete second half quicker than first, keeping intensity moderate @RPE 5–7. High volume day — if possible, plan good gap between swim and run. Make sure to eat and drink enough before/after."
             garmin:
@@ -1995,7 +1995,7 @@ phases:
           - day: 5
             type: "run"
             name: "Run: Fartlek"
-            garmin_name: "W20D5: Fartlek 5km"
+            garmin_name: "W20: Fartlek 5km"
             distance: 5000
             description: "5 km fartlek — random intervals, average @RPE 6 with bursts RPE 5–9. Learning to return to base pace following effort. Good session with a friend."
             garmin:
@@ -2046,7 +2046,7 @@ phases:
           - day: 3
             type: "run"
             name: "Run: Steady State"
-            garmin_name: "W21D3: Steady State 10km"
+            garmin_name: "W21: Steady State 10km"
             distance: 10000
             description: "10 km @RPE 6–7. Aerobic run, route of your choosing. Focus on run form, posture and finishing feeling strong. If off-road or hilly, pace yourself to keep effort in correct zone."
             garmin:
@@ -2061,7 +2061,7 @@ phases:
           - day: 5
             type: "run"
             name: "Run: Track Session #1"
-            garmin_name: "W21D5: Track Session #1"
+            garmin_name: "W21: Track Session #1"
             distance: 5000
             description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Working above race pace. Can do each repeated distance as a negative split, trying to beat time of last segment by 1–2 seconds."
             garmin:
@@ -2126,7 +2126,7 @@ phases:
           - day: 3
             type: "run"
             name: "Run: Easy"
-            garmin_name: "W22D3: Easy 2.5km"
+            garmin_name: "W22: Easy 2.5km"
             distance: 2500
             description: "2.5 km. Steady pace, focus on form and light foot strike. Add short bursts of harder effort @RPE 5–7. This distance should feel very easy now. Should feel good when you finish."
             garmin:
@@ -2141,7 +2141,7 @@ phases:
           - day: 5
             type: "run"
             name: "Run: Shakeout"
-            garmin_name: "W22D5: Shakeout 1km"
+            garmin_name: "W22: Shakeout 1km"
             distance: 1000
             description: "1 km. Still warming up — keep legs moving at a good tempo, but not quite race pace @RPE 7. Nice short session to loosen off."
             garmin:
