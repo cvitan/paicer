@@ -718,6 +718,8 @@ phases:
         description: |
           Introduce tri sessions. Maintain Phase 1 running fitness.
 
+          **Tri Plan Goals:** Building a routine of allocating time to train. Letting your muscles start to work into focused training. Learning skill/drill work for technique improvement. Embarking on strength training to improve strength endurance. Use sessions in the first couple of weeks to set times and speeds so you can have a benchmark for performance, and use these times to set pace/speeds for sessions over the next month and gauge improvement.
+
           **Volume:** ~45 km run  •  2.5 km swim  •  20 km bike
 
         workouts:
@@ -842,6 +844,8 @@ phases:
         description: |
           Push tempo duration. Swims progressing per PDF.
 
+          **Tri Plan Goals:** Building on the first week slightly, but not too much, so as to allow recovery. Pace judgement and learning times for completing distances etc. Getting to know the weights needed for each exercise on the strength program. Taking note of your pace for a given distance and intensity will make setting pace in later sessions more accurate.
+
           **Volume:** ~46 km run  •  3 km swim  •  25 km bike
 
         workouts:
@@ -955,6 +959,8 @@ phases:
         description: |
           First brick week. Introduce race pace touches.
 
+          **Tri Plan Goals:** Consistency; keep the routine going. Modify session timings to fit your schedule if need be or if you find one session fatigues you for another too much. Your first brick session will be a chance to feel what it's like to run off the bike.
+
           **Volume:** ~47 km run  •  3.5 km swim  •  35 km bike (incl. brick)
 
         workouts:
@@ -1063,6 +1069,8 @@ phases:
       - week: 10
         description: |
           Peak quality week. Longest long run.
+
+          **Tri Plan Goals:** One month in you'll be starting to feel improvements in fitness from training. Stick to the increases in distances as best you can, and where it fits. By now you should be getting more familiar with judging your effort on the RPE scale. Improvements in speed are seen in the ability to repeat efforts consistently, not just go faster on one or two efforts.
 
           **Volume:** ~49 km run  •  3.5 km swim  •  30 km bike
 
@@ -1188,6 +1196,8 @@ phases:
         description: |
           Second brick. Sustained race-pace running.
 
+          **Tri Plan Goals:** Pace replication on swim & run sets of similar distance. This will give you an idea of your ability to judge pace. If you're starting to find sessions easier it means your fitness is improving. Stick to strength work as this will play a large part in efficiency and performance later on.
+
           **Volume:** ~47 km run  •  3.5 km swim  •  35 km bike (incl. brick)
 
         workouts:
@@ -1294,6 +1304,8 @@ phases:
       - week: 12
         description: |
           Volume drops. First real touches of goal pace. Stay sharp, stay fresh.
+
+          **Tri Plan Goals:** By week 6 you should be more settled with the routine and moving any sessions to fit in with your day to day life. As the bike distance increases you should start to find a comfortable speed/rhythm with your pedalling that will become your natural cadence. Use gears to keep you in this range. As the weekly distance increases make sure you're sleeping and eating enough to recover.
 
           **Volume:** ~42 km run  •  2 km swim  •  20 km bike
 
@@ -1412,6 +1424,8 @@ phases:
         description: |
           Taper everything. Arrive rested, sharp, confident.
 
+          **Tri Plan Goals:** If you're considering things like elastic laces in your shoes, or perhaps running without socks to improve transition time, then practice this now to give you time to get used to it. Speed work should be starting to take effect on your ability to hold a higher pace in steady sessions and gym training should be helping with strength on hills and speed work, especially in the pool. Keep tabs on previous sessions, compare times to similar sessions a month ago.
+
           **Volume:** ~16–19 km running pre-race  •  light swim/bike
 
         workouts:
@@ -1495,3 +1509,659 @@ phases:
             name: "RACE: Brooklyn Half Marathon"
             skip_garmin: true
             description: "Brooklyn Half Marathon — May 17. Start: 5:10–5:15/km through Prospect Park (RPE 7). Settle: 5:05–5:10/km on flat (RPE 7–8). At 15 km: if controlled, push toward 5:00/km (RPE 8+). Do NOT start at goal pace."
+
+  - phase: 3
+    name: "Triathlon Only"
+    training_days: [1, 2, 3, 4, 5, 6, 7]
+    description: |
+      Follow the RG Active triathlon plan from Week 8 through race day. Your half marathon running fitness carries forward — tri runs are shorter (5–10 km) but with more intensity and brick work. Open water swimming begins in Week 2.
+
+      **Format:** 6 sessions/week (Thu rest). ~8–12 hours/week.
+
+      **KEY NOTES:** Test all race kit by Week 6 (Jun 30). Week 5 is peak volume (114.5 km) — prioritise sleep and recovery nutrition. Refer to Tri PDF appendix for swim session breakdowns.
+
+      **Triathlon Race Strategy (July 20):**
+      - Swim (1.5 km): Start steady, find rhythm, sight every 4–6 strokes. Draft if possible. RPE 7.
+      - Bike (40 km): Your strength. RPE 7–8 but stay controlled — save legs for the run. Stay aero, hydrate.
+      - Run (10 km): First 2 km will feel strange. Start RPE 6–7, settle, build to RPE 8 over second half.
+
+    weeks:
+      - week: 14
+        description: |
+          Recovery. 3–5 days of easy, unstructured movement after the half marathon.
+          Walk, gentle spin, easy swim. No intervals, no structure. Let your body absorb the race effort. If something is sore, rest it. If you feel good by Thursday/Friday, a 20–30 min easy swim or spin is fine.
+
+        workouts:
+          # Day 3 (Wed) - Optional easy spin
+          - day: 3
+            type: "bike"
+            name: "Bike: Easy Spin (optional)"
+            skip_garmin: true
+            description: "Optional: 20–30 min easy spin @RPE 4. Keep it very light."
+
+          # Day 4 (Thu) - Optional easy swim
+          - day: 4
+            type: "swim"
+            name: "Swim: Easy (optional)"
+            skip_garmin: true
+            description: "Optional: 20–30 min easy swim — relaxed laps, no drills. @RPE 4."
+
+          # Day 6 (Sat) - Optional easy ride
+          - day: 6
+            type: "bike"
+            name: "Bike: Easy Ride (optional)"
+            skip_garmin: true
+            description: "Optional: 30 min easy ride @RPE 4–5. Loosen the legs."
+
+      - week: 15
+        description: |
+          Tri Wk 8. Two months in — maintain harder efforts for longer and more consistently. Start thinking about hydration and fuelling for longer rides.
+
+          **Tri Plan Goals:** Two months in you'll be able to maintain harder efforts for longer and more consistently. If you've not already; start thinking about hydration and fuelling for longer rides and perhaps experiment with various drinks/gels if you're planning to take them come race day. Day-to-day as well as recovery nutrition may be worth considering to make sure you're recovered fully from each session.
+
+          **Volume:** 89 km total
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Session #7 (Drill/Pacing)"
+            skip_garmin: true
+            description: "2.5 km. When using paddles, they slow your cadence so you can focus on stroke technique. Holding harder efforts for longer; shorter sprints for speed."
+
+          # Day 2 (Tue) - Bike
+          - day: 2
+            type: "bike"
+            name: "Bike: Intervals"
+            skip_garmin: true
+            description: "25 km. 5 km warm up @RPE 4–5. Main set: 1 min @RPE 5, 6 min @RPE 6, 1 min @RPE 7, 1 min @RPE 8, 1 min @RPE 9. Repeat until 23 km. 2 km @RPE 4. Outdoor option: 50 min as 5 min @RPE 5 / 5 min @RPE 7."
+
+          # Day 3 (Wed) - Run
+          - day: 3
+            type: "run"
+            name: "Run: Track Session #1"
+            garmin_name: "W15D3: Track Session #1"
+            distance: 5000
+            description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Aim to better times from last time you did this session."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 4000
+                  targetType: "no.target"
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Fri) - Swim
+          - day: 5
+            type: "swim"
+            name: "Swim: Session #8 (TT/Pacing)"
+            skip_garmin: true
+            description: "2.5 km. If using a swim watch or pace clock, you should see improvements in speed and ability to hold speed for longer."
+
+          # Day 6 (Sat) - Run
+          - day: 6
+            type: "run"
+            name: "Run: Long Steady"
+            garmin_name: "W15D6: Long Steady 9km"
+            distance: 9000
+            description: "9 km @RPE 5–6. Pace should be kept well within comfort. Focus on holding pace for whole duration. Good benchmark for base pace after 2 months of training — use this to pace longer runs for the rest of the program."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 9000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 7 (Sun) - Bike
+          - day: 7
+            type: "bike"
+            name: "Bike: Hills"
+            skip_garmin: true
+            description: "45 km. Steady state with hills included. Maintain steady cadence and rhythm. Pace judgement on climbs. Riding uphill increases strength; learning to descend confidently will be valuable."
+
+      - week: 16
+        description: |
+          Tri Wk 9. "Time Trial" week — test progress and set race target pace. Any new kit (goggles, trainers, elastic laces, bike shoes, tri suit) must be tested in training. Open water competency is a massive factor for race day.
+
+          **Tri Plan Goals:** 'Time Trial' week. This is an opportunity to test yourself in each discipline and get an idea of where you'd be setting your race target pace. Any new kit you're planning to use should be in use in training to test it now: goggles (tinted for open water), trainers, elastic laces, bike shoes, tri suit etc. You need to make sure it all fits and works where and when you need it. Open water competency will be a massive factor in your comfort, confidence and will count come race day.
+
+          **Volume:** 70.5 km total
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Session #7 (Drill/Intervals)"
+            skip_garmin: true
+            description: "2.5 km. Swim the first 1 km of the main set as a straight Time Trial for a race-pace time — good progress marker. Resume second km as normal interval breakdown. When breathing, keep one eye in the water and lead hand out front."
+
+          # Day 2 (Tue) - Bike
+          - day: 2
+            type: "bike"
+            name: "Bike: Time Trial"
+            skip_garmin: true
+            description: "20 km. 1 km warm up @RPE 5. Then aim to hit threshold speed for the rest of the distance. Easy leg spin to cool down. Flat route preferred; also suitable for turbo/gym bike. Tests how well you can hold goal race pace."
+
+          # Day 3 (Wed) - Swim + Run combo
+          - day: 3
+            type: "swim"
+            name: "Swim: Session #4 (Intervals/Steady)"
+            skip_garmin: true
+            description: "2 km."
+
+          - day: 3
+            type: "run"
+            name: "Run: Best Effort 10km"
+            garmin_name: "W16D3: Best Effort 10km"
+            distance: 10000
+            description: "Aim for your fastest sustainable pace for 10 km @RPE 8. Best effort 'test' — may be slower than race-day target but gives rough idea of progress and whether target time is realistic."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 10000
+                  targetType: "no.target"
+
+          # Day 5 (Fri) - Run
+          - day: 5
+            type: "run"
+            name: "Run: Track Session #1"
+            garmin_name: "W16D5: Track Session #1"
+            distance: 5000
+            description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Aim to hit the 800s at 5 sec/lap faster than the 1600, and the 400s another 3–5 sec/lap quicker. Each repeated distance must be consistent."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 4000
+                  targetType: "no.target"
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 6 (Sat) - Open Water Swim
+          - day: 6
+            type: "swim"
+            name: "Swim: Open Water"
+            skip_garmin: true
+            description: "First open water swim! 1 km. Ensure proper wetsuit fitting and spend time acclimatising to the water (may be colder early season). Cover distance aiming to swim smoothly, keeping good technique. Practice sighting. Practice breathing to weaker side."
+
+          # Day 7 (Sun) - Brick
+          - day: 7
+            type: "brick"
+            name: "Brick: Negative Split"
+            skip_garmin: true
+            description: "25 km bike + 5 km run. Complete first half of each discipline at steady tempo @RPE 6, building into race pace @RPE 8 for last half. Play with position on bars for flat & climbing. Use gears to keep cadence smooth. Learning to run a negative split out of transition helps pacing."
+
+      - week: 17
+        description: |
+          Tri Wk 10. Test new kit in training. Open water competency building — massive factor for comfort and confidence on race day. Practice getting wetsuit on/off and warming up quickly so it's routine on race day.
+
+          **Tri Plan Goals:** Any kit you're planning to use should now be in regular use. Test new goggles (tinted for open water), trainers, elastic laces, bike shoes, tri suit etc. You need to make sure it all fits and works where you need it. Open water competency will be a massive factor in your comfort, confidence and will count come race day. Practice getting the suit on, getting it wet and getting used to it quickly so that come race day it's all routine. Consider goggle choice for weather/lighting conditions.
+
+          **Volume:** 94.5 km total
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Session #8 (Drills/Intervals)"
+            skip_garmin: true
+            description: "2.5 km. Count strokes per length to check technique — if count increases, you're losing efficiency or fatiguing. When breathing, keep one eye in the water, lead hand out front until recovery arm is coming forward."
+
+          # Day 2 (Tue) - Bike
+          - day: 2
+            type: "bike"
+            name: "Bike: Intervals"
+            skip_garmin: true
+            description: "25 km. Incremental set: 8 km @RPE 5, 8 km @RPE 7, 8 km @RPE 8–9. 1 km cool down. Increasing work rate and learning to pace near/above threshold. Suitable for turbo/indoor trainer. If outdoors, aim to raise average HR by 5–10 bpm every 10 km."
+
+          # Day 3 (Wed) - Run
+          - day: 3
+            type: "run"
+            name: "Run: Sub-max Steady"
+            garmin_name: "W17D3: Sub-max Steady 10km"
+            distance: 10000
+            description: "10 km sub-max steady @RPE 6. Aim for comfortable good run form with minimal changes in HR. Can do as off-road run with minimal undulation. Warm up with foam rolling & mobility for better run form."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 10000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Fri) - Run
+          - day: 5
+            type: "run"
+            name: "Run: Fartlek"
+            garmin_name: "W17D5: Fartlek 5.5km"
+            distance: 5500
+            description: "5.5 km fartlek — random intervals on a route of your choosing. Average pace ~@RPE 6, with time spent between RPE 5–9. Good session to do with a friend (take turns calling sprints/efforts)."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 5500
+                  targetType: "no.target"
+
+          # Day 6 (Sat) - Open Water Swim
+          - day: 6
+            type: "swim"
+            name: "Swim: Open Water"
+            skip_garmin: true
+            description: "1.5 km. Developing confidence and skills. Fit wetsuit properly, acclimatise, relax stroke, focus on breathing. Start adding sighting every 2–4 breaths. Join a group if possible for coaching points. @RPE 6–7."
+
+          # Day 7 (Sun) - Bike
+          - day: 7
+            type: "bike"
+            name: "Bike: Hills"
+            skip_garmin: true
+            description: "50 km. Head out on a route @RPE 6. Plan some hills for harder work intervals. Good pacing on hills is important — too easy and you lose time, too hard and you'll be slower on the flats."
+
+      - week: 18
+        description: |
+          Tri Wk 11. Endurance improvements should be clear — hold higher efforts for longer. Use hill sessions for power and control. Keep improving open water skills & confidence. Practice transition after OWS (wetsuit off quickly while moving, running after swim).
+
+          **Tri Plan Goals:** As the volume reaches this level you should really feel the endurance improvements. Focus on your ability to hold higher pace for longer. Keep improving open water skills & confidence. Throw in a quick transition practice after your OWS: getting wetsuit off, cycling shoes on, running after a swim. Use hill sessions to focus on power and control.
+
+          **Volume:** 84.5 km total
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Session #7 (Drills/Intervals)"
+            skip_garmin: true
+            description: "2.5 km. Pace control — aim to repeat pace of each set. Maintain alignment and form even on harder/shorter sets. Losing technique makes you slower."
+
+          # Day 2 (Tue) - Bike
+          - day: 2
+            type: "bike"
+            name: "Bike: Hills"
+            skip_garmin: true
+            description: "30 km. Use a hilly route or one good climb (>3 min ascent). Mix seated and standing climbing, keep rhythm. Get used to descending too. Plan a 5–8 km loop around one hill and repeat if no hilly route available."
+
+          # Day 3 (Wed) - Swim + Run combo
+          - day: 3
+            type: "swim"
+            name: "Swim: Session #5 (Intervals)"
+            skip_garmin: true
+            description: "2 km."
+
+          - day: 3
+            type: "run"
+            name: "Run: Track Session #3"
+            garmin_name: "W18D3: Track Session #3"
+            distance: 7500
+            description: "7.5 km. Track Session #3 (1x1200 m, 3x400 m, 1x1200 m, 3x400 m, 1x1200 m, 3x400 m = 7600 m total). Sets of same distance should be repeated at the same speed/time. Aim to beat times from previous attempts. Longer sets closer to goal race pace; shorter sets faster."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 6500
+                  targetType: "no.target"
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Fri) - Run
+          - day: 5
+            type: "run"
+            name: "Run: Steady Tempo"
+            garmin_name: "W18D5: Steady Tempo 5km"
+            distance: 5000
+            description: "5 km steady tempo @RPE 7. Focus on run form and posture. Aim to keep 1 km splits as similar as possible. Ensure hydrated; practice with race-day energy products."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 5000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 3
+
+          # Day 6 (Sat) - Open Water Swim
+          - day: 6
+            type: "swim"
+            name: "Swim: Open Water"
+            skip_garmin: true
+            description: "1.5 km. Practice sighting, adapting stroke to wetsuit and open water. Slow cadence and work with buoyancy of suit. Break session into adaptation time, then finish with 400–500 m hard effort @RPE 7. Focus on controlling breathing (often first to go in cold open water)."
+
+          # Day 7 (Sun) - Brick
+          - day: 7
+            type: "brick"
+            name: "Brick: Race Pace"
+            skip_garmin: true
+            description: "30 km bike + 5 km run. Option 1: Split into two mini-bricks of 15 km/2.5 km for more transition practice and speed work. Option 2: Complete through once at race pace. Experiment with aero positions (hoods, drops). @RPE 7–8."
+
+      - week: 19
+        description: |
+          Tri Wk 12. PEAK VOLUME. Largest volume week — ensure sufficient fuelling and recovery/sleep. Stick to distance increases as best you can. Familiar sessions should show noticeable improvements.
+
+          **Tri Plan Goals:** This is your largest volume week, so sufficient fuelling and recovery/sleep is key. Stick to the increases in distances as best you can, and where it fits. The more familiar sessions in the program should be seeing improvements; if you're happy to do so, use sessions e.g. swims to work on weaker areas like drills or sprints.
+
+          **Volume:** 114.5 km total (peak)
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Session #8 (Drills/Intervals)"
+            skip_garmin: true
+            description: "2.5 km. Keep body position in mind — legs high in the water. Think about rotation through hips and forearm position on catch."
+
+          # Day 2 (Tue) - Bike
+          - day: 2
+            type: "bike"
+            name: "Bike: Intervals"
+            skip_garmin: true
+            description: "35 km. 5x5 format: 10 min warm up @RPE 5. Then: 5 min @RPE 6, 5 min @RPE 8–9. Repeat until 3–5 km to go, warm down @RPE 4–5. Suitable for turbo or outside. Outdoors: plan a route for loops or out-and-back."
+
+          # Day 3 (Wed) - Run
+          - day: 3
+            type: "run"
+            name: "Run: Variable Effort"
+            garmin_name: "W19D3: Variable Effort 10km"
+            distance: 10000
+            description: "10 km @RPE 6–9. Break into 4x2.5 km at RPE 6→8→7→9. Working at RPE 9 towards end will feel very tough but is good race-day prep and mental prep for working hard."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 10000
+                  targetType: "no.target"
+
+          # Day 5 (Fri) - Run
+          - day: 5
+            type: "run"
+            name: "Run: Track Session #1"
+            garmin_name: "W19D5: Track Session #1"
+            distance: 5000
+            description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Aim to match or beat times from last track session."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 4000
+                  targetType: "no.target"
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 6 (Sat) - Open Water Swim
+          - day: 6
+            type: "swim"
+            name: "Swim: Open Water"
+            skip_garmin: true
+            description: "2 km. Continue wetsuit prep: get suit on, warm up dry-side, acclimatise and warm up within a couple of minutes (race-day practice). Work in harder efforts in the later part. 1-arm drills aid rotation & stroke efficiency for open water."
+
+          # Day 7 (Sun) - Bike
+          - day: 7
+            type: "bike"
+            name: "Bike: Hills"
+            skip_garmin: true
+            description: "60 km. Steady state @RPE 6–8. Maintain steady cadence and rhythm on climbs and flat. If you have access to your race course, do a recon ride (2 laps). Pace judge climbs, note prevailing wind direction."
+
+      - week: 20
+        description: |
+          Tri Wk 13. High volume running week — last tough one before taper. Speed work and pacing are key. Start thinking about race-day fluid needs. Field test ALL planned race equipment this week.
+
+          **Tri Plan Goals:** This is a high volume week for running and your last tough one before you begin to taper. Speed work and pacing is key. Start to think about how much fluid you're using in training as a practice of what you'll need on race day. If you've got any new shoes for race day, start to wear them in now.
+
+          **Volume:** 93.5 km total
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Session #9 (Drills/Intervals)"
+            skip_garmin: true
+            description: "2.5 km. Final fitness push — use shorter efforts to work hard and longer efforts to refocus on technique. Paddle work for stroke strength."
+
+          # Day 2 (Tue) - Bike
+          - day: 2
+            type: "bike"
+            name: "Bike: Mixed Effort"
+            skip_garmin: true
+            description: "30 km. Mixed effort/fartlek. Preferably outdoors on naturally varied route. Add harder fartlek style efforts. Practice longer aerobar/drop efforts to work hard in a lower position. @RPE 5–7. Take adequate water & fuelling."
+
+          # Day 3 (Wed) - Swim + Run combo
+          - day: 3
+            type: "swim"
+            name: "Swim: Session #6 (Intervals)"
+            skip_garmin: true
+            description: "2 km. Wear tri-suit underneath wetsuit. Practice sighting and speed work."
+
+          - day: 3
+            type: "run"
+            name: "Run: Negative Split"
+            garmin_name: "W20D3: Negative Split 10km"
+            distance: 10000
+            description: "10 km. Complete second half quicker than first, keeping intensity moderate @RPE 5–7. High volume day — if possible, plan good gap between swim and run. Make sure to eat and drink enough before/after."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 5000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 5000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 3
+
+          # Day 5 (Fri) - Run
+          - day: 5
+            type: "run"
+            name: "Run: Fartlek"
+            garmin_name: "W20D5: Fartlek 5km"
+            distance: 5000
+            description: "5 km fartlek — random intervals, average @RPE 6 with bursts RPE 5–9. Learning to return to base pace following effort. Good session with a friend."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 5000
+                  targetType: "no.target"
+
+          # Day 6 (Sat) - Open Water Swim
+          - day: 6
+            type: "swim"
+            name: "Swim: Open Water"
+            skip_garmin: true
+            description: "1.5 km. Longer steady duration. Run through wetsuit fitting, lubricant, tri-suit underneath. If you can swim with a friend or group, good practice for race-day conditions. Mixing up speed simulates fatigue."
+
+          # Day 7 (Sun) - Brick
+          - day: 7
+            type: "brick"
+            name: "Brick: Race Simulation"
+            skip_garmin: true
+            description: "35 km bike + 7.5 km run. Race simulation. Use intended race kit, clothing, nutrition, bottles. Bike: warm up over first 2 km then build to @RPE 8+. Run: run strong off bike for first 2 km then settle into easier pace. Prep bike as for race day (bottles, nutrition, spares)."
+
+      - week: 21
+        description: |
+          Tri Wk 14. Last high volume week before taper. By end of this week you'll have a good race plan and realistic target. Plan your pacing and nutrition strategy. Any last-minute equipment purchases must be tested over race distance.
+
+          **Tri Plan Goals:** This is the penultimate week before we start to bring the distance down. By the end of this week you'll have a good idea of your race plan and be able to set and plan your pacing and nutrition strategy. Make sure you have all the equipment you need, and any last-minute purchases are tested in training over race distance at least.
+
+          **Volume:** 94.5 km total
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Session #7 (Drills/Intervals)"
+            skip_garmin: true
+            description: "2.5 km. You should be swimming these at your best pace in the program. Getting near best 100 m & 200 m times — the real show of fitness comes when you replicate this pace in open water."
+
+          # Day 2 (Tue) - Bike
+          - day: 2
+            type: "bike"
+            name: "Bike: Intervals"
+            skip_garmin: true
+            description: "25 km. Indoors: 3 km warm up @RPE 5–8. Main: 1 min @RPE 5, 6 min @RPE 6, 1 min @RPE 7, 1 min @RPE 8, 1 min @RPE 9. Repeat until 2–3 km to go, cool down @RPE 4. Outdoors: fartlek with longer efforts. Working above and below threshold."
+
+          # Day 3 (Wed) - Run
+          - day: 3
+            type: "run"
+            name: "Run: Steady State"
+            garmin_name: "W21D3: Steady State 10km"
+            distance: 10000
+            description: "10 km @RPE 6–7. Aerobic run, route of your choosing. Focus on run form, posture and finishing feeling strong. If off-road or hilly, pace yourself to keep effort in correct zone."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 10000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Fri) - Run
+          - day: 5
+            type: "run"
+            name: "Run: Track Session #1"
+            garmin_name: "W21D5: Track Session #1"
+            distance: 5000
+            description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Working above race pace. Can do each repeated distance as a negative split, trying to beat time of last segment by 1–2 seconds."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 4000
+                  targetType: "no.target"
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 6 (Sat) - Open Water Swim
+          - day: 6
+            type: "swim"
+            name: "Swim: Open Water"
+            skip_garmin: true
+            description: "2 km. Race day prep. Get suit on in plenty of time, fit properly. Warm up on land then in water within 2 min (race-day simulation). Practice start, swim race distance (1.5 km). Use remaining distance for sprints. Final race-pace prep — polish technique and pacing."
+
+          # Day 7 (Sun) - Bike
+          - day: 7
+            type: "bike"
+            name: "Bike: Hills"
+            skip_garmin: true
+            description: "50 km. Steady state — maintain cadence and rhythm. Pace judgement on hills. Good pacing on hills maintains optimal race pace (too easy = lose time, too hard = slower on flats)."
+
+      - week: 22
+        description: |
+          Race Week (Tri Wk 16). The hard work is done — nothing you can do now will make you fitter. Focus on maintaining peak while allowing recovery. Keep sessions high quality with good pace work. Reduced volume allows adaptation/recovery. Stick to what you know in training.
+
+          Note: Tri PDF Wk 15 (taper) is absorbed into prior weeks; this week follows Wk 16 race-week schedule.
+
+          **Tri Plan Goals:** Wk 15 (Taper): Bringing the volume down and working on speed will let your body start to recover while fine-tuning for your peak fitness. Everything should be aimed at setting up your race plan. All race plans need to be flexible; this is a critical stage in training and if you feel over-fatigued you must rest. Wk 16 (Race Week): The hard work is done, nothing you can do now will improve your form. The focus here is to maintain fitness while allowing recovery. Keep the sessions light with good pace work. Reduced volume/distance will allow for adaptation/recovery. If you've travelled to an event, having a run or swim when you get there helps you get over the journey.
+
+          **Volume:** 72.5 km total (inc. race)
+
+        workouts:
+          # Day 1 (Mon) - Swim
+          - day: 1
+            type: "swim"
+            name: "Swim: Mixed Intensity"
+            skip_garmin: true
+            description: "1.5 km. 200 m warm up, 200 m pull buoy @RPE 6, 400 m @RPE 7, 200 m @RPE 8, 2x100 m @RPE 9, 100 m warm down. Steady work with bursts — shouldn't feel tired after this."
+
+          # Day 2 (Tue) - Bike
+          - day: 2
+            type: "bike"
+            name: "Bike: Pre-race Check"
+            skip_garmin: true
+            description: "15 km. Final pre-race bike check. Ride steady in race setup, carry what you plan to carry. Add 2–4 min bursts @RPE 5–7. After ride, clean bike and give tyres a once-over. Is all in working order? Do you have the spares you need?"
+
+          # Day 3 (Wed) - Run
+          - day: 3
+            type: "run"
+            name: "Run: Easy"
+            garmin_name: "W22D3: Easy 2.5km"
+            distance: 2500
+            description: "2.5 km. Steady pace, focus on form and light foot strike. Add short bursts of harder effort @RPE 5–7. This distance should feel very easy now. Should feel good when you finish."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 2500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 5 (Fri) - Run
+          - day: 5
+            type: "run"
+            name: "Run: Shakeout"
+            garmin_name: "W22D5: Shakeout 1km"
+            distance: 1000
+            description: "1 km. Still warming up — keep legs moving at a good tempo, but not quite race pace @RPE 7. Nice short session to loosen off."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 1000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 6 (Sat) - Swim
+          - day: 6
+            type: "swim"
+            name: "Swim: Easy"
+            skip_garmin: true
+            description: "750 m. Relaxed effort, loosening off with a few short bursts @RPE 5–7. Good position, technique, relaxed stroke. Can do in open water for confidence boost and wetsuit removal practice. If you've travelled to the event, this helps get over the journey."
+
+          # Day 7 (Sun) - RACE DAY
+          - day: 7
+            type: "race"
+            name: "RACE: Olympic Triathlon"
+            skip_garmin: true
+            description: "Olympic Triathlon: 1.5 km Swim / 40 km Bike / 10 km Run. The hard work is over. Stick to what you know from training. Race hard, race well, and have fun!"
