@@ -1593,8 +1593,42 @@ phases:
 
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 4000
+                  endConditionValue: 1600
                   targetType: "no.target"
+
+                - stepType: "recovery"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+
+                - stepType: "repeat"
+                  numberOfIterations: 2
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 800
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 400
+                      targetType: "no.target"
+                      childStepId: 2
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 2
 
                 - stepType: "cooldown"
                   endCondition: "distance"
@@ -1691,8 +1725,42 @@ phases:
 
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 4000
+                  endConditionValue: 1600
                   targetType: "no.target"
+
+                - stepType: "recovery"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+
+                - stepType: "repeat"
+                  numberOfIterations: 2
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 800
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 400
+                      targetType: "no.target"
+                      childStepId: 2
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 2
 
                 - stepType: "cooldown"
                   endCondition: "distance"
@@ -1826,8 +1894,75 @@ phases:
 
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 6500
+                  endConditionValue: 1200
                   targetType: "no.target"
+
+                - stepType: "recovery"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+
+                - stepType: "repeat"
+                  numberOfIterations: 3
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 400
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 1200
+                  targetType: "no.target"
+
+                - stepType: "recovery"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+
+                - stepType: "repeat"
+                  numberOfIterations: 3
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 400
+                      targetType: "no.target"
+                      childStepId: 2
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 1200
+                  targetType: "no.target"
+
+                - stepType: "recovery"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+
+                - stepType: "repeat"
+                  numberOfIterations: 3
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 400
+                      targetType: "no.target"
+                      childStepId: 3
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 3
 
                 - stepType: "cooldown"
                   endCondition: "distance"
@@ -1918,8 +2053,42 @@ phases:
 
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 4000
+                  endConditionValue: 1600
                   targetType: "no.target"
+
+                - stepType: "recovery"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+
+                - stepType: "repeat"
+                  numberOfIterations: 2
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 800
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 400
+                      targetType: "no.target"
+                      childStepId: 2
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 2
 
                 - stepType: "cooldown"
                   endCondition: "distance"
@@ -2074,8 +2243,42 @@ phases:
 
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 4000
+                  endConditionValue: 1600
                   targetType: "no.target"
+
+                - stepType: "recovery"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+
+                - stepType: "repeat"
+                  numberOfIterations: 2
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 800
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 400
+                      targetType: "no.target"
+                      childStepId: 2
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 2
 
                 - stepType: "cooldown"
                   endCondition: "distance"
