@@ -772,8 +772,16 @@ phases:
           - day: 3
             type: "bike"
             name: "Bike: Steady State Ride"
-            skip_garmin: true
+            garmin_name: "W7: Steady Ride 20km"
+            distance: 20000
             description: "20 km at RPE 5–6 steady state. 'Just ride.' From Tri PDF Wk 1 Sunday session."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 20000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
 
           # Day 4 (Thu) - Swim + Easy Run combo
           - day: 4
@@ -887,8 +895,16 @@ phases:
           - day: 3
             type: "bike"
             name: "Bike: Steady Ride"
-            skip_garmin: true
+            garmin_name: "W8: Steady Ride 25km"
+            distance: 25000
             description: "25 km at RPE 5–7 steady. From Tri PDF Wk 2."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 25000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
 
           # Day 4 (Thu) - Swim + Easy Run combo
           - day: 4
@@ -1013,8 +1029,15 @@ phases:
           - day: 3
             type: "bike"
             name: "Bike: Mixed Effort Ride"
-            skip_garmin: true
+            garmin_name: "W9: Mixed Effort Ride 20km"
+            distance: 20000
             description: "20 km at RPE 5–7 mixed effort. From Tri PDF Wk 3."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 20000
+                  targetType: "no.target"
 
           # Day 4 (Thu) - Swim + Easy Run combo
           - day: 4
@@ -1124,8 +1147,15 @@ phases:
           - day: 3
             type: "bike"
             name: "Bike: Intervals/Hills Ride"
-            skip_garmin: true
+            garmin_name: "W10: Intervals/Hills 30km"
+            distance: 30000
             description: "30 km. Intervals/hills (RPE 5–8). From Tri PDF Wk 4. This is week's 2nd hard session. If Tuesday was tough, ride at RPE 6 steady instead."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 30000
+                  targetType: "no.target"
 
           # Day 4 (Thu) - Swim + Easy Run combo
           - day: 4
@@ -1248,8 +1278,15 @@ phases:
           - day: 3
             type: "bike"
             name: "Bike: Interval Ride"
-            skip_garmin: true
+            garmin_name: "W11: Interval Ride 20km"
+            distance: 20000
             description: "20 km at RPE 5–7 intervals. From Tri PDF Wk 5."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 20000
+                  targetType: "no.target"
 
           # Day 4 (Thu) - Swim + Easy Run combo
           - day: 4
@@ -1359,8 +1396,16 @@ phases:
           - day: 3
             type: "bike"
             name: "Bike: Easy Ride"
-            skip_garmin: true
+            garmin_name: "W12: Easy Ride 20km"
+            distance: 20000
             description: "20 km at RPE 5–6 easy. Reduced from PDF Wk 6."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 20000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
 
           # Day 4 (Thu) - Swim (optional) + Easy Run combo
           - day: 4
@@ -1478,8 +1523,16 @@ phases:
           - day: 3
             type: "bike"
             name: "Bike: Easy Spin"
-            skip_garmin: true
+            garmin_name: "W13: Easy Spin 15km"
+            distance: 15000
             description: "15 km easy spin at RPE 5. Just keep the legs moving."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 15000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
 
           # Day 4 (Thu) - Easy Run
           - day: 4
@@ -1573,8 +1626,27 @@ phases:
           - day: 2
             type: "bike"
             name: "Bike: Intervals"
-            skip_garmin: true
+            garmin_name: "W15: Bike Intervals 25km"
+            distance: 25000
             description: "25 km. 5 km warm up @RPE 4–5. Main set: 1 min @RPE 5, 6 min @RPE 6, 1 min @RPE 7, 1 min @RPE 8, 1 min @RPE 9. Repeat until 23 km. 2 km @RPE 4. Outdoor option: 50 min as 5 min @RPE 5 / 5 min @RPE 7."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 5000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 18000
+                  targetType: "no.target"
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
 
           # Day 3 (Wed) - Run
           - day: 3
@@ -1662,8 +1734,15 @@ phases:
           - day: 7
             type: "bike"
             name: "Bike: Hills"
-            skip_garmin: true
+            garmin_name: "W15: Hills 45km"
+            distance: 45000
             description: "45 km. Steady state with hills included. Maintain steady cadence and rhythm. Pace judgement on climbs. Riding uphill increases strength; learning to descend confidently will be valuable."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 45000
+                  targetType: "no.target"
 
       - week: 16
         description: |
@@ -1685,8 +1764,27 @@ phases:
           - day: 2
             type: "bike"
             name: "Bike: Time Trial"
-            skip_garmin: true
+            garmin_name: "W16: Bike TT 20km"
+            distance: 20000
             description: "20 km. 1 km warm up @RPE 5. Then aim to hit threshold speed for the rest of the distance. Easy leg spin to cool down. Flat route preferred; also suitable for turbo/gym bike. Tests how well you can hold goal race pace."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 1000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 18000
+                  targetType: "no.target"
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 1000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
 
           # Day 3 (Wed) - Swim + Run combo
           - day: 3
@@ -1802,8 +1900,33 @@ phases:
           - day: 2
             type: "bike"
             name: "Bike: Intervals"
-            skip_garmin: true
+            garmin_name: "W17: Bike Incremental 25km"
+            distance: 25000
             description: "25 km. Incremental set: 8 km @RPE 5, 8 km @RPE 7, 8 km @RPE 8–9. 1 km cool down. Increasing work rate and learning to pace near/above threshold. Suitable for turbo/indoor trainer. If outdoors, aim to raise average HR by 5–10 bpm every 10 km."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 8000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 8000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 3
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 8000
+                  targetType: "no.target"
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 1000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
 
           # Day 3 (Wed) - Run
           - day: 3
@@ -1845,8 +1968,15 @@ phases:
           - day: 7
             type: "bike"
             name: "Bike: Hills"
-            skip_garmin: true
+            garmin_name: "W17: Hills 50km"
+            distance: 50000
             description: "50 km. Head out on a route @RPE 6. Plan some hills for harder work intervals. Good pacing on hills is important — too easy and you lose time, too hard and you'll be slower on the flats."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 50000
+                  targetType: "no.target"
 
       - week: 18
         description: |
@@ -1868,8 +1998,15 @@ phases:
           - day: 2
             type: "bike"
             name: "Bike: Hills"
-            skip_garmin: true
+            garmin_name: "W18: Hills 30km"
+            distance: 30000
             description: "30 km. Use a hilly route or one good climb (>3 min ascent). Mix seated and standing climbing, keep rhythm. Get used to descending too. Plan a 5–8 km loop around one hill and repeat if no hilly route available."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 30000
+                  targetType: "no.target"
 
           # Day 3 (Wed) - Swim + Run combo
           - day: 3
@@ -2019,8 +2156,39 @@ phases:
           - day: 2
             type: "bike"
             name: "Bike: Intervals"
-            skip_garmin: true
+            garmin_name: "W19: Bike Intervals 35km"
+            distance: 35000
             description: "35 km. 5x5 format: 10 min warm up @RPE 5. Then: 5 min @RPE 6, 5 min @RPE 8–9. Repeat until 3–5 km to go, warm down @RPE 4–5. Suitable for turbo or outside. Outdoors: plan a route for loops or out-and-back."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 600
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "repeat"
+                  numberOfIterations: 5
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 300
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 2
+                      childStepId: 1
+
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 300
+                      targetType: "no.target"
+                      childStepId: 1
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 3000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
 
           # Day 3 (Wed) - Run
           - day: 3
@@ -2107,8 +2275,15 @@ phases:
           - day: 7
             type: "bike"
             name: "Bike: Hills"
-            skip_garmin: true
+            garmin_name: "W19: Hills 60km"
+            distance: 60000
             description: "60 km. Steady state @RPE 6–8. Maintain steady cadence and rhythm on climbs and flat. If you have access to your race course, do a recon ride (2 laps). Pace judge climbs, note prevailing wind direction."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 60000
+                  targetType: "no.target"
 
       - week: 20
         description: |
@@ -2130,8 +2305,15 @@ phases:
           - day: 2
             type: "bike"
             name: "Bike: Mixed Effort"
-            skip_garmin: true
+            garmin_name: "W20: Mixed Effort 30km"
+            distance: 30000
             description: "30 km. Mixed effort/fartlek. Preferably outdoors on naturally varied route. Add harder fartlek style efforts. Practice longer aerobar/drop efforts to work hard in a lower position. @RPE 5–7. Take adequate water & fuelling."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 30000
+                  targetType: "no.target"
 
           # Day 3 (Wed) - Swim + Run combo
           - day: 3
@@ -2208,8 +2390,27 @@ phases:
           - day: 2
             type: "bike"
             name: "Bike: Intervals"
-            skip_garmin: true
+            garmin_name: "W21: Bike Intervals 25km"
+            distance: 25000
             description: "25 km. Indoors: 3 km warm up @RPE 5–8. Main: 1 min @RPE 5, 6 min @RPE 6, 1 min @RPE 7, 1 min @RPE 8, 1 min @RPE 9. Repeat until 2–3 km to go, cool down @RPE 4. Outdoors: fartlek with longer efforts. Working above and below threshold."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 3000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 20000
+                  targetType: "no.target"
+
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 2000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
 
           # Day 3 (Wed) - Run
           - day: 3
@@ -2297,8 +2498,15 @@ phases:
           - day: 7
             type: "bike"
             name: "Bike: Hills"
-            skip_garmin: true
+            garmin_name: "W21: Hills 50km"
+            distance: 50000
             description: "50 km. Steady state — maintain cadence and rhythm. Pace judgement on hills. Good pacing on hills maintains optimal race pace (too easy = lose time, too hard = slower on flats)."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 50000
+                  targetType: "no.target"
 
       - week: 22
         description: |
@@ -2322,8 +2530,15 @@ phases:
           - day: 2
             type: "bike"
             name: "Bike: Pre-race Check"
-            skip_garmin: true
+            garmin_name: "W22: Pre-race Check 15km"
+            distance: 15000
             description: "15 km. Final pre-race bike check. Ride steady in race setup, carry what you plan to carry. Add 2–4 min bursts @RPE 5–7. After ride, clean bike and give tyres a once-over. Is all in working order? Do you have the spares you need?"
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 15000
+                  targetType: "no.target"
 
           # Day 3 (Wed) - Run
           - day: 3

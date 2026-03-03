@@ -8,6 +8,11 @@ from .base import WorkoutIntegration
 load_dotenv()
 
 
+SPORT_TYPES = {
+    "run": {"sportTypeId": 1, "sportTypeKey": "running", "displayOrder": 1},
+    "bike": {"sportTypeId": 2, "sportTypeKey": "cycling", "displayOrder": 2},
+}
+
 # Garmin API constants (actual values, library constants are wrong!)
 STEP_TYPES = {
     "warmup": 1,
@@ -139,22 +144,17 @@ class GarminIntegration(WorkoutIntegration):
         workout_steps, _ = convert_steps(garmin_steps)
 
         # Build complete Garmin workout JSON
+        sport_type = SPORT_TYPES.get(
+            workout_def.get("type", "run"), SPORT_TYPES["run"]
+        )
         return {
             "workoutName": workout_def["garmin_name"],
             "description": workout_def.get("description", ""),
-            "sportType": {
-                "sportTypeId": 1,
-                "sportTypeKey": "running",
-                "displayOrder": 1,
-            },
+            "sportType": sport_type,
             "workoutSegments": [
                 {
                     "segmentOrder": 1,
-                    "sportType": {
-                        "sportTypeId": 1,
-                        "sportTypeKey": "running",
-                        "displayOrder": 1,
-                    },
+                    "sportType": sport_type,
                     "workoutSteps": workout_steps,
                 }
             ],

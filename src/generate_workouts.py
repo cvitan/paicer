@@ -116,15 +116,15 @@ def main():
             if filter_week is not None and week_num != filter_week:
                 continue
 
-            # Validate: count required workouts
-            required_workouts = [
-                w
+            # Validate: Garmin workouts don't exceed training days
+            garmin_days = set(
+                w["day"]
                 for w in week_data["workouts"]
-                if not w.get("skip_garmin") and w["type"] == "run"
-            ]
-            if len(required_workouts) > len(phase_training_days):
+                if not w.get("skip_garmin") and "garmin" in w
+            )
+            if len(garmin_days) > len(phase_training_days):
                 print(
-                    f"Error: Week {week_num} has {len(required_workouts)} workouts but only {len(phase_training_days)} training days"
+                    f"Error: Week {week_num} has {len(garmin_days)} Garmin days but only {len(phase_training_days)} training days"
                 )
                 sys.exit(1)
 
@@ -134,7 +134,7 @@ def main():
                 if filter_day is not None and day_num != filter_day:
                     continue
 
-                if workout["type"] != "run" or workout.get("skip_garmin"):
+                if workout.get("skip_garmin") or "garmin" not in workout:
                     skipped_workouts.append(workout)
                     continue
 
