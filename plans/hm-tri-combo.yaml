@@ -1166,7 +1166,7 @@ phases:
           **Volume:** ~45 km run  •  2.5 km swim  •  20 km bike
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #2"
@@ -1174,7 +1174,7 @@ phases:
             garmin: *swim_s2_garmin
             description: "1.5 km. Drills/Intervals at RPE 5–7. First structured swim in months. Focus on feel, breathing, technique."
 
-          # Day 2 (Tue) - Quality Run: WU 2km + 3×10min @ 5:15/km + 2min recovery + CD 2km
+          # Day 2 - Quality Run: WU 2km + 3×10min @ 5:15/km + 2min recovery + CD 2km
           - day: 2
             type: "run"
             name: "Run: Tempo Intervals"
@@ -1212,7 +1212,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Bike
+          # Day 3 - Bike
           - day: 3
             type: "bike"
             name: "Bike: Steady State Ride"
@@ -1227,7 +1227,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 4 (Thu) - Swim + Easy Run combo
+          # Day 4 - Swim + Easy Run combo
           - day: 4
             type: "swim"
             name: "Swim: Session #1"
@@ -1249,7 +1249,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Sat) - Easy + Strides
+          # Day 5 - Easy + Strides
           - day: 5
             type: "run"
             name: "Run: Easy + Strides"
@@ -1278,7 +1278,7 @@ phases:
                       targetType: "no.target"
                       childStepId: 1
 
-          # Day 6 (Sun) - Long Run
+          # Day 6 - Long Run
           - day: 6
             type: "run"
             name: "Run: Long Run"
@@ -1302,7 +1302,7 @@ phases:
           **Volume:** ~46 km run  •  3 km swim  •  25 km bike
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #3"
@@ -1310,7 +1310,7 @@ phases:
             garmin: *swim_s3_garmin
             description: "1.5 km. Drills/Intervals at RPE 5–7."
 
-          # Day 2 (Tue) - Quality Run: WU 2km + 30min continuous @ 5:15/km + CD 2km
+          # Day 2 - Quality Run: WU 2km + 30min continuous @ 5:15/km + CD 2km
           - day: 2
             type: "run"
             name: "Run: Continuous Tempo"
@@ -1337,7 +1337,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Bike
+          # Day 3 - Bike
           - day: 3
             type: "bike"
             name: "Bike: Steady Ride"
@@ -1352,7 +1352,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 4 (Thu) - Swim + Easy Run combo
+          # Day 4 - Swim + Easy Run combo
           - day: 4
             type: "swim"
             name: "Swim: Session #2"
@@ -1374,7 +1374,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Sat) - Easy + Strides
+          # Day 5 - Easy + Strides
           - day: 5
             type: "run"
             name: "Run: Easy + Strides"
@@ -1403,7 +1403,7 @@ phases:
                       targetType: "no.target"
                       childStepId: 1
 
-          # Day 6 (Sun) - Long Run
+          # Day 6 - Long Run
           - day: 6
             type: "run"
             name: "Run: Long Run"
@@ -1427,7 +1427,7 @@ phases:
           **Volume:** ~47 km run  •  3.5 km swim  •  35 km bike (incl. brick)
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #4"
@@ -1435,7 +1435,7 @@ phases:
             garmin: *swim_s4_garmin
             description: "2 km. Drills/Intervals at RPE 5–7."
 
-          # Day 2 (Tue) - Quality Run: WU 2km + 2×12min @ 5:10/km + 3min recovery + CD 2km
+          # Day 2 - Quality Run: WU 2km + 2×12min @ 5:10/km + 3min recovery + CD 2km
           - day: 2
             type: "run"
             name: "Run: Tempo Intervals"
@@ -1473,7 +1473,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Bike
+          # Day 3 - Bike
           - day: 3
             type: "bike"
             name: "Bike: Mixed Effort Ride"
@@ -1487,7 +1487,7 @@ phases:
                   endConditionValue: 20000
                   targetType: "no.target"
 
-          # Day 4 (Thu) - Swim + Easy Run combo
+          # Day 4 - Swim + Easy Run combo
           - day: 4
             type: "swim"
             name: "Swim: Session #3"
@@ -1509,14 +1509,14 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Sat) - Brick: Bike + Run
+          # Day 5 - Brick: Bike + Run
           - day: 5
             type: "brick"
             name: "Brick: Bike + Run"
             skip_garmin: true
             description: "15 km bike (RPE 5–6) → 3 km easy run (RPE 6–7). From Tri PDF Wk 3. Start the run slow — legs will feel odd."
 
-          # Day 6 (Sun) - Long Run with steady finish
+          # Day 6 - Long Run with steady finish
           - day: 6
             type: "run"
             name: "Run: Long Run (steady finish)"
@@ -1547,7 +1547,7 @@ phases:
           **Volume:** ~49 km run  •  3.5 km swim  •  30 km bike
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #5"
@@ -1555,7 +1555,7 @@ phases:
             garmin: *swim_s5_garmin
             description: "2 km. Drills/Intervals at RPE 5–8."
 
-          # Day 2 (Tue) - Quality Run: WU 2km + 3×2km @ 5:05-5:10/km + 2min recovery + CD 2km
+          # Day 2 - Quality Run: WU 2km + 3×2km @ 5:05-5:10/km + 2min recovery + CD 2km
           - day: 2
             type: "run"
             name: "Run: HM Intervals"
@@ -1593,7 +1593,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Bike
+          # Day 3 - Bike
           - day: 3
             type: "bike"
             name: "Bike: Intervals/Hills Ride"
@@ -1607,7 +1607,7 @@ phases:
                   endConditionValue: 30000
                   targetType: "no.target"
 
-          # Day 4 (Thu) - Swim + Easy Run combo
+          # Day 4 - Swim + Easy Run combo
           - day: 4
             type: "swim"
             name: "Swim: Session #3"
@@ -1629,7 +1629,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Sat) - Easy + Strides
+          # Day 5 - Easy + Strides
           - day: 5
             type: "run"
             name: "Run: Easy + Strides"
@@ -1658,7 +1658,7 @@ phases:
                       targetType: "no.target"
                       childStepId: 1
 
-          # Day 6 (Sun) - Long Run
+          # Day 6 - Long Run
           - day: 6
             type: "run"
             name: "Run: Long Run"
@@ -1682,7 +1682,7 @@ phases:
           **Volume:** ~47 km run  •  3.5 km swim  •  35 km bike (incl. brick)
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #6"
@@ -1690,7 +1690,7 @@ phases:
             garmin: *swim_s6_garmin
             description: "2 km. Drill/Intervals at RPE 5–8."
 
-          # Day 2 (Tue) - Quality Run: WU 2km + 20min @ 5:10 + 10min @ 5:05 + CD 2km
+          # Day 2 - Quality Run: WU 2km + 20min @ 5:10 + 10min @ 5:05 + CD 2km
           - day: 2
             type: "run"
             name: "Run: Split Tempo"
@@ -1726,7 +1726,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Bike
+          # Day 3 - Bike
           - day: 3
             type: "bike"
             name: "Bike: Interval Ride"
@@ -1740,7 +1740,7 @@ phases:
                   endConditionValue: 20000
                   targetType: "no.target"
 
-          # Day 4 (Thu) - Swim + Easy Run combo
+          # Day 4 - Swim + Easy Run combo
           - day: 4
             type: "swim"
             name: "Swim: Session #2"
@@ -1762,14 +1762,14 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Sat) - Brick: Bike + Run
+          # Day 5 - Brick: Bike + Run
           - day: 5
             type: "brick"
             name: "Brick: Bike + Run"
             skip_garmin: true
             description: "15 km bike (RPE 5–6) → 3 km run (RPE 6). From Tri PDF Wk 5. Keep the run controlled."
 
-          # Day 6 (Sun) - Long Run with steady finish
+          # Day 6 - Long Run with steady finish
           - day: 6
             type: "run"
             name: "Run: Long Run (steady finish)"
@@ -1800,7 +1800,7 @@ phases:
           **Volume:** ~42 km run  •  2 km swim  •  20 km bike
 
         workouts:
-          # Day 1 (Mon) - Swim (only 1 swim this week)
+          # Day 1 - Swim (only 1 swim this week)
           - day: 1
             type: "swim"
             name: "Swim: Session #4"
@@ -1808,7 +1808,7 @@ phases:
             garmin: *swim_s4_garmin
             description: "2 km at RPE 5–7. Only 1 swim this week — keep it moderate."
 
-          # Day 2 (Tue) - Quality Run: WU 2km + 4×1km @ 5:00-5:05/km + 90sec recovery + CD 2km
+          # Day 2 - Quality Run: WU 2km + 4×1km @ 5:00-5:05/km + 90sec recovery + CD 2km
           - day: 2
             type: "run"
             name: "Run: Goal Pace Intervals"
@@ -1846,7 +1846,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Bike
+          # Day 3 - Bike
           - day: 3
             type: "bike"
             name: "Bike: Easy Ride"
@@ -1861,7 +1861,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 4 (Thu) - Swim (optional) + Easy Run combo
+          # Day 4 - Swim (optional) + Easy Run combo
           - day: 4
             type: "swim"
             name: "Swim: Easy (optional)"
@@ -1888,7 +1888,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Sat) - Easy Run
+          # Day 5 - Easy Run
           - day: 5
             type: "run"
             name: "Run: Easy"
@@ -1903,7 +1903,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 6 (Sun) - Long Run (moderate)
+          # Day 6 - Long Run (moderate)
           - day: 6
             type: "run"
             name: "Run: Long Run (moderate)"
@@ -1934,7 +1934,7 @@ phases:
           **Volume:** ~16–19 km running pre-race  •  light swim/bike
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Easy"
@@ -1947,7 +1947,7 @@ phases:
                   description: "1.5 km easy freestyle @ RPE 4-5"
             description: "Easy 1.5 km at RPE 4–5. Technique focus. Loosen up."
 
-          # Day 2 (Tue) - Sharpener Run: WU 2km + 3×3min @ 5:05/km + 2min recovery + CD 2km
+          # Day 2 - Sharpener Run: WU 2km + 3×3min @ 5:05/km + 2min recovery + CD 2km
           - day: 2
             type: "run"
             name: "Run: Sharpener"
@@ -1985,7 +1985,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Bike
+          # Day 3 - Bike
           - day: 3
             type: "bike"
             name: "Bike: Easy Spin"
@@ -2000,7 +2000,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 4 (Thu) - Easy Run
+          # Day 4 - Easy Run
           - day: 4
             type: "run"
             name: "Run: Easy Shakeout"
@@ -2015,14 +2015,14 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Sat) - Optional shakeout
+          # Day 5 - Optional shakeout
           - day: 5
             type: "run"
             name: "Run: Shakeout (optional)"
             skip_garmin: true
             description: "20–30 min easy walk or 3 km very easy jog (RPE 3–4). Or rest."
 
-          # Day 6 (Sun) - RACE DAY
+          # Day 6 - RACE DAY
           - day: 6
             type: "run"
             name: "RACE: Brooklyn Half Marathon"
@@ -2042,14 +2042,14 @@ phases:
           Walk, gentle spin, easy swim. No intervals, no structure. Let your body absorb the race effort. If something is sore, rest it. If you feel good by Thursday/Friday, a 20–30 min easy swim or spin is fine.
 
         workouts:
-          # Day 3 (Wed) - Optional easy spin
+          # Day 3 - Optional easy spin
           - day: 3
             type: "bike"
             name: "Bike: Easy Spin (optional)"
             skip_garmin: true
             description: "Optional: 20–30 min easy spin @RPE 4. Keep it very light."
 
-          # Day 4 (Thu) - Optional easy swim
+          # Day 4 - Optional easy swim
           - day: 4
             type: "swim"
             name: "Swim: Easy (optional)"
@@ -2062,7 +2062,7 @@ phases:
                   description: "20-30 min easy swim @ RPE 4"
             description: "Optional: 20–30 min easy swim — relaxed laps, no drills. @RPE 4."
 
-          # Day 6 (Sat) - Optional easy ride
+          # Day 6 - Optional easy ride
           - day: 6
             type: "bike"
             name: "Bike: Easy Ride (optional)"
@@ -2078,7 +2078,7 @@ phases:
           **Volume:** 89 km total
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #7 (Drill/Pacing)"
@@ -2086,7 +2086,7 @@ phases:
             garmin: *swim_s7_garmin
             description: "2.5 km. When using paddles, they slow your cadence so you can focus on stroke technique. Holding harder efforts for longer; shorter sprints for speed."
 
-          # Day 2 (Tue) - Bike
+          # Day 2 - Bike
           - day: 2
             type: "bike"
             name: "Bike: Intervals"
@@ -2112,7 +2112,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Run
+          # Day 3 - Run
           - day: 3
             type: "run"
             name: "Run: Track Session #1"
@@ -2172,7 +2172,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Fri) - Swim
+          # Day 5 - Swim
           - day: 5
             type: "swim"
             name: "Swim: Session #8 (TT/Pacing)"
@@ -2180,7 +2180,7 @@ phases:
             garmin: *swim_s8_garmin
             description: "2.5 km. If using a swim watch or pace clock, you should see improvements in speed and ability to hold speed for longer."
 
-          # Day 6 (Sat) - Run
+          # Day 6 - Run
           - day: 6
             type: "run"
             name: "Run: Long Steady"
@@ -2195,7 +2195,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 7 (Sun) - Bike
+          # Day 7 - Bike
           - day: 7
             type: "bike"
             name: "Bike: Hills"
@@ -2218,7 +2218,7 @@ phases:
           **Volume:** 70.5 km total
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #7 (Drill/Intervals)"
@@ -2226,7 +2226,7 @@ phases:
             garmin: *swim_s7_garmin
             description: "2.5 km. Swim the first 1 km of the main set as a straight Time Trial for a race-pace time — good progress marker. Resume second km as normal interval breakdown. When breathing, keep one eye in the water and lead hand out front."
 
-          # Day 2 (Tue) - Bike
+          # Day 2 - Bike
           - day: 2
             type: "bike"
             name: "Bike: Time Trial"
@@ -2252,7 +2252,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Swim + Run combo
+          # Day 3 - Swim + Run combo
           - day: 3
             type: "swim"
             name: "Swim: Session #4 (Intervals/Steady)"
@@ -2273,7 +2273,7 @@ phases:
                   endConditionValue: 10000
                   targetType: "no.target"
 
-          # Day 5 (Fri) - Run
+          # Day 5 - Run
           - day: 5
             type: "run"
             name: "Run: Track Session #1"
@@ -2333,14 +2333,14 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 6 (Sat) - Open Water Swim
+          # Day 6 - Open Water Swim
           - day: 6
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "First open water swim! 1 km. Ensure proper wetsuit fitting and spend time acclimatising to the water (may be colder early season). Cover distance aiming to swim smoothly, keeping good technique. Practice sighting. Practice breathing to weaker side."
 
-          # Day 7 (Sun) - Brick
+          # Day 7 - Brick
           - day: 7
             type: "brick"
             name: "Brick: Negative Split"
@@ -2356,7 +2356,7 @@ phases:
           **Volume:** 94.5 km total
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #8 (Drills/Intervals)"
@@ -2364,7 +2364,7 @@ phases:
             garmin: *swim_s8_garmin
             description: "2.5 km. Count strokes per length to check technique — if count increases, you're losing efficiency or fatiguing. When breathing, keep one eye in the water, lead hand out front until recovery arm is coming forward."
 
-          # Day 2 (Tue) - Bike
+          # Day 2 - Bike
           - day: 2
             type: "bike"
             name: "Bike: Intervals"
@@ -2396,7 +2396,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Run
+          # Day 3 - Run
           - day: 3
             type: "run"
             name: "Run: Sub-max Steady"
@@ -2411,7 +2411,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Fri) - Run
+          # Day 5 - Run
           - day: 5
             type: "run"
             name: "Run: Fartlek"
@@ -2425,14 +2425,14 @@ phases:
                   endConditionValue: 5500
                   targetType: "no.target"
 
-          # Day 6 (Sat) - Open Water Swim
+          # Day 6 - Open Water Swim
           - day: 6
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "1.5 km. Developing confidence and skills. Fit wetsuit properly, acclimatise, relax stroke, focus on breathing. Start adding sighting every 2–4 breaths. Join a group if possible for coaching points. @RPE 6–7."
 
-          # Day 7 (Sun) - Bike
+          # Day 7 - Bike
           - day: 7
             type: "bike"
             name: "Bike: Hills"
@@ -2455,7 +2455,7 @@ phases:
           **Volume:** 84.5 km total
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #7 (Drills/Intervals)"
@@ -2463,7 +2463,7 @@ phases:
             garmin: *swim_s7_garmin
             description: "2.5 km. Pace control — aim to repeat pace of each set. Maintain alignment and form even on harder/shorter sets. Losing technique makes you slower."
 
-          # Day 2 (Tue) - Bike
+          # Day 2 - Bike
           - day: 2
             type: "bike"
             name: "Bike: Hills"
@@ -2477,7 +2477,7 @@ phases:
                   endConditionValue: 30000
                   targetType: "no.target"
 
-          # Day 3 (Wed) - Swim + Run combo
+          # Day 3 - Swim + Run combo
           - day: 3
             type: "swim"
             name: "Swim: Session #5 (Intervals)"
@@ -2577,7 +2577,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Fri) - Run
+          # Day 5 - Run
           - day: 5
             type: "run"
             name: "Run: Steady Tempo"
@@ -2592,14 +2592,14 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 3
 
-          # Day 6 (Sat) - Open Water Swim
+          # Day 6 - Open Water Swim
           - day: 6
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "1.5 km. Practice sighting, adapting stroke to wetsuit and open water. Slow cadence and work with buoyancy of suit. Break session into adaptation time, then finish with 400–500 m hard effort @RPE 7. Focus on controlling breathing (often first to go in cold open water)."
 
-          # Day 7 (Sun) - Brick
+          # Day 7 - Brick
           - day: 7
             type: "brick"
             name: "Brick: Race Pace"
@@ -2615,7 +2615,7 @@ phases:
           **Volume:** 114.5 km total (peak)
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #8 (Drills/Intervals)"
@@ -2623,7 +2623,7 @@ phases:
             garmin: *swim_s8_garmin
             description: "2.5 km. Keep body position in mind — legs high in the water. Think about rotation through hips and forearm position on catch."
 
-          # Day 2 (Tue) - Bike
+          # Day 2 - Bike
           - day: 2
             type: "bike"
             name: "Bike: Intervals"
@@ -2661,7 +2661,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Run
+          # Day 3 - Run
           - day: 3
             type: "run"
             name: "Run: Variable Effort"
@@ -2675,7 +2675,7 @@ phases:
                   endConditionValue: 10000
                   targetType: "no.target"
 
-          # Day 5 (Fri) - Run
+          # Day 5 - Run
           - day: 5
             type: "run"
             name: "Run: Track Session #1"
@@ -2735,14 +2735,14 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 6 (Sat) - Open Water Swim
+          # Day 6 - Open Water Swim
           - day: 6
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "2 km. Continue wetsuit prep: get suit on, warm up dry-side, acclimatise and warm up within a couple of minutes (race-day practice). Work in harder efforts in the later part. 1-arm drills aid rotation & stroke efficiency for open water."
 
-          # Day 7 (Sun) - Bike
+          # Day 7 - Bike
           - day: 7
             type: "bike"
             name: "Bike: Hills"
@@ -2765,7 +2765,7 @@ phases:
           **Volume:** 93.5 km total
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #9 (Drills/Intervals)"
@@ -2773,7 +2773,7 @@ phases:
             garmin: *swim_s9_garmin
             description: "2.5 km. Final fitness push — use shorter efforts to work hard and longer efforts to refocus on technique. Paddle work for stroke strength."
 
-          # Day 2 (Tue) - Bike
+          # Day 2 - Bike
           - day: 2
             type: "bike"
             name: "Bike: Mixed Effort"
@@ -2787,7 +2787,7 @@ phases:
                   endConditionValue: 30000
                   targetType: "no.target"
 
-          # Day 3 (Wed) - Swim + Run combo
+          # Day 3 - Swim + Run combo
           - day: 3
             type: "swim"
             name: "Swim: Session #6 (Intervals)"
@@ -2815,7 +2815,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 3
 
-          # Day 5 (Fri) - Run
+          # Day 5 - Run
           - day: 5
             type: "run"
             name: "Run: Fartlek"
@@ -2829,14 +2829,14 @@ phases:
                   endConditionValue: 5000
                   targetType: "no.target"
 
-          # Day 6 (Sat) - Open Water Swim
+          # Day 6 - Open Water Swim
           - day: 6
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "1.5 km. Longer steady duration. Run through wetsuit fitting, lubricant, tri-suit underneath. If you can swim with a friend or group, good practice for race-day conditions. Mixing up speed simulates fatigue."
 
-          # Day 7 (Sun) - Brick
+          # Day 7 - Brick
           - day: 7
             type: "brick"
             name: "Brick: Race Simulation"
@@ -2852,7 +2852,7 @@ phases:
           **Volume:** 94.5 km total
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Session #7 (Drills/Intervals)"
@@ -2860,7 +2860,7 @@ phases:
             garmin: *swim_s7_garmin
             description: "2.5 km. You should be swimming these at your best pace in the program. Getting near best 100 m & 200 m times — the real show of fitness comes when you replicate this pace in open water."
 
-          # Day 2 (Tue) - Bike
+          # Day 2 - Bike
           - day: 2
             type: "bike"
             name: "Bike: Intervals"
@@ -2886,7 +2886,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 (Wed) - Run
+          # Day 3 - Run
           - day: 3
             type: "run"
             name: "Run: Steady State"
@@ -2901,7 +2901,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Fri) - Run
+          # Day 5 - Run
           - day: 5
             type: "run"
             name: "Run: Track Session #1"
@@ -2961,14 +2961,14 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 6 (Sat) - Open Water Swim
+          # Day 6 - Open Water Swim
           - day: 6
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "2 km. Race day prep. Get suit on in plenty of time, fit properly. Warm up on land then in water within 2 min (race-day simulation). Practice start, swim race distance (1.5 km). Use remaining distance for sprints. Final race-pace prep — polish technique and pacing."
 
-          # Day 7 (Sun) - Bike
+          # Day 7 - Bike
           - day: 7
             type: "bike"
             name: "Bike: Hills"
@@ -2993,7 +2993,7 @@ phases:
           **Volume:** 72.5 km total (inc. race)
 
         workouts:
-          # Day 1 (Mon) - Swim
+          # Day 1 - Swim
           - day: 1
             type: "swim"
             name: "Swim: Mixed Intensity"
@@ -3041,7 +3041,7 @@ phases:
                   description: "100m easy warmdown"
             description: "1.5 km. Steady work with bursts — shouldn't feel tired after this."
 
-          # Day 2 (Tue) - Bike
+          # Day 2 - Bike
           - day: 2
             type: "bike"
             name: "Bike: Pre-race Check"
@@ -3055,7 +3055,7 @@ phases:
                   endConditionValue: 15000
                   targetType: "no.target"
 
-          # Day 3 (Wed) - Run
+          # Day 3 - Run
           - day: 3
             type: "run"
             name: "Run: Easy"
@@ -3070,7 +3070,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 (Fri) - Run
+          # Day 5 - Run
           - day: 5
             type: "run"
             name: "Run: Shakeout"
@@ -3085,7 +3085,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 6 (Sat) - Swim
+          # Day 6 - Swim
           - day: 6
             type: "swim"
             name: "Swim: Easy"
@@ -3098,7 +3098,7 @@ phases:
                   description: "750m relaxed — easy laps with short bursts @ RPE 5-7"
             description: "750 m. Relaxed effort, loosening off with a few short bursts @RPE 5–7. Good position, technique, relaxed stroke. Can do in open water for confidence boost and wetsuit removal practice. If you've travelled to the event, this helps get over the journey."
 
-          # Day 7 (Sun) - RACE DAY
+          # Day 7 - RACE DAY
           - day: 7
             type: "race"
             name: "RACE: Olympic Triathlon"
