@@ -121,6 +121,7 @@ weeks:
 - Tempo/intervals → `warmup` + `repeat` group + `cooldown`
 - Strides → Easy `interval` + `repeat` group with lap button recovery
 - Pool swims → `lap.button` cue card steps with `description` + `rest` between sections
+- Brick/multisport → `type: "multisport"` with `garmin.legs` (bike + run segments)
 - Open water swims → `skip_garmin: true` (no structured workouts on Garmin)
 
 **Swim workouts (cue card pattern):**
@@ -132,6 +133,16 @@ Swim Garmin export is intentionally simple — structured swim workouts with aut
 - Add `rest` steps (lap.button) between every section for recovery between sets
 - Reusable sessions are YAML anchors in `swim_sessions:` at the top of the plan file
 - Reference anchors with `garmin: *swim_s2_garmin` (YAML anchors must be defined before use)
+
+**Multisport/brick workouts:**
+
+Multisport workouts upload as a single Garmin workout with multiple legs (segments). Each leg has its own sport type and steps. Transitions between legs are tracked automatically on the watch.
+
+- Set `type: "multisport"` — uses `sportTypeId: 10` (`multi_sport`)
+- Use `garmin.legs` (not `garmin.steps`) — each leg has a `sport` and `steps` list
+- Step orders are globally unique across all legs (handled automatically)
+- `isSessionTransitionEnabled: true` is set automatically for transition tracking
+- Requires a watch that supports multisport activities (e.g., Fenix, Forerunner 570/970, Enduro)
 
 **Optional workouts (skip Garmin upload):**
 ```yaml
@@ -249,6 +260,42 @@ See `plans/hm-tri-combo.yaml` Week 1 Day 3. Structure:
   description: "Easy 1.5 km at RPE 4-5."
 ```
 
+### Brick/Multisport (Bike + Run)
+
+```yaml
+- day: 7
+  type: "multisport"
+  name: "Brick: Negative Split"
+  garmin_name: "W16D7: Brick 25km Bike + 5km Run"
+  garmin:
+    legs:
+      - sport: "bike"
+        steps:
+          - stepType: "warmup"
+            endCondition: "distance"
+            endConditionValue: 12500
+            targetType: "heart.rate.zone"
+            zoneNumber: 2
+          - stepType: "interval"
+            endCondition: "distance"
+            endConditionValue: 12500
+            targetType: "heart.rate.zone"
+            zoneNumber: 4
+      - sport: "run"
+        steps:
+          - stepType: "warmup"
+            endCondition: "distance"
+            endConditionValue: 2500
+            targetType: "heart.rate.zone"
+            zoneNumber: 2
+          - stepType: "interval"
+            endCondition: "distance"
+            endConditionValue: 2500
+            targetType: "heart.rate.zone"
+            zoneNumber: 4
+  description: "25 km bike + 5 km run. Negative split each leg."
+```
+
 ### Open Water Swim (no Garmin)
 
 ```yaml
@@ -271,9 +318,10 @@ Technical reference for Garmin Connect workout JSON. Use when editing `garmin.st
 
 | sportTypeId | sportTypeKey | Sport |
 |-------------|--------------|-------|
-| 1 | running | Running |
+| 1 | running | Running (also used for track) |
 | 2 | cycling | Cycling |
 | 4 | swimming | Pool Swimming (cue card pattern) |
+| 10 | multi_sport | Multisport/Brick (multiple legs) |
 
 ## Step Types
 
@@ -404,50 +452,43 @@ Source: [python-garminconnect](https://github.com/cyberjunky/python-garminconnec
 
 ## Roadmap
 
-### 1. Garmin Integration Enhancements
+### 1. Weekly Review (Agent Skill)
 
-**Cycling workouts:**
-- Power zones support
-- FTP-based intervals
-- Brick session structure (bike + run transition)
+Conversational weekly review triggered via `/review` (or `make review`). Runs Sunday night or Monday morning to evaluate the previous week.
 
-**Multi-sport workouts:**
-- Triathlon race simulation
-- Transition practice
+**Workflow:**
+1. Pull completed activities from Garmin for the week (via `get_activities_by_date`)
+2. Match against planned workouts for that week
+3. Compare actual vs planned: pace, HR, power, distance, RPE
+4. Flag mismatches — e.g., HR too high at target pace (overexertion), or pace too easy
+5. Suggest adjustments — primarily pace targets for future running sessions
+6. Conversational review: discuss findings, agree on changes
+7. Apply adjustments to the YAML plan and log the review
 
-### 2. Reviews Section
-
-Add a reviews section to the YAML schema:
+**Review log in YAML:**
 ```yaml
 reviews:
   - week: 4
     date: "2026-04-15"
-    notes: "HR averaged 162 during easy runs (target <145). Suggest slowing easy pace to 6:15/km."
+    notes: "HR averaged 162 during easy runs (target <145)."
     adjustments:
-      - field: "phases[0].weeks[3].workouts[0].description"
-        change: "Easy pace adjusted from 6:00 to 6:15/km"
+      - "Easy pace adjusted from 6:00/km to 6:15/km (phases 2-3)"
 ```
 
-### 3. Agent Skill
-
-Create a skill for interactive plan building and weekly reviews:
-- Ask about fitness, training days, goals
-- Suggest methodology (Pfitzinger, Daniels, etc.)
-- Build YAML plan interactively
-- Generate and upload workouts
-- Weekly check-ins: pull data, compare to plan, suggest adjustments
+**Other agent skill capabilities (future):**
+- Interactive plan building (fitness, goals, methodology)
 - Pace adjustment based on race results
 - Recovery week auto-insertion
 - Taper week builder
 
-### 4. Additional Formatters
+### 2. Additional Formatters
 
 - PDF (reportlab)
 - iCal (.ics for Apple/Google Calendar)
 - JSON (API consumption)
 - CSV (spreadsheet import)
 
-### 5. New Integrations
+### 3. New Integrations
 
 - Strava (workout library)
 - Zwift (cycling workouts)
