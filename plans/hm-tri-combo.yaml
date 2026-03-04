@@ -445,6 +445,49 @@ swim_sessions:
         targetType: "no.target"
         description: "100m any stroke @ RPE 4-5"
 
+  # Mixed Intensity — 1.2 km (taper week)
+  mixed: &swim_mixed_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m freestyle warmup"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m pull buoy @ RPE 6"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "400m freestyle @ RPE 7"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m freestyle @ RPE 8"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "2x100m freestyle @ RPE 9"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "cooldown"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m easy warmdown"
+
 # Reusable track session definitions from RG Active Tri PDF.
 # Distance-based intervals with lap-button recovery between reps.
 track_sessions:
@@ -1494,7 +1537,7 @@ phases:
                   endCondition: "distance"
                   endConditionValue: 25000
                   targetType: "heart.rate.zone"
-                  zoneNumber: 2
+                  zoneNumber: 3
 
           # Day 4 - Swim + Easy Run combo
           - day: 4
@@ -1629,7 +1672,8 @@ phases:
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 20000
-                  targetType: "no.target"
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 3
 
           # Day 4 - Swim + Easy Run combo
           - day: 4
@@ -2245,10 +2289,44 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-                - stepType: "interval"
-                  endCondition: "distance"
-                  endConditionValue: 18000
-                  targetType: "no.target"
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 2
+                      childStepId: 1
+
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 360
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 3
+                      childStepId: 1
+
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 4
+                      childStepId: 1
+
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 4
+                      childStepId: 1
+
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 5
+                      childStepId: 1
 
                 - stepType: "cooldown"
                   endCondition: "distance"
@@ -2430,7 +2508,8 @@ phases:
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 8000
-                  targetType: "no.target"
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 4
 
                 - stepType: "cooldown"
                   endCondition: "distance"
@@ -2631,8 +2710,27 @@ phases:
               steps:
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 10000
-                  targetType: "no.target"
+                  endConditionValue: 2500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 3
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 2500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 4
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 2500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 4
+
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 2500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 5
 
           # Day 5 - Track
           - day: 5
@@ -2780,13 +2878,46 @@ phases:
                 - stepType: "warmup"
                   endCondition: "distance"
                   endConditionValue: 3000
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
-
-                - stepType: "interval"
-                  endCondition: "distance"
-                  endConditionValue: 20000
                   targetType: "no.target"
+
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 2
+                      childStepId: 1
+
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 360
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 3
+                      childStepId: 1
+
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 4
+                      childStepId: 1
+
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 4
+                      childStepId: 1
+
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 5
+                      childStepId: 1
 
                 - stepType: "cooldown"
                   endCondition: "distance"
@@ -2807,7 +2938,7 @@ phases:
                   endCondition: "distance"
                   endConditionValue: 10000
                   targetType: "heart.rate.zone"
-                  zoneNumber: 2
+                  zoneNumber: 3
 
           # Day 5 - Track
           - day: 5
@@ -2855,47 +2986,7 @@ phases:
             type: "swim"
             name: "Swim: Mixed Intensity"
             garmin_name: "W22D1: Mixed Swim"
-            garmin:
-              steps:
-                - stepType: "warmup"
-                  endCondition: "lap.button"
-                  targetType: "no.target"
-                  description: "200m freestyle warmup"
-                - stepType: "rest"
-                  endCondition: "lap.button"
-                  targetType: "no.target"
-                - stepType: "interval"
-                  endCondition: "lap.button"
-                  targetType: "no.target"
-                  description: "200m pull buoy @ RPE 6"
-                - stepType: "rest"
-                  endCondition: "lap.button"
-                  targetType: "no.target"
-                - stepType: "interval"
-                  endCondition: "lap.button"
-                  targetType: "no.target"
-                  description: "400m freestyle @ RPE 7"
-                - stepType: "rest"
-                  endCondition: "lap.button"
-                  targetType: "no.target"
-                - stepType: "interval"
-                  endCondition: "lap.button"
-                  targetType: "no.target"
-                  description: "200m freestyle @ RPE 8"
-                - stepType: "rest"
-                  endCondition: "lap.button"
-                  targetType: "no.target"
-                - stepType: "interval"
-                  endCondition: "lap.button"
-                  targetType: "no.target"
-                  description: "2x100m freestyle @ RPE 9"
-                - stepType: "rest"
-                  endCondition: "lap.button"
-                  targetType: "no.target"
-                - stepType: "cooldown"
-                  endCondition: "lap.button"
-                  targetType: "no.target"
-                  description: "100m easy warmdown"
+            garmin: *swim_mixed_garmin
             description: "1.5 km. Steady work with bursts — shouldn't feel tired after this."
 
           # Day 2 - Bike
