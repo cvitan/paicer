@@ -1699,9 +1699,23 @@ phases:
 
           # Day 5 - Brick: Bike + Run
           - day: 5
-            type: "brick"
+            type: "multisport"
             name: "Brick: Bike + Run"
-            skip_garmin: true
+            garmin_name: "W9D5: Brick 15km Bike + 3km Run"
+            garmin:
+              legs:
+                - sport: "bike"
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 15000
+                      targetType: "no.target"
+                - sport: "run"
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 3000
+                      targetType: "no.target"
             description: "15 km bike (RPE 5–6) → 3 km easy run (RPE 6–7). Start the run slow — legs will feel odd."
 
           # Day 6 - Long Run with steady finish
@@ -1952,9 +1966,23 @@ phases:
 
           # Day 5 - Brick: Bike + Run
           - day: 5
-            type: "brick"
+            type: "multisport"
             name: "Brick: Bike + Run"
-            skip_garmin: true
+            garmin_name: "W11D5: Brick 15km Bike + 3km Run"
+            garmin:
+              legs:
+                - sport: "bike"
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 15000
+                      targetType: "no.target"
+                - sport: "run"
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 3000
+                      targetType: "no.target"
             description: "15 km bike (RPE 5–6) → 3 km run (RPE 6). Keep the run controlled."
 
           # Day 6 - Long Run with steady finish
@@ -2462,9 +2490,35 @@ phases:
 
           # Day 7 - Brick
           - day: 7
-            type: "brick"
+            type: "multisport"
             name: "Brick: Negative Split"
-            skip_garmin: true
+            garmin_name: "W16D7: Brick 25km Bike + 5km Run"
+            garmin:
+              legs:
+                - sport: "bike"
+                  steps:
+                    - stepType: "warmup"
+                      endCondition: "distance"
+                      endConditionValue: 12500
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 2
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 12500
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 4
+                - sport: "run"
+                  steps:
+                    - stepType: "warmup"
+                      endCondition: "distance"
+                      endConditionValue: 2500
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 2
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 2500
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 4
             description: "25 km bike + 5 km run. Complete first half of each discipline at steady tempo @RPE 6, building into race pace @RPE 8 for last half. Play with position on bars for flat & climbing. Use gears to keep cadence smooth. Learning to run a negative split out of transition helps pacing."
 
       - week: 17
@@ -2639,9 +2693,25 @@ phases:
 
           # Day 7 - Brick
           - day: 7
-            type: "brick"
+            type: "multisport"
             name: "Brick: Race Pace"
-            skip_garmin: true
+            garmin_name: "W18D7: Brick 30km Bike + 5km Run"
+            garmin:
+              legs:
+                - sport: "bike"
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 30000
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 3
+                - sport: "run"
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 5000
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 3
             description: "30 km bike + 5 km run. Option 1: Split into two mini-bricks of 15 km/2.5 km for more transition practice and speed work. Option 2: Complete through once at race pace. Experiment with aero positions (hoods, drops). @RPE 7–8."
 
       - week: 19
@@ -2844,9 +2914,34 @@ phases:
 
           # Day 7 - Brick
           - day: 7
-            type: "brick"
+            type: "multisport"
             name: "Brick: Race Simulation"
-            skip_garmin: true
+            garmin_name: "W20D7: Brick 35km Bike + 7.5km Run"
+            garmin:
+              legs:
+                - sport: "bike"
+                  steps:
+                    - stepType: "warmup"
+                      endCondition: "distance"
+                      endConditionValue: 2000
+                      targetType: "no.target"
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 33000
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 4
+                - sport: "run"
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 2000
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 4
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 5500
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 2
             description: "35 km bike + 7.5 km run. Race simulation. Use intended race kit, clothing, nutrition, bottles. Bike: warm up over first 2 km then build to @RPE 8+. Run: run strong off bike for first 2 km then settle into easier pace. Prep bike as for race day (bottles, nutrition, spares)."
 
       - week: 21
