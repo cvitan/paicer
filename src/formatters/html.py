@@ -5,6 +5,7 @@ from plan_utils import (
     calculate_workout_date,
     calculate_week_dates,
     calculate_phase_dates,
+    extract_swim_steps,
 )
 from .base import DocumentFormatter
 
@@ -84,6 +85,9 @@ class HTMLFormatter(DocumentFormatter):
     .workout-day {{ font-weight: bold; color: #1a1a2e; font-size: 9px; }}
     .workout-name {{ font-weight: bold; color: #1a1a2e; margin-bottom: 5px; }}
     .workout-desc {{ font-size: 9px; color: #1a1a2e; line-height: 1.4; }}
+    .swim-steps {{ margin: 4px 0 0 0; padding-left: 18px; font-size: 8px; color: #2c3e50; }}
+    .swim-steps li {{ margin: 1px 0; }}
+    .swim-steps ul {{ padding-left: 14px; margin: 1px 0; list-style-type: disc; }}
     .overview-page {{ margin-bottom: 40px; }}
     .overview-section {{ margin: 15px 0; }}
     .overview-section p {{ font-size: 10px; margin: 5px 0; }}
@@ -213,7 +217,23 @@ class HTMLFormatter(DocumentFormatter):
                         html.append(
                             f"        <td><div class='workout-day'>{workout_title}</div></td>"
                         )
-                    html.append(f"        <td class='workout-desc'>{desc}</td>")
+                    # Build description cell content
+                    desc_html = desc
+                    if workout.get("type") == "swim":
+                        steps = extract_swim_steps(workout.get("garmin"))
+                        if steps:
+                            desc_html += "<ol class='swim-steps'>"
+                            for item in steps:
+                                if isinstance(item, tuple):
+                                    reps, nested = item
+                                    desc_html += f"<li>{reps}x:<ul>"
+                                    for n in nested:
+                                        desc_html += f"<li>{n}</li>"
+                                    desc_html += "</ul></li>"
+                                else:
+                                    desc_html += f"<li>{item}</li>"
+                            desc_html += "</ol>"
+                    html.append(f"        <td class='workout-desc'>{desc_html}</td>")
                     html.append("      </tr>")
                     prev_day = day_num
 

@@ -191,7 +191,7 @@ def main():
     if no_schedule:
         # Just uploaded, not scheduled
         if filter_day:
-            print(f"✓ Uploaded to Garmin Connect")
+            print("✓ Uploaded to Garmin Connect")
         else:
             count = len(uploaded_names)
             print(f"✓ Uploaded {count} workout{'s' if count > 1 else ''} to Garmin Connect")

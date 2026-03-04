@@ -1,3 +1,450 @@
+# Reusable swim session definitions from RG Active Tri PDF appendix.
+# Each anchor defines the garmin steps for a session.
+# All steps use lap.button — press lap to advance to next cue.
+# Rest steps between every section so you can catch your breath.
+swim_sessions:
+  # Session 1 — 1 km
+  s1: &swim_s1_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m freestyle @ RPE 4-5"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m drill — 25m fist / 25m freestyle x4"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "2x200m freestyle + pull buoy @ RPE 5"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "2x100m freestyle @ RPE 7"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "cooldown"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m freestyle @ RPE 4-5"
+
+  # Session 2 — 1.5 km
+  s2: &swim_s2_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m freestyle @ RPE 4-5"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m drill — 25m fist / 25m freestyle x4"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "400m freestyle + pull buoy @ RPE 5"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "2x200m freestyle @ RPE 6"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "2x100m freestyle @ RPE 7"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "cooldown"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m freestyle @ RPE 4-5"
+
+  # Session 3 — 1.5 km
+  s3: &swim_s3_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m freestyle @ RPE 4-5"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m drill — 50m drill / 50m freestyle x2"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "300m freestyle + pull buoy @ RPE 6"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "2x150m freestyle @ RPE 7"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "4x75m freestyle @ RPE 7-8"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "cooldown"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m freestyle @ RPE 4-5"
+
+  # Session 4 — 2 km (PDF lists 1.3 km; main set repeats 3x to reach 2 km)
+  s4: &swim_s4_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "400m freestyle @ RPE 5"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "400m freestyle + pull buoy @ RPE 5-6"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "repeat"
+        numberOfIterations: 3
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "200m freestyle @ RPE 6"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "100m freestyle @ RPE 7"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "50m freestyle @ RPE 8"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+      - stepType: "cooldown"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "150m any stroke @ RPE 4-5"
+
+  # Session 5 — 2 km
+  s5: &swim_s5_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m freestyle @ RPE 5"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "300m drill — 25m L-arm / 25m R-arm / 50m freestyle x3"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "400m freestyle @ RPE 5-6"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m freestyle + paddles + pull buoy @ RPE 6"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "4x200m freestyle @ RPE 7-8 (30s rest)"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "cooldown"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m any stroke @ RPE 4-5"
+
+  # Session 6 — 2 km (PDF lists 1.4 km; {400+200} repeats 2x, then 2x100)
+  s6: &swim_s6_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "400m freestyle @ RPE 5"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m kicking with kickboard"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "repeat"
+        numberOfIterations: 2
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "400m freestyle + pull buoy @ RPE 5-6"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "200m freestyle @ RPE 6-7"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "2x100m freestyle @ RPE 8"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "cooldown"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m any stroke @ RPE 4-5"
+
+  # Session 7 — 2.5 km (main set repeats 2x)
+  s7: &swim_s7_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m freestyle @ RPE 5"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m drill — 25m fist / 25m freestyle x4"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "repeat"
+        numberOfIterations: 2
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "400m freestyle @ RPE 5-6"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "2x200m freestyle + paddles @ RPE 6-7"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "2x100m freestyle @ RPE 8"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+      - stepType: "cooldown"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m any stroke @ RPE 4-5"
+
+  # Session 8 — 2.5 km (main set repeats 2x)
+  s8: &swim_s8_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "400m freestyle @ RPE 5"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "400m drill — 50m kick / 50m freestyle x4"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m freestyle + pull buoy @ RPE 6"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "repeat"
+        numberOfIterations: 2
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "400m freestyle @ RPE 6"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "200m freestyle @ RPE 7-8"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "100m mixed stroke @ RPE 5-6"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+      - stepType: "cooldown"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m freestyle @ RPE 4-5"
+
+  # Session 9 — 2.5 km (main set repeats 3x; PDF says 3 km but totals 2.5 km)
+  s9: &swim_s9_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "400m freestyle @ RPE 5+"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m kickboard"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m freestyle + pull buoy @ RPE 6"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "repeat"
+        numberOfIterations: 3
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "200m freestyle @ RPE 6"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "2x100m freestyle @ RPE 7"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "4x50m freestyle @ RPE 8+"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+      - stepType: "cooldown"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m any stroke @ RPE 4-5"
+
 plan:
   name: "Half Marathon → Olympic Triathlon"
   start_date: "2026-02-22"
@@ -38,11 +485,9 @@ phases:
   - phase: 1
     name: "Half Marathon Build"
     description: |
-      Reactivate running fitness from your marathon base. Build threshold pace progressively using Pfitzinger methodology.
+      **Format:** 4 runs/week + 1–2 easy bike rides (45–60 min, RPE 5)
 
       Easy pace will likely start around 6:00–6:15/km and should naturally come down toward 5:45–5:50/km by week 6 as fitness returns.
-
-      **Format:** 4 runs/week + 1–2 easy bike rides (45–60 min, RPE 5)
 
     weeks:
       - week: 1
@@ -707,8 +1152,6 @@ phases:
     name: "HM Peak + Tri Begins"
     training_days: [1, 2, 3, 4, 6, 7]
     description: |
-      Continue progressing HM-specific running while introducing structured swim and bike from the RG Active triathlon plan (weeks 1–7). Taper all disciplines into Brooklyn Half race day.
-
       **Format:** 4 runs + 2 swims + 1 bike per week (9 sessions). ~8–10 hours/week.
 
       **CRITICAL RULE:** Maximum 2 hard sessions per week across all disciplines. Tuesday quality run = always hard #1. Hard #2 = either Saturday long run (when it has a tempo finish) or harder bike — never both. If fatigued → reduce bike first, then swim. Protect the running.
@@ -726,9 +1169,10 @@ phases:
           # Day 1 (Mon) - Swim
           - day: 1
             type: "swim"
-            name: "Swim: Drills/Intervals"
-            skip_garmin: true
-            description: "Tri PDF Session #2. 1.5 km. Drills/Intervals at RPE 5–7. First structured swim in months. Focus on feel, breathing, technique."
+            name: "Swim: Session #2"
+            garmin_name: "W7D1: Swim #2"
+            garmin: *swim_s2_garmin
+            description: "1.5 km. Drills/Intervals at RPE 5–7. First structured swim in months. Focus on feel, breathing, technique."
 
           # Day 2 (Tue) - Quality Run: WU 2km + 3×10min @ 5:15/km + 2min recovery + CD 2km
           - day: 2
@@ -786,9 +1230,10 @@ phases:
           # Day 4 (Thu) - Swim + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Swim: Drills/Intervals"
-            skip_garmin: true
-            description: "Tri PDF Session #1. 1 km. Drills/Intervals at RPE 5–7. Shorter technique session."
+            name: "Swim: Session #1"
+            garmin_name: "W7D4: Swim #1"
+            garmin: *swim_s1_garmin
+            description: "1 km. Drills/Intervals at RPE 5–7. Shorter technique session."
 
           - day: 4
             type: "run"
@@ -860,9 +1305,10 @@ phases:
           # Day 1 (Mon) - Swim
           - day: 1
             type: "swim"
-            name: "Swim: Drills/Intervals"
-            skip_garmin: true
-            description: "Tri PDF Session #3. 1.5 km. Drills/Intervals at RPE 5–7."
+            name: "Swim: Session #3"
+            garmin_name: "W8D1: Swim #3"
+            garmin: *swim_s3_garmin
+            description: "1.5 km. Drills/Intervals at RPE 5–7."
 
           # Day 2 (Tue) - Quality Run: WU 2km + 30min continuous @ 5:15/km + CD 2km
           - day: 2
@@ -909,9 +1355,10 @@ phases:
           # Day 4 (Thu) - Swim + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Swim: Drills/Intervals"
-            skip_garmin: true
-            description: "1.5 km swim (Tri PDF Session #2, RPE 5–7). Per Tri PDF Wk 2 combo session."
+            name: "Swim: Session #2"
+            garmin_name: "W8D4: Swim #2"
+            garmin: *swim_s2_garmin
+            description: "1.5 km at RPE 5–7."
 
           - day: 4
             type: "run"
@@ -983,9 +1430,10 @@ phases:
           # Day 1 (Mon) - Swim
           - day: 1
             type: "swim"
-            name: "Swim: Drills/Intervals"
-            skip_garmin: true
-            description: "Tri PDF Session #4. 2 km. Drills/Intervals at RPE 5–7."
+            name: "Swim: Session #4"
+            garmin_name: "W9D1: Swim #4"
+            garmin: *swim_s4_garmin
+            description: "2 km. Drills/Intervals at RPE 5–7."
 
           # Day 2 (Tue) - Quality Run: WU 2km + 2×12min @ 5:10/km + 3min recovery + CD 2km
           - day: 2
@@ -1042,9 +1490,10 @@ phases:
           # Day 4 (Thu) - Swim + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Swim: Drills/Intervals"
-            skip_garmin: true
-            description: "Tri PDF Session #3. 1.5 km at RPE 5–7."
+            name: "Swim: Session #3"
+            garmin_name: "W9D4: Swim #3"
+            garmin: *swim_s3_garmin
+            description: "1.5 km at RPE 5–7."
 
           - day: 4
             type: "run"
@@ -1101,9 +1550,10 @@ phases:
           # Day 1 (Mon) - Swim
           - day: 1
             type: "swim"
-            name: "Swim: Drills/Intervals"
-            skip_garmin: true
-            description: "Tri PDF Session #5. 2 km. Drills/Intervals at RPE 5–8."
+            name: "Swim: Session #5"
+            garmin_name: "W10D1: Swim #5"
+            garmin: *swim_s5_garmin
+            description: "2 km. Drills/Intervals at RPE 5–8."
 
           # Day 2 (Tue) - Quality Run: WU 2km + 3×2km @ 5:05-5:10/km + 2min recovery + CD 2km
           - day: 2
@@ -1160,9 +1610,10 @@ phases:
           # Day 4 (Thu) - Swim + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Swim: Drills/Intervals"
-            skip_garmin: true
-            description: "1.5 km swim (Tri PDF Session #3, RPE 5–7)."
+            name: "Swim: Session #3"
+            garmin_name: "W10D4: Swim #3"
+            garmin: *swim_s3_garmin
+            description: "1.5 km at RPE 5–7."
 
           - day: 4
             type: "run"
@@ -1234,9 +1685,10 @@ phases:
           # Day 1 (Mon) - Swim
           - day: 1
             type: "swim"
-            name: "Swim: Drill/Intervals"
-            skip_garmin: true
-            description: "Tri PDF Session #6. 2 km. Drill/Intervals at RPE 5–8."
+            name: "Swim: Session #6"
+            garmin_name: "W11D1: Swim #6"
+            garmin: *swim_s6_garmin
+            description: "2 km. Drill/Intervals at RPE 5–8."
 
           # Day 2 (Tue) - Quality Run: WU 2km + 20min @ 5:10 + 10min @ 5:05 + CD 2km
           - day: 2
@@ -1291,9 +1743,10 @@ phases:
           # Day 4 (Thu) - Swim + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Swim: Drills/Intervals"
-            skip_garmin: true
-            description: "Tri PDF Session #2. 1.5 km at RPE 5–7."
+            name: "Swim: Session #2"
+            garmin_name: "W11D4: Swim #2"
+            garmin: *swim_s2_garmin
+            description: "1.5 km at RPE 5–7."
 
           - day: 4
             type: "run"
@@ -1350,9 +1803,10 @@ phases:
           # Day 1 (Mon) - Swim (only 1 swim this week)
           - day: 1
             type: "swim"
-            name: "Swim: Drills/Intervals"
-            skip_garmin: true
-            description: "Tri PDF Session #4. 2 km at RPE 5–7. Only 1 swim this week — keep it moderate."
+            name: "Swim: Session #4"
+            garmin_name: "W12D1: Swim #4"
+            garmin: *swim_s4_garmin
+            description: "2 km at RPE 5–7. Only 1 swim this week — keep it moderate."
 
           # Day 2 (Tue) - Quality Run: WU 2km + 4×1km @ 5:00-5:05/km + 90sec recovery + CD 2km
           - day: 2
@@ -1410,8 +1864,14 @@ phases:
           # Day 4 (Thu) - Swim (optional) + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Swim: (optional)"
-            skip_garmin: true
+            name: "Swim: Easy (optional)"
+            garmin_name: "W12D4: Easy Swim"
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                  description: "30 min easy swim @ RPE 4-5"
             description: "Listen to your body. If fresh, easy 30 min swim (RPE 4–5). If tired, skip."
 
           - day: 4
@@ -1478,7 +1938,13 @@ phases:
           - day: 1
             type: "swim"
             name: "Swim: Easy"
-            skip_garmin: true
+            garmin_name: "W13D1: Easy Swim"
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                  description: "1.5 km easy freestyle @ RPE 4-5"
             description: "Easy 1.5 km at RPE 4–5. Technique focus. Loosen up."
 
           # Day 2 (Tue) - Sharpener Run: WU 2km + 3×3min @ 5:05/km + 2min recovery + CD 2km
@@ -1567,16 +2033,7 @@ phases:
     name: "Triathlon Only"
     training_days: [1, 2, 3, 4, 5, 6, 7]
     description: |
-      Follow the RG Active triathlon plan from Week 8 through race day. Your half marathon running fitness carries forward — tri runs are shorter (5–10 km) but with more intensity and brick work. Open water swimming begins in Week 2.
-
       **Format:** 6 sessions/week (Thu rest). ~8–12 hours/week.
-
-      **KEY NOTES:** Test all race kit by Week 6 (Jun 30). Week 5 is peak volume (114.5 km) — prioritise sleep and recovery nutrition. Refer to Tri PDF appendix for swim session breakdowns.
-
-      **Triathlon Race Strategy (July 20):**
-      - Swim (1.5 km): Start steady, find rhythm, sight every 4–6 strokes. Draft if possible. RPE 7.
-      - Bike (40 km): Your strength. RPE 7–8 but stay controlled — save legs for the run. Stay aero, hydrate.
-      - Run (10 km): First 2 km will feel strange. Start RPE 6–7, settle, build to RPE 8 over second half.
 
     weeks:
       - week: 14
@@ -1596,7 +2053,13 @@ phases:
           - day: 4
             type: "swim"
             name: "Swim: Easy (optional)"
-            skip_garmin: true
+            garmin_name: "W14D4: Easy Swim"
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                  description: "20-30 min easy swim @ RPE 4"
             description: "Optional: 20–30 min easy swim — relaxed laps, no drills. @RPE 4."
 
           # Day 6 (Sat) - Optional easy ride
@@ -1619,7 +2082,8 @@ phases:
           - day: 1
             type: "swim"
             name: "Swim: Session #7 (Drill/Pacing)"
-            skip_garmin: true
+            garmin_name: "W15D1: Swim #7"
+            garmin: *swim_s7_garmin
             description: "2.5 km. When using paddles, they slow your cadence so you can focus on stroke technique. Holding harder efforts for longer; shorter sprints for speed."
 
           # Day 2 (Tue) - Bike
@@ -1712,7 +2176,8 @@ phases:
           - day: 5
             type: "swim"
             name: "Swim: Session #8 (TT/Pacing)"
-            skip_garmin: true
+            garmin_name: "W15D5: Swim #8"
+            garmin: *swim_s8_garmin
             description: "2.5 km. If using a swim watch or pace clock, you should see improvements in speed and ability to hold speed for longer."
 
           # Day 6 (Sat) - Run
@@ -1757,7 +2222,8 @@ phases:
           - day: 1
             type: "swim"
             name: "Swim: Session #7 (Drill/Intervals)"
-            skip_garmin: true
+            garmin_name: "W16D1: Swim #7"
+            garmin: *swim_s7_garmin
             description: "2.5 km. Swim the first 1 km of the main set as a straight Time Trial for a race-pace time — good progress marker. Resume second km as normal interval breakdown. When breathing, keep one eye in the water and lead hand out front."
 
           # Day 2 (Tue) - Bike
@@ -1790,7 +2256,8 @@ phases:
           - day: 3
             type: "swim"
             name: "Swim: Session #4 (Intervals/Steady)"
-            skip_garmin: true
+            garmin_name: "W16D3: Swim #4"
+            garmin: *swim_s4_garmin
             description: "2 km."
 
           - day: 3
@@ -1893,7 +2360,8 @@ phases:
           - day: 1
             type: "swim"
             name: "Swim: Session #8 (Drills/Intervals)"
-            skip_garmin: true
+            garmin_name: "W17D1: Swim #8"
+            garmin: *swim_s8_garmin
             description: "2.5 km. Count strokes per length to check technique — if count increases, you're losing efficiency or fatiguing. When breathing, keep one eye in the water, lead hand out front until recovery arm is coming forward."
 
           # Day 2 (Tue) - Bike
@@ -1991,7 +2459,8 @@ phases:
           - day: 1
             type: "swim"
             name: "Swim: Session #7 (Drills/Intervals)"
-            skip_garmin: true
+            garmin_name: "W18D1: Swim #7"
+            garmin: *swim_s7_garmin
             description: "2.5 km. Pace control — aim to repeat pace of each set. Maintain alignment and form even on harder/shorter sets. Losing technique makes you slower."
 
           # Day 2 (Tue) - Bike
@@ -2012,7 +2481,8 @@ phases:
           - day: 3
             type: "swim"
             name: "Swim: Session #5 (Intervals)"
-            skip_garmin: true
+            garmin_name: "W18D3: Swim #5"
+            garmin: *swim_s5_garmin
             description: "2 km."
 
           - day: 3
@@ -2149,7 +2619,8 @@ phases:
           - day: 1
             type: "swim"
             name: "Swim: Session #8 (Drills/Intervals)"
-            skip_garmin: true
+            garmin_name: "W19D1: Swim #8"
+            garmin: *swim_s8_garmin
             description: "2.5 km. Keep body position in mind — legs high in the water. Think about rotation through hips and forearm position on catch."
 
           # Day 2 (Tue) - Bike
@@ -2298,7 +2769,8 @@ phases:
           - day: 1
             type: "swim"
             name: "Swim: Session #9 (Drills/Intervals)"
-            skip_garmin: true
+            garmin_name: "W20D1: Swim #9"
+            garmin: *swim_s9_garmin
             description: "2.5 km. Final fitness push — use shorter efforts to work hard and longer efforts to refocus on technique. Paddle work for stroke strength."
 
           # Day 2 (Tue) - Bike
@@ -2319,7 +2791,8 @@ phases:
           - day: 3
             type: "swim"
             name: "Swim: Session #6 (Intervals)"
-            skip_garmin: true
+            garmin_name: "W20D3: Swim #6"
+            garmin: *swim_s6_garmin
             description: "2 km. Wear tri-suit underneath wetsuit. Practice sighting and speed work."
 
           - day: 3
@@ -2383,7 +2856,8 @@ phases:
           - day: 1
             type: "swim"
             name: "Swim: Session #7 (Drills/Intervals)"
-            skip_garmin: true
+            garmin_name: "W21D1: Swim #7"
+            garmin: *swim_s7_garmin
             description: "2.5 km. You should be swimming these at your best pace in the program. Getting near best 100 m & 200 m times — the real show of fitness comes when you replicate this pace in open water."
 
           # Day 2 (Tue) - Bike
@@ -2523,8 +2997,49 @@ phases:
           - day: 1
             type: "swim"
             name: "Swim: Mixed Intensity"
-            skip_garmin: true
-            description: "1.5 km. 200 m warm up, 200 m pull buoy @RPE 6, 400 m @RPE 7, 200 m @RPE 8, 2x100 m @RPE 9, 100 m warm down. Steady work with bursts — shouldn't feel tired after this."
+            garmin_name: "W22D1: Mixed Swim"
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                  description: "200m freestyle warmup"
+                - stepType: "rest"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                - stepType: "interval"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                  description: "200m pull buoy @ RPE 6"
+                - stepType: "rest"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                - stepType: "interval"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                  description: "400m freestyle @ RPE 7"
+                - stepType: "rest"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                - stepType: "interval"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                  description: "200m freestyle @ RPE 8"
+                - stepType: "rest"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                - stepType: "interval"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                  description: "2x100m freestyle @ RPE 9"
+                - stepType: "rest"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                - stepType: "cooldown"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                  description: "100m easy warmdown"
+            description: "1.5 km. Steady work with bursts — shouldn't feel tired after this."
 
           # Day 2 (Tue) - Bike
           - day: 2
@@ -2574,7 +3089,13 @@ phases:
           - day: 6
             type: "swim"
             name: "Swim: Easy"
-            skip_garmin: true
+            garmin_name: "W22D6: Easy Swim"
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "lap.button"
+                  targetType: "no.target"
+                  description: "750m relaxed — easy laps with short bursts @ RPE 5-7"
             description: "750 m. Relaxed effort, loosening off with a few short bursts @RPE 5–7. Good position, technique, relaxed stroke. Can do in open water for confidence boost and wetsuit removal practice. If you've travelled to the event, this helps get over the journey."
 
           # Day 7 (Sun) - RACE DAY

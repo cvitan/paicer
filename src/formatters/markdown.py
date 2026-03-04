@@ -5,6 +5,7 @@ from plan_utils import (
     calculate_workout_date,
     calculate_week_dates,
     calculate_phase_dates,
+    extract_swim_steps,
 )
 from .base import DocumentFormatter
 
@@ -42,8 +43,25 @@ class MarkdownFormatter(DocumentFormatter):
         distance = workout.get("distance")
         if distance:
             distance_km = distance / 1000
-            return f"**{prefix}{name}** — {distance_km}km  \n{desc}\n"
-        return f"**{prefix}{name}**  \n{desc}\n"
+            line = f"**{prefix}{name}** — {distance_km}km  \n{desc}\n"
+        else:
+            line = f"**{prefix}{name}**  \n{desc}\n"
+
+        # Render swim session steps
+        if workout.get("type") == "swim":
+            steps = extract_swim_steps(workout.get("garmin"))
+            if steps:
+                line += "\n"
+                for item in steps:
+                    if isinstance(item, tuple):
+                        reps, nested = item
+                        line += f"- {reps}x:\n"
+                        for n in nested:
+                            line += f"  - {n}\n"
+                    else:
+                        line += f"- {item}\n"
+
+        return line
 
     def render(self, plan_data: dict) -> str:
         """Generate markdown from plan data."""
