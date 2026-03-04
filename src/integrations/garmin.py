@@ -8,6 +8,18 @@ from .base import WorkoutIntegration
 load_dotenv()
 
 
+SPORT_TYPES = {
+    "run": {"sportTypeId": 1, "sportTypeKey": "running", "displayOrder": 1},
+    "bike": {"sportTypeId": 2, "sportTypeKey": "cycling", "displayOrder": 2},
+    "swim": {"sportTypeId": 4, "sportTypeKey": "swimming", "displayOrder": 3},
+}
+
+STROKE_TYPES = {
+    "free": {"strokeTypeId": 6, "strokeTypeKey": "free", "displayOrder": 6},
+    "any": {"strokeTypeId": 1, "strokeTypeKey": "any_stroke", "displayOrder": 1},
+    "none": {"strokeTypeId": 0, "displayOrder": 0},
+}
+
 # Garmin API constants (actual values, library constants are wrong!)
 STEP_TYPES = {
     "warmup": 1,
@@ -69,6 +81,7 @@ class GarminIntegration(WorkoutIntegration):
     def build_workout(self, workout_def: dict) -> dict:
         """Build Garmin workout JSON from YAML workout definition."""
         garmin_steps = workout_def["garmin"]["steps"]
+        is_swim = workout_def.get("type") == "swim"
 
         # Convert YAML steps to Garmin JSON
         def convert_steps(steps_list, parent_child_id=None):
@@ -98,67 +111,74 @@ class GarminIntegration(WorkoutIntegration):
                     }
                     converted.append(repeat_step)
                 else:
-                    # Regular executable step
-                    exec_step = {
-                        "type": "ExecutableStepDTO",
-                        "stepOrder": step_order,
-                        "stepType": resolve_step_type(step["stepType"]),
-                        "endCondition": resolve_condition_type(step["endCondition"]),
-                    }
-
-                    if "endConditionValue" in step:
-                        exec_step["endConditionValue"] = step["endConditionValue"]
-
-                    exec_step["targetType"] = resolve_target_type(step["targetType"])
-
-                    if "targetValueOne" in step:
-                        exec_step["targetValueOne"] = step["targetValueOne"]
-                    if "targetValueTwo" in step:
-                        exec_step["targetValueTwo"] = step["targetValueTwo"]
-                    if "zoneNumber" in step:
-                        exec_step["zoneNumber"] = step["zoneNumber"]
-
-                    exec_step["strokeType"] = {"strokeTypeId": 0, "displayOrder": 0}
-                    exec_step["equipmentType"] = {"equipmentTypeId": 0, "displayOrder": 0}
-
-                    if "childStepId" in step:
-                        exec_step["childStepId"] = step["childStepId"]
-
-                    # Add preferredEndConditionUnit for distance
-                    if step.get("endCondition") == "distance":
-                        exec_step["preferredEndConditionUnit"] = {
-                            "unitId": 2,
-                            "unitKey": "kilometer",
-                            "factor": 100000.0,
-                        }
-
+                    exec_step = build_exec_step(step, step_order)
                     converted.append(exec_step)
 
             return converted, child_id_counter
 
+        def build_exec_step(step, step_order):
+            """Build a single executable step."""
+            exec_step = {
+                "type": "ExecutableStepDTO",
+                "stepOrder": step_order,
+                "stepType": resolve_step_type(step["stepType"]),
+                "endCondition": resolve_condition_type(step["endCondition"]),
+            }
+
+            if "endConditionValue" in step:
+                exec_step["endConditionValue"] = step["endConditionValue"]
+
+            if "description" in step:
+                exec_step["description"] = step["description"]
+
+            exec_step["strokeType"] = STROKE_TYPES["none"]
+
+            exec_step["equipmentType"] = {"equipmentTypeId": 0, "displayOrder": 0}
+
+            if is_swim:
+                exec_step["targetType"] = None
+            else:
+                exec_step["targetType"] = resolve_target_type(
+                    step["targetType"]
+                )
+                if "targetValueOne" in step:
+                    exec_step["targetValueOne"] = step["targetValueOne"]
+                if "targetValueTwo" in step:
+                    exec_step["targetValueTwo"] = step["targetValueTwo"]
+                if "zoneNumber" in step:
+                    exec_step["zoneNumber"] = step["zoneNumber"]
+
+            if "childStepId" in step:
+                exec_step["childStepId"] = step["childStepId"]
+
+            if step.get("endCondition") == "distance":
+                exec_step["preferredEndConditionUnit"] = {
+                    "unitId": 2,
+                    "unitKey": "kilometer",
+                    "factor": 100000.0,
+                }
+
+            return exec_step
+
         workout_steps, _ = convert_steps(garmin_steps)
 
-        # Build complete Garmin workout JSON
-        return {
+        sport_type = SPORT_TYPES.get(
+            workout_def.get("type", "run"), SPORT_TYPES["run"]
+        )
+        workout = {
             "workoutName": workout_def["garmin_name"],
             "description": workout_def.get("description", ""),
-            "sportType": {
-                "sportTypeId": 1,
-                "sportTypeKey": "running",
-                "displayOrder": 1,
-            },
+            "sportType": sport_type,
             "workoutSegments": [
                 {
                     "segmentOrder": 1,
-                    "sportType": {
-                        "sportTypeId": 1,
-                        "sportTypeKey": "running",
-                        "displayOrder": 1,
-                    },
+                    "sportType": sport_type,
                     "workoutSteps": workout_steps,
                 }
             ],
         }
+
+        return workout
 
     def authenticate(self):
         """Authenticate with Garmin Connect."""

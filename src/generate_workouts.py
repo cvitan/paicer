@@ -5,6 +5,7 @@ Sync workouts from YAML plan to workout integration.
 Usage:
     python generate_workouts.py plan.yaml <filter> [--no-schedule]
 
+Filter: p1 | w7 | w7d2 | all
 Integration is set via WORKOUT_INTEGRATION in .env (default: garmin)
 """
 
@@ -27,23 +28,27 @@ def get_integration(name: str):
 
 
 def parse_filter(filter_str: str) -> tuple[int | None, int | None, int | None]:
-    """Parse filter like 'p1w1', 'p1w1d3', or 'all'."""
+    """Parse filter like 'p1', 'w7', 'w7d2', or 'all'."""
     import re
 
     if filter_str.lower() == "all":
         return None, None, None
 
-    match = re.match(r"[pP](\d+)[wW](\d+)(?:[dD](\d+))?$", filter_str)
-    if not match:
-        raise ValueError(
-            f"Invalid filter: {filter_str}. Use 'p1w1', 'p1w1d3', or 'all'"
-        )
+    # Phase only: p1, p2
+    match = re.match(r"[pP](\d+)$", filter_str)
+    if match:
+        return int(match.group(1)), None, None
 
-    phase = int(match.group(1))
-    week = int(match.group(2))
-    day = int(match.group(3)) if match.group(3) else None
+    # Week (with optional day): w7, w7d2
+    match = re.match(r"[wW](\d+)(?:[dD](\d+))?$", filter_str)
+    if match:
+        week = int(match.group(1))
+        day = int(match.group(2)) if match.group(2) else None
+        return None, week, day
 
-    return phase, week, day
+    raise ValueError(
+        f"Invalid filter: {filter_str}. Use 'p1', 'w7', 'w7d2', or 'all'"
+    )
 
 
 def main():
@@ -51,8 +56,9 @@ def main():
         print("Usage: python generate_workouts.py plan.yaml <filter> [--no-schedule]")
         print("")
         print("Filter (required):")
-        print("  p1w1      Phase 1 Week 1")
-        print("  p1w1d3    Phase 1 Week 1 Day 3")
+        print("  p1        All workouts in phase 1")
+        print("  w7        All workouts in week 7")
+        print("  w7d2      Week 7 day 2 only")
         print("  all       All weeks")
         print("")
         print("Options:")
@@ -91,6 +97,7 @@ def main():
     # Track uploaded workouts and their dates
     uploaded_dates = []
     uploaded_names = []
+    skipped_workouts = []
     week_monday = None
 
     # Process each phase
@@ -109,25 +116,26 @@ def main():
             if filter_week is not None and week_num != filter_week:
                 continue
 
-            # Validate: count required workouts
-            required_workouts = [
-                w
+            # Validate: Garmin workouts don't exceed training days
+            garmin_days = set(
+                w["day"]
                 for w in week_data["workouts"]
-                if not w.get("skip_garmin") and w["type"] == "run"
-            ]
-            if len(required_workouts) > len(phase_training_days):
+                if not w.get("skip_garmin") and "garmin" in w
+            )
+            if len(garmin_days) > len(phase_training_days):
                 print(
-                    f"Error: Week {week_num} has {len(required_workouts)} workouts but only {len(phase_training_days)} training days"
+                    f"Error: Week {week_num} has {len(garmin_days)} Garmin days but only {len(phase_training_days)} training days"
                 )
                 sys.exit(1)
 
             for workout in week_data["workouts"]:
-                if workout["type"] != "run" or workout.get("skip_garmin"):
-                    continue
-
                 day_num = workout["day"]
 
                 if filter_day is not None and day_num != filter_day:
+                    continue
+
+                if workout.get("skip_garmin") or "garmin" not in workout:
+                    skipped_workouts.append(workout)
                     continue
 
                 workout_date = calculate_workout_date(
@@ -143,7 +151,9 @@ def main():
                     if filter_day:
                         print(f"Syncing {workout['garmin_name']}: {workout['name']}")
                     elif filter_week:
-                        print(f"Syncing Phase {filter_phase} Week {filter_week}")
+                        print(f"Syncing Week {filter_week}")
+                    elif filter_phase:
+                        print(f"Syncing Phase {filter_phase}")
                     else:
                         print("Syncing all workouts...")
 
@@ -170,6 +180,10 @@ def main():
 
     # Result
     if not uploaded_dates:
+        if skipped_workouts:
+            for w in skipped_workouts:
+                print(f"Skipped: {w['name']} (session set to skip Garmin sync)")
+            sys.exit(0)
         print("Error: No workouts found matching filter")
         sys.exit(1)
 
@@ -177,20 +191,18 @@ def main():
     if no_schedule:
         # Just uploaded, not scheduled
         if filter_day:
-            print(f"✓ Uploaded to Garmin Connect")
+            print("✓ Uploaded to Garmin Connect")
         else:
             count = len(uploaded_names)
             print(f"✓ Uploaded {count} workout{'s' if count > 1 else ''} to Garmin Connect")
     else:
         # Uploaded and scheduled
         if filter_day:
-            # Single workout: show title and date
             print(f"✓ Synced to Garmin Connect and scheduled for {uploaded_dates[0]}")
-        elif filter_week:
-            # Week: show Monday of week
-            print(f"✓ Synced to Garmin Connect and scheduled for the week of {week_monday}")
+        elif filter_week or filter_phase:
+            count = len(uploaded_names)
+            print(f"✓ Synced {count} workout{'s' if count > 1 else ''} to Garmin Connect")
         else:
-            # All: just confirm
             print("✓ Synced to Garmin Connect")
 
 

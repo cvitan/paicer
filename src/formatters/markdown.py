@@ -5,6 +5,7 @@ from plan_utils import (
     calculate_workout_date,
     calculate_week_dates,
     calculate_phase_dates,
+    extract_swim_steps,
 )
 from .base import DocumentFormatter
 
@@ -13,7 +14,12 @@ class MarkdownFormatter(DocumentFormatter):
     """Renders training plan as Markdown."""
 
     def format_workout(
-        self, workout: Dict, start_date: str, week_num: int, training_days: list[int]
+        self,
+        workout: Dict,
+        start_date: str,
+        week_num: int,
+        training_days: list[int],
+        show_day_label: bool = True,
     ) -> str:
         """Format a single workout as markdown."""
         day_num = workout.get("day")
@@ -24,23 +30,38 @@ class MarkdownFormatter(DocumentFormatter):
         if day_num and day_num > len(training_days):
             return ""
 
-        # Calculate date if day is specified
-        date_str = ""
-        if day_num:
+        # Build day prefix (weekday + date) when applicable
+        prefix = ""
+        if day_num and show_day_label:
             workout_date = calculate_workout_date(
                 start_date, week_num, day_num, training_days
             )
-            date_str = f" ({workout_date})"
+            weekday_names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+            day_name = weekday_names[training_days[day_num - 1] - 1]
+            prefix = f"{day_name} ({workout_date}): "
 
-        # Add distance if available
         distance = workout.get("distance")
-        if distance and day_num:
+        if distance:
             distance_km = distance / 1000
-            return f"**Day {day_num}{date_str}: {name}** — {distance_km}km  \n{desc}\n"
-        elif day_num:
-            return f"**Day {day_num}{date_str}: {name}**  \n{desc}\n"
+            line = f"**{prefix}{name}** — {distance_km}km  \n{desc}\n"
         else:
-            return f"**{name}**  \n{desc}\n"
+            line = f"**{prefix}{name}**  \n{desc}\n"
+
+        # Render swim session steps
+        if workout.get("type") == "swim":
+            steps = extract_swim_steps(workout.get("garmin"))
+            if steps:
+                line += "\n"
+                for item in steps:
+                    if isinstance(item, tuple):
+                        reps, nested = item
+                        line += f"- {reps}x:\n"
+                        for n in nested:
+                            line += f"  - {n}\n"
+                    else:
+                        line += f"- {item}\n"
+
+        return line
 
     def render(self, plan_data: dict) -> str:
         """Generate markdown from plan data."""
@@ -94,12 +115,17 @@ class MarkdownFormatter(DocumentFormatter):
                 md.append("### Workouts")
                 md.append("")
 
+                prev_day = None
                 for workout in week["workouts"]:
+                    day_num = workout.get("day")
+                    same_day = day_num is not None and day_num == prev_day
                     formatted = self.format_workout(
-                        workout, start_date, week_num, phase_training_days
+                        workout, start_date, week_num, phase_training_days,
+                        show_day_label=not same_day,
                     )
                     if formatted:
                         md.append(formatted)
                         md.append("")
+                    prev_day = day_num
 
         return "\n".join(md)

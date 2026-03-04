@@ -5,6 +5,7 @@ from plan_utils import (
     calculate_workout_date,
     calculate_week_dates,
     calculate_phase_dates,
+    extract_swim_steps,
 )
 from .base import DocumentFormatter
 
@@ -80,10 +81,13 @@ class HTMLFormatter(DocumentFormatter):
     .workout-table {{ width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9px; }}
     .workout-table th {{ background-color: #2c3e50; color: white; padding: 6px; text-align: left; font-size: 9px; }}
     .workout-table td {{ border: 1px solid #cccccc; padding: 8px; vertical-align: top; }}
-    .workout-table tr:nth-child(even) {{ background-color: #eef2f7; }}
+    .workout-table tr.row-shaded {{ background-color: #eef2f7; }}
     .workout-day {{ font-weight: bold; color: #1a1a2e; font-size: 9px; }}
     .workout-name {{ font-weight: bold; color: #1a1a2e; margin-bottom: 5px; }}
     .workout-desc {{ font-size: 9px; color: #1a1a2e; line-height: 1.4; }}
+    .swim-steps {{ margin: 4px 0 0 0; padding-left: 18px; font-size: 8px; color: #2c3e50; }}
+    .swim-steps li {{ margin: 1px 0; }}
+    .swim-steps ul {{ padding-left: 14px; margin: 1px 0; list-style-type: disc; }}
     .overview-page {{ margin-bottom: 40px; }}
     .overview-section {{ margin: 15px 0; }}
     .overview-section p {{ font-size: 10px; margin: 5px 0; }}
@@ -172,6 +176,10 @@ class HTMLFormatter(DocumentFormatter):
                 html.append("        <th>Details</th>")
                 html.append("      </tr>")
 
+                weekday_names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+                prev_day = None
+                row_group = 0
+
                 for workout in week["workouts"]:
                     day_num = workout.get("day")
 
@@ -179,17 +187,15 @@ class HTMLFormatter(DocumentFormatter):
                     if day_num and day_num > len(phase_training_days):
                         continue
 
+                    # Track day groups for alternating colors
+                    same_day = day_num is not None and day_num == prev_day
+                    if not same_day:
+                        row_group += 1
+                    row_class = " class='row-shaded'" if row_group % 2 == 0 else ""
+
                     name = workout["name"]
                     desc = workout["description"]
                     distance = workout.get("distance")
-
-                    # Calculate date
-                    date_str = ""
-                    if day_num:
-                        workout_date = calculate_workout_date(
-                            start_date, week_num, day_num, phase_training_days
-                        )
-                        date_str = f" ({workout_date})"
 
                     # Workout title
                     workout_title = name
@@ -197,18 +203,39 @@ class HTMLFormatter(DocumentFormatter):
                         distance_km = distance / 1000
                         workout_title = f"{name} — {distance_km}km"
 
-                    html.append("      <tr>")
+                    html.append(f"      <tr{row_class}>")
                     html.append("        <td></td>")
-                    if day_num:
+                    if day_num and not same_day:
+                        workout_date = calculate_workout_date(
+                            start_date, week_num, day_num, phase_training_days
+                        )
+                        day_label = weekday_names[phase_training_days[day_num - 1] - 1]
                         html.append(
-                            f"        <td><div class='workout-name'>Day {day_num}{date_str}</div><div class='workout-day'>{workout_title}</div></td>"
+                            f"        <td><div class='workout-name'>{day_label} ({workout_date})</div><div class='workout-day'>{workout_title}</div></td>"
                         )
                     else:
                         html.append(
-                            f"        <td><div class='workout-name'>{workout_title}</div></td>"
+                            f"        <td><div class='workout-day'>{workout_title}</div></td>"
                         )
-                    html.append(f"        <td class='workout-desc'>{desc}</td>")
+                    # Build description cell content
+                    desc_html = desc
+                    if workout.get("type") == "swim":
+                        steps = extract_swim_steps(workout.get("garmin"))
+                        if steps:
+                            desc_html += "<ol class='swim-steps'>"
+                            for item in steps:
+                                if isinstance(item, tuple):
+                                    reps, nested = item
+                                    desc_html += f"<li>{reps}x:<ul>"
+                                    for n in nested:
+                                        desc_html += f"<li>{n}</li>"
+                                    desc_html += "</ul></li>"
+                                else:
+                                    desc_html += f"<li>{item}</li>"
+                            desc_html += "</ol>"
+                    html.append(f"        <td class='workout-desc'>{desc_html}</td>")
                     html.append("      </tr>")
+                    prev_day = day_num
 
                 html.append("    </table>")
                 html.append("  </div>")

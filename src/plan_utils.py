@@ -92,6 +92,41 @@ def calculate_phase_dates(start_date: str, phase_weeks: list[Dict]) -> str:
     return f"{phase_start.strftime('%b %d')} – {phase_end.strftime('%b %d')}"
 
 
+def extract_swim_steps(garmin_data: dict) -> list:
+    """Extract swim step descriptions for display.
+
+    Returns a flat list where each item is either:
+    - str: a step description
+    - tuple: (repeat_count, [nested descriptions])
+
+    Rest steps are excluded (only relevant to the watch).
+    """
+    if not garmin_data or "steps" not in garmin_data:
+        return []
+
+    result = []
+    for step in garmin_data["steps"]:
+        if step.get("stepType") == "rest":
+            continue
+
+        if "numberOfIterations" in step:
+            reps = step["numberOfIterations"]
+            nested = [
+                s["description"]
+                for s in step.get("steps", [])
+                if s.get("stepType") != "rest" and s.get("description")
+            ]
+            if nested:
+                result.append((reps, nested))
+            continue
+
+        desc = step.get("description")
+        if desc:
+            result.append(desc)
+
+    return result
+
+
 def load_plan(plan_file: str) -> Dict:
     """Load and return plan data from YAML file."""
     import yaml
