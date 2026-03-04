@@ -452,39 +452,43 @@ Source: [python-garminconnect](https://github.com/cyberjunky/python-garminconnec
 
 ## Roadmap
 
-### 1. Reviews Section
+### 1. Weekly Review (Agent Skill)
 
-Add a reviews section to the YAML schema:
+Conversational weekly review triggered via `/review` (or `make review`). Runs Sunday night or Monday morning to evaluate the previous week.
+
+**Workflow:**
+1. Pull completed activities from Garmin for the week (via `get_activities_by_date`)
+2. Match against planned workouts for that week
+3. Compare actual vs planned: pace, HR, power, distance, RPE
+4. Flag mismatches — e.g., HR too high at target pace (overexertion), or pace too easy
+5. Suggest adjustments — primarily pace targets for future running sessions
+6. Conversational review: discuss findings, agree on changes
+7. Apply adjustments to the YAML plan and log the review
+
+**Review log in YAML:**
 ```yaml
 reviews:
   - week: 4
     date: "2026-04-15"
-    notes: "HR averaged 162 during easy runs (target <145). Suggest slowing easy pace to 6:15/km."
+    notes: "HR averaged 162 during easy runs (target <145)."
     adjustments:
-      - field: "phases[0].weeks[3].workouts[0].description"
-        change: "Easy pace adjusted from 6:00 to 6:15/km"
+      - "Easy pace adjusted from 6:00/km to 6:15/km (phases 2-3)"
 ```
 
-### 2. Agent Skill
-
-Create a skill for interactive plan building and weekly reviews:
-- Ask about fitness, training days, goals
-- Suggest methodology (Pfitzinger, Daniels, etc.)
-- Build YAML plan interactively
-- Generate and upload workouts
-- Weekly check-ins: pull data, compare to plan, suggest adjustments
+**Other agent skill capabilities (future):**
+- Interactive plan building (fitness, goals, methodology)
 - Pace adjustment based on race results
 - Recovery week auto-insertion
 - Taper week builder
 
-### 3. Additional Formatters
+### 2. Additional Formatters
 
 - PDF (reportlab)
 - iCal (.ics for Apple/Google Calendar)
 - JSON (API consumption)
 - CSV (spreadsheet import)
 
-### 4. New Integrations
+### 3. New Integrations
 
 - Strava (workout library)
 - Zwift (cycling workouts)
