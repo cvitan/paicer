@@ -22,6 +22,10 @@ output/
 # Garmin tokens
 .garmin_tokens
 
+# yaks data directory
+.yaks
+
+
 # IDE
 .vscode/
 .idea/
