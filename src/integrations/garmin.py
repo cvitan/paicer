@@ -10,6 +10,7 @@ load_dotenv()
 
 SPORT_TYPES = {
     "run": {"sportTypeId": 1, "sportTypeKey": "running", "displayOrder": 1},
+    "track": {"sportTypeId": 1, "sportTypeKey": "running", "displayOrder": 1},
     "bike": {"sportTypeId": 2, "sportTypeKey": "cycling", "displayOrder": 2},
     "swim": {"sportTypeId": 4, "sportTypeKey": "swimming", "displayOrder": 3},
 }
