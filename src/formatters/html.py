@@ -71,21 +71,21 @@ class HTMLFormatter(DocumentFormatter):
     h2 {{ color: #2c3e50; font-size: 16px; margin-top: 25px; margin-bottom: 10px; }}
     .plan-title {{ font-size: 22px; color: #1a1a2e; font-weight: bold; margin-bottom: 5px; }}
     .subtitle {{ font-size: 11px; color: #666666; margin-bottom: 15px; }}
-    .phase-header {{ background-color: #eef2f7; padding: 15px; margin: 20px 0 15px 0; border-left: 4px solid #c0392b; }}
-    .phase-title {{ font-size: 16px; color: #c0392b; font-weight: bold; margin: 0 0 5px 0; }}
-    .phase-description {{ font-size: 10px; color: #1a1a2e; margin: 5px 0; }}
+    .phase-header {{ background-color: #eef2f7; padding: 10px 15px; margin: 0 0 0 0; border-left: 4px solid #c0392b; }}
+    .phase-title {{ font-size: 16px; color: #c0392b; font-weight: bold; margin: 0 0 3px 0; }}
+    .phase-description {{ font-size: 10px; color: #1a1a2e; margin: 2px 0; }}
     .week-page {{ margin-bottom: 40px; }}
-    .week-header {{ background-color: #f8f9fa; padding: 12px; margin: 15px 0 10px 0; border-left: 3px solid #2c3e50; }}
-    .week-title {{ font-size: 13px; color: #2c3e50; font-weight: bold; margin: 0 0 5px 0; }}
-    .week-description {{ font-size: 9px; color: #1a1a2e; margin: 3px 0; }}
-    .workout-table {{ width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9px; }}
-    .workout-table th {{ background-color: #2c3e50; color: white; padding: 6px; text-align: left; font-size: 9px; }}
+    .week-header {{ background-color: #f8f9fa; padding: 8px 12px; margin: 6px 0 5px 0; border-left: 3px solid #2c3e50; }}
+    .week-title {{ font-size: 16px; color: #2c3e50; font-weight: bold; margin: 0 0 3px 0; }}
+    .week-description {{ font-size: 10px; color: #1a1a2e; margin: 2px 0; }}
+    .workout-table {{ width: 100%; border-collapse: collapse; margin: 5px 0; font-size: 11px; }}
+    .workout-table th {{ background-color: #2c3e50; color: white; padding: 6px; text-align: left; font-size: 11px; }}
     .workout-table td {{ border: 1px solid #cccccc; padding: 8px; vertical-align: top; }}
     .workout-table tr.row-shaded {{ background-color: #eef2f7; }}
-    .workout-day {{ font-weight: bold; color: #1a1a2e; font-size: 9px; }}
+    .workout-day {{ font-weight: bold; color: #1a1a2e; font-size: 11px; }}
     .workout-name {{ font-weight: bold; color: #1a1a2e; margin-bottom: 5px; }}
-    .workout-desc {{ font-size: 9px; color: #1a1a2e; line-height: 1.4; }}
-    .swim-steps {{ margin: 4px 0 0 0; padding-left: 18px; font-size: 8px; color: #2c3e50; }}
+    .workout-desc {{ font-size: 11px; color: #1a1a2e; line-height: 1.4; }}
+    .swim-steps {{ margin: 4px 0 0 0; padding-left: 18px; font-size: 10px; color: #2c3e50; }}
     .swim-steps li {{ margin: 1px 0; }}
     .swim-steps ul {{ padding-left: 14px; margin: 1px 0; list-style-type: disc; }}
     .overview-page {{ margin-bottom: 40px; }}
