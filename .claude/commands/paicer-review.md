@@ -1,4 +1,4 @@
-# Weekly Review
+# Training Plan Weekly Review
 
 Compare last week's Garmin activities against the plan and discuss adjustments.
 

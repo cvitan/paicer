@@ -4,28 +4,41 @@ Help the user create a new training plan or modify an existing one.
 
 ## First-Time Setup
 
-Before anything else, check if `.env` exists. If not:
-
-1. Copy `.env.example` to `.env`
-2. Ask the user: "Do you have a Garmin watch and want workouts synced to it?"
-   - If yes: ask for their Garmin email and password, update `.env`
-   - If no: leave the Garmin credentials as placeholders (they can still generate Markdown/HTML)
-3. Create the `plans/` directory if it doesn't exist: `mkdir -p plans`
+Before anything else, check if `.env` exists. If not, copy `.env.example` to `.env`.
 
 ## Creating a New Plan
 
-Interview the user to gather:
+Interview the user **one question at a time**. Wait for each answer before asking the next. Do not batch questions.
 
-1. **Race details:** What race? Distance? Date? Is this your first?
-2. **Current fitness:** Recent training volume, longest recent run/ride, any recent races?
-3. **Schedule:** How many days per week? Which days? Morning or evening?
-4. **Sports:** Running only? Triathlon (swim/bike/run)? Cycling?
-5. **Equipment:** Power meter? Pool access? Garmin watch model?
-6. **Pacing:** Current easy pace? Recent race times? Known HR zones or FTP?
+Ask in this order:
 
-Then:
+1. What are you training for? (race distance, goal date, first time?)
+2. How is your current fitness? (recent training volume, longest recent run/ride, any recent races?)
+3. How many days per week can you train, and which days?
+4. What sports? (running only, triathlon, cycling?)
+5. What equipment do you have? (Garmin watch model, power meter, pool access?)
+6. What's your current easy pace? (Adapt to their sport — run pace, FTP for cycling, etc. Calculate race paces yourself from any race results they already gave you — don't ask them to do the math.)
 
-1. Read `examples/reference.yaml` — it demonstrates every YAML pattern (run, bike, swim, track, multisport, anchors, repeat groups, skip_garmin) in a minimal 2-week plan
+If they have a Garmin watch: tell them to edit `.env` and uncomment the Garmin section with their credentials. Do NOT ask for their email or password directly.
+
+## Plan Length and Start Date
+
+After the interview, calculate the weeks available until race day. Then recommend a plan length and start date:
+
+- Standard plan lengths: 8, 10, 12, 16, 20 weeks (pick the longest that fits)
+- Minimum: 8 weeks for 5K/10K, 12 weeks for half marathon, 16 weeks for marathon/triathlon
+- `start_date` should be a Monday, counting back from race day
+- If there's more time than the plan needs, recommend starting later rather than padding
+
+Present this to the user: "You have 13 weeks until race day. I'd recommend a 12-week plan starting on [date]. Want to start then, or would you prefer to start sooner with a 13-week plan?"
+
+Do NOT silently pick a plan length — always confirm with the user.
+
+## Building the Plan
+
+Once you have all the info and the user has confirmed the plan length:
+
+1. Read `examples/reference.yaml` for structural patterns
 2. Create a new plan file in `plans/`
 3. Design the phase structure (typically: Base → Build → Peak → Taper)
 4. Build week-by-week with progressive volume increase
