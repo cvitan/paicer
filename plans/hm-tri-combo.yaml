@@ -3147,3 +3147,16 @@ phases:
             name: "RACE: Olympic Triathlon"
             skip_garmin: true
             description: "Olympic Triathlon: 1.5 km Swim / 40 km Bike / 10 km Run. The hard work is over. Stick to what you know from training. Race hard, race well, and have fun!"
+
+reviews:
+  - week: 2
+    date: "2026-03-08"
+    notes: |
+      All 4 running workouts completed as planned. Optional bike skipped.
+      Tempo 2x15min hit target: Rep 1 at 5:22/km (HR 165), Rep 2 at 5:28/km (HR 161),
+      both inside the 5:10-5:40 window. Easy runs consistent at 6:23-6:31/km, HR ~146-147
+      in Zone 2. Long run 14km steady at 6:24/km, HR 147. Strides executed well with
+      progressive acceleration. Total running volume ~41 km vs planned ~44 km (tempo run
+      shorter than estimated). No pace or HR concerns.
+    adjustments:
+      - "No adjustments needed — paces and HR well-calibrated"
