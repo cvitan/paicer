@@ -7,10 +7,10 @@ Compare last week's Garmin activities against the plan and discuss adjustments.
 1. Read the plan YAML from the `PLAN` path in `.env` using your Read tool (do NOT write scripts to parse YAML).
 2. Pull review data by running:
    ```
-   make review-data              # most recently completed week
-   make review-data SCOPE=3      # specific week number
+   uv run python src/review_data.py $PLAN          # most recently completed week
+   uv run python src/review_data.py $PLAN 3        # specific week number
    ```
-   This outputs JSON with `planned` workouts and Garmin `activities` for the week.
+   where `$PLAN` is the plan path from `.env`. This outputs JSON with `planned` workouts and Garmin `activities` for the week.
 3. Match activities by `activityName` against the plan's `garmin_name` values. Do NOT match by date — users often do workouts on different days than scheduled.
 4. For each matched workout, compare:
    - **Running with pace targets:** actual pace vs planned pace, actual HR at that pace

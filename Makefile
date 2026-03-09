@@ -1,4 +1,4 @@
-.PHONY: install test workouts markdown html review-data all clean
+.PHONY: install test workouts markdown html all clean
 
 # Load .env (required for PLAN)
 -include .env
@@ -38,9 +38,6 @@ html:
 	@mkdir -p output
 	@uv run python src/render_plan.py $(PLAN) --html --format=$(FORMAT) > output/training_plan.html
 	@echo "Created output/training_plan.html ($(FORMAT))"
-
-review-data:
-	@uv run python src/review_data.py $(PLAN) $(SCOPE)
 
 all: markdown html
 
