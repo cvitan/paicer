@@ -84,6 +84,7 @@ plan:
     | Swim session (anchor) | W2D1 |
     | Multisport brick | W2D5 |
     | Skip Garmin | W1D4 |
+    | Weekly review | reviews section |
 
 phases:
   - phase: 1
@@ -288,3 +289,14 @@ phases:
                       endConditionValue: 3000
                       targetType: "heart.rate.zone"
                       zoneNumber: 2
+
+# Weekly reviews — added by /review after comparing Garmin data to plan
+reviews:
+  - week: 1
+    date: "2026-06-08"
+    notes: |
+      Easy run HR slightly elevated (avg 148 vs expected ~140).
+      Tempo intervals felt controlled, pace on target.
+      Bike steady ride completed at target power.
+    adjustments:
+      - "No changes. Week 1 baseline established."

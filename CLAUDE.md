@@ -62,6 +62,15 @@ phases:
             description: "8 km easy at RPE 4-5."
             garmin:
               steps: [...]
+
+# Added by /review after comparing Garmin data to plan
+reviews:
+  - week: 1
+    date: "YYYY-MM-DD"
+    notes: |
+      Summary of actual vs planned performance.
+    adjustments:
+      - "Description of each change made"
 ```
 
 ## Workout Types

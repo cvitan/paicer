@@ -5,7 +5,7 @@ AI-powered training plan generator. Describe your goals and fitness to Claude, a
 ## Get Started
 
 ```bash
-git clone github.com/cvitan/paicer && cd paicer
+git clone https://github.com/cvitan/paicer && cd paicer
 pip install .           # or: uv sync
 cp .env.example .env    # Add your Garmin credentials
 ```
