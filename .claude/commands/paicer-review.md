@@ -12,10 +12,14 @@ Compare last week's Garmin activities against the plan and discuss adjustments.
    ```
    where `$PLAN` is the plan path from `.env`. This outputs JSON with `planned` workouts and Garmin `activities` for the week.
 3. Match activities by `activityName` against the plan's `garmin_name` values. Do NOT match by date — users often do workouts on different days than scheduled.
-4. For each matched workout, compare:
-   - **Running with pace targets:** actual pace vs planned pace, actual HR at that pace
-   - **Running with HR targets:** actual HR zone vs target zone
-   - **Cycling with power targets:** actual power zone vs target zone
+4. For each matched workout, use the `intervals` array for analysis — NOT the overall activity averages.
+   Each interval has `type` (INTERVAL_WARMUP, INTERVAL_ACTIVE, INTERVAL_RECOVERY, INTERVAL_COOLDOWN), `paceSecPerKm`, `averageHR`, `averagePower`, `distance`, `duration`.
+   These match the structured workout steps shown in Garmin Connect's "Intervals" tab.
+   - **Structured workouts (tempo, intervals):** Compare INTERVAL_ACTIVE entries against targets. The overall activity average is misleading because it includes warmup/cooldown.
+   - **Easy runs:** May only have INTERVAL_ACTIVE or no intervals. Use overall average.
+   - **Running with pace targets:** compare each INTERVAL_ACTIVE pace vs planned pace, note HR at that pace
+   - **Running with HR targets:** compare INTERVAL_ACTIVE HR vs target zone
+   - **Cycling with power targets:** compare INTERVAL_ACTIVE power vs target zone
    - **Swimming:** completion (did the session happen?)
    - **Distance:** actual vs planned
 5. For unmatched plan workouts (no activity with that `garmin_name`):
@@ -45,4 +49,5 @@ Compare last week's Garmin activities against the plan and discuss adjustments.
 
 ## Pace Conversion
 
-Activity `averageSpeed` is m/s. Convert to min/km: `(1000 / speed) / 60`.
+Laps include `paceSecPerKm` (seconds per km). Convert to min:sec: `5:25/km = 325 sec/km`.
+Activity-level `averageSpeed` is m/s. Convert to min/km: `(1000 / speed) / 60`.

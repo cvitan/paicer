@@ -12,7 +12,9 @@ Output JSON structure:
     {"garmin_name": "W2D1: Easy 8km", "type": "run", "distance": 8000, ...}
   ],
   "activities": [
-    {"activityName": "W2D1: Easy 8km", "distance": 8123.4, ...}
+    {"activityName": "W2: Easy 8km", "distance": 8123.4, "intervals": [
+      {"type": "INTERVAL_ACTIVE", "paceSecPerKm": 321.0, "averageHR": 165, ...}
+    ], ...}
   ]
 }
 """
@@ -90,6 +92,38 @@ def get_planned_workouts(plan_data, week_num):
     return workouts
 
 
+def get_activity_intervals(garmin, activity_id):
+    """Pull structured workout intervals for an activity.
+
+    Uses typed splits which match the Garmin Connect "Intervals" tab.
+    Only includes INTERVAL_* types (warmup, active, recovery, cooldown),
+    filtering out RWD_* noise (walk/run/stand detection).
+    """
+    try:
+        data = garmin.api.get_activity_typed_splits(activity_id)
+    except Exception:
+        return []
+
+    intervals = []
+    for split in data.get("splits", []):
+        split_type = split.get("type", "")
+        if not split_type.startswith("INTERVAL_"):
+            continue
+
+        speed = split.get("averageSpeed", 0)
+        pace_sec_per_km = (1000 / speed) if speed > 0 else 0
+        intervals.append({
+            "type": split_type,
+            "distance": split.get("distance"),
+            "duration": split.get("duration"),
+            "paceSecPerKm": round(pace_sec_per_km, 1),
+            "averageHR": split.get("averageHR"),
+            "maxHR": split.get("maxHR"),
+            "averagePower": split.get("averagePower"),
+        })
+    return intervals
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python src/review_data.py <plan_file> [week]",
@@ -121,10 +155,11 @@ def main():
         search_end.strftime("%Y-%m-%d"),
     )
 
-    # Extract relevant fields from each activity
+    # Extract relevant fields from each activity, including laps
     activity_data = []
     for a in activities:
-        activity_data.append({
+        activity_id = a.get("activityId")
+        entry = {
             "activityName": a.get("activityName"),
             "activityType": a.get("activityType", {}).get(
                 "typeKey", "unknown",
@@ -137,7 +172,15 @@ def main():
             "maxHR": a.get("maxHR"),
             "averagePower": a.get("averagePower"),
             "maxPower": a.get("maxPower"),
-        })
+        }
+
+        # Pull structured workout intervals (matches Garmin Connect's Intervals tab)
+        if activity_id:
+            entry["intervals"] = get_activity_intervals(
+                garmin, activity_id,
+            )
+
+        activity_data.append(entry)
 
     output = {
         "week": week_num,
