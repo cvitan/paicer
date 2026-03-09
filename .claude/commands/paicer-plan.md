@@ -68,5 +68,6 @@ Once you have all the info and the user has confirmed the plan length:
 - **Polarized intensity:** ~80% easy (RPE 4-5), ~20% hard (RPE 7-9), minimal "grey zone" (RPE 6)
 - **Quality over quantity:** Structured sessions (intervals, tempo) on fresh legs, easy runs truly easy
 - **Taper:** 2-3 weeks before race, reduce volume 30-50% while maintaining intensity
+- **Rest after hard days:** Always schedule a rest day after long runs and hard sessions. Don't put an easy run the day after a long run — the athlete needs recovery. When suggesting training days, think about the sequence: easy before hard, rest after hard/long.
 
 Read `docs/garmin-api.md` for the complete Garmin API reference (step types, end conditions, target types, pace conversions).

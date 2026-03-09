@@ -633,9 +633,8 @@ track_sessions:
         zoneNumber: 2
 
 plan:
-  name: "Half Marathon → Olympic Triathlon"
+  name: "Half Marathon + Olympic Triathlon"
   start_date: "2026-02-22"
-  training_days: [1, 3, 5, 7]  # Mon, Wed, Fri, Sun (1=Mon, 7=Sun)
 
   overview: |
     ## Training Plan Overview
@@ -671,6 +670,7 @@ plan:
 phases:
   - phase: 1
     name: "Half Marathon Build"
+    training_days: [2, 3, 5, 7]  # Tue, Wed, Fri, Sun (1=Mon, 7=Sun)
     description: |
       **Format:** 4 runs/week + 1–2 easy bike rides (45–60 min, RPE 5)
 
@@ -1337,7 +1337,7 @@ phases:
 
   - phase: 2
     name: "HM Peak + Tri Begins"
-    training_days: [1, 2, 3, 4, 6, 7]
+    training_days: [1, 2, 3, 4, 5, 7]
     description: |
       **Format:** 4 runs + 2 swims + 1 bike per week (9 sessions). ~8–10 hours/week.
 
@@ -2247,7 +2247,7 @@ phases:
 
   - phase: 3
     name: "Triathlon Only"
-    training_days: [1, 2, 3, 4, 5, 6, 7]
+    training_days: [1, 2, 3, 5, 6, 7]
     description: |
       **Format:** 6 sessions/week (Thu rest). ~8–12 hours/week.
 

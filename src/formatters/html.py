@@ -112,7 +112,13 @@ class HTMLFormatter(DocumentFormatter):
         html.append("    <div class='overview-section' style='font-size: 10px;'>")
         import markdown as md
 
-        overview_html = md.markdown(plan["overview"], extensions=["tables"])
+        # Ensure blank line before markdown tables (required by parser)
+        # Only insert before the first | row, not between table rows
+        import re
+        overview_text = re.sub(
+            r'([^\n|])\n(\|)', r'\1\n\n\2', plan["overview"],
+        )
+        overview_html = md.markdown(overview_text, extensions=["tables"])
 
         # Add custom styling to tables
         overview_html = overview_html.replace(
