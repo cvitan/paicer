@@ -11,8 +11,9 @@ src/
   plan_utils.py         — Date calculation, YAML loading, swim step extraction
   formatters/           — Base class + MarkdownFormatter + HTMLFormatter
   integrations/         — Base class + GarminIntegration
-plans/                  — YAML training plans
-output/                 — Generated files (gitignored)
+examples/               — Example training plans
+plans/                  — User plans (gitignored, created by /paicer-plan)
+output/                 — Generated documents (gitignored)
 docs/                   — Garmin API reference, other docs
 ```
 
@@ -29,7 +30,7 @@ make workouts SCOPE=all        # Sync everything
 make test                      # Validate YAML + Python
 ```
 
-Plan path is set in `.env` as `PLAN=plans/your-plan.yaml`.
+Plan path is set in `.env` as `PLAN=examples/your-plan.yaml`.
 
 ## YAML Plan Structure
 
@@ -119,7 +120,7 @@ Interview the user:
 4. Sport(s): running only, triathlon, cycling, etc.
 5. Equipment: power meter, swim pool access, etc.
 
-Read `plans/reference.yaml` first — it demonstrates every pattern (run, bike, swim, track, multisport, anchors, repeat groups, skip_garmin) in a minimal 2-week plan. Use as structural reference when building new plans.
+Read `examples/reference.yaml` first — it demonstrates every pattern (run, bike, swim, track, multisport, anchors, repeat groups, skip_garmin) in a minimal 2-week plan. Use as structural reference when building new plans.
 
 Use progressive periodization: Base → Build → Peak → Taper. Include recovery weeks.
 

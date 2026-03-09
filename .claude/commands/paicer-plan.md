@@ -15,7 +15,7 @@ Interview the user to gather:
 
 Then:
 
-1. Read `plans/reference.yaml` — it demonstrates every YAML pattern (run, bike, swim, track, multisport, anchors, repeat groups, skip_garmin) in a minimal 2-week plan
+1. Read `examples/reference.yaml` — it demonstrates every YAML pattern (run, bike, swim, track, multisport, anchors, repeat groups, skip_garmin) in a minimal 2-week plan
 2. Create a new plan file in `plans/`
 3. Design the phase structure (typically: Base → Build → Peak → Taper)
 4. Build week-by-week with progressive volume increase

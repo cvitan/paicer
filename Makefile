@@ -6,7 +6,7 @@ export
 
 # PLAN must be set in .env or command line
 ifndef PLAN
-$(error PLAN not set. Set in .env or use: make <target> PLAN=plans/your-plan.yaml)
+$(error PLAN not set. Set in .env or use: make <target> PLAN=examples/your-plan.yaml)
 endif
 
 # FORMAT defaults to letter if not in .env
