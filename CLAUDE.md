@@ -57,7 +57,7 @@ phases:
           - day: 1
             type: "run"           # run | track | bike | swim | multisport
             name: "Easy Run"
-            garmin_name: "W1D1: Easy 8km"
+            garmin_name: "W1: Easy 8km"
             distance: 8000        # Optional, meters
             description: "8 km easy at RPE 4-5."
             garmin:
@@ -105,7 +105,7 @@ See `docs/garmin-api.md` for the complete API reference (step types, end conditi
 
 When editing a plan:
 1. Read the existing plan to understand structure, phases, training days
-2. Keep `garmin_name` format as `W{week}D{day}: Description`
+2. Keep `garmin_name` format as `W{week}: Description`
 3. Week and day numbers must be sequential within their parent
 4. Validate after changes: `make test`
 5. Generate to verify: `make markdown`
@@ -143,7 +143,7 @@ Use progressive periodization: Base → Build → Peak → Taper. Include recove
 
 - Verify `start_date` is set
 - Check week/day numbers are sequential
-- Ensure `garmin_name` follows W{week}D{day} format
+- Ensure `garmin_name` follows W{week}: title format 
 - Validate pace values are reasonable (e.g., 4:00-6:30/km)
 - Check descriptions include RPE and coaching notes
 - Test YAML with `make test`

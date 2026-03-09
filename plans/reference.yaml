@@ -100,7 +100,7 @@ phases:
           - day: 1
             type: "run"
             name: "Easy Run"
-            garmin_name: "W1D1: Easy 5km"
+            garmin_name: "W1: Easy 5km"
             distance: 5000
             description: "5 km easy at RPE 4-5. Conversational pace."
             garmin:
@@ -115,7 +115,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo Intervals"
-            garmin_name: "W1D2: Tempo 3x5min"
+            garmin_name: "W1: Tempo 3x5min"
             distance: 7000
             description: "7 km with 3x5min @ tempo pace (RPE 6-7). 2min easy between."
             garmin:
@@ -151,7 +151,7 @@ phases:
           - day: 3
             type: "bike"
             name: "Steady Ride"
-            garmin_name: "W1D3: Steady 15km"
+            garmin_name: "W1: Steady 15km"
             distance: 15000
             description: "15 km steady at RPE 5. Power zone 2."
             garmin:
@@ -173,7 +173,7 @@ phases:
           - day: 5
             type: "run"
             name: "Easy + Strides"
-            garmin_name: "W1D5: Easy 5km + Strides"
+            garmin_name: "W1: Easy 5km + Strides"
             distance: 5000
             description: "5 km easy + 4x20sec strides with walk recovery."
             garmin:
@@ -205,7 +205,7 @@ phases:
           - day: 1
             type: "swim"
             name: "Swim: Drills"
-            garmin_name: "W2D1: Swim Drills"
+            garmin_name: "W2: Swim Drills"
             garmin: *swim_drills_garmin
             description: "1 km. Drills and intervals at RPE 5-6."
 
@@ -213,7 +213,7 @@ phases:
           - day: 2
             type: "track"
             name: "Track: 4x400m"
-            garmin_name: "W2D2: Track 4x400m"
+            garmin_name: "W2: Track 4x400m"
             garmin: *track_intervals_garmin
             description: "Track session. 1km WU, 4x400m @ RPE 8-9, 1km CD."
 
@@ -221,7 +221,7 @@ phases:
           - day: 3
             type: "bike"
             name: "Bike: Intervals"
-            garmin_name: "W2D3: Bike Intervals"
+            garmin_name: "W2: Bike Intervals"
             distance: 20000
             description: "20 km with 4x3min @ power zone 4. 2min recovery between."
             garmin:
@@ -256,7 +256,7 @@ phases:
           - day: 4
             type: "run"
             name: "Easy Run"
-            garmin_name: "W2D4: Easy 6km"
+            garmin_name: "W2: Easy 6km"
             distance: 6000
             description: "6 km easy at RPE 4-5."
             garmin:
@@ -271,7 +271,7 @@ phases:
           - day: 5
             type: "multisport"
             name: "Brick: Bike + Run"
-            garmin_name: "W2D5: Brick 10km Bike + 3km Run"
+            garmin_name: "W2: Brick 10km Bike + 3km Run"
             description: "10 km bike @ RPE 5-6 → 3 km run @ RPE 6. Focus on smooth transition."
             garmin:
               legs:

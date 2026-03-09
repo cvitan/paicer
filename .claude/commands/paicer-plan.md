@@ -31,7 +31,7 @@ Then:
 2. Understand what the user wants to change
 3. Make the edits, preserving:
    - Sequential week/day numbering
-   - `garmin_name` format: `W{week}D{day}: Description`
+   - `garmin_name` format: `W{week}: Description` (no day number)
    - Consistent training_days across the phase
 4. Validate: `make test`
 5. If Garmin workouts changed, remind user to re-sync affected weeks
