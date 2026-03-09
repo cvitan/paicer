@@ -1,0 +1,302 @@
+# Reference plan — minimal example demonstrating every pattern.
+# NOT a real training plan. Use as a structural reference when creating new plans.
+
+# Reusable swim sessions (YAML anchors must be defined before use)
+swim_sessions:
+  - &swim_drills_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "200m easy freestyle"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - stepType: "interval"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "4x50m catch-up drill"
+      - stepType: "rest"
+        endCondition: "lap.button"
+        targetType: "no.target"
+      - numberOfIterations: 4
+        stepType: "repeat"
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+            description: "100m freestyle @ RPE 6"
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+      - stepType: "cooldown"
+        endCondition: "lap.button"
+        targetType: "no.target"
+        description: "100m easy"
+
+# Reusable track sessions
+track_sessions:
+  - &track_intervals_garmin
+    steps:
+      - stepType: "warmup"
+        endCondition: "distance"
+        endConditionValue: 1000
+        targetType: "no.target"
+        description: "1km easy jog"
+      - numberOfIterations: 4
+        stepType: "repeat"
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "distance"
+            endConditionValue: 400
+            targetType: "no.target"
+            childStepId: 1
+            description: "400m fast @ RPE 8-9"
+          - stepType: "recovery"
+            endCondition: "distance"
+            endConditionValue: 200
+            targetType: "no.target"
+            childStepId: 1
+            description: "200m walk/jog recovery"
+      - stepType: "cooldown"
+        endCondition: "distance"
+        endConditionValue: 1000
+        targetType: "no.target"
+        description: "1km easy jog"
+
+plan:
+  name: "Reference Plan (Sprint Tri)"
+  start_date: "2026-06-01"
+  training_days: [1, 2, 3, 5, 6]  # Mon, Tue, Wed, Fri, Sat
+  overview: |
+    Minimal reference plan demonstrating all paicer patterns.
+
+    | Pattern | Example |
+    |---------|---------|
+    | Easy run (HR zone) | W1D1 |
+    | Tempo run (pace target) | W1D2 |
+    | Track session (anchor) | W2D2 |
+    | Bike with power zones | W1D3 |
+    | Swim session (anchor) | W2D1 |
+    | Multisport brick | W2D5 |
+    | Skip Garmin | W1D4 |
+    | Weekly review | reviews section |
+
+phases:
+  - phase: 1
+    name: "Base"
+    description: |
+      Build aerobic base. 3 runs + 1 bike + 1 optional session per week.
+    weeks:
+      - week: 1
+        description: |
+          Introductory week. Easy volume, learn the patterns.
+        workouts:
+          # Easy run — single step, HR zone target
+          - day: 1
+            type: "run"
+            name: "Easy Run"
+            garmin_name: "W1: Easy 5km"
+            distance: 5000
+            description: "5 km easy at RPE 4-5. Conversational pace."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 5000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Tempo run — warmup + repeat group + cooldown, pace targets
+          - day: 2
+            type: "run"
+            name: "Tempo Intervals"
+            garmin_name: "W1: Tempo 3x5min"
+            distance: 7000
+            description: "7 km with 3x5min @ tempo pace (RPE 6-7). 2min easy between."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 1500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 300
+                      targetType: "pace.zone"
+                      targetValueOne: 295
+                      targetValueTwo: 325
+                      childStepId: 1
+                    - stepType: "recovery"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      targetType: "no.target"
+                      childStepId: 1
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 1500
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Bike — power zone target
+          - day: 3
+            type: "bike"
+            name: "Steady Ride"
+            garmin_name: "W1: Steady 15km"
+            distance: 15000
+            description: "15 km steady at RPE 5. Power zone 2."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 15000
+                  targetType: "power.zone"
+                  zoneNumber: 2
+
+          # Optional workout — skip_garmin
+          - day: 4
+            type: "run"
+            name: "Recovery Jog (optional)"
+            skip_garmin: true
+            description: "20-30 min very easy jog at RPE 3-4. Skip if tired."
+
+          # Easy run + strides
+          - day: 5
+            type: "run"
+            name: "Easy + Strides"
+            garmin_name: "W1: Easy 5km + Strides"
+            distance: 5000
+            description: "5 km easy + 4x20sec strides with walk recovery."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 5000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+                - numberOfIterations: 4
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 20
+                      targetType: "no.target"
+                      childStepId: 1
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
+      - week: 2
+        description: |
+          Add swim and brick. Small volume increase.
+        workouts:
+          # Swim — anchor reference
+          - day: 1
+            type: "swim"
+            name: "Swim: Drills"
+            garmin_name: "W2: Swim Drills"
+            garmin: *swim_drills_garmin
+            description: "1 km. Drills and intervals at RPE 5-6."
+
+          # Track — anchor reference
+          - day: 2
+            type: "track"
+            name: "Track: 4x400m"
+            garmin_name: "W2: Track 4x400m"
+            garmin: *track_intervals_garmin
+            description: "Track session. 1km WU, 4x400m @ RPE 8-9, 1km CD."
+
+          # Bike with intervals
+          - day: 3
+            type: "bike"
+            name: "Bike: Intervals"
+            garmin_name: "W2: Bike Intervals"
+            distance: 20000
+            description: "20 km with 4x3min @ power zone 4. 2min recovery between."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "distance"
+                  endConditionValue: 5000
+                  targetType: "power.zone"
+                  zoneNumber: 2
+                - numberOfIterations: 4
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      targetType: "power.zone"
+                      zoneNumber: 4
+                      childStepId: 1
+                    - stepType: "recovery"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      targetType: "no.target"
+                      childStepId: 1
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 5000
+                  targetType: "power.zone"
+                  zoneNumber: 2
+
+          # Easy run
+          - day: 4
+            type: "run"
+            name: "Easy Run"
+            garmin_name: "W2: Easy 6km"
+            distance: 6000
+            description: "6 km easy at RPE 4-5."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 6000
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Multisport brick — bike + run legs
+          - day: 5
+            type: "multisport"
+            name: "Brick: Bike + Run"
+            garmin_name: "W2: Brick 10km Bike + 3km Run"
+            description: "10 km bike @ RPE 5-6 → 3 km run @ RPE 6. Focus on smooth transition."
+            garmin:
+              legs:
+                - sport: "bike"
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 10000
+                      targetType: "power.zone"
+                      zoneNumber: 2
+                - sport: "run"
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "distance"
+                      endConditionValue: 3000
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 2
+
+# Weekly reviews — added by /review after comparing Garmin data to plan
+reviews:
+  - week: 1
+    date: "2026-06-08"
+    notes: |
+      Easy run HR slightly elevated (avg 148 vs expected ~140).
+      Tempo intervals felt controlled, pace on target.
+      Bike steady ride completed at target power.
+    adjustments:
+      - "No changes. Week 1 baseline established."
