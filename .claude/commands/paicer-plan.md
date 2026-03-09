@@ -2,6 +2,16 @@
 
 Help the user create a new training plan or modify an existing one.
 
+## First-Time Setup
+
+Before anything else, check if `.env` exists. If not:
+
+1. Copy `.env.example` to `.env`
+2. Ask the user: "Do you have a Garmin watch and want workouts synced to it?"
+   - If yes: ask for their Garmin email and password, update `.env`
+   - If no: leave the Garmin credentials as placeholders (they can still generate Markdown/HTML)
+3. Create the `plans/` directory if it doesn't exist: `mkdir -p plans`
+
 ## Creating a New Plan
 
 Interview the user to gather:
@@ -24,17 +34,19 @@ Then:
 7. Set `PLAN=plans/new-plan.yaml` in `.env`
 8. Validate: `make test`
 9. Generate preview: `make markdown`
+10. Offer to sync first week to Garmin: `make workouts SCOPE=w1`
 
 ## Modifying an Existing Plan
 
 1. Read the current plan from the `PLAN` path in `.env`
-2. Understand what the user wants to change
-3. Make the edits, preserving:
+2. Back up the current plan before making changes: `cp plans/my-plan.yaml plans/my-plan.backup.yaml`
+3. Understand what the user wants to change
+4. Make the edits, preserving:
    - Sequential week/day numbering
    - `garmin_name` format: `W{week}: Description` (no day number)
    - Consistent training_days across the phase
-4. Validate: `make test`
-5. If Garmin workouts changed, remind user to re-sync affected weeks
+5. Validate: `make test`
+6. If Garmin workouts changed, remind user to re-sync affected weeks
 
 ## Plan Design Principles
 
