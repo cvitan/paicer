@@ -91,7 +91,9 @@ def get_activity_intervals(garmin, activity_id):
     """
     try:
         data = garmin.api.get_activity_typed_splits(activity_id)
-    except Exception:
+    except Exception as e:
+        print(f"Warning: failed to fetch intervals for activity {activity_id}: {e}",
+              file=sys.stderr)
         return []
 
     intervals = []
@@ -146,12 +148,17 @@ def main():
     planned = get_planned_workouts(plan_data, week_num)
 
     # Pull Garmin activities
-    garmin = GarminIntegration()
-    garmin.authenticate()
-    activities = garmin.api.get_activities_by_date(
-        search_start.strftime("%Y-%m-%d"),
-        search_end.strftime("%Y-%m-%d"),
-    )
+    try:
+        garmin = GarminIntegration()
+        garmin.authenticate()
+        activities = garmin.api.get_activities_by_date(
+            search_start.strftime("%Y-%m-%d"),
+            search_end.strftime("%Y-%m-%d"),
+        )
+    except Exception as exc:
+        print(f"Error: failed to fetch activities from Garmin: {exc}",
+              file=sys.stderr)
+        sys.exit(1)
 
     # Extract relevant fields from each activity, including laps
     activity_data = []

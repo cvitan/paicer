@@ -8,8 +8,6 @@ def first_monday_on_or_after(start_date: str) -> datetime:
     """Find the first Monday on or after a date string (YYYY-MM-DD)."""
     start = datetime.strptime(start_date, "%Y-%m-%d")
     days_until_monday = (7 - start.weekday()) % 7
-    if days_until_monday == 0 and start.weekday() != 0:
-        days_until_monday = 7
     return start + timedelta(days=days_until_monday)
 
 
