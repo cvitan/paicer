@@ -30,7 +30,7 @@ make workouts SCOPE=all        # Sync everything
 make test                      # Validate YAML + Python
 ```
 
-Plan path is set in `.env` as `PLAN=examples/your-plan.yaml`.
+Plan path is set in `.env` as `PLAN=plans/your-plan.yaml`.
 
 ## YAML Plan Structure
 

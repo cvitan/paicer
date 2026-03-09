@@ -4,6 +4,15 @@ from datetime import datetime, timedelta
 from typing import Dict
 
 
+def first_monday_on_or_after(start_date: str) -> datetime:
+    """Find the first Monday on or after a date string (YYYY-MM-DD)."""
+    start = datetime.strptime(start_date, "%Y-%m-%d")
+    days_until_monday = (7 - start.weekday()) % 7
+    if days_until_monday == 0 and start.weekday() != 0:
+        days_until_monday = 7
+    return start + timedelta(days=days_until_monday)
+
+
 def calculate_workout_date(
     start_date: str, week: int, day: int, training_days: list[int]
 ) -> str:
@@ -23,13 +32,7 @@ def calculate_workout_date(
             f"Day {day} out of range for {len(training_days)} training days"
         )
 
-    start = datetime.strptime(start_date, "%Y-%m-%d")
-
-    # Find first Monday on or after start date
-    days_until_monday = (7 - start.weekday()) % 7
-    if days_until_monday == 0 and start.weekday() != 0:
-        days_until_monday = 7
-    first_monday = start + timedelta(days=days_until_monday)
+    first_monday = first_monday_on_or_after(start_date)
 
     # Get the weekday for this day
     weekday = training_days[day - 1]  # day is 1-based, list is 0-based
@@ -46,13 +49,7 @@ def calculate_week_dates(start_date: str, week: int, training_days: list[int]) -
 
     Returns format like: "Feb 23 - Mar 01" or "Feb 23 - 27"
     """
-    start = datetime.strptime(start_date, "%Y-%m-%d")
-
-    # Find first Monday
-    days_until_monday = (7 - start.weekday()) % 7
-    if days_until_monday == 0 and start.weekday() != 0:
-        days_until_monday = 7
-    first_monday = start + timedelta(days=days_until_monday)
+    first_monday = first_monday_on_or_after(start_date)
 
     # Week runs Monday to Sunday
     week_start = first_monday + timedelta(weeks=(week - 1))
@@ -76,13 +73,7 @@ def calculate_phase_dates(start_date: str, phase_weeks: list[Dict]) -> str:
     first_week = phase_weeks[0]["week"]
     last_week = phase_weeks[-1]["week"]
 
-    start = datetime.strptime(start_date, "%Y-%m-%d")
-
-    # Find first Monday
-    days_until_monday = (7 - start.weekday()) % 7
-    if days_until_monday == 0 and start.weekday() != 0:
-        days_until_monday = 7
-    first_monday = start + timedelta(days=days_until_monday)
+    first_monday = first_monday_on_or_after(start_date)
 
     # Phase start = first week's Monday
     phase_start = first_monday + timedelta(weeks=(first_week - 1))

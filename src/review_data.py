@@ -26,7 +26,7 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
 from integrations.garmin import GarminIntegration
-from plan_utils import load_plan
+from plan_utils import first_monday_on_or_after, load_plan
 
 load_dotenv()
 
@@ -34,12 +34,7 @@ load_dotenv()
 def find_current_week(start_date, today=None):
     """Determine the most recently completed week number."""
     today = today or datetime.now()
-    start = datetime.strptime(start_date, "%Y-%m-%d")
-
-    days_until_monday = (7 - start.weekday()) % 7
-    if days_until_monday == 0 and start.weekday() != 0:
-        days_until_monday = 7
-    first_monday = start + timedelta(days=days_until_monday)
+    first_monday = first_monday_on_or_after(start_date)
 
     days_elapsed = (today - first_monday).days
     if days_elapsed < 0:
@@ -57,12 +52,7 @@ def find_current_week(start_date, today=None):
 
 def get_week_dates(start_date, week_num):
     """Get Monday-Sunday date range for a week, padded +/- 2 days."""
-    start = datetime.strptime(start_date, "%Y-%m-%d")
-
-    days_until_monday = (7 - start.weekday()) % 7
-    if days_until_monday == 0 and start.weekday() != 0:
-        days_until_monday = 7
-    first_monday = start + timedelta(days=days_until_monday)
+    first_monday = first_monday_on_or_after(start_date)
 
     week_start = first_monday + timedelta(weeks=(week_num - 1))
     week_end = week_start + timedelta(days=6)
@@ -134,11 +124,19 @@ def main():
     plan_data = load_plan(plan_file)
     start_date = plan_data["plan"]["start_date"]
 
-    week_num = (
-        int(sys.argv[2])
-        if len(sys.argv) > 2
-        else find_current_week(start_date)
-    )
+    if len(sys.argv) > 2:
+        try:
+            week_num = int(sys.argv[2])
+        except ValueError:
+            print(f"Error: '{sys.argv[2]}' is not a valid week number",
+                  file=sys.stderr)
+            sys.exit(1)
+        if week_num < 1:
+            print(f"Error: week must be >= 1, got {week_num}",
+                  file=sys.stderr)
+            sys.exit(1)
+    else:
+        week_num = find_current_week(start_date)
 
     week_start, week_end, search_start, search_end = get_week_dates(
         start_date, week_num,
