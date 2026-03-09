@@ -48,6 +48,7 @@ Once you have all the info and the user has confirmed the plan length:
 8. Validate: `make test`
 9. Generate preview: `make markdown`
 10. Offer to sync first week to Garmin: `make workouts SCOPE=w1`
+11. If they set up Garmin, let them know: after your first week of training, run `/paicer-review` to pull your Garmin data, compare against the plan, and adjust pacing.
 
 ## Modifying an Existing Plan
 

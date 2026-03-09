@@ -10,7 +10,7 @@ pip install .           # or: uv sync
 cp .env.example .env    # Add your Garmin credentials
 ```
 
-Then open the project in Claude Code and run `/plan` to create your training plan through a guided conversation.
+Then open the project in Claude Code and run `/paicer-plan` to create your training plan through a guided conversation.
 
 ## What It Does
 
@@ -37,6 +37,6 @@ Running, cycling, swimming (pool and open water), track sessions, and multisport
 
 ## Roadmap
 
-1. **Weekly Review** — `/review` command to pull Garmin activity data, compare against plan, and adjust pacing
+1. **Imperial Units** — Support miles and min/mile pacing via `UNITS=imperial` in `.env`
 2. **Additional Formats** — PDF, iCal, JSON, CSV export
 3. **New Integrations** — Strava, Zwift
