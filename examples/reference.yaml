@@ -156,10 +156,11 @@ phases:
                   targetType: "power.zone"
                   zoneNumber: 2
 
-          # Optional workout — skip_garmin
+          # Optional workout — not scheduled to calendar
           - day: 4
             type: "run"
-            name: "Recovery Jog (optional)"
+            name: "Recovery Jog"
+            optional: true
             skip_garmin: true
             description: "20-30 min very easy jog at RPE 3-4. Skip if tired."
 

@@ -26,19 +26,24 @@ class MarkdownFormatter(DocumentFormatter):
         name = workout["name"]
         desc = workout["description"]
 
-        # Skip workouts beyond training_days range
-        if day_num and day_num > len(training_days):
+        is_optional = workout.get("optional", False)
+
+        # Skip non-optional workouts beyond training_days range
+        if day_num and day_num > len(training_days) and not is_optional:
             return ""
 
-        # Build day prefix (weekday + date) when applicable
+        # Build day prefix (weekday + date, or "Optional" for optional workouts)
         prefix = ""
         if day_num and show_day_label:
-            workout_date = calculate_workout_date(
-                start_date, week_num, day_num, training_days
-            )
-            weekday_names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-            day_name = weekday_names[training_days[day_num - 1] - 1]
-            prefix = f"{day_name} ({workout_date}): "
+            if is_optional:
+                prefix = "Optional: "
+            else:
+                workout_date = calculate_workout_date(
+                    start_date, week_num, day_num, training_days
+                )
+                weekday_names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+                day_name = weekday_names[training_days[day_num - 1] - 1]
+                prefix = f"{day_name} ({workout_date}): "
 
         line = f"**{prefix}{name}**  \n{desc}\n"
 

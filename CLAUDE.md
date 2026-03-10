@@ -95,6 +95,8 @@ See `docs/garmin-api.md` for the complete API reference (step types, end conditi
 
 **Reusable sessions:** Define YAML anchors in `swim_sessions:` or `track_sessions:` blocks at the top of the plan file. Reference with `garmin: *anchor_name`.
 
+**Optional workouts:** Set `optional: true` on workouts the athlete can skip (easy rides, recovery jogs). Optional workouts show as "Optional:" in docs instead of a weekday/date, don't count against `training_days` slots, and upload to Garmin library without being scheduled to a date.
+
 **Skip Garmin:** Set `skip_garmin: true` on workouts that don't need structured Garmin data.
 
 **Swim cue card pattern:** Swim workouts use `lap.button` end conditions with a `description` field on each step — the watch displays what to do, and you press lap to advance. No auto-distance tracking. Add `rest` steps between sections. Type `swim` auto-sets `sportTypeId: 4`, `targetType: null`, `strokeType: none`.

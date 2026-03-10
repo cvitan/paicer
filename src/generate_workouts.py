@@ -116,11 +116,12 @@ def main():
             if filter_week is not None and week_num != filter_week:
                 continue
 
-            # Validate: Garmin workouts don't exceed training days
+            # Validate: non-optional Garmin workouts don't exceed training days
             garmin_days = set(
                 w["day"]
                 for w in week_data["workouts"]
                 if not w.get("skip_garmin") and "garmin" in w
+                and not w.get("optional")
             )
             if len(garmin_days) > len(phase_training_days):
                 print(
@@ -170,8 +171,8 @@ def main():
                     # Upload workout
                     workout_id = integration.upload_workout(workout_json)
 
-                    # Schedule workout (unless --no-schedule)
-                    if not no_schedule:
+                    # Schedule workout (unless --no-schedule or optional)
+                    if not no_schedule and not workout.get("optional"):
                         integration.schedule_workout(workout_id, workout_date)
 
                     uploaded_dates.append(workout_date)
