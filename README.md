@@ -37,6 +37,5 @@ Running, cycling, swimming (pool and open water), track sessions, and multisport
 
 ## Roadmap
 
-1. **Imperial Units** — Support miles and min/mile pacing via `UNITS=imperial` in `.env`
-2. **Additional Formats** — PDF, iCal, JSON, CSV export
-3. **New Integrations** — Strava, Zwift
+1. **Additional Formats** — PDF, iCal, JSON, CSV export
+2. **New Integrations** — Strava, Zwift
