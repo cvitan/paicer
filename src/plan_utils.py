@@ -3,6 +3,30 @@
 from datetime import datetime, timedelta
 from typing import Dict
 
+SPORT_LABELS = {
+    "run": "Run",
+    "track": "Track",
+    "bike": "Bike",
+    "swim": "Swim",
+    "multisport": "Brick",
+    "race": "Race",
+}
+
+SPORT_EMOJI = {
+    "run": "🏃",
+    "track": "🏃",
+    "bike": "🚴",
+    "swim": "🏊",
+    "multisport": "🏃🚴",
+    "race": "🏁",
+}
+
+
+def format_display_date(date_str: str) -> str:
+    """Format YYYY-MM-DD as 'Mar 3' (no year, no zero-padding)."""
+    dt = datetime.strptime(date_str, "%Y-%m-%d")
+    return f"{dt.strftime('%b')} {dt.day}"
+
 
 def first_monday_on_or_after(start_date: str) -> datetime:
     """Find the first Monday on or after a date string (YYYY-MM-DD)."""
@@ -42,10 +66,10 @@ def calculate_workout_date(
     return workout_date.strftime("%Y-%m-%d")
 
 
-def calculate_week_dates(start_date: str, week: int, training_days: list[int]) -> str:
+def calculate_week_dates(start_date: str, week: int) -> str:
     """Calculate week date range string (Monday to Sunday).
 
-    Returns format like: "Feb 23 - Mar 1" or "Feb 23 - 27"
+    Returns format like: "Feb 23 – Mar 1" or "Feb 23 – 27"
     """
     first_monday = first_monday_on_or_after(start_date)
 
@@ -136,11 +160,25 @@ def validate_training_days(plan_data: Dict) -> list[str]:
 
         for week_data in phase["weeks"]:
             week_num = week_data["week"]
-            required_days = set(
-                w["day"]
-                for w in week_data["workouts"]
-                if not w.get("optional")
-            )
+            required_days = set()
+            for workout in week_data["workouts"]:
+                if workout.get("optional"):
+                    continue
+                day = workout.get("day")
+                if day is None or not isinstance(day, int):
+                    errors.append(
+                        f"Week {week_num} (phase {phase_num}): "
+                        f"non-optional workout missing valid 'day' value."
+                    )
+                    continue
+                if day < 1 or day > slots:
+                    errors.append(
+                        f"Week {week_num} (phase {phase_num}): "
+                        f"workout on day {day}, but only {slots} training "
+                        f"days configured (day must be 1–{slots})."
+                    )
+                    continue
+                required_days.add(day)
             if len(required_days) > slots:
                 errors.append(
                     f"Week {week_num} (phase {phase_num}) has "

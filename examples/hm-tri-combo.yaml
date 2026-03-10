@@ -2159,16 +2159,16 @@ phases:
           Walk, gentle spin, easy swim. No intervals, no structure. Let your body absorb the race effort. If something is sore, rest it. If you feel good by Thursday/Friday, a 20–30 min easy swim or spin is fine.
 
         workouts:
-          # Day 3 - Optional easy spin
-          - day: 3
+          # Day 1 - Optional easy spin
+          - day: 1
             type: "bike"
             name: "Bike: Easy Spin"
             optional: true
             skip_garmin: true
             description: "Optional: 20–30 min easy spin @RPE 4. Keep it very light."
 
-          # Day 4 - Optional easy swim
-          - day: 4
+          # Day 2 - Optional easy swim
+          - day: 2
             type: "swim"
             name: "Easy Swim"
             garmin:
@@ -2179,8 +2179,8 @@ phases:
                   description: "20-30 min easy swim @ RPE 4"
             description: "Optional: 20–30 min easy swim — relaxed laps, no drills. @RPE 4."
 
-          # Day 6 - Optional easy ride
-          - day: 6
+          # Day 3 - Optional easy ride
+          - day: 3
             type: "bike"
             name: "Bike: Easy Ride"
             optional: true
@@ -2268,15 +2268,15 @@ phases:
             description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Aim to better times from last time you did this session."
             garmin: *track_t1_garmin
 
-          # Day 5 - Swim
-          - day: 5
+          # Day 4 - Swim
+          - day: 4
             type: "swim"
             name: "Swim #8"
             garmin: *swim_s8_garmin
             description: "2.5 km. If using a swim watch or pace clock, you should see improvements in speed and ability to hold speed for longer."
 
-          # Day 6 - Run
-          - day: 6
+          # Day 5 - Run
+          - day: 5
             type: "run"
             name: "Long Steady 9km"
             description: "9 km @RPE 5–6. Pace should be kept well within comfort. Focus on holding pace for whole duration. Good benchmark for base pace after 2 months of training — use this to pace longer runs for the rest of the program."
@@ -2288,8 +2288,8 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 7 - Bike
-          - day: 7
+          # Day 6 - Bike
+          - day: 6
             type: "bike"
             name: "Hills 45km"
             description: "45 km. Steady state with hills included. Maintain steady cadence and rhythm. Pace judgement on climbs. Riding uphill increases strength; learning to descend confidently will be valuable."
@@ -2358,22 +2358,22 @@ phases:
                   endConditionValue: 10000  # 10km
                   targetType: "no.target"
 
-          # Day 5 - Track
-          - day: 5
+          # Day 4 - Track
+          - day: 4
             type: "track"
             name: "Track Session #1"
             description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Aim to hit the 800s at 5 sec/lap faster than the 1600, and the 400s another 3–5 sec/lap quicker. Each repeated distance must be consistent."
             garmin: *track_t1_garmin
 
-          # Day 6 - Open Water Swim
-          - day: 6
+          # Day 5 - Open Water Swim
+          - day: 5
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "First open water swim! 1 km. Ensure proper wetsuit fitting and spend time acclimatising to the water (may be colder early season). Cover distance aiming to swim smoothly, keeping good technique. Practice sighting. Practice breathing to weaker side."
 
-          # Day 7 - Brick
-          - day: 7
+          # Day 6 - Brick
+          - day: 6
             type: "multisport"
             name: "Brick 25km Bike + 5km Run"
             garmin:
@@ -2464,8 +2464,8 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 - Run
-          - day: 5
+          # Day 4 - Run
+          - day: 4
             type: "run"
             name: "Fartlek 5.5km"
             description: "5.5 km fartlek — random intervals on a route of your choosing. Average pace ~@RPE 6, with time spent between RPE 5–9. Good session to do with a friend (take turns calling sprints/efforts)."
@@ -2476,15 +2476,15 @@ phases:
                   endConditionValue: 5500  # 5.5km
                   targetType: "no.target"
 
-          # Day 6 - Open Water Swim
-          - day: 6
+          # Day 5 - Open Water Swim
+          - day: 5
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "1.5 km. Developing confidence and skills. Fit wetsuit properly, acclimatise, relax stroke, focus on breathing. Start adding sighting every 2–4 breaths. Join a group if possible for coaching points. @RPE 6–7."
 
-          # Day 7 - Bike
-          - day: 7
+          # Day 6 - Bike
+          - day: 6
             type: "bike"
             name: "Hills 50km"
             description: "50 km. Head out on a route @RPE 6. Plan some hills for harder work intervals. Good pacing on hills is important — too easy and you lose time, too hard and you'll be slower on the flats."
@@ -2537,8 +2537,8 @@ phases:
             description: "7.5 km. Track Session #3 (1x1200 m, 3x400 m, 1x1200 m, 3x400 m, 1x1200 m, 3x400 m = 7600 m total). Sets of same distance should be repeated at the same speed/time. Aim to beat times from previous attempts. Longer sets closer to goal race pace; shorter sets faster."
             garmin: *track_t3_garmin
 
-          # Day 5 - Run
-          - day: 5
+          # Day 4 - Run
+          - day: 4
             type: "run"
             name: "Steady Tempo 5km"
             description: "5 km steady tempo @RPE 7. Focus on run form and posture. Aim to keep 1 km splits as similar as possible. Ensure hydrated; practice with race-day energy products."
@@ -2550,15 +2550,15 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 3
 
-          # Day 6 - Open Water Swim
-          - day: 6
+          # Day 5 - Open Water Swim
+          - day: 5
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "1.5 km. Practice sighting, adapting stroke to wetsuit and open water. Slow cadence and work with buoyancy of suit. Break session into adaptation time, then finish with 400–500 m hard effort @RPE 7. Focus on controlling breathing (often first to go in cold open water)."
 
-          # Day 7 - Brick
-          - day: 7
+          # Day 6 - Brick
+          - day: 6
             type: "multisport"
             name: "Brick 30km Bike + 5km Run"
             garmin:
@@ -2662,22 +2662,22 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 5
 
-          # Day 5 - Track
-          - day: 5
+          # Day 4 - Track
+          - day: 4
             type: "track"
             name: "Track Session #1"
             description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Aim to match or beat times from last track session."
             garmin: *track_t1_garmin
 
-          # Day 6 - Open Water Swim
-          - day: 6
+          # Day 5 - Open Water Swim
+          - day: 5
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "2 km. Continue wetsuit prep: get suit on, warm up dry-side, acclimatise and warm up within a couple of minutes (race-day practice). Work in harder efforts in the later part. 1-arm drills aid rotation & stroke efficiency for open water."
 
-          # Day 7 - Bike
-          - day: 7
+          # Day 6 - Bike
+          - day: 6
             type: "bike"
             name: "Hills 60km"
             description: "60 km. Steady state @RPE 6–8. Maintain steady cadence and rhythm on climbs and flat. If you have access to your race course, do a recon ride (2 laps). Pace judge climbs, note prevailing wind direction."
@@ -2741,8 +2741,8 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 3
 
-          # Day 5 - Run
-          - day: 5
+          # Day 4 - Run
+          - day: 4
             type: "run"
             name: "Fartlek 5km"
             description: "5 km fartlek — random intervals, average @RPE 6 with bursts RPE 5–9. Learning to return to base pace following effort. Good session with a friend."
@@ -2753,15 +2753,15 @@ phases:
                   endConditionValue: 5000  # 5km
                   targetType: "no.target"
 
-          # Day 6 - Open Water Swim
-          - day: 6
+          # Day 5 - Open Water Swim
+          - day: 5
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "1.5 km. Longer steady duration. Run through wetsuit fitting, lubricant, tri-suit underneath. If you can swim with a friend or group, good practice for race-day conditions. Mixing up speed simulates fatigue."
 
-          # Day 7 - Brick
-          - day: 7
+          # Day 6 - Brick
+          - day: 6
             type: "multisport"
             name: "Brick 35km Bike + 7.5km Run"
             garmin:
@@ -2877,22 +2877,22 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 3
 
-          # Day 5 - Track
-          - day: 5
+          # Day 4 - Track
+          - day: 4
             type: "track"
             name: "Track Session #1"
             description: "5 km. Track Session #1 (1x1600 m, 2x800 m, 4x400 m). Working above race pace. Can do each repeated distance as a negative split, trying to beat time of last segment by 1–2 seconds."
             garmin: *track_t1_garmin
 
-          # Day 6 - Open Water Swim
-          - day: 6
+          # Day 5 - Open Water Swim
+          - day: 5
             type: "swim"
             name: "Swim: Open Water"
             skip_garmin: true
             description: "2 km. Race day prep. Get suit on in plenty of time, fit properly. Warm up on land then in water within 2 min (race-day simulation). Practice start, swim race distance (1.5 km). Use remaining distance for sprints. Final race-pace prep — polish technique and pacing."
 
-          # Day 7 - Bike
-          - day: 7
+          # Day 6 - Bike
+          - day: 6
             type: "bike"
             name: "Hills 50km"
             description: "50 km. Steady state — maintain cadence and rhythm. Pace judgement on hills. Good pacing on hills maintains optimal race pace (too easy = lose time, too hard = slower on flats)."
@@ -2946,8 +2946,8 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 - Run
-          - day: 5
+          # Day 4 - Run
+          - day: 4
             type: "run"
             name: "Shakeout 1km"
             description: "1 km. Still warming up — keep legs moving at a good tempo, but not quite race pace @RPE 7. Nice short session to loosen off."
@@ -2959,8 +2959,8 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 6 - Swim
-          - day: 6
+          # Day 5 - Swim
+          - day: 5
             type: "swim"
             name: "Easy Swim"
             garmin:
@@ -2971,8 +2971,8 @@ phases:
                   description: "750m relaxed — easy laps with short bursts @ RPE 5-7"
             description: "750 m. Relaxed effort, loosening off with a few short bursts @RPE 5–7. Good position, technique, relaxed stroke. Can do in open water for confidence boost and wetsuit removal practice. If you've travelled to the event, this helps get over the journey."
 
-          # Day 7 - RACE DAY
-          - day: 7
+          # Day 6 - RACE DAY
+          - day: 6
             type: "race"
             name: "RACE: Olympic Triathlon"
             skip_garmin: true

@@ -6,9 +6,10 @@ from plan_utils import (
     calculate_week_dates,
     calculate_phase_dates,
     extract_swim_steps,
+    format_display_date,
+    SPORT_EMOJI,
 )
 from .base import DocumentFormatter
-from .markdown import SPORT_EMOJI, MarkdownFormatter
 
 
 class HTMLFormatter(DocumentFormatter):
@@ -147,9 +148,7 @@ class HTMLFormatter(DocumentFormatter):
             # Weeks (one per page)
             for week in phase["weeks"]:
                 week_num = week["week"]
-                week_dates = calculate_week_dates(
-                    start_date, week_num, phase_training_days
-                )
+                week_dates = calculate_week_dates(start_date, week_num)
 
                 html.append("  <div class='week-page'>")
 
@@ -217,9 +216,7 @@ class HTMLFormatter(DocumentFormatter):
                             workout_date = calculate_workout_date(
                                 start_date, week_num, day_num, phase_training_days
                             )
-                            display_date = MarkdownFormatter._format_display_date(
-                                workout_date
-                            )
+                            display_date = format_display_date(workout_date)
                             day_label = weekday_names[phase_training_days[day_num - 1] - 1]
                             html.append(
                                 f"        <td><div class='workout-name'>{day_label} ({display_date})</div><div class='workout-day'>{workout_title}</div></td>"

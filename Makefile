@@ -38,7 +38,7 @@ test:
 	@uv run python -m py_compile src/*.py
 	@echo "✅ Python valid"
 	@echo "Validating plan..."
-	@PYTHONPATH=src uv run python -c "from plan_utils import load_plan, validate_training_days; import sys; errs = validate_training_days(load_plan('$(PLAN)')); [print(f'Error: {e}') for e in errs]; sys.exit(1) if errs else None"
+	@PYTHONPATH=src uv run python -c "import sys; from plan_utils import load_plan, validate_training_days; errors = validate_training_days(load_plan(sys.argv[1])); [print('Error: ' + e) for e in errors]; sys.exit(1) if errors else None" "$(PLAN)"
 	@echo "✅ Plan valid"
 
 workouts:
