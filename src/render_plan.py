@@ -23,7 +23,7 @@ def main():
     output_html = "--html" in sys.argv
 
     # Parse format parameter
-    paper_format = "letter"  # Default
+    paper_format = "a4"  # Default (metric); Makefile passes letter for imperial
     for arg in sys.argv:
         if arg.startswith("--format="):
             paper_format = arg.split("=")[1].lower()

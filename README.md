@@ -23,8 +23,7 @@ From one YAML plan file, paicer generates:
 
 ```bash
 make markdown               # Generate Markdown
-make html                   # Generate HTML (letter size)
-make html FORMAT=a4         # Generate HTML (A4)
+make html                   # Generate HTML (A4 for metric, letter for imperial)
 make workouts SCOPE=w7      # Sync week 7 to Garmin
 make workouts SCOPE=w7d2    # Sync specific workout
 make workouts SCOPE=p2      # Sync entire phase
@@ -37,6 +36,5 @@ Running, cycling, swimming (pool and open water), track sessions, and multisport
 
 ## Roadmap
 
-1. **Imperial Units** — Support miles and min/mile pacing via `UNITS=imperial` in `.env`
-2. **Additional Formats** — PDF, iCal, JSON, CSV export
-3. **New Integrations** — Strava, Zwift
+1. **Additional Formats** — PDF, iCal, JSON, CSV export
+2. **New Integrations** — Strava, Zwift

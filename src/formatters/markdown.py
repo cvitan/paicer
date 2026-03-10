@@ -40,12 +40,7 @@ class MarkdownFormatter(DocumentFormatter):
             day_name = weekday_names[training_days[day_num - 1] - 1]
             prefix = f"{day_name} ({workout_date}): "
 
-        distance = workout.get("distance")
-        if distance:
-            distance_km = distance / 1000
-            line = f"**{prefix}{name}** — {distance_km}km  \n{desc}\n"
-        else:
-            line = f"**{prefix}{name}**  \n{desc}\n"
+        line = f"**{prefix}{name}**  \n{desc}\n"
 
         # Render swim session steps
         if workout.get("type") == "swim":

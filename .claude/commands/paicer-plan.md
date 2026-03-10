@@ -6,6 +6,12 @@ Help the user create a new training plan or modify an existing one.
 
 Before anything else, check if `.env` exists. If not, copy `.env.example` to `.env`.
 
+## Unit System
+
+Read `UNITS` from `.env` (default: `metric`). Use this for all text fields (`name`, `description`) and YAML comments on Garmin numeric values. When `UNITS=imperial`, use miles and min/mile. When `UNITS=metric` (or absent), use km and min/km.
+
+Garmin steps always use metric values (meters, sec/km) regardless of UNITS setting. Add YAML comments in the user's preferred system (e.g., `endConditionValue: 6437  # 4 mi`).
+
 ## Creating a New Plan
 
 Interview the user **one question at a time**. Wait for each answer before asking the next. Do not batch questions.
@@ -42,7 +48,7 @@ Once you have all the info and the user has confirmed the plan length:
 2. Create a new plan file in `plans/`
 3. Design the phase structure (typically: Base → Build → Peak → Taper)
 4. Build week-by-week with progressive volume increase
-5. Add Garmin workout structures for each session
+5. Add Garmin workout structures for each session, with YAML comments in the user's preferred unit system (e.g., `endConditionValue: 8047  # 5 mi`)
 6. For reusable workouts (swim sessions, track sessions), create YAML anchors
 7. Set `PLAN=plans/new-plan.yaml` in `.env`
 8. Validate: `make test`
@@ -57,7 +63,7 @@ Once you have all the info and the user has confirmed the plan length:
 3. Understand what the user wants to change
 4. Make the edits, preserving:
    - Sequential week/day numbering
-   - `garmin_name` format: `W{week}: Description` (no day number)
+   - `name` format: descriptive name with distance/workout info (e.g., "Easy 8km", "Tempo 3x8min"). Week prefix is added automatically at Garmin sync time.
    - Consistent training_days across the phase
 5. Validate: `make test`
 6. If Garmin workouts changed, remind user to re-sync affected weeks

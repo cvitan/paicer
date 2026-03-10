@@ -9,7 +9,7 @@ Output JSON structure:
   "week": 2,
   "week_dates": {"start": "2026-01-12", "end": "2026-01-18"},
   "planned": [
-    {"garmin_name": "W2D1: Easy 8km", "type": "run", "distance": 8000, ...}
+    {"name": "Easy 8km", "type": "run", ...}
   ],
   "activities": [
     {"activityName": "W2: Easy 8km", "distance": 8123.4, "intervals": [
@@ -72,10 +72,8 @@ def get_planned_workouts(plan_data, week_num):
             if week["week"] == week_num:
                 for w in week["workouts"]:
                     workouts.append({
-                        "garmin_name": w.get("garmin_name"),
                         "name": w["name"],
                         "type": w.get("type", "run"),
-                        "distance": w.get("distance"),
                         "description": w.get("description", ""),
                         "skip_garmin": w.get("skip_garmin", False),
                     })

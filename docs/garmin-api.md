@@ -57,8 +57,8 @@ Use the string name in YAML — automatically converted to the ID:
 
 ```yaml
 targetType: "pace.zone"
-targetValueOne: 310   # 5:10/km in seconds
-targetValueTwo: 340   # 5:40/km in seconds
+targetValueOne: 310   # 5:10/km
+targetValueTwo: 340   # 5:40/km
 ```
 
 - Use `"pace.zone"` (ID 6), NOT `"speed.zone"` (ID 5)

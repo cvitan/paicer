@@ -21,8 +21,7 @@ docs/                   — Garmin API reference, other docs
 
 ```bash
 make markdown                  # Generate Markdown
-make html                      # Generate HTML (letter)
-make html FORMAT=a4            # Generate HTML (A4)
+make html                      # Generate HTML (A4 for metric, letter for imperial)
 make workouts SCOPE=w7         # Sync week 7 to Garmin
 make workouts SCOPE=w7d2       # Sync week 7 day 2
 make workouts SCOPE=p2         # Sync phase 2
@@ -31,6 +30,8 @@ make test                      # Validate YAML + Python
 ```
 
 Plan path is set in `.env` as `PLAN=plans/your-plan.yaml`.
+
+Set `UNITS=metric` or `UNITS=imperial` in `.env` to control the unit system used when creating or editing plans. Garmin steps always use metric internally. Text fields (`name`, `description`) and YAML comments use the preferred system.
 
 ## YAML Plan Structure
 
@@ -57,9 +58,7 @@ phases:
         workouts:
           - day: 1
             type: "run"           # run | track | bike | swim | multisport
-            name: "Easy Run"
-            garmin_name: "W1: Easy 8km"
-            distance: 8000        # Optional, meters
+            name: "Easy 8km"
             description: "8 km easy at RPE 4-5."
             garmin:
               steps: [...]
@@ -106,7 +105,7 @@ See `docs/garmin-api.md` for the complete API reference (step types, end conditi
 
 When editing a plan:
 1. Read the existing plan to understand structure, phases, training days
-2. Keep `garmin_name` format as `W{week}: Description`
+2. Keep `name` descriptive with distance/workout info (e.g., 'Easy 8km', 'Tempo 3x8min'). Week prefix is added automatically at Garmin sync time.
 3. Week and day numbers must be sequential within their parent
 4. Validate after changes: `make test`
 5. Generate to verify: `make markdown`
@@ -144,7 +143,7 @@ Use progressive periodization: Base → Build → Peak → Taper. Include recove
 
 - Verify `start_date` is set
 - Check week/day numbers are sequential
-- Ensure `garmin_name` follows W{week}: title format 
+- Ensure `name` is descriptive with distance/workout info
 - Validate pace values are reasonable (e.g., 4:00-6:30/km)
 - Check descriptions include RPE and coaching notes
 - Test YAML with `make test`
