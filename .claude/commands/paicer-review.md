@@ -24,7 +24,7 @@ Read `UNITS` from `.env` (default: `metric`). Present all pace and distance valu
    - **Cycling with power targets:** compare INTERVAL_ACTIVE power vs target zone
    - **Swimming:** completion (did the session happen?)
    - **Distance:** actual vs planned
-5. For unmatched plan workouts (no activity with that `name`):
+5. For unmatched plan workouts (no activity matching `W{week_num}: {name}`):
    - Check if there are other activities that weren't matched to any plan workout
    - Present these to the user: "I couldn't find W2: Tempo Run, but I found 'Morning Run' on Thursday — is that the same workout?"
    - If user confirms, use that activity for comparison
