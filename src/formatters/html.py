@@ -201,13 +201,7 @@ class HTMLFormatter(DocumentFormatter):
 
                     name = workout["name"]
                     desc = workout["description"]
-                    distance = workout.get("distance")
-
-                    # Workout title
                     workout_title = name
-                    if distance:
-                        distance_km = distance / 1000
-                        workout_title = f"{name} — {distance_km}km"
 
                     html.append(f"      <tr{row_class}>")
                     html.append("        <td></td>")
