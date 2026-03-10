@@ -65,6 +65,7 @@ Once you have all the info and the user has confirmed the plan length:
    - Sequential week/day numbering
    - `name` format: descriptive name with distance/workout info (e.g., "Easy 8km", "Tempo 3x8min"). Week prefix is added automatically at Garmin sync time.
    - Consistent training_days across the phase
+   - Mark truly optional workouts (easy rides, recovery jogs) with `optional: true`. These don't count against training_days slots. If they have a `garmin:` section, they upload to Garmin library without being scheduled to a date.
 5. Validate: `make test`
 6. If Garmin workouts changed, remind user to re-sync affected weeks
 

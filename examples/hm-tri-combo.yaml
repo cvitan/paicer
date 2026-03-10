@@ -787,7 +787,8 @@ phases:
           # Day 5 - Optional bike (skip Garmin)
           - day: 5
             type: "bike"
-            name: "Easy Ride (optional, 1-2x this week)"
+            name: "Easy Ride"
+            optional: true
             skip_garmin: true
             description: "45–60 min easy spin at RPE 5. No structure, just ride."
 
@@ -901,7 +902,8 @@ phases:
           # Day 5 - Optional bike (skip Garmin)
           - day: 5
             type: "bike"
-            name: "Easy Ride (optional, 1-2x this week)"
+            name: "Easy Ride"
+            optional: true
             skip_garmin: true
             description: "45–60 min easy spin at RPE 5."
 
@@ -1015,7 +1017,8 @@ phases:
           # Day 5 - Optional bike (skip Garmin)
           - day: 5
             type: "bike"
-            name: "Easy Ride (optional, 1-2x this week)"
+            name: "Easy Ride"
+            optional: true
             skip_garmin: true
             description: "45–60 min easy spin at RPE 5."
 
@@ -1106,7 +1109,8 @@ phases:
           # Day 5 - Optional bike (skip Garmin)
           - day: 5
             type: "bike"
-            name: "Easy Ride (optional, 1-2x this week)"
+            name: "Easy Ride"
+            optional: true
             skip_garmin: true
             description: "45–60 min easy spin at RPE 5."
 
@@ -1201,7 +1205,8 @@ phases:
           # Day 5 - Optional bike (skip Garmin)
           - day: 5
             type: "bike"
-            name: "Easy Ride (optional, 1-2x this week)"
+            name: "Easy Ride"
+            optional: true
             skip_garmin: true
             description: "45–60 min easy spin at RPE 5."
 
@@ -1292,7 +1297,8 @@ phases:
           # Day 5 - Optional bike (skip Garmin)
           - day: 5
             type: "bike"
-            name: "Easy Ride (optional, 1-2x this week)"
+            name: "Easy Ride"
+            optional: true
             skip_garmin: true
             description: "45–60 min easy spin at RPE 5."
 
@@ -2128,7 +2134,8 @@ phases:
           # Day 5 - Optional shakeout
           - day: 5
             type: "run"
-            name: "Run: Shakeout (optional)"
+            name: "Run: Shakeout"
+            optional: true
             skip_garmin: true
             description: "20–30 min easy walk or 3 km very easy jog (RPE 3–4). Or rest."
 
@@ -2155,7 +2162,8 @@ phases:
           # Day 3 - Optional easy spin
           - day: 3
             type: "bike"
-            name: "Bike: Easy Spin (optional)"
+            name: "Bike: Easy Spin"
+            optional: true
             skip_garmin: true
             description: "Optional: 20–30 min easy spin @RPE 4. Keep it very light."
 
@@ -2174,7 +2182,8 @@ phases:
           # Day 6 - Optional easy ride
           - day: 6
             type: "bike"
-            name: "Bike: Easy Ride (optional)"
+            name: "Bike: Easy Ride"
+            optional: true
             skip_garmin: true
             description: "Optional: 30 min easy ride @RPE 4–5. Loosen the legs."
 

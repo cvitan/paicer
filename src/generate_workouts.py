@@ -116,11 +116,12 @@ def main():
             if filter_week is not None and week_num != filter_week:
                 continue
 
-            # Validate: Garmin workouts don't exceed training days
+            # Validate: non-optional Garmin workouts don't exceed training days
             garmin_days = set(
                 w["day"]
                 for w in week_data["workouts"]
                 if not w.get("skip_garmin") and "garmin" in w
+                and not w.get("optional")
             )
             if len(garmin_days) > len(phase_training_days):
                 print(
@@ -139,13 +140,17 @@ def main():
                     continue
 
                 garmin_name = f"W{week_num}: {workout['name']}"
+                is_optional = workout.get("optional", False)
 
-                workout_date = calculate_workout_date(
-                    start_date, week_num, day_num, phase_training_days
-                )
+                # Optional workouts may have day beyond training_days
+                workout_date = None
+                if not is_optional or day_num <= len(phase_training_days):
+                    workout_date = calculate_workout_date(
+                        start_date, week_num, day_num, phase_training_days
+                    )
 
                 # Track week Monday (first training day of week)
-                if week_monday is None and day_num == 1:
+                if week_monday is None and day_num == 1 and workout_date:
                     week_monday = workout_date
 
                 # Print syncing message once
@@ -170,11 +175,12 @@ def main():
                     # Upload workout
                     workout_id = integration.upload_workout(workout_json)
 
-                    # Schedule workout (unless --no-schedule)
-                    if not no_schedule:
+                    # Schedule workout (unless --no-schedule or optional)
+                    if not no_schedule and not is_optional and workout_date:
                         integration.schedule_workout(workout_id, workout_date)
 
-                    uploaded_dates.append(workout_date)
+                    if workout_date and not is_optional:
+                        uploaded_dates.append(workout_date)
                     uploaded_names.append(garmin_name)
 
                 except Exception as e:
@@ -182,7 +188,7 @@ def main():
                     sys.exit(1)
 
     # Result
-    if not uploaded_dates:
+    if not uploaded_names:
         if skipped_workouts:
             for w in skipped_workouts:
                 print(f"Skipped: {w['name']} (session set to skip Garmin sync)")
@@ -191,19 +197,18 @@ def main():
         sys.exit(1)
 
     # Format confirmation message
+    count = len(uploaded_names)
     if no_schedule:
-        # Just uploaded, not scheduled
         if filter_day:
             print("✓ Uploaded to Garmin Connect")
         else:
-            count = len(uploaded_names)
             print(f"✓ Uploaded {count} workout{'s' if count > 1 else ''} to Garmin Connect")
     else:
-        # Uploaded and scheduled
-        if filter_day:
+        if filter_day and uploaded_dates:
             print(f"✓ Synced to Garmin Connect and scheduled for {uploaded_dates[0]}")
+        elif filter_day:
+            print("✓ Uploaded to Garmin Connect")
         elif filter_week or filter_phase:
-            count = len(uploaded_names)
             print(f"✓ Synced {count} workout{'s' if count > 1 else ''} to Garmin Connect")
         else:
             print("✓ Synced to Garmin Connect")

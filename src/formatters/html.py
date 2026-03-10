@@ -188,9 +188,10 @@ class HTMLFormatter(DocumentFormatter):
 
                 for workout in week["workouts"]:
                     day_num = workout.get("day")
+                    is_optional = workout.get("optional", False)
 
-                    # Skip workouts beyond training_days range
-                    if day_num and day_num > len(phase_training_days):
+                    # Skip non-optional workouts beyond training_days range
+                    if day_num and day_num > len(phase_training_days) and not is_optional:
                         continue
 
                     # Track day groups for alternating colors
@@ -206,13 +207,18 @@ class HTMLFormatter(DocumentFormatter):
                     html.append(f"      <tr{row_class}>")
                     html.append("        <td></td>")
                     if day_num and not same_day:
-                        workout_date = calculate_workout_date(
-                            start_date, week_num, day_num, phase_training_days
-                        )
-                        day_label = weekday_names[phase_training_days[day_num - 1] - 1]
-                        html.append(
-                            f"        <td><div class='workout-name'>{day_label} ({workout_date})</div><div class='workout-day'>{workout_title}</div></td>"
-                        )
+                        if is_optional:
+                            html.append(
+                                f"        <td><div class='workout-name'>Optional</div><div class='workout-day'>{workout_title}</div></td>"
+                            )
+                        else:
+                            workout_date = calculate_workout_date(
+                                start_date, week_num, day_num, phase_training_days
+                            )
+                            day_label = weekday_names[phase_training_days[day_num - 1] - 1]
+                            html.append(
+                                f"        <td><div class='workout-name'>{day_label} ({workout_date})</div><div class='workout-day'>{workout_title}</div></td>"
+                            )
                     else:
                         html.append(
                             f"        <td><div class='workout-day'>{workout_title}</div></td>"
