@@ -45,7 +45,7 @@ def calculate_workout_date(
 def calculate_week_dates(start_date: str, week: int, training_days: list[int]) -> str:
     """Calculate week date range string (Monday to Sunday).
 
-    Returns format like: "Feb 23 - Mar 01" or "Feb 23 - 27"
+    Returns format like: "Feb 23 - Mar 1" or "Feb 23 - 27"
     """
     first_monday = first_monday_on_or_after(start_date)
 
@@ -54,16 +54,17 @@ def calculate_week_dates(start_date: str, week: int, training_days: list[int]) -
     week_end = week_start + timedelta(days=6)  # Sunday
 
     # Format: show month on end date if different from start
+    start_str = f"{week_start.strftime('%b')} {week_start.day}"
     if week_start.month == week_end.month:
-        return f"{week_start.strftime('%b %d')} - {week_end.strftime('%d')}"
+        return f"{start_str} – {week_end.day}"
     else:
-        return f"{week_start.strftime('%b %d')} - {week_end.strftime('%b %d')}"
+        return f"{start_str} – {week_end.strftime('%b')} {week_end.day}"
 
 
 def calculate_phase_dates(start_date: str, phase_weeks: list[Dict]) -> str:
     """Calculate phase date range from list of weeks.
 
-    Returns format like: "Feb 23 – Mar 08"
+    Returns format like: "Feb 23 – Mar 8"
     """
     if not phase_weeks:
         return ""
@@ -78,7 +79,9 @@ def calculate_phase_dates(start_date: str, phase_weeks: list[Dict]) -> str:
     # Phase end = last week's Sunday
     phase_end = first_monday + timedelta(weeks=last_week) - timedelta(days=1)
 
-    return f"{phase_start.strftime('%b %d')} – {phase_end.strftime('%b %d')}"
+    start_str = f"{phase_start.strftime('%b')} {phase_start.day}"
+    end_str = f"{phase_end.strftime('%b')} {phase_end.day}"
+    return f"{start_str} – {end_str}"
 
 
 def extract_swim_steps(garmin_data: dict) -> list:
@@ -114,6 +117,39 @@ def extract_swim_steps(garmin_data: dict) -> list:
             result.append(desc)
 
     return result
+
+
+def validate_training_days(plan_data: Dict) -> list[str]:
+    """Check that non-optional workouts don't exceed training_days per week.
+
+    Returns list of error messages (empty if valid).
+    """
+    global_training_days = plan_data["plan"].get(
+        "training_days", [1, 2, 3, 4, 5, 6, 7]
+    )
+    errors = []
+
+    for phase in plan_data["phases"]:
+        phase_num = phase["phase"]
+        phase_training_days = phase.get("training_days", global_training_days)
+        slots = len(phase_training_days)
+
+        for week_data in phase["weeks"]:
+            week_num = week_data["week"]
+            required_days = set(
+                w["day"]
+                for w in week_data["workouts"]
+                if not w.get("optional")
+            )
+            if len(required_days) > slots:
+                errors.append(
+                    f"Week {week_num} (phase {phase_num}) has "
+                    f"{len(required_days)} non-optional workouts but only "
+                    f"{slots} training days. Either mark some workouts as "
+                    f"optional: true or add training days."
+                )
+
+    return errors
 
 
 def load_plan(plan_file: str) -> Dict:

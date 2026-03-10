@@ -1,5 +1,6 @@
 """Markdown formatter."""
 
+from datetime import datetime
 from typing import Dict
 from plan_utils import (
     calculate_workout_date,
@@ -10,8 +11,37 @@ from plan_utils import (
 from .base import DocumentFormatter
 
 
+SPORT_LABELS = {
+    "run": "Run",
+    "track": "Track",
+    "bike": "Bike",
+    "swim": "Swim",
+    "multisport": "Brick",
+    "race": "Race",
+}
+
+SPORT_EMOJI = {
+    "run": "🏃",
+    "track": "🏃",
+    "bike": "🚴",
+    "swim": "🏊",
+    "multisport": "🏃🚴",
+    "race": "🏁",
+}
+
+
 class MarkdownFormatter(DocumentFormatter):
     """Renders training plan as Markdown."""
+
+    @staticmethod
+    def _sport_label(workout_type: str) -> str:
+        return SPORT_LABELS.get(workout_type, "")
+
+    @staticmethod
+    def _format_display_date(date_str: str) -> str:
+        """Format YYYY-MM-DD as 'Mar 3' (no year, no zero-padding)."""
+        dt = datetime.strptime(date_str, "%Y-%m-%d")
+        return f"{dt.strftime('%b')} {dt.day}"
 
     def format_workout(
         self,
@@ -41,11 +71,14 @@ class MarkdownFormatter(DocumentFormatter):
                 workout_date = calculate_workout_date(
                     start_date, week_num, day_num, training_days
                 )
+                display_date = self._format_display_date(workout_date)
                 weekday_names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
                 day_name = weekday_names[training_days[day_num - 1] - 1]
-                prefix = f"{day_name} ({workout_date}): "
+                prefix = f"{day_name} ({display_date}): "
 
-        line = f"**{prefix}{name}**  \n{desc}\n"
+        sport_label = self._sport_label(workout.get("type", ""))
+        sport_prefix = f"{sport_label} - " if sport_label else ""
+        line = f"**{prefix}{sport_prefix}{name}**  \n{desc}\n"
 
         # Render swim session steps
         if workout.get("type") == "swim":

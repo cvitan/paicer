@@ -9,7 +9,7 @@ Usage:
 """
 
 import sys
-from plan_utils import load_plan
+from plan_utils import load_plan, validate_training_days
 from formatters.markdown import MarkdownFormatter
 from formatters.html import HTMLFormatter
 
@@ -31,8 +31,13 @@ def main():
                 print(f"Invalid format: {paper_format}. Use 'a4' or 'letter'")
                 sys.exit(1)
 
-    # Load plan
+    # Load and validate plan
     data = load_plan(plan_file)
+    errors = validate_training_days(data)
+    if errors:
+        for e in errors:
+            print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
 
     # Render using appropriate formatter
     if output_html:
