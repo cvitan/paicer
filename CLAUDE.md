@@ -8,7 +8,7 @@ Training plan tool: YAML plan → Garmin workouts + Markdown/HTML documents.
 src/
   render_plan.py        — YAML → Markdown/HTML (entry point)
   generate_workouts.py  — YAML → Garmin workouts with filtering
-  plan_utils.py         — Date calculation, YAML loading, swim step extraction
+  plan_utils.py         — Date calculation, YAML loading, plan validation, sport maps
   formatters/           — Base class + MarkdownFormatter + HTMLFormatter
   integrations/         — Base class + GarminIntegration
 examples/               — Example training plans
@@ -26,7 +26,7 @@ make workouts SCOPE=w7         # Sync week 7 to Garmin
 make workouts SCOPE=w7d2       # Sync week 7 day 2
 make workouts SCOPE=p2         # Sync phase 2
 make workouts SCOPE=all        # Sync everything
-make test                      # Validate YAML + Python
+make test                      # Validate YAML, Python, and plan structure
 ```
 
 Plan path is set in `.env` as `PLAN=plans/your-plan.yaml`.
@@ -82,6 +82,7 @@ reviews:
 | `bike` | cycling (2) | Power zone targets (if rider has power meter) |
 | `swim` | swimming (4) | Lap-button cue cards with `description` per step |
 | `multisport` | multi_sport (10) | Multiple `garmin.legs`, each with own sport + steps |
+| `race` | — | Race day entry, typically `skip_garmin: true` |
 
 ## Garmin Step Patterns
 

@@ -6,11 +6,9 @@ AI-powered training plan generator. Describe your goals and fitness to Claude, a
 
 ```bash
 git clone https://github.com/cvitan/paicer && cd paicer
-pip install .           # or: uv sync
-cp .env.example .env    # Add your Garmin credentials
 ```
 
-Then open the project in Claude Code and run `/paicer-plan` to create your training plan through a guided conversation.
+Open the project in Claude Code and run `/paicer-plan` to create your training plan through a guided conversation. It handles setup, configuration, and walks you through the process.
 
 ## What It Does
 
