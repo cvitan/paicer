@@ -95,7 +95,7 @@ See `docs/garmin-api.md` for the complete API reference (step types, end conditi
 
 **Reusable sessions:** Define YAML anchors in `swim_sessions:` or `track_sessions:` blocks at the top of the plan file. Reference with `garmin: *anchor_name`.
 
-**Optional workouts:** Set `optional: true` on workouts the athlete can skip (easy rides, recovery jogs). Optional workouts show as "Optional:" in docs instead of a weekday/date, don't count against `training_days` slots, and upload to Garmin library without being scheduled to a date.
+**Optional workouts:** Set `optional: true` on workouts the athlete can skip (easy rides, recovery jogs). Optional workouts show as "Optional:" in docs instead of a weekday/date and don't count against `training_days` slots. If they have a `garmin:` section, they upload to Garmin library without being scheduled to a date. `optional` only affects scheduling and display — it doesn't override `skip_garmin: true`.
 
 **Skip Garmin:** Set `skip_garmin: true` on workouts that don't need structured Garmin data.
 

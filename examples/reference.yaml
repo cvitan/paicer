@@ -156,7 +156,7 @@ phases:
                   targetType: "power.zone"
                   zoneNumber: 2
 
-          # Optional workout — not scheduled to calendar
+          # Optional workout — skip_garmin: no Garmin upload; optional: no calendar date
           - day: 4
             type: "run"
             name: "Recovery Jog"
