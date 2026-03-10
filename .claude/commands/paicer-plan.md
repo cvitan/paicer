@@ -12,6 +12,8 @@ Read `UNITS` from `.env` (default: `metric`). Use this for all text fields (`nam
 
 Garmin steps always use metric values (meters, sec/km) regardless of UNITS setting. Add YAML comments in the user's preferred system (e.g., `endConditionValue: 6437  # 4 mi`).
 
+When `UNITS=imperial`, use clean round numbers that people actually train with — not metric-to-imperial conversions. Runs: 3, 4, 5, 6, 8, 10, 13, 16, 20 miles. Bikes: 10, 15, 20, 25, 40 miles. Paces: round to nearest :15 (7:30, 7:45, 8:00/mi). Swim: yards for US pools (200 yds, 500 yds, 1000 yds). Track: stays in meters (400m tracks are universal).
+
 ## Creating a New Plan
 
 Interview the user **one question at a time**. Wait for each answer before asking the next. Do not batch questions.
@@ -44,7 +46,7 @@ Do NOT silently pick a plan length — always confirm with the user.
 
 Once you have all the info and the user has confirmed the plan length:
 
-1. Read `examples/reference.yaml` for structural patterns
+1. Read the appropriate reference plan for structural patterns: `examples/reference-metric.yaml` (metric) or `examples/reference-imperial.yaml` (imperial)
 2. Create a new plan file in `plans/`
 3. Design the phase structure (typically: Base → Build → Peak → Taper)
 4. Build week-by-week with progressive volume increase

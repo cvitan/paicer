@@ -12,7 +12,7 @@ Integration is set via WORKOUT_INTEGRATION in .env (default: garmin)
 import os
 import sys
 from dotenv import load_dotenv
-from plan_utils import calculate_workout_date, load_plan
+from plan_utils import calculate_workout_date, load_plan, validate_training_days
 
 # Load .env file
 load_dotenv()
@@ -76,8 +76,14 @@ def main():
         print(f"Error: {e}")
         sys.exit(1)
 
-    # Load plan
+    # Load and validate plan
     data = load_plan(plan_file)
+    errors = validate_training_days(data)
+    if errors:
+        for e in errors:
+            print(f"Error: {e}")
+        sys.exit(1)
+
     start_date = data["plan"]["start_date"]
     global_training_days = data["plan"].get("training_days", [1, 2, 3, 4, 5, 6, 7])
 
@@ -115,19 +121,6 @@ def main():
 
             if filter_week is not None and week_num != filter_week:
                 continue
-
-            # Validate: non-optional Garmin workouts don't exceed training days
-            garmin_days = set(
-                w["day"]
-                for w in week_data["workouts"]
-                if not w.get("skip_garmin") and "garmin" in w
-                and not w.get("optional")
-            )
-            if len(garmin_days) > len(phase_training_days):
-                print(
-                    f"Error: Week {week_num} has {len(garmin_days)} Garmin days but only {len(phase_training_days)} training days"
-                )
-                sys.exit(1)
 
             for workout in week_data["workouts"]:
                 day_num = workout["day"]

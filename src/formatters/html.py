@@ -6,6 +6,8 @@ from plan_utils import (
     calculate_week_dates,
     calculate_phase_dates,
     extract_swim_steps,
+    format_display_date,
+    SPORT_EMOJI,
 )
 from .base import DocumentFormatter
 
@@ -146,16 +148,14 @@ class HTMLFormatter(DocumentFormatter):
             # Weeks (one per page)
             for week in phase["weeks"]:
                 week_num = week["week"]
-                week_dates = calculate_week_dates(
-                    start_date, week_num, phase_training_days
-                )
+                week_dates = calculate_week_dates(start_date, week_num)
 
                 html.append("  <div class='week-page'>")
 
                 # Phase context
                 html.append("    <div class='phase-header'>")
                 html.append(
-                    f"      <div class='phase-title'>Phase {phase['phase']}: {phase['name']} | {phase_dates}</div>"
+                    f"      <div class='phase-title'>Phase {phase['phase']}: {phase['name']} ({phase_dates})</div>"
                 )
                 for line in phase["description"].strip().split("\n"):
                     if line.strip():
@@ -178,7 +178,7 @@ class HTMLFormatter(DocumentFormatter):
                 html.append("    <table class='workout-table'>")
                 html.append("      <tr>")
                 html.append("        <th style='width: 30px;'>✓</th>")
-                html.append("        <th style='width: 120px;'>Workout</th>")
+                html.append("        <th style='width: 160px;'>Workout</th>")
                 html.append("        <th>Details</th>")
                 html.append("      </tr>")
 
@@ -202,7 +202,8 @@ class HTMLFormatter(DocumentFormatter):
 
                     name = workout["name"]
                     desc = workout["description"]
-                    workout_title = name
+                    emoji = SPORT_EMOJI.get(workout.get("type", ""), "")
+                    workout_title = f"{emoji} {name}" if emoji else name
 
                     html.append(f"      <tr{row_class}>")
                     html.append("        <td></td>")
@@ -215,9 +216,10 @@ class HTMLFormatter(DocumentFormatter):
                             workout_date = calculate_workout_date(
                                 start_date, week_num, day_num, phase_training_days
                             )
+                            display_date = format_display_date(workout_date)
                             day_label = weekday_names[phase_training_days[day_num - 1] - 1]
                             html.append(
-                                f"        <td><div class='workout-name'>{day_label} ({workout_date})</div><div class='workout-day'>{workout_title}</div></td>"
+                                f"        <td><div class='workout-name'>{day_label} ({display_date})</div><div class='workout-day'>{workout_title}</div></td>"
                             )
                     else:
                         html.append(

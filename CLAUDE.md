@@ -121,7 +121,7 @@ Interview the user:
 4. Sport(s): running only, triathlon, cycling, etc.
 5. Equipment: power meter, swim pool access, etc.
 
-Read `examples/reference.yaml` first — it demonstrates every pattern (run, bike, swim, track, multisport, anchors, repeat groups, skip_garmin) in a minimal 2-week plan. Use as structural reference when building new plans.
+Read `examples/reference-metric.yaml` (or `reference-imperial.yaml`) first — they demonstrate every pattern (run, bike, swim, track, multisport, anchors, repeat groups, skip_garmin) in a minimal 2-week plan. Use as structural reference when building new plans.
 
 Use progressive periodization: Base → Build → Peak → Taper. Include recovery weeks.
 

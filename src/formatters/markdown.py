@@ -6,6 +6,8 @@ from plan_utils import (
     calculate_week_dates,
     calculate_phase_dates,
     extract_swim_steps,
+    format_display_date,
+    SPORT_LABELS,
 )
 from .base import DocumentFormatter
 
@@ -41,11 +43,14 @@ class MarkdownFormatter(DocumentFormatter):
                 workout_date = calculate_workout_date(
                     start_date, week_num, day_num, training_days
                 )
+                display_date = format_display_date(workout_date)
                 weekday_names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
                 day_name = weekday_names[training_days[day_num - 1] - 1]
-                prefix = f"{day_name} ({workout_date}): "
+                prefix = f"{day_name} ({display_date}): "
 
-        line = f"**{prefix}{name}**  \n{desc}\n"
+        sport_label = SPORT_LABELS.get(workout.get("type", ""), "")
+        sport_prefix = f"{sport_label} - " if sport_label else ""
+        line = f"**{prefix}{sport_prefix}{name}**  \n{desc}\n"
 
         # Render swim session steps
         if workout.get("type") == "swim":
@@ -105,9 +110,7 @@ class MarkdownFormatter(DocumentFormatter):
             # Weeks
             for week in phase["weeks"]:
                 week_num = week["week"]
-                week_dates = calculate_week_dates(
-                    start_date, week_num, phase_training_days
-                )
+                week_dates = calculate_week_dates(start_date, week_num)
                 md.append(f"## Week {week_num}: {week_dates}")
                 md.append("")
                 md.append(week["description"])
