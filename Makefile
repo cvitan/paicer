@@ -4,8 +4,9 @@
 -include .env
 export
 
-# FORMAT defaults to letter if not in .env
-FORMAT ?= letter
+# Paper format derived from UNITS (metric=a4, imperial=letter)
+UNITS ?= metric
+FORMAT := $(if $(filter imperial,$(UNITS)),letter,a4)
 
 # SCHEDULE flag (set to 0 to skip scheduling)
 SCHEDULE ?= 1

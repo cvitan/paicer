@@ -21,8 +21,7 @@ docs/                   — Garmin API reference, other docs
 
 ```bash
 make markdown                  # Generate Markdown
-make html                      # Generate HTML (letter)
-make html FORMAT=a4            # Generate HTML (A4)
+make html                      # Generate HTML (A4 for metric, letter for imperial)
 make workouts SCOPE=w7         # Sync week 7 to Garmin
 make workouts SCOPE=w7d2       # Sync week 7 day 2
 make workouts SCOPE=p2         # Sync phase 2
