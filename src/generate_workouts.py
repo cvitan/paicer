@@ -138,6 +138,8 @@ def main():
                     skipped_workouts.append(workout)
                     continue
 
+                garmin_name = f"W{week_num}: {workout['name']}"
+
                 workout_date = calculate_workout_date(
                     start_date, week_num, day_num, phase_training_days
                 )
@@ -149,7 +151,7 @@ def main():
                 # Print syncing message once
                 if len(uploaded_names) == 0:
                     if filter_day:
-                        print(f"Syncing {workout['garmin_name']}: {workout['name']}")
+                        print(f"Syncing {garmin_name}")
                     elif filter_week:
                         print(f"Syncing Week {filter_week}")
                     elif filter_phase:
@@ -159,10 +161,11 @@ def main():
 
                 try:
                     # Delete existing workout with same name
-                    integration.delete_workout(workout["garmin_name"])
+                    integration.delete_workout(garmin_name)
 
                     # Build workout directly from YAML steps
-                    workout_json = integration.build_workout(workout)
+                    garmin_workout = {**workout, "name": garmin_name}
+                    workout_json = integration.build_workout(garmin_workout)
 
                     # Upload workout
                     workout_id = integration.upload_workout(workout_json)
@@ -172,7 +175,7 @@ def main():
                         integration.schedule_workout(workout_id, workout_date)
 
                     uploaded_dates.append(workout_date)
-                    uploaded_names.append(workout["garmin_name"])
+                    uploaded_names.append(garmin_name)
 
                 except Exception as e:
                     print(f"Error: {e}")
