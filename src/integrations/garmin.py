@@ -100,7 +100,7 @@ class GarminIntegration(WorkoutIntegration):
             workout_def.get("type", "run"), SPORT_TYPES["run"]
         )
         return {
-            "workoutName": workout_def["garmin_name"],
+            "workoutName": workout_def["name"],
             "description": workout_def.get("description", ""),
             "sportType": sport_type,
             "workoutSegments": [
@@ -134,7 +134,7 @@ class GarminIntegration(WorkoutIntegration):
             })
 
         return {
-            "workoutName": workout_def["garmin_name"],
+            "workoutName": workout_def["name"],
             "description": workout_def.get("description", ""),
             "sportType": SPORT_TYPES["multisport"],
             "workoutSegments": segments,
