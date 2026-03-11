@@ -670,7 +670,7 @@ plan:
 phases:
   - phase: 1
     name: "Half Marathon Build"
-    training_days: [2, 3, 5, 7]  # Tue, Wed, Fri, Sun (1=Mon, 7=Sun)
+    training_days: [2, 4, 5, 7]  # Tue, Thu, Fri, Sun (1=Mon, 7=Sun)
     description: |
       **Format:** 4 runs/week + 1–2 easy bike rides (45–60 min, RPE 5)
 
