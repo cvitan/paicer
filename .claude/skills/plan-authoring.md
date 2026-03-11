@@ -5,7 +5,7 @@ description: Use when creating, editing, or reviewing training plan YAML - cover
 
 # Plan Authoring
 
-Reference for writing correct training plan YAML. Used by `/paicer-plan`, `/paicer-review`, and ad-hoc plan edits.
+Reference for writing correct training plan YAML. Used by `/paicer:create-plan`, `/paicer:review-progress`, and ad-hoc plan edits.
 
 ## Unit System
 

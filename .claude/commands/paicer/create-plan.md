@@ -44,7 +44,7 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 8. Validate: `make test`
 9. Preview: `make markdown`
 10. Offer first week sync: `make workouts SCOPE=w1`
-11. If Garmin set up: suggest `/paicer-review` after first week of training
+11. If Garmin set up: suggest `/paicer:review-progress` after first week of training
 
 ## Modifying an Existing Plan
 

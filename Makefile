@@ -16,12 +16,12 @@ SCHEDULE ?= 1
 # Guard: require PLAN to be set and the file to exist
 define check_plan
 	@if [ -z "$(PLAN)" ]; then \
-		echo "No plan set. Run /paicer-plan to create one, or set PLAN in .env"; \
+		echo "No plan set. Run /paicer:create-plan to create one, or set PLAN in .env"; \
 		exit 1; \
 	fi
 	@if [ ! -f "$(PLAN)" ]; then \
 		echo "Plan file not found: $(PLAN)"; \
-		echo "Run /paicer-plan to create a plan, or check the PLAN path in .env"; \
+		echo "Run /paicer:create-plan to create a plan, or check the PLAN path in .env"; \
 		exit 1; \
 	fi
 endef
