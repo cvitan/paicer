@@ -8,7 +8,7 @@ AI-powered training plan generator. Describe your goals and fitness to Claude, a
 git clone https://github.com/cvitan/paicer && cd paicer
 ```
 
-Open the project in Claude Code and run `/paicer-plan` to create your training plan through a guided conversation. It handles setup, configuration, and walks you through the process.
+Open the project in Claude Code and run `/paicer:create-plan` to create your training plan through a guided conversation. It handles setup, configuration, and walks you through the process.
 
 ## What It Does
 

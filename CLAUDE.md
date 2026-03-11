@@ -12,7 +12,7 @@ src/
   formatters/           — Base class + MarkdownFormatter + HTMLFormatter
   integrations/         — Base class + GarminIntegration
 examples/               — Example training plans
-plans/                  — User plans (gitignored, created by /paicer-plan)
+plans/                  — User plans (gitignored, created by /paicer:create-plan)
 output/                 — Generated documents (gitignored)
 docs/                   — Garmin API reference, other docs
 ```
