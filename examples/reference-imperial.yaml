@@ -102,7 +102,7 @@ phases:
           # Easy run — single step, HR zone target
           - day: 1
             type: "run"
-            name: "Easy 3mi"
+            name: "Easy 3 mi"
             description: "3 mi easy at RPE 4-5. Conversational pace."
             garmin:
               steps:
@@ -115,8 +115,8 @@ phases:
           # Tempo run — warmup + repeat group + cooldown, pace targets
           - day: 2
             type: "run"
-            name: "Tempo 3x5min"
-            description: "4.5 mi with 3x5min @ tempo pace (RPE 6-7). 2min easy between."
+            name: "Tempo 3x5 min"
+            description: "4.5 mi with 3x5 min @ tempo pace (RPE 6-7). 2 min easy between."
             garmin:
               steps:
                 - stepType: "warmup"
@@ -149,7 +149,7 @@ phases:
           # Bike — power zone target
           - day: 3
             type: "bike"
-            name: "Steady 10mi"
+            name: "Steady 10 mi"
             description: "10 mi steady at RPE 5. Power zone 2."
             garmin:
               steps:
@@ -170,7 +170,7 @@ phases:
           # Easy run + strides
           - day: 5
             type: "run"
-            name: "Easy 3mi + Strides"
+            name: "Easy 3 mi + Strides"
             description: "3 mi easy + 4x20sec strides with walk recovery."
             garmin:
               steps:
@@ -209,13 +209,13 @@ phases:
             type: "track"
             name: "Track 4x400m"
             garmin: *track_intervals_garmin
-            description: "Track session. 1mi WU, 4x400m @ RPE 8-9, 1mi CD."
+            description: "Track session. 1 mi WU, 4x400m @ RPE 8-9, 1 mi CD."
 
           # Bike with intervals
           - day: 3
             type: "bike"
             name: "Bike Intervals"
-            description: "12 mi with 4x3min @ power zone 4. 2min recovery between."
+            description: "12 mi with 4x3 min @ power zone 4. 2 min recovery between."
             garmin:
               steps:
                 - stepType: "warmup"
@@ -247,7 +247,7 @@ phases:
           # Easy run
           - day: 4
             type: "run"
-            name: "Easy 4mi"
+            name: "Easy 4 mi"
             description: "4 mi easy at RPE 4-5."
             garmin:
               steps:
@@ -260,7 +260,7 @@ phases:
           # Multisport brick — bike + run legs
           - day: 5
             type: "multisport"
-            name: "Brick 6mi Bike + 2mi Run"
+            name: "Brick 6 mi Bike + 2 mi Run"
             description: "6 mi bike @ RPE 5-6 → 2 mi run @ RPE 6. Focus on smooth transition."
             garmin:
               legs:

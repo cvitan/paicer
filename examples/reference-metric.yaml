@@ -45,7 +45,7 @@ track_sessions:
         endCondition: "distance"
         endConditionValue: 1000
         targetType: "no.target"
-        description: "1km easy jog"
+        description: "1 km easy jog"
       - numberOfIterations: 4
         stepType: "repeat"
         childStepId: 1
@@ -66,7 +66,7 @@ track_sessions:
         endCondition: "distance"
         endConditionValue: 1000
         targetType: "no.target"
-        description: "1km easy jog"
+        description: "1 km easy jog"
 
 plan:
   name: "Reference Plan (Sprint Tri)"
@@ -99,21 +99,21 @@ phases:
           # Easy run — single step, HR zone target
           - day: 1
             type: "run"
-            name: "Easy 5km"
+            name: "Easy 5 km"
             description: "5 km easy at RPE 4-5. Conversational pace."
             garmin:
               steps:
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 5000  # 5km
+                  endConditionValue: 5000  # 5 km
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
           # Tempo run — warmup + repeat group + cooldown, pace targets
           - day: 2
             type: "run"
-            name: "Tempo 3x5min"
-            description: "7 km with 3x5min @ tempo pace (RPE 6-7). 2min easy between."
+            name: "Tempo 3x5 min"
+            description: "7 km with 3x5 min @ tempo pace (RPE 6-7). 2 min easy between."
             garmin:
               steps:
                 - stepType: "warmup"
@@ -146,13 +146,13 @@ phases:
           # Bike — power zone target
           - day: 3
             type: "bike"
-            name: "Steady 15km"
+            name: "Steady 15 km"
             description: "15 km steady at RPE 5. Power zone 2."
             garmin:
               steps:
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 15000  # 15km
+                  endConditionValue: 15000  # 15 km
                   targetType: "power.zone"
                   zoneNumber: 2
 
@@ -167,13 +167,13 @@ phases:
           # Easy run + strides
           - day: 5
             type: "run"
-            name: "Easy 5km + Strides"
+            name: "Easy 5 km + Strides"
             description: "5 km easy + 4x20sec strides with walk recovery."
             garmin:
               steps:
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 5000  # 5km
+                  endConditionValue: 5000  # 5 km
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
                 - numberOfIterations: 4
@@ -206,18 +206,18 @@ phases:
             type: "track"
             name: "Track 4x400m"
             garmin: *track_intervals_garmin
-            description: "Track session. 1km WU, 4x400m @ RPE 8-9, 1km CD."
+            description: "Track session. 1 km WU, 4x400m @ RPE 8-9, 1 km CD."
 
           # Bike with intervals
           - day: 3
             type: "bike"
             name: "Bike Intervals"
-            description: "20 km with 4x3min @ power zone 4. 2min recovery between."
+            description: "20 km with 4x3 min @ power zone 4. 2 min recovery between."
             garmin:
               steps:
                 - stepType: "warmup"
                   endCondition: "distance"
-                  endConditionValue: 5000  # 5km
+                  endConditionValue: 5000  # 5 km
                   targetType: "power.zone"
                   zoneNumber: 2
                 - numberOfIterations: 4
@@ -237,27 +237,27 @@ phases:
                       childStepId: 1
                 - stepType: "cooldown"
                   endCondition: "distance"
-                  endConditionValue: 5000  # 5km
+                  endConditionValue: 5000  # 5 km
                   targetType: "power.zone"
                   zoneNumber: 2
 
           # Easy run
           - day: 4
             type: "run"
-            name: "Easy 6km"
+            name: "Easy 6 km"
             description: "6 km easy at RPE 4-5."
             garmin:
               steps:
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 6000  # 6km
+                  endConditionValue: 6000  # 6 km
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
           # Multisport brick — bike + run legs
           - day: 5
             type: "multisport"
-            name: "Brick 10km Bike + 3km Run"
+            name: "Brick 10 km Bike + 3 km Run"
             description: "10 km bike @ RPE 5-6 → 3 km run @ RPE 6. Focus on smooth transition."
             garmin:
               legs:
@@ -265,14 +265,14 @@ phases:
                   steps:
                     - stepType: "interval"
                       endCondition: "distance"
-                      endConditionValue: 10000  # 10km
+                      endConditionValue: 10000  # 10 km
                       targetType: "power.zone"
                       zoneNumber: 2
                 - sport: "run"
                   steps:
                     - stepType: "interval"
                       endCondition: "distance"
-                      endConditionValue: 3000  # 3km
+                      endConditionValue: 3000  # 3 km
                       targetType: "heart.rate.zone"
                       zoneNumber: 2
 
