@@ -641,12 +641,12 @@ plan:
 
     This plan prepares for two races:
     - **Brooklyn Half Marathon** (B Race): May 17, 2026
-    - **Olympic Triathlon** (A Race): July 20, 2026
+    - **Olympic Triathlon** (A Race): July 19, 2026
 
     The plan has three phases:
-    - Phase 1: Half Marathon Build (6 weeks)
+    - Phase 1: Half Marathon Build (5 weeks)
     - Phase 2: HM Peak + Tri Overlap (7 weeks)
-    - Phase 3: Triathlon Only (8 weeks)
+    - Phase 3: Triathlon Only (9 weeks)
 
     ## Pacing Philosophy
 
@@ -1024,98 +1024,6 @@ phases:
 
       - week: 4
         description: |
-          Continuous tempo. Long run with a steady finish.
-
-          **Volume:** ~42–43 km running + 1–2 easy rides
-
-        workouts:
-          # Day 1 - Easy 10 km
-          - day: 1
-            type: "run"
-            name: "Easy 10 km"
-            description: "10 km easy at RPE 4–5."
-            garmin:
-              steps:
-                - stepType: "interval"
-                  endCondition: "distance"
-                  endConditionValue: 10000  # 10 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
-
-          # Day 2 - Continuous Tempo: 2 km WU + 20-25 min @ 5:20/km + 2 km CD
-          - day: 2
-            type: "run"
-            name: "Tempo 20-25 min"
-            description: "Continuous Tempo. Warm-up: 2 km easy (RPE 4). Main: 20–25 min @ 5:20/km (RPE 7). Cool-down: 2 km easy (RPE 4). ~12–13 km total. One sustained effort, no breaks. Big step up from intervals."
-            garmin:
-              steps:
-                # Warmup: 2 km in HR Zone 2
-                - stepType: "warmup"
-                  endCondition: "distance"
-                  endConditionValue: 2000  # 2 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
-
-                # Work: 25 minutes @ 5:20/km (±15 sec = 5:05-5:35)
-                - stepType: "interval"
-                  endCondition: "time"
-                  endConditionValue: 1500
-                  targetType: "pace.zone"
-                  targetValueOne: 3.2787  # 5:05/km in m/s (faster)
-                  targetValueTwo: 2.9851  # 5:35/km in m/s (slower)
-
-                # Cooldown: 2 km in HR Zone 2
-                - stepType: "cooldown"
-                  endCondition: "distance"
-                  endConditionValue: 2000  # 2 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
-
-          # Day 3 - Easy 8 km
-          - day: 3
-            type: "run"
-            name: "Easy 8 km"
-            description: "8 km easy at RPE 4–5."
-            garmin:
-              steps:
-                - stepType: "interval"
-                  endCondition: "distance"
-                  endConditionValue: 8000  # 8 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
-
-          # Day 4 - Long Run 16 km with 2 km @ 5:30 finish
-          - day: 4
-            type: "run"
-            name: "Long 16 km + finish"
-            description: "16 km total. First 14 km easy (RPE 5), last 2 km @ ~5:30/km (RPE 6–7). Don't start the faster portion too early."
-            garmin:
-              steps:
-                # First 14 km easy in HR Zone 2
-                - stepType: "interval"
-                  endCondition: "distance"
-                  endConditionValue: 14000  # 14 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
-
-                # Last 2 km @ 5:30/km pace (±15 sec = 5:15-5:45)
-                - stepType: "interval"
-                  endCondition: "distance"
-                  endConditionValue: 2000  # 2 km
-                  targetType: "pace.zone"
-                  targetValueOne: 3.1746  # 5:15/km in m/s (faster)
-                  targetValueTwo: 2.8986  # 5:45/km in m/s (slower)
-
-          # Day 5 - Optional bike (skip Garmin)
-          - day: 5
-            type: "bike"
-            name: "Easy Ride"
-            optional: true
-            skip_garmin: true
-            description: "45–60 min easy spin at RPE 5."
-
-      - week: 5
-        description: |
           Peak Phase 1 volume. HM-specific longer intervals.
 
           **Volume:** ~50 km running + 1–2 easy rides
@@ -1210,7 +1118,7 @@ phases:
             skip_garmin: true
             description: "45–60 min easy spin at RPE 5."
 
-      - week: 6
+      - week: 5
         description: |
           Slight volume drop. Maintain intensity. Prepare for Phase 2.
 
@@ -1311,7 +1219,7 @@ phases:
       **CRITICAL RULE:** Maximum 2 hard sessions per week across all disciplines. Tuesday quality run = always hard #1. Hard #2 = either Saturday long run (when it has a tempo finish) or harder bike — never both. If fatigued → reduce bike first, then swim. Protect the running.
 
     weeks:
-      - week: 7
+      - week: 6
         description: |
           Introduce tri sessions. Maintain Phase 1 running fitness.
 
@@ -1437,7 +1345,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-      - week: 8
+      - week: 7
         description: |
           Push tempo duration. Swims progressing per PDF.
 
@@ -1552,7 +1460,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-      - week: 9
+      - week: 8
         description: |
           First brick week. Introduce race pace touches.
 
@@ -1677,7 +1585,7 @@ phases:
                   targetValueOne: 3.2787  # 5:05/km in m/s (faster)
                   targetValueTwo: 2.9851  # 5:35/km in m/s (slower)
 
-      - week: 10
+      - week: 9
         description: |
           Peak quality week. Longest long run.
 
@@ -1802,7 +1710,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-      - week: 11
+      - week: 10
         description: |
           Second brick. Sustained race-pace running.
 
@@ -1924,7 +1832,7 @@ phases:
                   targetValueOne: 3.3333  # 5:00/km in m/s (faster)
                   targetValueTwo: 3.0303  # 5:30/km in m/s (slower)
 
-      - week: 12
+      - week: 11
         description: |
           Volume drops. First real touches of goal pace. Stay sharp, stay fresh.
 
@@ -2047,7 +1955,7 @@ phases:
                   targetValueOne: 3.2787  # 5:05/km in m/s (faster)
                   targetValueTwo: 2.9851  # 5:35/km in m/s (slower)
 
-      - week: 13
+      - week: 12
         description: |
           Taper everything. Arrive rested, sharp, confident.
 
@@ -2153,7 +2061,7 @@ phases:
       **Format:** 6 sessions/week (Thu rest). ~8–12 hours/week.
 
     weeks:
-      - week: 14
+      - week: 13
         description: |
           Recovery. 3–5 days of easy, unstructured movement after the half marathon.
           Walk, gentle spin, easy swim. No intervals, no structure. Let your body absorb the race effort. If something is sore, rest it. If you feel good by Thursday/Friday, a 20–30 min easy swim or spin is fine.
@@ -2187,7 +2095,7 @@ phases:
             skip_garmin: true
             description: "Optional: 30 min easy ride @RPE 4–5. Loosen the legs."
 
-      - week: 15
+      - week: 14
         description: |
           Tri Wk 8. Two months in — maintain harder efforts for longer and more consistently. Start thinking about hydration and fuelling for longer rides.
 
@@ -2300,7 +2208,7 @@ phases:
                   endConditionValue: 45000  # 45 km
                   targetType: "no.target"
 
-      - week: 16
+      - week: 15
         description: |
           Tri Wk 9. "Time Trial" week — test progress and set race target pace. Any new kit (goggles, trainers, elastic laces, bike shoes, tri suit) must be tested in training. Open water competency is a massive factor for race day.
 
@@ -2404,7 +2312,7 @@ phases:
                       zoneNumber: 4
             description: "25 km bike + 5 km run. Complete first half of each discipline at steady tempo @RPE 6, building into race pace @RPE 8 for last half. Play with position on bars for flat & climbing. Use gears to keep cadence smooth. Learning to run a negative split out of transition helps pacing."
 
-      - week: 17
+      - week: 16
         description: |
           Tri Wk 10. Test new kit in training. Open water competency building — massive factor for comfort and confidence on race day. Practice getting wetsuit on/off and warming up quickly so it's routine on race day.
 
@@ -2495,7 +2403,7 @@ phases:
                   endConditionValue: 50000  # 50 km
                   targetType: "no.target"
 
-      - week: 18
+      - week: 17
         description: |
           Tri Wk 11. Endurance improvements should be clear — hold higher efforts for longer. Use hill sessions for power and control. Keep improving open water skills & confidence. Practice transition after OWS (wetsuit off quickly while moving, running after swim).
 
@@ -2579,7 +2487,7 @@ phases:
                       zoneNumber: 3
             description: "30 km bike + 5 km run. Option 1: Split into two mini-bricks of 15 km/2.5 km for more transition practice and speed work. Option 2: Complete through once at race pace. Experiment with aero positions (hoods, drops). @RPE 7–8."
 
-      - week: 19
+      - week: 18
         description: |
           Tri Wk 12. PEAK VOLUME. Largest volume week — ensure sufficient fuelling and recovery/sleep. Stick to distance increases as best you can. Familiar sessions should show noticeable improvements.
 
@@ -2688,7 +2596,7 @@ phases:
                   endConditionValue: 60000  # 60 km
                   targetType: "no.target"
 
-      - week: 20
+      - week: 19
         description: |
           Tri Wk 13. High volume running week — last tough one before taper. Speed work and pacing are key. Start thinking about race-day fluid needs. Field test ALL planned race equipment this week.
 
@@ -2791,7 +2699,7 @@ phases:
                       zoneNumber: 2
             description: "35 km bike + 7.5 km run. Race simulation. Use intended race kit, clothing, nutrition, bottles. Bike: warm up over first 2 km then build to @RPE 8+. Run: run strong off bike for first 2 km then settle into easier pace. Prep bike as for race day (bottles, nutrition, spares)."
 
-      - week: 21
+      - week: 20
         description: |
           Tri Wk 14. Last high volume week before taper. By end of this week you'll have a good race plan and realistic target. Plan your pacing and nutrition strategy. Any last-minute equipment purchases must be tested over race distance.
 
@@ -2903,7 +2811,7 @@ phases:
                   endConditionValue: 50000  # 50 km
                   targetType: "no.target"
 
-      - week: 22
+      - week: 21
         description: |
           Race Week (Tri Wk 16). The hard work is done — nothing you can do now will make you fitter. Focus on maintaining peak while allowing recovery. Keep sessions high quality with good pace work. Reduced volume allows adaptation/recovery. Stick to what you know in training.
 
