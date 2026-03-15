@@ -175,6 +175,14 @@ def main():
             "maxHR": a.get("maxHR"),
             "averagePower": a.get("averagePower"),
             "maxPower": a.get("maxPower"),
+            "elevationGain": a.get("elevationGain"),
+            "elevationLoss": a.get("elevationLoss"),
+            "aerobicTrainingEffect": a.get("aerobicTrainingEffect"),
+            "hrTimeInZones": {
+                f"zone{i}": a.get(f"hrTimeInZone_{i}")
+                for i in range(1, 6)
+                if a.get(f"hrTimeInZone_{i}") is not None
+            },
         }
 
         # Pull structured workout intervals (matches Garmin Connect's Intervals tab)
