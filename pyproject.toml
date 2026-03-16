@@ -1,6 +1,6 @@
 [project]
 name = "paicer"
-version = "0.5.5"
+version = "0.1.0"
 description = "Training plan tool: YAML to Garmin workouts and readable documents"
 readme = "README.md"
 requires-python = ">=3.12"
