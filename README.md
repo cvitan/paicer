@@ -1,6 +1,8 @@
 # p**ai**cer
 
-AI-powered training plan generator. Describe your goals and fitness to Claude, and it builds a structured training plan — with workouts synced to your Garmin watch and printable documents for your fridge.
+AI-powered training plan manager. Provide your race goals, schedule, and fitness level to create a plan, with structured workouts that can be synced to your Garmin watch. After each training week, run the progress review command to pull your Garmin activity and training status data, compare it against the plan, and adjust targets based on how your body is responding.
+
+**Disclaimer:** This tool is not a substitute for professional coaching or medical advice. Always listen to your body and consult a qualified professional for health or injury concerns.
 
 ## Get Started
 
@@ -8,14 +10,14 @@ AI-powered training plan generator. Describe your goals and fitness to Claude, a
 git clone https://github.com/cvitan/paicer && cd paicer
 ```
 
-Open the project in Claude Code and run `/paicer:create-plan` to create your training plan through a guided conversation. It handles setup, configuration, and walks you through the process.
+Open the project in Claude Code and run `/paicer:create-plan` to create a YAML-based training plan through a guided conversation. It handles setup, configuration, and walks you through the process.
 
-## What It Does
+After each week of training, run `/paicer:review-progress` to review your plan progress and make any tweaks if needed. The review will also be appended to your plan for future reference.
 
-From one YAML plan file, paicer generates:
-- **Garmin workouts** — structured sessions auto-scheduled to your calendar
-- **Markdown document** — digital reading, week-by-week
-- **HTML document** — printable, one week per page
+### Plan output options
+- **Markdown**
+- **HTML** — set up to print 1 wk/page
+- **Garmin** — sync scheduled structured workouts
 
 ## Commands
 
@@ -34,5 +36,6 @@ Running, cycling, swimming (pool and open water), track sessions, and multisport
 
 ## Roadmap
 
-1. **Additional Formats** — PDF, iCal, JSON, CSV export
-2. **New Integrations** — Strava, Zwift
+1. **Strava activity enrichment**
+2. **Zwift Integrations**
+3. **Additional Formats** - PDF, iCal, JSON, CSV export
