@@ -1,3 +1,8 @@
+# Advanced example: Half Marathon + Olympic Triathlon combo plan.
+# Phases 1 build HM fitness; Phase 2 layers in swim/bike + tapers for HM race;
+# Phase 3 shifts focus to triathlon. See examples/reference-metric.yaml for the
+# basic plan format.
+
 # Reusable swim session definitions from RG Active Tri PDF appendix.
 # Each anchor defines the garmin steps for a session.
 # All steps use lap.button — press lap to advance to next cue.
@@ -701,7 +706,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo 3x8 min"
-            description: "Tempo Intervals. Warm-up: 2 km easy (RPE 4). Main: 3 × 8 min @ 5:25/km (RPE 7). Recovery: 2 min easy jog. Cool-down: 2 km easy (RPE 4). ~12 km total. Flat route for pace control."
+            description: "Tempo Intervals. Warm-up: 2 km easy (RPE 4). Main: 3 × 8 min @ 5:25/km (RPE 7). Recovery: 2 min easy jog. Cool-down: 2 km easy (RPE 4). Flat route for pace control."
             garmin:
               steps:
                 # Warmup: 2 km in HR Zone 2
@@ -816,7 +821,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo 2x15 min"
-            description: "Tempo Intervals. Warm-up: 2 km easy (RPE 4). Main: 2 × 15 min @ 5:25/km (RPE 7). Recovery: 3 min easy jog. Cool-down: 2 km easy (RPE 4). ~13 km total. Flat route."
+            description: "Tempo Intervals. Warm-up: 2 km easy (RPE 4). Main: 2 × 15 min @ 5:25/km (RPE 7). Recovery: 3 min easy jog. Cool-down: 2 km easy (RPE 4). Flat route."
             garmin:
               steps:
                 # Warmup: 2 km in HR Zone 2
@@ -931,7 +936,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo 4x1 km"
-            description: "Cruise Intervals. Warm-up: 2 km easy (RPE 4). Main: 4 × 1 km @ 5:15/km (RPE 7–8). Recovery: 90 sec easy jog. Cool-down: 2 km easy (RPE 4). ~12 km total. Flat route. Should feel firm but controlled — not a race."
+            description: "Cruise Intervals. Warm-up: 2 km easy (RPE 4). Main: 4 × 1 km @ 5:15/km (RPE 7–8). Recovery: 90 sec easy jog. Cool-down: 2 km easy (RPE 4). ~9 km total. Flat route. Should feel firm but controlled — not a race."
             garmin:
               steps:
                 # Warmup: 2 km in HR Zone 2
@@ -1026,7 +1031,7 @@ phases:
         description: |
           Peak Phase 1 volume. HM-specific longer intervals.
 
-          **Volume:** ~50 km running + 1–2 easy rides
+          **Volume:** ~49 km running + 1–2 easy rides
 
         workouts:
           # Day 1 - Easy 10 km
@@ -1046,7 +1051,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo 2x4 km"
-            description: "HM Intervals. Warm-up: 2 km easy (RPE 4). Main: 2 × 4 km @ 5:15/km (RPE 7–8). Recovery: 3 min easy jog. Cool-down: 2 km easy (RPE 4). ~14 km total. Key session of Phase 1 — sustained hard effort at near-goal pace."
+            description: "HM Intervals. Warm-up: 2 km easy (RPE 4). Main: 2 × 4 km @ 5:15/km (RPE 7–8). Recovery: 3 min easy jog. Cool-down: 2 km easy (RPE 4). ~13 km total. Key session of Phase 1 — sustained hard effort at near-goal pace."
             garmin:
               steps:
                 # Warmup: 2 km in HR Zone 2
@@ -1084,11 +1089,11 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 - Easy 8 km
+          # Day 3 - Easy 8 km + Strides
           - day: 3
             type: "run"
-            name: "Easy 8 km"
-            description: "8 km easy at RPE 4–5."
+            name: "Easy 8 km + Strides"
+            description: "8 km easy at RPE 4–5. After: 6 × 20-sec strides (RPE 8 briefly)."
             garmin:
               steps:
                 - stepType: "interval"
@@ -1097,16 +1102,16 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 4 - Long Run 18 km
+          # Day 4 - Long Run 17 km
           - day: 4
             type: "run"
-            name: "Long 18 km"
-            description: "18 km easy at RPE 5."
+            name: "Long 17 km"
+            description: "17 km easy at RPE 5."
             garmin:
               steps:
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 18000  # 18 km
+                  endConditionValue: 17000  # 17 km
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
@@ -1142,7 +1147,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo 30 min"
-            description: "Extended Tempo. Warm-up: 2 km easy (RPE 4). Main: 30 min @ 5:15/km (RPE 7). Cool-down: 2 km easy (RPE 4). ~13 km total. 30 min continuous is a big achievement — trust the process."
+            description: "Extended Tempo. Warm-up: 2 km easy (RPE 4). Main: 30 min @ 5:15/km (RPE 7). Cool-down: 2 km easy (RPE 4). 30 min continuous is a big achievement — trust the process."
             garmin:
               steps:
                 # Warmup: 2 km in HR Zone 2
@@ -1167,11 +1172,11 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 3 - Easy 7 km
+          # Day 3 - Easy 7 km + Strides
           - day: 3
             type: "run"
-            name: "Easy 7 km"
-            description: "7 km easy at RPE 4–5."
+            name: "Easy 7 km + Strides"
+            description: "7 km easy at RPE 4–5. After: 6 × 20-sec strides (RPE 8 briefly)."
             garmin:
               steps:
                 - stepType: "interval"
@@ -1225,7 +1230,7 @@ phases:
 
           **Tri Plan Goals:** Building a routine of allocating time to train. Letting your muscles start to work into focused training. Learning skill/drill work for technique improvement. Embarking on strength training to improve strength endurance. Use sessions in the first couple of weeks to set times and speeds so you can have a benchmark for performance, and use these times to set pace/speeds for sessions over the next month and gauge improvement.
 
-          **Volume:** ~45 km run  •  2.5 km swim  •  20 km bike
+          **Volume:** ~46 km run  •  2.5 km swim  •  20 km bike
 
         workouts:
           # Day 1 - Swim
@@ -1239,7 +1244,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo 3x10 min"
-            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 3 × 10 min @ 5:15/km (RPE 7). Recovery: 2 min jog. Cool-down: 2 km easy (RPE 4). ~14 km total. Flat route. Extending from Phase 1."
+            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 3 × 10 min @ 5:15/km (RPE 7). Recovery: 2 min jog. Cool-down: 2 km easy (RPE 4). Flat route. Extending from Phase 1."
             garmin:
               steps:
                 - stepType: "warmup"
@@ -1335,13 +1340,13 @@ phases:
           # Day 6 - Long Run
           - day: 6
             type: "run"
-            name: "Long 17 km"
-            description: "17 km easy at RPE 5."
+            name: "Long 18 km"
+            description: "18 km easy at RPE 5."
             garmin:
               steps:
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 17000  # 17 km
+                  endConditionValue: 18000  # 18 km
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
@@ -1351,7 +1356,7 @@ phases:
 
           **Tri Plan Goals:** Building on the first week slightly, but not too much, so as to allow recovery. Pace judgement and learning times for completing distances etc. Getting to know the weights needed for each exercise on the strength program. Taking note of your pace for a given distance and intensity will make setting pace in later sessions more accurate.
 
-          **Volume:** ~46 km run  •  3 km swim  •  25 km bike
+          **Volume:** ~47 km run  •  3 km swim  •  25 km bike
 
         workouts:
           # Day 1 - Swim
@@ -1365,7 +1370,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo 30 min"
-            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 30 min continuous @ 5:15/km (RPE 7). Cool-down: 2 km easy (RPE 4). ~13 km total. Flat route. Sustained effort."
+            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 30 min continuous @ 5:15/km (RPE 7). Cool-down: 2 km easy (RPE 4). Flat route. Sustained effort."
             garmin:
               steps:
                 - stepType: "warmup"
@@ -1450,13 +1455,13 @@ phases:
           # Day 6 - Long Run
           - day: 6
             type: "run"
-            name: "Long 18 km"
-            description: "18 km easy at RPE 5."
+            name: "Long 19 km"
+            description: "19 km easy at RPE 5."
             garmin:
               steps:
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 18000  # 18 km
+                  endConditionValue: 19000  # 19 km
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
@@ -1480,7 +1485,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo 2x12 min"
-            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 2 × 12 min @ 5:10/km (RPE 7–8). Recovery: 3 min jog. Cool-down: 2 km easy (RPE 4). ~13 km total. First time at 5:10 — should feel firm but manageable."
+            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 2 × 12 min @ 5:10/km (RPE 7–8). Recovery: 3 min jog. Cool-down: 2 km easy (RPE 4). First time at 5:10 — should feel firm but manageable."
             garmin:
               steps:
                 - stepType: "warmup"
@@ -1535,8 +1540,8 @@ phases:
 
           - day: 4
             type: "run"
-            name: "Easy 8 km"
-            description: "8 km easy at RPE 4–5."
+            name: "Easy 8 km + Strides"
+            description: "8 km easy at RPE 4–5. After: 4 × 20-sec strides (RPE 8 briefly)."
             garmin:
               steps:
                 - stepType: "interval"
@@ -1605,7 +1610,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo 3x2 km"
-            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 3 × 2 km @ 5:05–5:10/km (RPE 7–8). Recovery: 2 min jog. Cool-down: 2 km easy (RPE 4). ~14 km total. Hardest run session in the plan. If 5:05 feels like a stretch, stay at 5:10."
+            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 3 × 2 km @ 5:05–5:10/km (RPE 7–8). Recovery: 2 min jog. Cool-down: 2 km easy (RPE 4). ~11 km total. Hardest run session in the plan. If 5:05 feels like a stretch, stay at 5:10."
             garmin:
               steps:
                 - stepType: "warmup"
@@ -1730,7 +1735,7 @@ phases:
           - day: 2
             type: "run"
             name: "Split Tempo"
-            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 20 min @ 5:10/km + 10 min @ 5:05/km (RPE 7–8). Cool-down: 2 km easy (RPE 4). ~14 km total. Split tempo — first block settles you, second simulates late-race push."
+            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 20 min @ 5:10/km + 10 min @ 5:05/km (RPE 7–8). Cool-down: 2 km easy (RPE 4). Split tempo — first block settles you, second simulates late-race push."
             garmin:
               steps:
                 - stepType: "warmup"
@@ -1782,8 +1787,8 @@ phases:
 
           - day: 4
             type: "run"
-            name: "Easy 8 km"
-            description: "8 km easy at RPE 4–5."
+            name: "Easy 8 km + Strides"
+            description: "8 km easy at RPE 4–5. After: 4 × 20-sec strides (RPE 8 briefly)."
             garmin:
               steps:
                 - stepType: "interval"
@@ -1852,7 +1857,7 @@ phases:
           - day: 2
             type: "run"
             name: "Tempo 4x1 km goal pace"
-            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 4 × 1 km @ 5:00–5:05/km (RPE 8). Recovery: 90 sec jog. Cool-down: 2 km easy (RPE 4). ~12 km total. First time touching 5:00/km. Fast but not desperate. If 5:00 feels like a sprint, run at 5:05."
+            description: "Quality Run. Warm-up: 2 km easy (RPE 4). Main: 4 × 1 km @ 5:00–5:05/km (RPE 8). Recovery: 90 sec jog. Cool-down: 2 km easy (RPE 4). ~9 km total. First time touching 5:00/km. Fast but not desperate. If 5:00 feels like a sprint, run at 5:05."
             garmin:
               steps:
                 - stepType: "warmup"
@@ -1925,8 +1930,8 @@ phases:
           # Day 5 - Easy Run
           - day: 5
             type: "run"
-            name: "Easy 6 km"
-            description: "6 km easy at RPE 4–5. Strides optional."
+            name: "Easy 6 km + Strides"
+            description: "6 km easy at RPE 4–5. After: 4 × 20-sec strides (RPE 8 briefly)."
             garmin:
               steps:
                 - stepType: "interval"
@@ -2898,3 +2903,16 @@ reviews:
       shorter than estimated). No pace or HR concerns.
     adjustments:
       - "No adjustments needed — paces and HR well-calibrated"
+
+  - week: 3
+    date: "2026-03-15"
+    notes: |
+      All 4 running workouts completed. Optional bike skipped.
+      Tempo 4x1 km nailed: 5:13, 5:15, 5:16, 5:12/km — all within 5:00-5:30 target.
+      Negative split with last rep fastest. HR 157-162 across reps, normal drift.
+      Easy 9 km at 6:41/km, HR 148 — slightly elevated but 59m elevation gain
+      on the route explains it. Easy 8 km + 6 strides executed cleanly.
+      Long 15 km at 6:09/km, HR 145, 71m gain. Total ~42 km vs planned ~44 km.
+    adjustments:
+      - "Fixed incorrect distance totals in tempo workout descriptions across the plan"
+      - "Smoothed long run progression: W4 18→17, W6 17→18, W7 18→19 km for steadier build to W9 peak (20 km)"
