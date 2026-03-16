@@ -26,6 +26,11 @@ Read `UNITS` from `.env` (default: `metric`). Present all values in the user's p
    - **Distance:** actual vs planned
    - **HR time in zones** (`hrTimeInZones`): Use to verify easy runs stayed in Zone 1–2. If zone 3+ time exceeds ~10% of duration on an easy run, flag it (accounting for elevation). For tempo/interval workouts, zone distribution confirms effort matched intent.
    - **Aerobic training effect** (`aerobicTrainingEffect`): 1–5 scale. Easy runs should be 2.0–3.0 ("maintaining"). Tempo/intervals 3.0–4.0 ("improving"). Long runs 3.0–4.5. Flag if an easy run scores >3.5 (too hard) or a key session scores <2.5 (too easy). Useful as a weekly load summary — sum or average across sessions to gauge overall training stress.
+   - **Training status** (`trainingStatus`): Included at top level of review data. Report:
+     - **Acute-to-chronic ratio**: optimal 0.8–1.5. Below 0.8 = detraining. Above 1.5 = overreaching risk. If above 1.3, note it as something to watch.
+     - **Load balance feedback**: Garmin's own assessment (e.g., ABOVE_TARGETS, WITHIN_TARGETS). If above targets, discuss whether next week should be lighter.
+     - **VO2max trend**: note if it changed from previous review.
+     - **Training status phrase**: e.g., PRODUCTIVE, MAINTAINING, OVERREACHING. Flag non-productive states.
 5. For unmatched workouts: check for other activities that might be the same workout done under a different name. Ask user to confirm before using.
 6. Flag mismatches: HR too high/low at target pace, missed workouts, distance deviations.
 7. Present findings conversationally. Discuss adjustments.

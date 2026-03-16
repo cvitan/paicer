@@ -114,6 +114,77 @@ def get_activity_intervals(garmin, activity_id):
     return intervals
 
 
+def extract_training_status(status):
+    """Extract key training metrics from Garmin training status."""
+    result = {}
+
+    # VO2max
+    vo2 = status.get("mostRecentVO2Max", {}).get("generic", {})
+    if vo2:
+        result["vo2Max"] = vo2.get("vo2MaxPreciseValue")
+
+    # Load balance (aerobic low/high, anaerobic vs targets)
+    balance = status.get("mostRecentTrainingLoadBalance", {})
+    balance_map = balance.get("metricsTrainingLoadBalanceDTOMap", {})
+    for device_data in balance_map.values():
+        if device_data.get("primaryTrainingDevice"):
+            result["loadBalance"] = {
+                "aerobicLow": device_data.get(
+                    "monthlyLoadAerobicLow",
+                ),
+                "aerobicLowTarget": [
+                    device_data.get("monthlyLoadAerobicLowTargetMin"),
+                    device_data.get("monthlyLoadAerobicLowTargetMax"),
+                ],
+                "aerobicHigh": device_data.get(
+                    "monthlyLoadAerobicHigh",
+                ),
+                "aerobicHighTarget": [
+                    device_data.get("monthlyLoadAerobicHighTargetMin"),
+                    device_data.get("monthlyLoadAerobicHighTargetMax"),
+                ],
+                "anaerobic": device_data.get(
+                    "monthlyLoadAnaerobic",
+                ),
+                "anaerobicTarget": [
+                    device_data.get("monthlyLoadAnaerobicTargetMin"),
+                    device_data.get("monthlyLoadAnaerobicTargetMax"),
+                ],
+                "feedback": device_data.get(
+                    "trainingBalanceFeedbackPhrase",
+                ),
+            }
+            break
+
+    # Acute training load and acute-to-chronic ratio
+    ts = status.get("mostRecentTrainingStatus", {})
+    ts_map = ts.get("latestTrainingStatusData", {})
+    for device_data in ts_map.values():
+        if device_data.get("primaryTrainingDevice"):
+            acute = device_data.get("acuteTrainingLoadDTO", {})
+            result["trainingStatus"] = {
+                "status": device_data.get(
+                    "trainingStatusFeedbackPhrase",
+                ),
+                "fitnessTrend": device_data.get("fitnessTrend"),
+                "acuteLoad": acute.get("dailyTrainingLoadAcute"),
+                "chronicLoad": acute.get(
+                    "dailyTrainingLoadChronic",
+                ),
+                "acuteChronicRatio": acute.get(
+                    "dailyAcuteChronicWorkloadRatio",
+                ),
+                "acwrStatus": acute.get("acwrStatus"),
+                "optimalRange": [
+                    acute.get("minTrainingLoadChronic"),
+                    acute.get("maxTrainingLoadChronic"),
+                ],
+            }
+            break
+
+    return result
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python src/review_data.py <plan_file> [week]",
@@ -193,6 +264,19 @@ def main():
 
         activity_data.append(entry)
 
+    # Pull training status (load balance, acute/chronic ratio, VO2max)
+    training_status = {}
+    try:
+        status = garmin.api.get_training_status(
+            week_end.strftime("%Y-%m-%d"),
+        )
+        training_status = extract_training_status(status)
+    except Exception as e:
+        print(
+            f"Warning: failed to fetch training status: {e}",
+            file=sys.stderr,
+        )
+
     output = {
         "week": week_num,
         "week_dates": {
@@ -201,6 +285,7 @@ def main():
         },
         "planned": planned,
         "activities": activity_data,
+        "trainingStatus": training_status,
     }
 
     json.dump(output, sys.stdout, indent=2)
