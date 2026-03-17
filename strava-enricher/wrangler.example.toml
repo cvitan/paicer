@@ -1,0 +1,11 @@
+name = "paicer-strava-enricher"
+main = "src/index.ts"
+compatibility_date = "2025-04-01"
+
+[[kv_namespaces]]
+binding = "STRAVA_TOKENS"
+id = "YOUR_KV_NAMESPACE_ID"
+
+[[rules]]
+type = "Text"
+globs = ["**/*.yaml"]

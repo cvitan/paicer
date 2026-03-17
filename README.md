@@ -34,8 +34,15 @@ make test                   # Validate plan
 
 Running, cycling, swimming (pool and open water), track sessions, and multisport/brick workouts (bike + run with transition tracking). Requires a Garmin watch — multisport needs a compatible model (Fenix, Forerunner 570/970, Enduro).
 
+## Strava Enricher
+
+Optional Cloudflare Worker that auto-renames your Strava activities with training plan data. When Garmin syncs a workout, the enricher updates the activity name and adds planned-vs-actual stats to the description. See [`strava-enricher/README.md`](strava-enricher/README.md) for setup.
+
+```bash
+make deploy-strava-enricher    # Deploy after plan changes
+```
+
 ## Roadmap
 
-1. **Strava activity enrichment**
-2. **Zwift Integrations**
-3. **Additional Formats** - PDF, iCal, JSON, CSV export
+1. **Zwift Integrations**
+2. **Additional Formats** - PDF, iCal, JSON, CSV export
