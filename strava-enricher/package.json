@@ -1,0 +1,19 @@
+{
+  "name": "paicer-strava-enricher",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "types": "wrangler types"
+  },
+  "dependencies": {
+    "js-yaml": "4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "4.0.9",
+    "typescript": "5.7.3",
+    "wrangler": "4.73.0"
+  }
+}

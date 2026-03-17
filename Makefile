@@ -1,4 +1,4 @@
-.PHONY: install test workouts markdown html all clean
+.PHONY: install test workouts markdown html all clean deploy-strava-enricher
 
 # Load .env
 -include .env
@@ -58,6 +58,11 @@ html:
 	@echo "Created output/training_plan.html ($(FORMAT))"
 
 all: markdown html
+
+deploy-strava-enricher:
+	$(check_plan)
+	cp $(PLAN) strava-enricher/plan.yaml
+	cd strava-enricher && npx wrangler deploy
 
 clean:
 	trash output/
