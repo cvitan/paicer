@@ -1102,6 +1102,21 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
+                - stepType: "repeat"
+                  numberOfIterations: 6
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 20
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
           # Day 4 - Long Run 17 km
           - day: 4
             type: "run"
@@ -1125,58 +1140,16 @@ phases:
 
       - week: 5
         description: |
-          Slight volume drop. Maintain intensity. Prepare for Phase 2.
+          Recovery week. Volume drops ~25% to absorb W1–W4 training before Phase 2 adds swim/bike.
 
-          **Volume:** ~44 km running + 1–2 easy rides
+          **Volume:** ~35 km running + 1–2 easy rides
 
         workouts:
-          # Day 1 - Easy 8 km
+          # Day 1 - Easy 7 km
           - day: 1
             type: "run"
-            name: "Easy 8 km"
-            description: "8 km easy at RPE 4–5."
-            garmin:
-              steps:
-                - stepType: "interval"
-                  endCondition: "distance"
-                  endConditionValue: 8000  # 8 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
-
-          # Day 2 - Extended Tempo: 2 km WU + 30 min @ 5:15/km + 2 km CD
-          - day: 2
-            type: "run"
-            name: "Tempo 30 min"
-            description: "Extended Tempo. Warm-up: 2 km easy (RPE 4). Main: 30 min @ 5:15/km (RPE 7). Cool-down: 2 km easy (RPE 4). 30 min continuous is a big achievement — trust the process."
-            garmin:
-              steps:
-                # Warmup: 2 km in HR Zone 2
-                - stepType: "warmup"
-                  endCondition: "distance"
-                  endConditionValue: 2000  # 2 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
-
-                # Work: 30 minutes @ 5:15/km (±10 sec = 5:05-5:25)
-                - stepType: "interval"
-                  endCondition: "time"
-                  endConditionValue: 1800
-                  targetType: "pace.zone"
-                  targetValueOne: 3.2787  # 5:05/km in m/s (faster)
-                  targetValueTwo: 3.0864  # 5:25/km in m/s (slower)
-
-                # Cooldown: 2 km in HR Zone 2
-                - stepType: "cooldown"
-                  endCondition: "distance"
-                  endConditionValue: 2000  # 2 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
-
-          # Day 3 - Easy 7 km + Strides
-          - day: 3
-            type: "run"
-            name: "Easy 7 km + Strides"
-            description: "7 km easy at RPE 4–5. After: 6 × 20-sec strides (RPE 8 briefly)."
+            name: "Easy 7 km"
+            description: "7 km easy at RPE 4–5."
             garmin:
               steps:
                 - stepType: "interval"
@@ -1185,24 +1158,73 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 4 - Long Run 16 km with 3 km @ 5:25 finish
-          - day: 4
+          # Day 2 - Tempo 5 km: 1 km WU + 5 km @ 5:00/km + 1 km CD
+          - day: 2
             type: "run"
-            name: "Long 16 km + finish"
-            description: "16 km total. First 13 km easy (RPE 5), last 3 km @ ~5:25/km (RPE 6–7)."
+            name: "Tempo 5 km"
+            description: "Tempo 5 km. Warm-up: 1 km easy (RPE 4). Main: 5 km @ 5:00/km (RPE 7–8). Cool-down: 1 km easy (RPE 4). ~7 km total."
             garmin:
               steps:
-                # First 13 km easy in HR Zone 2
-                - stepType: "interval"
+                # Warmup: 1 km in HR Zone 2
+                - stepType: "warmup"
                   endCondition: "distance"
-                  endConditionValue: 13000  # 13 km
+                  endConditionValue: 1000  # 1 km
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-                # Last 3 km @ 5:25/km pace (±15 sec = 5:10-5:40)
+                # Work: 5 km @ 5:00/km (±10 sec = 4:50-5:10)
                 - stepType: "interval"
                   endCondition: "distance"
-                  endConditionValue: 3000  # 3 km
+                  endConditionValue: 5000  # 5 km
+                  targetType: "pace.zone"
+                  targetValueOne: 3.4483  # 4:50/km in m/s (faster)
+                  targetValueTwo: 3.2258  # 5:10/km in m/s (slower)
+
+                # Cooldown: 1 km in HR Zone 2
+                - stepType: "cooldown"
+                  endCondition: "distance"
+                  endConditionValue: 1000  # 1 km
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+          # Day 3 - Easy 6 km + Strides
+          - day: 3
+            type: "run"
+            name: "Easy 6 km + Strides"
+            description: "6 km easy at RPE 4–5. After: 4 × 20-sec strides (RPE 8 briefly)."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 6000  # 6 km
+                  targetType: "heart.rate.zone"
+                  zoneNumber: 2
+
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 20
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
+          # Day 4 - Long Run 14 km easy
+          - day: 4
+            type: "run"
+            name: "Long 14 km"
+            description: "14 km easy at RPE 5. No finish pace — just easy time on feet."
+            garmin:
+              steps:
+                - stepType: "interval"
+                  endCondition: "distance"
+                  endConditionValue: 14000  # 14 km
                   targetType: "pace.zone"
                   targetValueOne: 3.2258  # 5:10/km in m/s (faster)
                   targetValueTwo: 2.9412  # 5:40/km in m/s (slower)
@@ -1550,6 +1572,21 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 20
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
           # Day 5 - Brick: Bike + Run
           - day: 5
             type: "multisport"
@@ -1797,6 +1834,21 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 20
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
+
           # Day 5 - Brick: Bike + Run
           - day: 5
             type: "multisport"
@@ -1927,7 +1979,7 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 - Easy Run
+          # Day 5 - Easy Run + Strides
           - day: 5
             type: "run"
             name: "Easy 6 km + Strides"
@@ -1939,6 +1991,21 @@ phases:
                   endConditionValue: 6000  # 6 km
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
+
+                - stepType: "repeat"
+                  numberOfIterations: 4
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 20
+                      targetType: "no.target"
+                      childStepId: 1
+
+                    - stepType: "recovery"
+                      endCondition: "lap.button"
+                      targetType: "no.target"
+                      childStepId: 1
 
           # Day 6 - Long Run (moderate)
           - day: 6
@@ -2916,3 +2983,17 @@ reviews:
     adjustments:
       - "Fixed incorrect distance totals in tempo workout descriptions across the plan"
       - "Smoothed long run progression: W4 18→17, W6 17→18, W7 18→19 km for steadier build to W9 peak (20 km)"
+
+  - week: 4
+    date: "2026-03-22"
+    notes: |
+      All 4 runs completed. Tempo 2x4 km executed precisely: 5:12 and
+      5:14/km, both within 5:05-5:25 target, consistent HR 154-156. Key session of
+      Phase 1 — well done. Easy runs had elevated HR (144, 142) due to hilly terrain
+      (109m and 94m gain). Long 17 km at 6:26/km, HR 142, 60m gain — 42% Zone 3
+      time from cardiac drift in second half. Training status: Productive, acute/chronic
+      ratio 1.2 (optimal). Load balance above all targets — confirms W5 recovery week
+      is well timed. VO2max 45.8.
+    adjustments:
+      - "Redesigned W5 as proper recovery week: ~35 km (25% cut), tempo shortened to 20 min, long run 14 km all easy (no finish pace)"
+      - "Added strides to W4, W5, W8, W10, W11 — every non-race week now has strides"
