@@ -1258,7 +1258,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #2"
+            name: "Session #2 1500 m"
             garmin: *swim_s2_garmin
             description: "1.5 km. Drills/Intervals at RPE 5–7. First structured swim in months. Focus on feel, breathing, technique."
 
@@ -1315,7 +1315,7 @@ phases:
           # Day 4 - Swim + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Swim #1"
+            name: "Session #1 1000 m"
             garmin: *swim_s1_garmin
             description: "1 km. Drills/Intervals at RPE 5–7. Shorter technique session."
 
@@ -1384,7 +1384,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #3"
+            name: "Session #3 1500 m"
             garmin: *swim_s3_garmin
             description: "1.5 km. Drills/Intervals at RPE 5–7."
 
@@ -1430,7 +1430,7 @@ phases:
           # Day 4 - Swim + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Swim #2"
+            name: "Session #2 1500 m"
             garmin: *swim_s2_garmin
             description: "1.5 km at RPE 5–7."
 
@@ -1499,7 +1499,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #4"
+            name: "Session #4 2000 m"
             garmin: *swim_s4_garmin
             description: "2 km. Drills/Intervals at RPE 5–7."
 
@@ -1556,7 +1556,7 @@ phases:
           # Day 4 - Swim + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Swim #3"
+            name: "Session #3 1500 m"
             garmin: *swim_s3_garmin
             description: "1.5 km at RPE 5–7."
 
@@ -1639,7 +1639,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #5"
+            name: "Session #5 2000 m"
             garmin: *swim_s5_garmin
             description: "2 km. Drills/Intervals at RPE 5–8."
 
@@ -1695,7 +1695,7 @@ phases:
           # Day 4 - Swim + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Swim #3"
+            name: "Session #3 1500 m"
             garmin: *swim_s3_garmin
             description: "1.5 km at RPE 5–7."
 
@@ -1764,7 +1764,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #6"
+            name: "Session #6 2000 m"
             garmin: *swim_s6_garmin
             description: "2 km. Drill/Intervals at RPE 5–8."
 
@@ -1818,7 +1818,7 @@ phases:
           # Day 4 - Swim + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Swim #2"
+            name: "Session #2 1500 m"
             garmin: *swim_s2_garmin
             description: "1.5 km at RPE 5–7."
 
@@ -1901,7 +1901,7 @@ phases:
           # Day 1 - Swim (only 1 swim this week)
           - day: 1
             type: "swim"
-            name: "Swim #4"
+            name: "Session #4 2000 m"
             garmin: *swim_s4_garmin
             description: "2 km at RPE 5–7. Only 1 swim this week — keep it moderate."
 
@@ -1958,7 +1958,7 @@ phases:
           # Day 4 - Swim (optional) + Easy Run combo
           - day: 4
             type: "swim"
-            name: "Easy Swim"
+            name: "Easy 30 min"
             garmin:
               steps:
                 - stepType: "interval"
@@ -2039,7 +2039,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Easy Swim"
+            name: "Easy 1500 m"
             garmin:
               steps:
                 - stepType: "interval"
@@ -2150,7 +2150,7 @@ phases:
           # Day 2 - Optional easy swim
           - day: 2
             type: "swim"
-            name: "Easy Swim"
+            name: "Easy 20-30 min"
             garmin:
               steps:
                 - stepType: "interval"
@@ -2179,7 +2179,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #7"
+            name: "Session #7 2500 m"
             garmin: *swim_s7_garmin
             description: "2.5 km. When using paddles, they slow your cadence so you can focus on stroke technique. Holding harder efforts for longer; shorter sprints for speed."
 
@@ -2251,7 +2251,7 @@ phases:
           # Day 4 - Swim
           - day: 4
             type: "swim"
-            name: "Swim #8"
+            name: "Session #8 2500 m"
             garmin: *swim_s8_garmin
             description: "2.5 km. If using a swim watch or pace clock, you should see improvements in speed and ability to hold speed for longer."
 
@@ -2292,7 +2292,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #7"
+            name: "Session #7 2500 m"
             garmin: *swim_s7_garmin
             description: "2.5 km. Swim the first 1 km of the main set as a straight Time Trial for a race-pace time — good progress marker. Resume second km as normal interval breakdown. When breathing, keep one eye in the water and lead hand out front."
 
@@ -2323,7 +2323,7 @@ phases:
           # Day 3 - Swim + Run combo
           - day: 3
             type: "swim"
-            name: "Swim #4"
+            name: "Session #4 2000 m"
             garmin: *swim_s4_garmin
             description: "2 km."
 
@@ -2348,7 +2348,7 @@ phases:
           # Day 5 - Open Water Swim
           - day: 5
             type: "swim"
-            name: "Swim: Open Water"
+            name: "Open Water 1000 m"
             skip_garmin: true
             description: "First open water swim! 1 km. Ensure proper wetsuit fitting and spend time acclimatising to the water (may be colder early season). Cover distance aiming to swim smoothly, keeping good technique. Practice sighting. Practice breathing to weaker side."
 
@@ -2396,7 +2396,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #8"
+            name: "Session #8 2500 m"
             garmin: *swim_s8_garmin
             description: "2.5 km. Count strokes per length to check technique — if count increases, you're losing efficiency or fatiguing. When breathing, keep one eye in the water, lead hand out front until recovery arm is coming forward."
 
@@ -2459,7 +2459,7 @@ phases:
           # Day 5 - Open Water Swim
           - day: 5
             type: "swim"
-            name: "Swim: Open Water"
+            name: "Open Water 1500 m"
             skip_garmin: true
             description: "1.5 km. Developing confidence and skills. Fit wetsuit properly, acclimatise, relax stroke, focus on breathing. Start adding sighting every 2–4 breaths. Join a group if possible for coaching points. @RPE 6–7."
 
@@ -2487,7 +2487,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #7"
+            name: "Session #7 2500 m"
             garmin: *swim_s7_garmin
             description: "2.5 km. Pace control — aim to repeat pace of each set. Maintain alignment and form even on harder/shorter sets. Losing technique makes you slower."
 
@@ -2506,7 +2506,7 @@ phases:
           # Day 3 - Swim + Run combo
           - day: 3
             type: "swim"
-            name: "Swim #5"
+            name: "Session #5 2000 m"
             garmin: *swim_s5_garmin
             description: "2 km."
 
@@ -2533,7 +2533,7 @@ phases:
           # Day 5 - Open Water Swim
           - day: 5
             type: "swim"
-            name: "Swim: Open Water"
+            name: "Open Water 1500 m"
             skip_garmin: true
             description: "1.5 km. Practice sighting, adapting stroke to wetsuit and open water. Slow cadence and work with buoyancy of suit. Break session into adaptation time, then finish with 400–500 m hard effort @RPE 7. Focus on controlling breathing (often first to go in cold open water)."
 
@@ -2571,7 +2571,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #8"
+            name: "Session #8 2500 m"
             garmin: *swim_s8_garmin
             description: "2.5 km. Keep body position in mind — legs high in the water. Think about rotation through hips and forearm position on catch."
 
@@ -2652,7 +2652,7 @@ phases:
           # Day 5 - Open Water Swim
           - day: 5
             type: "swim"
-            name: "Swim: Open Water"
+            name: "Open Water 2000 m"
             skip_garmin: true
             description: "2 km. Continue wetsuit prep: get suit on, warm up dry-side, acclimatise and warm up within a couple of minutes (race-day practice). Work in harder efforts in the later part. 1-arm drills aid rotation & stroke efficiency for open water."
 
@@ -2680,7 +2680,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #9"
+            name: "Session #9 2500 m"
             garmin: *swim_s9_garmin
             description: "2.5 km. Final fitness push — use shorter efforts to work hard and longer efforts to refocus on technique. Paddle work for stroke strength."
 
@@ -2699,7 +2699,7 @@ phases:
           # Day 3 - Swim + Run combo
           - day: 3
             type: "swim"
-            name: "Swim #6"
+            name: "Session #6 2000 m"
             garmin: *swim_s6_garmin
             description: "2 km. Wear tri-suit underneath wetsuit. Practice sighting and speed work."
 
@@ -2736,7 +2736,7 @@ phases:
           # Day 5 - Open Water Swim
           - day: 5
             type: "swim"
-            name: "Swim: Open Water"
+            name: "Open Water 1500 m"
             skip_garmin: true
             description: "1.5 km. Longer steady duration. Run through wetsuit fitting, lubricant, tri-suit underneath. If you can swim with a friend or group, good practice for race-day conditions. Mixing up speed simulates fatigue."
 
@@ -2783,7 +2783,7 @@ phases:
           # Day 1 - Swim
           - day: 1
             type: "swim"
-            name: "Swim #7"
+            name: "Session #7 2500 m"
             garmin: *swim_s7_garmin
             description: "2.5 km. You should be swimming these at your best pace in the program. Getting near best 100 m & 200 m times — the real show of fitness comes when you replicate this pace in open water."
 
@@ -2867,7 +2867,7 @@ phases:
           # Day 5 - Open Water Swim
           - day: 5
             type: "swim"
-            name: "Swim: Open Water"
+            name: "Open Water 2000 m"
             skip_garmin: true
             description: "2 km. Race day prep. Get suit on in plenty of time, fit properly. Warm up on land then in water within 2 min (race-day simulation). Practice start, swim race distance (1.5 km). Use remaining distance for sprints. Final race-pace prep — polish technique and pacing."
 
@@ -2942,7 +2942,7 @@ phases:
           # Day 5 - Swim
           - day: 5
             type: "swim"
-            name: "Easy Swim"
+            name: "Easy 750 m"
             garmin:
               steps:
                 - stepType: "interval"
@@ -2997,3 +2997,21 @@ reviews:
     adjustments:
       - "Redesigned W5 as proper recovery week: ~35 km (25% cut), tempo shortened to 20 min, long run 14 km all easy (no finish pace)"
       - "Added strides to W4, W5, W8, W10, W11 — every non-race week now has strides"
+
+  - week: 5
+    date: "2026-03-29"
+    notes: |
+      3 of 4 runs completed. Skipped Easy 6 km + Strides due to fatigue.
+      Easy 7 km at 6:04/km, HR 139 — Zone 2 with 13% Zone 3 (59m gain, acceptable).
+      5K Tempo cut short at 4 km — pace was on target at 5:00/km but HR spiked to
+      163 avg (171 max) with 17 min in Zone 5. Right call to stop.
+      Long 14 km at 6:30/km, HR 140 — slower than previous weeks but appropriate
+      given elevated HR all week. 65m gain, 77% Zone 2.
+      Training status: Productive. VO2max 46.2 (up from 45.8). Acute/chronic ratio
+      0.7 (below optimal 0.8–1.5) — expected for recovery week with a skipped session.
+      Load balance: anaerobic shortage. Elevated HR across all runs plus general
+      fatigue (breathless going upstairs) suggests possible mild illness or accumulated
+      fatigue from Phase 1. Recovery week served its purpose.
+    adjustments:
+      - "Replaced W5 Tempo 20 min with 5K Tempo at 5:00/km (1 km WU/CD instead of 2 km)"
+      - "Renamed all swim sessions: 'Session #N distance' in meters (was 'Swim #N')"
