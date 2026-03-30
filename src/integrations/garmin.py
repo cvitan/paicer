@@ -26,6 +26,12 @@ STROKE_TYPES = {
     "none": {"strokeTypeId": 0, "displayOrder": 0},
 }
 
+DRILL_TYPES = {
+    "kick": {"drillTypeId": 1, "drillTypeKey": "kick"},
+    "pull": {"drillTypeId": 2, "drillTypeKey": "pull"},
+    "drill": {"drillTypeId": 3, "drillTypeKey": "drill"},
+}
+
 # Garmin API constants (actual values, library constants are wrong!)
 STEP_TYPES = {
     "warmup": 1,
@@ -196,6 +202,8 @@ class GarminIntegration(WorkoutIntegration):
 
         if is_swim:
             exec_step["targetType"] = None
+            if os.getenv("SWIM_TRACKING", "auto") == "drill":
+                exec_step["drillType"] = DRILL_TYPES["drill"]
         else:
             exec_step["targetType"] = resolve_target_type(
                 step["targetType"]
