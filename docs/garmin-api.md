@@ -124,7 +124,20 @@ Inside repeat groups, rest steps also need `childStepId: 1`.
 
 **Optional:** `endConditionValue`, `targetValueOne`, `targetValueTwo`, `childStepId` (required inside repeats), `description` (watch display note)
 
-**Auto-added by script:** `strokeType`, `equipmentType`, `type` (ExecutableStepDTO/RepeatGroupDTO), `stepOrder`
+**Auto-added by script:** `strokeType`, `equipmentType`, `drillType` (when `SWIM_TRACKING=drill`), `type` (ExecutableStepDTO/RepeatGroupDTO), `stepOrder`
+
+## Swim Distance Tracking (`SWIM_TRACKING`)
+
+Set in `.env`. Controls how pool swim segments track distance:
+
+| Value | Behavior |
+|-------|----------|
+| `auto` (default) | Watch measures distance via stroke detection. Accurate with consistent form. |
+| `drill` | Every segment is a drill. Press lap button → enter distance manually. Works regardless of stroke or form. |
+
+When `drill` is set, the script adds `drillType: {drillTypeId: 3, drillTypeKey: "drill"}` to every swim step.
+
+Available drill types (for future use): `kick` (1), `pull` (2), `drill` (3).
 
 ## Unit Reference
 
