@@ -25,20 +25,32 @@ swim_sessions:
       - stepType: "rest"
         endCondition: "lap.button"
         targetType: "no.target"
-      - stepType: "interval"
-        endCondition: "lap.button"
-        targetType: "no.target"
-        description: "2x200m freestyle + pull buoy @ RPE 5"
-      - stepType: "rest"
-        endCondition: "lap.button"
-        targetType: "no.target"
-      - stepType: "interval"
-        endCondition: "lap.button"
-        targetType: "no.target"
-        description: "2x100m freestyle @ RPE 7"
-      - stepType: "rest"
-        endCondition: "lap.button"
-        targetType: "no.target"
+      - stepType: "repeat"
+        numberOfIterations: 2
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "200m freestyle + pull buoy @ RPE 5"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+      - stepType: "repeat"
+        numberOfIterations: 2
+        childStepId: 2
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "100m freestyle @ RPE 7"
+            childStepId: 2
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 2
       - stepType: "cooldown"
         endCondition: "lap.button"
         targetType: "no.target"
@@ -68,20 +80,32 @@ swim_sessions:
       - stepType: "rest"
         endCondition: "lap.button"
         targetType: "no.target"
-      - stepType: "interval"
-        endCondition: "lap.button"
-        targetType: "no.target"
-        description: "2x200m freestyle @ RPE 6"
-      - stepType: "rest"
-        endCondition: "lap.button"
-        targetType: "no.target"
-      - stepType: "interval"
-        endCondition: "lap.button"
-        targetType: "no.target"
-        description: "2x100m freestyle @ RPE 7"
-      - stepType: "rest"
-        endCondition: "lap.button"
-        targetType: "no.target"
+      - stepType: "repeat"
+        numberOfIterations: 2
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "200m freestyle @ RPE 6"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+      - stepType: "repeat"
+        numberOfIterations: 2
+        childStepId: 2
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "100m freestyle @ RPE 7"
+            childStepId: 2
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 2
       - stepType: "cooldown"
         endCondition: "lap.button"
         targetType: "no.target"
@@ -111,20 +135,32 @@ swim_sessions:
       - stepType: "rest"
         endCondition: "lap.button"
         targetType: "no.target"
-      - stepType: "interval"
-        endCondition: "lap.button"
-        targetType: "no.target"
-        description: "2x150m freestyle @ RPE 7"
-      - stepType: "rest"
-        endCondition: "lap.button"
-        targetType: "no.target"
-      - stepType: "interval"
-        endCondition: "lap.button"
-        targetType: "no.target"
-        description: "4x75m freestyle @ RPE 7-8"
-      - stepType: "rest"
-        endCondition: "lap.button"
-        targetType: "no.target"
+      - stepType: "repeat"
+        numberOfIterations: 2
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "150m freestyle @ RPE 7"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+      - stepType: "repeat"
+        numberOfIterations: 4
+        childStepId: 2
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "75m freestyle @ RPE 7-8"
+            childStepId: 2
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 2
       - stepType: "cooldown"
         endCondition: "lap.button"
         targetType: "no.target"
@@ -214,13 +250,19 @@ swim_sessions:
       - stepType: "rest"
         endCondition: "lap.button"
         targetType: "no.target"
-      - stepType: "interval"
-        endCondition: "lap.button"
-        targetType: "no.target"
-        description: "4x200m freestyle @ RPE 7-8 (30s rest)"
-      - stepType: "rest"
-        endCondition: "lap.button"
-        targetType: "no.target"
+      - stepType: "repeat"
+        numberOfIterations: 4
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "200m freestyle @ RPE 7-8"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
       - stepType: "cooldown"
         endCondition: "lap.button"
         targetType: "no.target"
@@ -265,13 +307,19 @@ swim_sessions:
             endCondition: "lap.button"
             targetType: "no.target"
             childStepId: 1
-      - stepType: "interval"
-        endCondition: "lap.button"
-        targetType: "no.target"
-        description: "2x100m freestyle @ RPE 8"
-      - stepType: "rest"
-        endCondition: "lap.button"
-        targetType: "no.target"
+      - stepType: "repeat"
+        numberOfIterations: 2
+        childStepId: 2
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "100m freestyle @ RPE 8"
+            childStepId: 2
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 2
       - stepType: "cooldown"
         endCondition: "lap.button"
         targetType: "no.target"
@@ -310,7 +358,7 @@ swim_sessions:
           - stepType: "interval"
             endCondition: "lap.button"
             targetType: "no.target"
-            description: "2x200m freestyle + paddles @ RPE 6-7"
+            description: "200m freestyle + paddles @ RPE 6-7"
             childStepId: 1
           - stepType: "rest"
             endCondition: "lap.button"
@@ -319,7 +367,25 @@ swim_sessions:
           - stepType: "interval"
             endCondition: "lap.button"
             targetType: "no.target"
-            description: "2x100m freestyle @ RPE 8"
+            description: "200m freestyle + paddles @ RPE 6-7"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "100m freestyle @ RPE 8"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "100m freestyle @ RPE 8"
             childStepId: 1
           - stepType: "rest"
             endCondition: "lap.button"
@@ -430,7 +496,7 @@ swim_sessions:
           - stepType: "interval"
             endCondition: "lap.button"
             targetType: "no.target"
-            description: "2x100m freestyle @ RPE 7"
+            description: "100m freestyle @ RPE 7"
             childStepId: 1
           - stepType: "rest"
             endCondition: "lap.button"
@@ -439,7 +505,43 @@ swim_sessions:
           - stepType: "interval"
             endCondition: "lap.button"
             targetType: "no.target"
-            description: "4x50m freestyle @ RPE 8+"
+            description: "100m freestyle @ RPE 7"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "50m freestyle @ RPE 8+"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "50m freestyle @ RPE 8+"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "50m freestyle @ RPE 8+"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "50m freestyle @ RPE 8+"
             childStepId: 1
           - stepType: "rest"
             endCondition: "lap.button"
@@ -481,13 +583,19 @@ swim_sessions:
       - stepType: "rest"
         endCondition: "lap.button"
         targetType: "no.target"
-      - stepType: "interval"
-        endCondition: "lap.button"
-        targetType: "no.target"
-        description: "2x100m freestyle @ RPE 9"
-      - stepType: "rest"
-        endCondition: "lap.button"
-        targetType: "no.target"
+      - stepType: "repeat"
+        numberOfIterations: 2
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            description: "100m freestyle @ RPE 9"
+            childStepId: 1
+          - stepType: "rest"
+            endCondition: "lap.button"
+            targetType: "no.target"
+            childStepId: 1
       - stepType: "cooldown"
         endCondition: "lap.button"
         targetType: "no.target"
