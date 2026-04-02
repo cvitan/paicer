@@ -1417,7 +1417,7 @@ phases:
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 20000  # 20 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
           # Day 4 - Swim + Easy Run combo
@@ -1532,7 +1532,7 @@ phases:
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 25000  # 25 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 3
 
           # Day 4 - Swim + Easy Run combo
@@ -1658,7 +1658,7 @@ phases:
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 20000  # 20 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 3
 
           # Day 4 - Swim + Easy Run combo
@@ -2060,7 +2060,7 @@ phases:
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 20000  # 20 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
           # Day 4 - Swim (optional) + Easy Run combo
@@ -2203,7 +2203,7 @@ phases:
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 15000  # 15 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
           # Day 4 - Easy Run
@@ -2301,7 +2301,7 @@ phases:
                 - stepType: "warmup"
                   endCondition: "distance"
                   endConditionValue: 5000  # 5 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
                 - stepType: "repeat"
@@ -2311,7 +2311,7 @@ phases:
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 60
-                      targetType: "power.zone"
+                      targetType: "heart.rate.zone"
                       zoneNumber: 2
                       childStepId: 1
 
@@ -2346,7 +2346,7 @@ phases:
                 - stepType: "cooldown"
                   endCondition: "distance"
                   endConditionValue: 2000  # 2 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
           # Day 3 - Track
@@ -2414,7 +2414,7 @@ phases:
                 - stepType: "warmup"
                   endCondition: "distance"
                   endConditionValue: 1000  # 1 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
                 - stepType: "interval"
@@ -2425,7 +2425,7 @@ phases:
                 - stepType: "cooldown"
                   endCondition: "distance"
                   endConditionValue: 1000  # 1 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
           # Day 3 - Swim + Run combo
@@ -2471,7 +2471,7 @@ phases:
                     - stepType: "warmup"
                       endCondition: "distance"
                       endConditionValue: 12500  # 12.5 km
-                      targetType: "power.zone"
+                      targetType: "heart.rate.zone"
                       zoneNumber: 2
                     - stepType: "interval"
                       endCondition: "distance"
@@ -2518,7 +2518,7 @@ phases:
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 8000  # 8 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
                 - stepType: "interval"
@@ -2536,7 +2536,7 @@ phases:
                 - stepType: "cooldown"
                   endCondition: "distance"
                   endConditionValue: 1000  # 1 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
           # Day 3 - Run
@@ -2656,7 +2656,7 @@ phases:
                     - stepType: "interval"
                       endCondition: "distance"
                       endConditionValue: 30000  # 30 km
-                      targetType: "power.zone"
+                      targetType: "heart.rate.zone"
                       zoneNumber: 3
                 - sport: "run"
                   steps:
@@ -2693,7 +2693,7 @@ phases:
                 - stepType: "warmup"
                   endCondition: "time"
                   endConditionValue: 600
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
                 - stepType: "repeat"
@@ -2703,7 +2703,7 @@ phases:
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 300
-                      targetType: "power.zone"
+                      targetType: "heart.rate.zone"
                       zoneNumber: 2
                       childStepId: 1
 
@@ -2716,7 +2716,7 @@ phases:
                 - stepType: "cooldown"
                   endCondition: "distance"
                   endConditionValue: 3000  # 3 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
           # Day 3 - Run
@@ -2914,7 +2914,7 @@ phases:
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 60
-                      targetType: "power.zone"
+                      targetType: "heart.rate.zone"
                       zoneNumber: 2
                       childStepId: 1
 
@@ -2949,7 +2949,7 @@ phases:
                 - stepType: "cooldown"
                   endCondition: "distance"
                   endConditionValue: 2000  # 2 km
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
           # Day 3 - Run

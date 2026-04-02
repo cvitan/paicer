@@ -35,7 +35,7 @@ Garmin steps always use metric (meters, sec/km). Add comments in the user's syst
 |------|-------------|-------|
 | `run` | running (1) | HR zone for easy, pace targets for tempo/intervals |
 | `track` | running (1) | Reusable via YAML anchors |
-| `bike` | cycling (2) | Power zone targets (if power meter) |
+| `bike` | cycling (2) | See cycling target rules below |
 | `swim` | swimming (4) | Lap-button cue cards with `description` per step |
 | `multisport` | multi_sport (10) | `garmin.legs`, each with `sport` + `steps` |
 | `race` | — | Race day entry, typically `skip_garmin: true` |
@@ -45,12 +45,30 @@ Garmin steps always use metric (meters, sec/km). Add comments in the user's syst
 - **`optional: true`** — shows as "Optional:" in docs, doesn't count against training_days. If it has a `garmin:` section, uploads to library without scheduling. Doesn't override `skip_garmin`.
 - **`skip_garmin: true`** — no Garmin upload at all.
 
+## Cycling Target Rules
+
+Garmin evaluates power zone targets against 3-second average power. On undulating outdoor terrain, this causes constant out-of-zone alerts regardless of actual effort. The Garmin Connect API does not support configuring a longer averaging window.
+
+**Use `heart.rate.zone` for:**
+- All steady-state / endurance cycling (single-interval rides at zone 2–3)
+- Warmup and cooldown steps in structured cycling workouts
+- Easy recovery steps between hard intervals
+- Brick workout bike legs that are steady-state
+
+**Keep `power.zone` for:**
+- Hard interval steps (zone 3+ in structured workouts) — short targeted efforts where instant feedback matters and flat terrain is preferred
+- Threshold / VO2max intervals
+
+**Why HR works for steady cycling:** HR naturally smooths terrain-induced power fluctuations. On a hilly loop, power spikes uphill and drops downhill, but HR stays in zone if effort is consistent. Same logic as running easy runs with HR targets.
+
 ## Garmin Step Patterns
 
 Read `examples/reference-metric.yaml` (or `reference-imperial.yaml`) for working examples of every pattern. Read `docs/garmin-api.md` for complete API reference.
 
 **Common patterns:**
 - Easy run: single `interval` step + `heart.rate.zone` zone 2
+- Steady bike: single `interval` step + `heart.rate.zone` zone 2–3
+- Bike intervals: `warmup` (HR zone) + `repeat` group (HR recovery + power work) + `cooldown` (HR zone)
 - Tempo: `warmup` + `repeat` group (work + recovery) + `cooldown`
 - Swim: `lap.button` + `description` per step, `rest` steps between sections
 - Multisport: `garmin.legs` array, each leg has `sport` + `steps`
