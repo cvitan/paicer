@@ -1706,13 +1706,15 @@ phases:
                     - stepType: "interval"
                       endCondition: "distance"
                       endConditionValue: 15000  # 15 km
-                      targetType: "no.target"
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 2
                 - sport: "run"
                   steps:
                     - stepType: "interval"
                       endCondition: "distance"
                       endConditionValue: 3000  # 3 km
-                      targetType: "no.target"
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 2
             description: "15 km bike (RPE 5–6) → 3 km easy run (RPE 6–7). Start the run slow — legs will feel odd."
 
           # Day 6 - Long Run with steady finish
@@ -1968,13 +1970,15 @@ phases:
                     - stepType: "interval"
                       endCondition: "distance"
                       endConditionValue: 15000  # 15 km
-                      targetType: "no.target"
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 2
                 - sport: "run"
                   steps:
                     - stepType: "interval"
                       endCondition: "distance"
                       endConditionValue: 3000  # 3 km
-                      targetType: "no.target"
+                      targetType: "heart.rate.zone"
+                      zoneNumber: 2
             description: "15 km bike (RPE 5–6) → 3 km run (RPE 6). Keep the run controlled."
 
           # Day 6 - Long Run with steady finish
