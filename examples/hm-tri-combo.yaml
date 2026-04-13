@@ -3123,3 +3123,50 @@ reviews:
     adjustments:
       - "Replaced W5 Tempo 20 min with 5K Tempo at 5:00/km (1 km WU/CD instead of 2 km)"
       - "Renamed all swim sessions: 'Session #N distance' in meters (was 'Swim #N')"
+
+  - week: 6
+    date: "2026-04-06"
+    notes: |
+      First full Phase 2 week — all 7 sessions completed (4 runs, 2 swims, 1 bike).
+      Tempo 3x10 min: 5:11, 5:15, 5:28/km — all in 5:00-5:30 window but notable
+      fade from rep 1 to 3 (17 sec/km drop, HR 162→166). Cut cooldown short (726m
+      vs 2 km) as couldn't stay Z2 without walking. Elevation minimal (42m).
+      Easy 8 km at 6:22/km, HR 141, 88m gain (11 m/km) — 39% Zone 3 from hills.
+      Easy 7 km + Strides at 6:11/km, HR 140, 69m gain — 4 strides executed well.
+      Long 18 km at 7:13/km, HR 140, 154m gain — almost 1 min/km slower than
+      Phase 1 long runs, appropriate given lingering fatigue. Late Friday night
+      before Saturday long run contributed to slower pace.
+      Swims: Session #2 (1500 yd, split into two activities) and Session #1
+      (1000 yd) both completed. Pool is 25 yd — plan stays in meters, user
+      swims equivalent in yards.
+      Bike: Steady Ride 20 km at 22.3 km/h, HR 131, 94% Zone 1-2. Good first ride.
+      Training status: Productive. VO2max 46.3 (up from 46.2). Acute/chronic
+      ratio 1.1 (optimal). Anaerobic shortage persists. Aerobic low load above
+      target (1577 vs 402-1055) — high easy volume.
+      Fever onset after long run, elevated body temp (+2°F per Oura), poor
+      readiness/sleep scores. HR has been elevated since mid-W5.
+    adjustments:
+      - "No plan changes"
+
+  - week: 7
+    date: "2026-04-13"
+    notes: |
+      Sick Mon–Wed — missed Session #3 swim and Tempo 30 min. Rallied for the
+      rest: did Wed bike on Thu (indoor, split 2×12.5 km), Thu swim on Fri,
+      easy runs and long run as planned. 5 of 7 sessions completed.
+      Easy 8 km (Thu) at 6:37/km, HR 140, 67m gain — slower than W6 (6:22),
+      AeTE 3.3 borderline-hard for easy.
+      Steady Ride 25 km (Thu, indoor, 2×12.5 km blocks): HR 113/116, all
+      Zone 1–2, AeTE 0.8–0.9. Controlled return after fever. Activities are
+      labeled "W6: Steady Ride 25 km" but content matches W7's planned 25 km
+      — looks like a re-sync or label mismatch.
+      Session #2 swim (Fri): 1500 yd, HR 115, AeTE 2.2.
+      Easy 7 km + Strides (Fri) at 6:13/km, HR 139, 63m gain. All 5 strides
+      executed cleanly.
+      Long 19 km (Sun): 6:18/km, HR 141, 78m gain (4.1 m/km, flat). AeTE 4.3.
+      Nearly 1 min/km faster than W6's 7:13 — clear sign of recovery.
+      Training status: Productive_5 (up from Productive_3). VO2max 46.5 (up
+      from 46.3). Acute/chronic ratio 1.0 (optimal). Load balance: aerobic
+      high shortage — expected, no tempo this week.
+    adjustments:
+      - "No plan changes — W8 tempo (2×12 min @ 5:10/km) will be first speed work in 2 weeks; first rep may feel hard"
