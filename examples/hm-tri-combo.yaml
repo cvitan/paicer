@@ -3069,7 +3069,7 @@ reviews:
       progressive acceleration. Total running volume ~41 km vs planned ~44 km (tempo run
       shorter than estimated). No pace or HR concerns.
     adjustments:
-      - "No adjustments needed — paces and HR well-calibrated"
+      - "No plan changes"
 
   - week: 3
     date: "2026-03-15"
@@ -3147,18 +3147,40 @@ reviews:
       rest: did Wed bike on Thu (indoor, split 2×12.5 km), Thu swim on Fri,
       easy runs and long run as planned. 5 of 7 sessions completed.
       Easy 8 km (Thu) at 6:37/km, HR 140, 67m gain — slower than W6 (6:22),
-      AeTE 3.3 borderline-hard for easy.
+      Aerobic TE 3.3 borderline-hard for easy.
       Steady Ride 25 km (Thu, indoor, 2×12.5 km blocks): HR 113/116, all
-      Zone 1–2, AeTE 0.8–0.9. Controlled return after fever. Activities are
+      Zone 1–2, Aerobic TE 0.8–0.9. Controlled return after fever. Activities are
       labeled "W6: Steady Ride 25 km" but content matches W7's planned 25 km
       — looks like a re-sync or label mismatch.
-      Session #2 swim (Fri): 1500 yd, HR 115, AeTE 2.2.
+      Session #2 swim (Fri): 1500 yd, HR 115, Aerobic TE 2.2.
       Easy 7 km + Strides (Fri) at 6:13/km, HR 139, 63m gain. All 5 strides
       executed cleanly.
-      Long 19 km (Sun): 6:18/km, HR 141, 78m gain (4.1 m/km, flat). AeTE 4.3.
+      Long 19 km (Sun): 6:18/km, HR 141, 78m gain (4.1 m/km, flat). Aerobic TE 4.3.
       Nearly 1 min/km faster than W6's 7:13 — clear sign of recovery.
-      Training status: Productive_5 (up from Productive_3). VO2max 46.5 (up
+      Training status: Productive. VO2max 46.5 (up
       from 46.3). Acute/chronic ratio 1.0 (optimal). Load balance: aerobic
       high shortage — expected, no tempo this week.
     adjustments:
-      - "No plan changes — W8 tempo (2×12 min @ 5:10/km) will be first speed work in 2 weeks; first rep may feel hard"
+      - "No plan changes"
+
+  - week: 8
+    date: "2026-04-20"
+    notes: |
+      All 6 sessions completed. Swapped Wed/Thu
+      order (brick before tempo) and moved long run from Sun to Mon.
+      Tempo 2×12 min: best tempo of the program — 5:03 and 5:01/km, negative
+      split. HR 163/168, flat course (22m gain). Well inside 4:55-5:25 target.
+      Long 18 km + finish: easy 15 km at 7:06/km (HR 141), finish 3 km at
+      5:12/km (HR 165) — faster than 5:20 target. 83m gain.
+      First brick completed: 18.2 km total, 120m gain. Aerobic TE 2.7.
+      Easy 8 km + Strides: 7:06/km, HR 141 — slow from heat (85°F). 4 strides done.
+      Mixed Effort Ride: 20 km at 23.4 km/h, HR 140, 162m gain. 70% Zone 3.
+      Swim Session #4: 2000 yd, HR 125. Aerobic TE 3.0.
+      Training status: Maintaining (dropped from Productive). VO2max 46.3
+      (down from 46.5). Acute/chronic ratio 1.0 (optimal). Aerobic high
+      shortage persists. Status dip likely from travel/heat/illness recovery
+      rather than fitness loss — tempo execution was the best yet.
+    adjustments:
+      - "Reordered Phase 2 days: Tue easy+strides, Thu tempo, Fri swim+easy (non-brick) or brick (brick weeks). Gives 3 recovery days between long run and tempo."
+      - "Dropped second swim on brick weeks (W8, W10) to avoid swim+tempo same day before brick"
+      - "Added HR zone 2 targets to brick bike and run segments"
