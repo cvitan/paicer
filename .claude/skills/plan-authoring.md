@@ -47,19 +47,30 @@ Garmin steps always use metric (meters, sec/km). Add comments in the user's syst
 
 ## Cycling Target Rules
 
-Garmin evaluates power zone targets against 3-second average power. On undulating outdoor terrain, this causes constant out-of-zone alerts regardless of actual effort. The Garmin Connect API does not support configuring a longer averaging window.
+Garmin evaluates power zone targets against 3-second average power. On undulating outdoor terrain, this causes constant out-of-zone alerts regardless of actual effort — and the visual deviation banners obscure the data screens you actually want to see. The Garmin Connect API does not support configuring a longer averaging window.
+
+Power is still the right measurement for hard cycling intervals when a power meter is present. The fix is to keep the structured workout shape but stop letting Garmin enforce target zones on the bike. The user paces by feel + lap-average power on the data screen, and gets clean post-ride power data for analysis.
 
 **Use `heart.rate.zone` for:**
 - All steady-state / endurance cycling (single-interval rides at zone 2–3)
-- Warmup and cooldown steps in structured cycling workouts
-- Easy recovery steps between hard intervals
-- Brick workout bike legs that are steady-state
+- Warmup and cooldown steps in steady rides
+- Brick workout bike legs that are steady-state at Z2/Z3
 
-**Keep `power.zone` for:**
-- Hard interval steps (zone 3+ in structured workouts) — short targeted efforts where instant feedback matters and flat terrain is preferred
-- Threshold / VO2max intervals
+**Use `no.target` with `description` for:**
+- Any step that would otherwise have a `power.zone` target (threshold, VO2, surge intervals, hard brick blocks)
+- Warmup/cooldown of structured power workouts (so the entire workout is banner-free, not just the work intervals)
 
-**Why HR works for steady cycling:** HR naturally smooths terrain-induced power fluctuations. On a hilly loop, power spikes uphill and drops downhill, but HR stays in zone if effort is consistent. Same logic as running easy runs with HR targets.
+**Description format (Fenix/Edge display fits ~30–40 chars cleanly):**
+```
+"<duration> @ Z<n> (RPE <n>)"
+```
+Examples: `"5 km @ Z2 (RPE 5)"`, `"6 min @ Z3 (RPE 6)"`, `"1 min @ Z5 (RPE 9)"`.
+
+Don't include explicit watt numbers — FTP changes over time and the zone label remains correct as long as zones are kept current. The user reads the description, glances at lap power, paces accordingly. Recorded power data still supports post-ride analysis; what's lost is real-time zone enforcement (which was never reliable outdoors anyway).
+
+**Why HR works for steady cycling:** HR naturally smooths terrain-induced fluctuations. On a hilly loop, power spikes uphill and drops downhill, but HR stays in zone if effort is consistent. Same logic as running easy runs with HR targets. HR-targeted bike steps don't trigger banner spam because heart rate physiologically lags terrain.
+
+**Roadmap:** for users without a power meter, the right pattern is to use `heart.rate.zone` targets across all bike steps including hard intervals. Plan generation should detect power-meter availability and pick the appropriate target type. Not yet implemented — current plans assume a power meter for the bike.
 
 ## Garmin Step Patterns
 

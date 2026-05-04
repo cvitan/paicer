@@ -1904,32 +1904,32 @@ phases:
           - day: 3
             type: "bike"
             name: "Interval Ride 20 km"
-            description: "20 km intervals: 5 km @RPE 5, 5 km @RPE 7, 5 km @RPE 6, 5 km @RPE 8. Mixed efforts above and below threshold."
+            description: "20 km mixed intervals across power zones. Pace by feel + glance at lap power; outdoor terrain dictates real-time variability, target the lap average."
             garmin:
               steps:
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 5000  # 5 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
+                  targetType: "no.target"
+                  description: "5 km @ Z2 (RPE 5)"
 
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 5000  # 5 km
-                  targetType: "power.zone"
-                  zoneNumber: 3
+                  targetType: "no.target"
+                  description: "5 km @ Z3 (RPE 7)"
 
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 5000  # 5 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 3
+                  targetType: "no.target"
+                  description: "5 km @ Z2-3 (RPE 6)"
 
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 5000  # 5 km
-                  targetType: "power.zone"
-                  zoneNumber: 4
+                  targetType: "no.target"
+                  description: "5 km @ Z4 (RPE 8)"
 
           # Day 4 - Tempo
           - day: 4
@@ -2306,14 +2306,14 @@ phases:
           - day: 2
             type: "bike"
             name: "Bike Intervals 25 km"
-            description: "25 km. 5 km warm up @RPE 4–5. Main set: 1 min @RPE 5, 6 min @RPE 6, 1 min @RPE 7, 1 min @RPE 8, 1 min @RPE 9. Repeat until 23 km. 2 km @RPE 4. Outdoor option: 50 min as 5 min @RPE 5 / 5 min @RPE 7."
+            description: "25 km mixed surge intervals. 5 km warmup, 4×(1min Z2/6min Z3/1min Z4/1min Z4/1min Z5), 2 km cooldown. Pace by feel; lap power for review. Outdoor option: ride 50 min as 5 min easy / 5 min tempo alternating."
             garmin:
               steps:
                 - stepType: "warmup"
                   endCondition: "distance"
                   endConditionValue: 5000  # 5 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
+                  targetType: "no.target"
+                  description: "5 km warmup (RPE 4-5)"
 
                 - stepType: "repeat"
                   numberOfIterations: 4
@@ -2322,43 +2322,43 @@ phases:
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 60
-                      targetType: "heart.rate.zone"
-                      zoneNumber: 2
+                      targetType: "no.target"
+                      description: "1 min @ Z2 (RPE 5)"
                       childStepId: 1
 
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 360
-                      targetType: "power.zone"
-                      zoneNumber: 3
+                      targetType: "no.target"
+                      description: "6 min @ Z3 (RPE 6)"
                       childStepId: 1
 
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 60
-                      targetType: "power.zone"
-                      zoneNumber: 4
+                      targetType: "no.target"
+                      description: "1 min @ Z4 (RPE 7)"
                       childStepId: 1
 
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 60
-                      targetType: "power.zone"
-                      zoneNumber: 4
+                      targetType: "no.target"
+                      description: "1 min @ Z4 (RPE 8)"
                       childStepId: 1
 
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 60
-                      targetType: "power.zone"
-                      zoneNumber: 5
+                      targetType: "no.target"
+                      description: "1 min @ Z5 (RPE 9)"
                       childStepId: 1
 
                 - stepType: "cooldown"
                   endCondition: "distance"
                   endConditionValue: 2000  # 2 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
+                  targetType: "no.target"
+                  description: "2 km cooldown (RPE 4)"
 
           # Day 3 - Track
           - day: 3
@@ -2484,11 +2484,12 @@ phases:
                       endConditionValue: 12500  # 12.5 km
                       targetType: "heart.rate.zone"
                       zoneNumber: 2
+                      description: "12.5 km @ Z2 (RPE 6)"
                     - stepType: "interval"
                       endCondition: "distance"
                       endConditionValue: 12500  # 12.5 km
-                      targetType: "power.zone"
-                      zoneNumber: 4
+                      targetType: "no.target"
+                      description: "12.5 km @ Z4 (RPE 8)"
                 - sport: "run"
                   steps:
                     - stepType: "warmup"
@@ -2496,12 +2497,14 @@ phases:
                       endConditionValue: 2500  # 2.5 km
                       targetType: "heart.rate.zone"
                       zoneNumber: 2
+                      description: "2.5 km @ Z2 (RPE 6)"
                     - stepType: "interval"
                       endCondition: "distance"
                       endConditionValue: 2500  # 2.5 km
                       targetType: "heart.rate.zone"
                       zoneNumber: 4
-            description: "25 km bike + 5 km run. Complete first half of each discipline at steady tempo @RPE 6, building into race pace @RPE 8 for last half. Play with position on bars for flat & climbing. Use gears to keep cadence smooth. Learning to run a negative split out of transition helps pacing."
+                      description: "2.5 km @ Z4 (RPE 8)"
+            description: "25 km bike + 5 km run. First half each discipline @RPE 6, build to race pace @RPE 8 second half. Bike: play with bar positions; learn to run negative split off bike for race-pace control."
 
       - week: 16
         description: |
@@ -2523,32 +2526,32 @@ phases:
           - day: 2
             type: "bike"
             name: "Bike Incremental 25 km"
-            description: "25 km. Incremental set: 8 km @RPE 5, 8 km @RPE 7, 8 km @RPE 8–9. 1 km cool down. Increasing work rate and learning to pace near/above threshold. Suitable for turbo/indoor trainer. If outdoors, aim to raise average HR by 5–10 bpm every 10 km."
+            description: "25 km incremental: 8 km Z2 / 8 km Z3 / 8 km Z4 / 1 km cooldown. Increasing work rate, pacing near/above threshold. Suitable for turbo. Outdoors: aim to raise average HR by 5–10 bpm every 10 km."
             garmin:
               steps:
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 8000  # 8 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
+                  targetType: "no.target"
+                  description: "8 km @ Z2 (RPE 5)"
 
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 8000  # 8 km
-                  targetType: "power.zone"
-                  zoneNumber: 3
+                  targetType: "no.target"
+                  description: "8 km @ Z3 (RPE 7)"
 
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 8000  # 8 km
-                  targetType: "power.zone"
-                  zoneNumber: 4
+                  targetType: "no.target"
+                  description: "8 km @ Z4 (RPE 8-9)"
 
                 - stepType: "cooldown"
                   endCondition: "distance"
                   endConditionValue: 1000  # 1 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
+                  targetType: "no.target"
+                  description: "1 km cooldown (RPE 4)"
 
           # Day 3 - Run
           - day: 3
@@ -2871,11 +2874,12 @@ phases:
                       endCondition: "distance"
                       endConditionValue: 2000  # 2 km
                       targetType: "no.target"
+                      description: "2 km warmup (RPE 4-5)"
                     - stepType: "interval"
                       endCondition: "distance"
                       endConditionValue: 33000  # 33 km
-                      targetType: "power.zone"
-                      zoneNumber: 4
+                      targetType: "no.target"
+                      description: "33 km @ Z4 (RPE 8+)"
                 - sport: "run"
                   steps:
                     - stepType: "interval"
@@ -2883,12 +2887,14 @@ phases:
                       endConditionValue: 2000  # 2 km
                       targetType: "heart.rate.zone"
                       zoneNumber: 4
+                      description: "2 km @ Z4 (RPE 8)"
                     - stepType: "interval"
                       endCondition: "distance"
                       endConditionValue: 5500  # 5.5 km
                       targetType: "heart.rate.zone"
                       zoneNumber: 2
-            description: "35 km bike + 7.5 km run. Race simulation. Use intended race kit, clothing, nutrition, bottles. Bike: warm up over first 2 km then build to @RPE 8+. Run: run strong off bike for first 2 km then settle into easier pace. Prep bike as for race day (bottles, nutrition, spares)."
+                      description: "5.5 km @ Z2 (RPE 5-6)"
+            description: "35 km bike + 7.5 km run. Race simulation. Use intended race kit, clothing, nutrition, bottles. Bike: warmup, then build to RPE 8+. Run: strong first 2 km off bike, then settle. Prep bike race-day style."
 
       - week: 20
         description: |
@@ -2910,13 +2916,14 @@ phases:
           - day: 2
             type: "bike"
             name: "Bike Intervals 25 km"
-            description: "25 km. Indoors: 3 km warm up @RPE 5–8. Main: 1 min @RPE 5, 6 min @RPE 6, 1 min @RPE 7, 1 min @RPE 8, 1 min @RPE 9. Repeat until 2–3 km to go, cool down @RPE 4. Outdoors: fartlek with longer efforts. Working above and below threshold."
+            description: "25 km surge intervals. 3 km warmup, 4×(1min Z2/6min Z3/1min Z4/1min Z4/1min Z5), 2 km cooldown. Indoor preferred for tight execution. Outdoors: fartlek-style, longer efforts."
             garmin:
               steps:
                 - stepType: "warmup"
                   endCondition: "distance"
                   endConditionValue: 3000  # 3 km
                   targetType: "no.target"
+                  description: "3 km warmup (RPE 4-5)"
 
                 - stepType: "repeat"
                   numberOfIterations: 4
@@ -2925,43 +2932,43 @@ phases:
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 60
-                      targetType: "heart.rate.zone"
-                      zoneNumber: 2
+                      targetType: "no.target"
+                      description: "1 min @ Z2 (RPE 5)"
                       childStepId: 1
 
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 360
-                      targetType: "power.zone"
-                      zoneNumber: 3
+                      targetType: "no.target"
+                      description: "6 min @ Z3 (RPE 6)"
                       childStepId: 1
 
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 60
-                      targetType: "power.zone"
-                      zoneNumber: 4
+                      targetType: "no.target"
+                      description: "1 min @ Z4 (RPE 7)"
                       childStepId: 1
 
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 60
-                      targetType: "power.zone"
-                      zoneNumber: 4
+                      targetType: "no.target"
+                      description: "1 min @ Z4 (RPE 8)"
                       childStepId: 1
 
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 60
-                      targetType: "power.zone"
-                      zoneNumber: 5
+                      targetType: "no.target"
+                      description: "1 min @ Z5 (RPE 9)"
                       childStepId: 1
 
                 - stepType: "cooldown"
                   endCondition: "distance"
                   endConditionValue: 2000  # 2 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
+                  targetType: "no.target"
+                  description: "2 km cooldown (RPE 4)"
 
           # Day 3 - Run
           - day: 3
@@ -3228,3 +3235,34 @@ reviews:
       aerobic high just at minimum. Expected for combo plan; not adjusting.
     adjustments:
       - "No plan changes — W10 split tempo (20 min @ 5:10 + 10 min @ 5:05) and W11 4×1 km @ 5:00–5:05 already account for current fitness; not updating race pace targets 3 weeks out"
+
+  - week: 10
+    date: "2026-05-04"
+    notes: |
+      5 of 6 sessions. Brick skipped Friday (scheduling conflict took the day).
+      Two breakthrough sessions defined the week.
+      Tempo 30 min (Thu) — the diagnostic, crushed it. 20 min @ 4:58/km HR
+      168/173, then 10 min @ 4:57/km HR 173/174. Continuous, no rest, on tired
+      legs after 3 quality days. 30 min sustained sub-5:00/km with only 5 bpm
+      drift. Faster pace than W9's intervals (with rest), held continuously.
+      Sub-1:49 locked; sub-1:46 in play.
+      Long 19 km + finish (Sun) — clean execution. 15 km easy @ 6:32/km HR 141,
+      then 4 km finish @ 5:19/km HR 162 (max 174), 150m gain. Target was 5:15/km;
+      ran within 4 sec/km. Demonstrates race-pace-under-fatigue capability.
+      Aerobic TE 4.1.
+      Easy 8 km + Strides (Tue): 6:40/km HR 142, 79m gain. 3 of 4 strides at
+      goal-pace level (3:09–3:11/km — top-3 fastest of the plan). Aerobic TE 3.4.
+      Bike Interval Ride 20 km (Wed): 4×5km zone progression (Z2/Z3/Z2-3/Z4).
+      174m gain — significant for "20 km cycling". Best 45-min power per
+      Garmin's curve. Aerobic TE 3.2.
+      Swim Session #6 (Tue): 1829 m / 2000 yd (vs 2000m planned — pool is yards).
+      Cut 400m short, leg fatigue post-W9 long run.
+      Training status: VO2max 46.1 (+0.1). MAINTAINING_2 (down from _4 — minor
+      dip from accumulated fatigue + skipped brick, not fitness loss). Acute/
+      chronic ratio 1.1 (optimal, building). Aerobic high 1042 — moved INTO
+      target range (907–1451) for first time in plan. Tempo work paying off.
+      Anaerobic shortage flag (252 vs target 326–652) — expected for HM
+      training, not actionable. Knee held up through tempo and long run.
+    adjustments:
+      - "No plan changes — W11 plan as written (volume drops, 4×1 km @ 5:00–5:05 sharpener, 16 km long with 3 km finish)"
+      - "Updated Garmin/Strava HR zones to LTHR-based (LTHR=174, max=185) with research-Z2 anchored cutoffs; switched bike workout step targets from power.zone to no.target with cue-card descriptions to avoid 3s-average alert spam outdoors"
