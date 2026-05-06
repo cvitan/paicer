@@ -39,3 +39,4 @@ Running, cycling, swimming (pool and open water), track sessions, and multisport
 1. **Strava activity enrichment**
 2. **Zwift Integrations**
 3. **Additional Formats** - PDF, iCal, JSON, CSV export
+4. **HR-zone fallback for cycling** - generate bike workouts with `heart.rate.zone` targets for users without a power meter (current plans assume one)

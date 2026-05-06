@@ -753,7 +753,7 @@ plan:
     ## Training Plan Overview
 
     This plan prepares for two races:
-    - **Brooklyn Half Marathon** (B Race): May 17, 2026
+    - **Brooklyn Half Marathon** (B Race): May 16, 2026
     - **Olympic Triathlon** (A Race): July 19, 2026
 
     The plan has three phases:
@@ -1347,7 +1347,7 @@ phases:
 
   - phase: 2
     name: "HM Peak + Tri Begins"
-    training_days: [1, 2, 3, 4, 5, 7]
+    training_days: [1, 2, 3, 4, 5, 6, 7]
     description: |
       **Format:** 4 runs + 2 swims + 1 bike per week (9 sessions). ~8–10 hours/week.
 
@@ -1467,8 +1467,8 @@ phases:
                       targetType: "no.target"
                       childStepId: 1
 
-          # Day 6 - Long Run
-          - day: 6
+          # Day 7 - Long Run
+          - day: 7
             type: "run"
             name: "Long 18 km"
             description: "18 km easy at RPE 5."
@@ -1582,8 +1582,8 @@ phases:
                       targetType: "no.target"
                       childStepId: 1
 
-          # Day 6 - Long Run
-          - day: 6
+          # Day 7 - Long Run
+          - day: 7
             type: "run"
             name: "Long 19 km"
             description: "19 km easy at RPE 5."
@@ -1711,8 +1711,8 @@ phases:
                       zoneNumber: 2
             description: "15 km bike (RPE 5–6) → 3 km easy run (RPE 6–7). Start the run slow — legs will feel odd."
 
-          # Day 6 - Long Run with steady finish
-          - day: 6
+          # Day 7 - Long Run with steady finish
+          - day: 7
             type: "run"
             name: "Long 18 km + finish"
             description: "18 km total. First 15 km easy (RPE 5), last 3 km @ 5:20/km (RPE 6–7)."
@@ -1843,8 +1843,8 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 6 - Long Run
-          - day: 6
+          # Day 7 - Long Run
+          - day: 7
             type: "run"
             name: "Long 20 km"
             description: "20 km easy at RPE 5. Peak long run. Do not push — pure endurance."
@@ -1988,8 +1988,8 @@ phases:
                       zoneNumber: 2
             description: "15 km bike (RPE 5–6) → 3 km run (RPE 6). Keep the run controlled."
 
-          # Day 6 - Long Run with steady finish
-          - day: 6
+          # Day 7 - Long Run with steady finish
+          - day: 7
             type: "run"
             name: "Long 19 km + finish"
             description: "19 km total. First 15 km easy (RPE 5), last 4 km @ 5:15/km (RPE 6–7)."
@@ -2014,7 +2014,7 @@ phases:
 
           **Tri Plan Goals:** By week 6 you should be more settled with the routine and moving any sessions to fit in with your day to day life. As the bike distance increases you should start to find a comfortable speed/rhythm with your pedalling that will become your natural cadence. Use gears to keep you in this range. As the weekly distance increases make sure you're sleeping and eating enough to recover.
 
-          **Volume:** ~42 km run  •  2 km swim  •  20 km bike
+          **Volume:** ~34 km run  •  2 km swim  •  20 km bike
 
         workouts:
           # Day 1 - Swim (only 1 swim this week)
@@ -2102,35 +2102,24 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 - Swim (optional) + Easy Run
+          # Day 5 - Optional easy swim
           - day: 5
             type: "swim"
             name: "Easy 30 min"
+            optional: true
             garmin:
               steps:
                 - stepType: "interval"
                   endCondition: "lap.button"
                   targetType: "no.target"
                   description: "30 min easy swim @ RPE 4-5"
-            description: "Listen to your body. If fresh, easy 30 min swim (RPE 4–5). If tired, skip."
+            description: "Optional: easy 30 min swim (RPE 4–5) for active recovery before tomorrow's long run. If tired, skip — Friday is essentially a rest day."
 
-          - day: 5
-            type: "run"
-            name: "Easy 7 km"
-            description: "7 km easy at RPE 4–5."
-            garmin:
-              steps:
-                - stepType: "interval"
-                  endCondition: "distance"
-                  endConditionValue: 7000  # 7 km
-                  targetType: "heart.rate.zone"
-                  zoneNumber: 2
-
-          # Day 6 - Long Run (moderate)
+          # Day 6 - Long Run (moderate, moved earlier for race-week absorption)
           - day: 6
             type: "run"
             name: "Long 16 km + finish"
-            description: "16 km total. First 13 km easy (RPE 5), last 3 km @ 5:20/km (RPE 6–7)."
+            description: "16 km total. First 13 km easy (RPE 5), last 3 km @ 5:20/km (RPE 6–7). Last long run — moved to Saturday (7 days before race) for full absorption."
             garmin:
               steps:
                 - stepType: "interval"
@@ -2217,11 +2206,11 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 4 - Easy Run
+          # Day 4 - Final pre-race shakeout
           - day: 4
             type: "run"
-            name: "Easy 5 km"
-            description: "5 km very easy at RPE 4. Gentle shakeout."
+            name: "Shakeout 5 km"
+            description: "5 km very easy at RPE 4. Last run before race — gentle shakeout. Friday is full rest."
             garmin:
               steps:
                 - stepType: "interval"
@@ -2230,20 +2219,12 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Day 5 - Optional shakeout
-          - day: 5
-            type: "run"
-            name: "Run: Shakeout"
-            optional: true
-            skip_garmin: true
-            description: "20–30 min easy walk or 3 km very easy jog (RPE 3–4). Or rest."
-
           # Day 6 - RACE DAY
           - day: 6
             type: "run"
             name: "RACE: Brooklyn Half Marathon"
             skip_garmin: true
-            description: "Brooklyn Half Marathon — May 17. Start: 5:10–5:15/km through Prospect Park (RPE 7). Settle: 5:05–5:10/km on flat (RPE 7–8). At 15 km: if controlled, push toward 5:00/km (RPE 8+). Do NOT start at goal pace."
+            description: "Brooklyn Half Marathon — May 16. Start: 5:10–5:15/km through Prospect Park (RPE 7). Settle: 5:05–5:10/km on flat (RPE 7–8). At 15 km: if controlled, push toward 5:00/km (RPE 8+). Do NOT start at goal pace."
 
   - phase: 3
     name: "Triathlon Only"
