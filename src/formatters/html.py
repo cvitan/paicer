@@ -208,18 +208,21 @@ class HTMLFormatter(DocumentFormatter):
                     html.append(f"      <tr{row_class}>")
                     html.append("        <td></td>")
                     if day_num and not same_day:
-                        if is_optional:
-                            html.append(
-                                f"        <td><div class='workout-name'>Optional</div><div class='workout-day'>{workout_title}</div></td>"
-                            )
-                        else:
+                        if day_num <= len(phase_training_days):
                             workout_date = calculate_workout_date(
                                 start_date, week_num, day_num, phase_training_days
                             )
                             display_date = format_display_date(workout_date)
                             day_label = weekday_names[phase_training_days[day_num - 1] - 1]
+                            title_display = (
+                                f"{workout_title} (Optional)" if is_optional else workout_title
+                            )
                             html.append(
-                                f"        <td><div class='workout-name'>{day_label} ({display_date})</div><div class='workout-day'>{workout_title}</div></td>"
+                                f"        <td><div class='workout-name'>{day_label} ({display_date})</div><div class='workout-day'>{title_display}</div></td>"
+                            )
+                        else:
+                            html.append(
+                                f"        <td><div class='workout-name'>Optional</div><div class='workout-day'>{workout_title}</div></td>"
                             )
                     else:
                         html.append(
