@@ -3247,3 +3247,35 @@ reviews:
     adjustments:
       - "No plan changes — W11 plan as written (volume drops, 4×1 km @ 5:00–5:05 sharpener, 16 km long with 3 km finish)"
       - "Updated Garmin/Strava HR zones to LTHR-based (LTHR=174, max=185) with research-Z2 anchored cutoffs; switched bike workout step targets from power.zone to no.target with cue-card descriptions to avoid 3s-average alert spam outdoors"
+
+  - week: 11
+    date: "2026-05-09"
+    notes: |
+      All 6 sessions completed (5 of 5 non-optional + skipped optional Friday
+      swim, correctly). Brooklyn Half moved up to Sat May 16; W11 long run
+      shifted from Sun to Sat (7 days race-out instead of 6) to give better
+      absorption.
+      Tempo 4×1 km @ 5:00–5:05 (Thu): 4:59, 4:57, 4:58, 4:57. HR 159–165
+      avg, max 169. Aerobic TE 3.8. **HR 5–10 bpm lower than W9/W10 at same
+      pace** — clear taper signal. Mild allergy symptoms during the week;
+      managed with antihistamine. Side stitch in last rep — first in a
+      long time, dehydration likely cause.
+      Long 16 km + finish (Sat): 13 km easy @ 6:19/km HR 141 + **3 km finish
+      @ 5:04/km, HR 164 avg max 180** (target was 5:20/km — ran 16 sec/km
+      faster). Aerobic TE 4.1, 79m gain, muggy weather (dew point ~50). Felt
+      sluggish, heavy legs, bridge slowdown — but body delivered race pace
+      under fatigue. Forgot chest strap; HR data unreliable (wrist sensor
+      cadence-lock artifact possible on the 180 max). Pace data is the strong
+      signal here.
+      Easy 6 km + Strides (Tue): 6:50/km HR 144, 66m gain. 4 strides — fastest
+      3:02/km, top-tier neuromuscular work. Aerobic TE 3.1.
+      Bike Easy Ride 20 km (Wed): HR 113 avg, 117 W avg, 173m gain, AeTE 2.4.
+      Genuine recovery ride.
+      Swim Session #4 (Mon): 1829 m / 2000 yd. HR 115. Mostly Z1.
+      Training status: API returned empty status data this week (likely
+      missing chest strap data on long run + not enough new readings). No
+      VO2max/load balance/ACR update available. Fitness signal from pace+HR
+      data is unambiguous: race-ready.
+    adjustments:
+      - "No plan changes for W12 (taper). Schedule already updated for Saturday race: shakeout Thu, full rest Fri, race Sat."
+      - "Fixed bug in src/review_data.py — extract_training_status() crashed on null Garmin response sections; now returns empty dict gracefully"

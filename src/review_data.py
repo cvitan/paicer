@@ -115,17 +115,24 @@ def get_activity_intervals(garmin, activity_id):
 
 
 def extract_training_status(status):
-    """Extract key training metrics from Garmin training status."""
+    """Extract key training metrics from Garmin training status.
+
+    Garmin's API returns explicit `null` for missing sections (not absent
+    keys), so each level needs an `or {}` fallback rather than a default
+    in the .get() call.
+    """
     result = {}
+    if not status:
+        return result
 
     # VO2max
-    vo2 = status.get("mostRecentVO2Max", {}).get("generic", {})
+    vo2 = (status.get("mostRecentVO2Max") or {}).get("generic") or {}
     if vo2:
         result["vo2Max"] = vo2.get("vo2MaxPreciseValue")
 
     # Load balance (aerobic low/high, anaerobic vs targets)
-    balance = status.get("mostRecentTrainingLoadBalance", {})
-    balance_map = balance.get("metricsTrainingLoadBalanceDTOMap", {})
+    balance = status.get("mostRecentTrainingLoadBalance") or {}
+    balance_map = balance.get("metricsTrainingLoadBalanceDTOMap") or {}
     for device_data in balance_map.values():
         if device_data.get("primaryTrainingDevice"):
             result["loadBalance"] = {
@@ -157,11 +164,11 @@ def extract_training_status(status):
             break
 
     # Acute training load and acute-to-chronic ratio
-    ts = status.get("mostRecentTrainingStatus", {})
-    ts_map = ts.get("latestTrainingStatusData", {})
+    ts = status.get("mostRecentTrainingStatus") or {}
+    ts_map = ts.get("latestTrainingStatusData") or {}
     for device_data in ts_map.values():
         if device_data.get("primaryTrainingDevice"):
-            acute = device_data.get("acuteTrainingLoadDTO", {})
+            acute = device_data.get("acuteTrainingLoadDTO") or {}
             result["trainingStatus"] = {
                 "status": device_data.get(
                     "trainingStatusFeedbackPhrase",

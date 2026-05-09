@@ -44,4 +44,7 @@ Read `UNITS` from `.env` (default: `metric`). Present all values in the user's p
        adjustments:
          - "Description of each change"
    ```
+
+   **Notes content:** stick to training-relevant facts — pace, HR, power, distance, elevation, completion vs plan, perceived effort, weather if it affected execution, illness/injury that affected sessions. Allergies are fine to mention if they affected training. **Skip lifestyle context** like alcohol consumption, social events, work stress, or other personal details that are not training data — even when the user mentions them in chat. The plan log is a training record, not a journal.
+
 10. Validate: `make test`
