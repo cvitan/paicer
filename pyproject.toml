@@ -5,7 +5,7 @@ description = "Training plan tool: YAML to Garmin workouts and readable document
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "garminconnect>=0.2.38",
+    "garminconnect>=0.2.40, <0.3.0",
     "markdown>=3.10.2",
     "python-dotenv>=1.2.1",
     "pyyaml>=6.0",

@@ -10,9 +10,6 @@ __pycache__/
 venv/
 ENV/
 
-# uv
-uv.lock
-
 # Generated files
 output/
 
