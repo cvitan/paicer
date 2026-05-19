@@ -90,6 +90,11 @@ class HTMLFormatter(DocumentFormatter):
     .swim-steps {{ margin: 4px 0 0 0; padding-left: 18px; font-size: 10px; color: #2c3e50; }}
     .swim-steps li {{ margin: 1px 0; }}
     .swim-steps ul {{ padding-left: 14px; margin: 1px 0; list-style-type: disc; }}
+    .race-strategy {{ margin-top: 8px; padding: 8px; background-color: #fff4e6; border-left: 4px solid #e67e22; font-size: 11px; }}
+    .race-strategy-header {{ font-weight: bold; color: #b9530b; margin-bottom: 4px; }}
+    .race-strategy-rule {{ margin-bottom: 4px; }}
+    .race-strategy-target {{ color: #555; margin: 4px 0; font-size: 10px; }}
+    .race-strategy-notes {{ margin-top: 4px; color: #2c3e50; font-size: 10px; line-height: 1.4; }}
     .overview-page {{ margin-bottom: 40px; }}
     .overview-section {{ margin: 15px 0; }}
     .overview-section p {{ font-size: 10px; margin: 5px 0; }}
@@ -230,6 +235,42 @@ class HTMLFormatter(DocumentFormatter):
                         )
                     # Build description cell content
                     desc_html = desc
+
+                    # Race strategy callout — prominent for race workouts
+                    strategy = workout.get("race_strategy")
+                    if strategy:
+                        desc_html += "<div class='race-strategy'>"
+                        desc_html += "<div class='race-strategy-header'>🎯 Race Strategy</div>"
+                        one_liner = strategy.get("one_liner")
+                        if one_liner:
+                            desc_html += f"<div class='race-strategy-rule'><strong>The rule:</strong> {one_liner}</div>"
+                        hr_cap = strategy.get("hr_cap")
+                        release = strategy.get("cap_release_km")
+                        if hr_cap is not None and release is not None:
+                            desc_html += (
+                                f"<div>HR cap <strong>{hr_cap}</strong> until km "
+                                f"<strong>{release}</strong>, then lift and push.</div>"
+                            )
+                        target_time = strategy.get("target_time")
+                        target_pace = strategy.get("target_pace")
+                        if target_time or target_pace:
+                            bits = []
+                            if target_time:
+                                bits.append(f"Target time: {target_time}")
+                            if target_pace:
+                                bits.append(f"goal pace: {target_pace}")
+                            desc_html += (
+                                f"<div class='race-strategy-target'>"
+                                f"{' · '.join(bits)} (HR governs, not pace)</div>"
+                            )
+                        notes = strategy.get("notes")
+                        if notes:
+                            desc_html += "<div class='race-strategy-notes'>"
+                            for n_line in notes.strip().splitlines():
+                                desc_html += f"{n_line}<br>"
+                            desc_html += "</div>"
+                        desc_html += "</div>"
+
                     if workout.get("type") == "swim":
                         steps = extract_swim_steps(workout.get("garmin"))
                         if steps:

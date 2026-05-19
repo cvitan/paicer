@@ -40,3 +40,4 @@ Running, cycling, swimming (pool and open water), track sessions, and multisport
 2. **Zwift Integrations**
 3. **Additional Formats** - PDF, iCal, JSON, CSV export
 4. **HR-zone fallback for cycling** - generate bike workouts with `heart.rate.zone` targets for users without a power meter (current plans assume one)
+5. **Ad-hoc activity data tool** - extend `src/review_data.py` or add `src/activity_data.py` with `--activity-id`, `--latest N`, `--from-date/--to-date` flags so single-activity / cross-week queries don't require throwaway scripts. Expose `get_activity_typed_splits` as the primary intervals fetch.

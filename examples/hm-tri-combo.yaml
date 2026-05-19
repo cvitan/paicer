@@ -2225,6 +2225,19 @@ phases:
             name: "RACE: Brooklyn Half Marathon"
             skip_garmin: true
             description: "Brooklyn Half Marathon — May 16. Start: 5:10–5:15/km through Prospect Park (RPE 7). Settle: 5:05–5:10/km on flat (RPE 7–8). At 15 km: if controlled, push toward 5:00/km (RPE 8+). Do NOT start at goal pace."
+            race_strategy:
+              hr_cap: 165
+              cap_release_km: 16
+              one_liner: "Stay below HR 165 until km 16. Then push."
+              target_time: "1:45–1:49"
+              target_pace: "5:05–5:10/km"
+              notes: |
+                Hilly first 5 km in Prospect Park (Battle Pass + West Side Hills).
+                Don't chase corral pace — let people pass you in first km.
+                Race-day HR runs 5–8 bpm above training HR for the same pace.
+                Fueling: 2 SiS gels with water — first at the aid station just
+                after mile 5 (Meadowport), second at mile 9 station on Ocean Pkwy.
+                Visor (not hat), light singlet, BodyGlide all chafe points.
 
   - phase: 3
     name: "Triathlon Only"
@@ -3064,6 +3077,18 @@ phases:
             name: "RACE: Olympic Triathlon"
             skip_garmin: true
             description: "Olympic Triathlon: 1.5 km Swim / 40 km Bike / 10 km Run. The hard work is over. Stick to what you know from training. Race hard, race well, and have fun!"
+            race_strategy:
+              hr_cap: 160
+              cap_release_km: 7
+              one_liner: "Bike at HR 160 cap, run with HR 165 cap until 5K mark, then push to finish."
+              notes: |
+                Olympic tri pacing differs by leg:
+                - Swim: effort by RPE (~7), can't reliably read HR underwater
+                - Bike (40 km): HR cap 160 — about 20 bpm below LTHR. Save legs for run.
+                - Run (10 km): HR cap 165 first 5 km. After 5 km, lift cap and finish.
+                Brick legs in training already taught the "tired legs off bike" feel.
+                Fueling on bike: 2 gels + sports drink across 40 km.
+                Fueling on run: 1 gel at 5 km.
 
 reviews:
   - week: 2
