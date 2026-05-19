@@ -48,3 +48,11 @@ Read `UNITS` from `.env` (default: `metric`). Present all values in the user's p
    **Notes content:** stick to training-relevant facts — pace, HR, power, distance, elevation, completion vs plan, perceived effort, weather if it affected execution, illness/injury that affected sessions. Allergies are fine to mention if they affected training. **Skip lifestyle context** like alcohol consumption, social events, work stress, or other personal details that are not training data — even when the user mentions them in chat. The plan log is a training record, not a journal.
 
 10. Validate: `make test`
+
+## Race Week (special handling)
+
+When the upcoming week contains a race, the standard review flow still applies — but **race-week conversations must lead with the HR ceiling rule, not with fueling/kit/course details.** See the "Race Strategy and Execution Priorities" section of the `plan-authoring` skill for the priority order.
+
+The single highest-leverage piece of race-day advice is: *"Stay below the HR ceiling until the release km. Then push."* If that gets buried under gel timing, breakfast composition, and kit selection conversations, the user loses the race in execution even when training is fit. Make it the headline of every race-week message.
+
+If the race workout has a `race_strategy:` field, surface its `one_liner` prominently in every race-week conversation.

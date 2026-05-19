@@ -55,6 +55,31 @@ class MarkdownFormatter(DocumentFormatter):
         sport_prefix = f"{sport_label} - " if sport_label else ""
         line = f"**{prefix}{sport_prefix}{name}**  \n{desc}\n"
 
+        # Render race strategy prominently for race workouts
+        strategy = workout.get("race_strategy")
+        if strategy:
+            line += "\n> **🎯 Race Strategy**\n"
+            one_liner = strategy.get("one_liner")
+            if one_liner:
+                line += f"> **The rule:** {one_liner}\n"
+            hr_cap = strategy.get("hr_cap")
+            release = strategy.get("cap_release_km")
+            if hr_cap is not None and release is not None:
+                line += f"> HR cap **{hr_cap}** until km **{release}**, then lift and push.\n"
+            target_time = strategy.get("target_time")
+            target_pace = strategy.get("target_pace")
+            if target_time or target_pace:
+                bits = []
+                if target_time:
+                    bits.append(f"Target time: {target_time}")
+                if target_pace:
+                    bits.append(f"goal pace: {target_pace}")
+                line += "> " + " · ".join(bits) + " (HR governs, not pace)\n"
+            notes = strategy.get("notes")
+            if notes:
+                for n_line in notes.strip().splitlines():
+                    line += f"> {n_line}\n"
+
         # Render swim session steps
         if workout.get("type") == "swim":
             steps = extract_swim_steps(workout.get("garmin"))

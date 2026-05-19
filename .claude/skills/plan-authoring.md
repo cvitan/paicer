@@ -94,6 +94,78 @@ Read `examples/reference-metric.yaml` (or `reference-imperial.yaml`) for working
 - **Rest sequencing:** Rest day after long/hard sessions. Easy before hard, rest after hard/long.
 - **Phase structure:** Base (aerobic) -> Build (race-specific) -> Peak (sharpening) -> Taper
 
+## Race Strategy and Execution Priorities
+
+**Race outcome is determined more by execution discipline than by training. Race-day decisions are not equal weight.** When advising on race week, lead with the single rule that decides 80% of the outcome: **HR ceiling discipline**.
+
+### Priority order (by impact on finishing time)
+
+1. **HR ceiling discipline** (saves or costs 5–15 min) — set a hard cap below LTHR, hold it religiously until the release km, push only in the final stretch
+2. **Pacing strategy first 5 km** (saves or costs 3–8 min — tied to #1) — let people pass you, ignore corral pressure, run by HR not by feel
+3. **Fueling** (saves or costs 2–5 min in late race) — gel timing aligned with aid stations, tested in training
+4. **Kit / chafe management** (saves or costs 1–3 min from comfort) — singlet, socks, shorts all tested
+5. **Hydration** (saves or costs 1–2 min) — sip at every aid station from km 8+, pour on head if warm
+6. **Carb load** (saves or costs 1–2 min) — single solid carb-load day before race for HM, longer for marathon
+7. **Sleep** (background factor) — bank sleep Wed/Thu; Friday night sleep matters less than people think
+8. **Course strategy details** (saves or costs <1 min in good conditions) — useful color, not the main lever
+
+### HR ceiling rule (the headline)
+
+- **HM:** HR cap ≈ LTHR − 9 to −12 bpm. Hold until km 16 (last 5 km). Then lift cap, push by feel.
+- **Marathon:** HR cap ≈ LTHR − 16 to −20 bpm. Hold until km 32 (last 10 km). Lift cap, but stay below LTHR until last 5 km.
+- **10K:** HR cap ≈ LTHR − 3 to −5 bpm. Hold until km 7, push.
+- **5K:** HR cap doesn't really apply — run by feel.
+
+Race-day HR for the same pace typically runs 5–8 bpm higher than training HR. Plan for this. The training-day "5:00/km at HR 168" becomes race-day "5:00/km at HR 173–176."
+
+**Time-to-failure at intensities near threshold:**
+- At LTHR: ~60 minutes sustainable
+- LTHR + 5 bpm: ~30 minutes
+- LTHR + 10 bpm: ~10 minutes
+
+This is why HM at threshold = bonk-by-km-15. Run 5+ bpm below threshold and time-to-failure extends to 3+ hours.
+
+### `race_strategy` YAML field
+
+For any `race` type workout, include a `race_strategy:` block. Renderers display this prominently for race week:
+
+```yaml
+- day: 6
+  type: "race"
+  name: "RACE: Brooklyn Half Marathon"
+  skip_garmin: true
+  description: "Race description, course notes, etc."
+  race_strategy:
+    hr_cap: 165
+    cap_release_km: 16
+    one_liner: "Stay below HR 165 until km 16. Then push."
+    notes: |
+      Hilly first 5 km (Prospect Park). Don't chase corral pace.
+      Race-day HR runs 5-8 bpm above training HR — recalibrate in moment.
+      Fueling: 2 SiS gels at aid stations after km 5 and km 14.
+```
+
+**Required fields:**
+- `hr_cap` (int): the HR ceiling for the body of the race
+- `cap_release_km` (int): km marker where the ceiling lifts
+- `one_liner` (str): the one rule to remember on race day
+
+**Optional fields:**
+- `notes` (str): course-specific context (hills, weather, fueling reminders)
+- `target_time` (str): for context, not for pacing — e.g., `"1:45"`
+- `target_pace` (str): goal pace if HR cap allows — e.g., `"5:05/km"` (HR governs, not pace)
+
+### What NOT to lead with in race-week conversations
+
+These are real considerations but should never displace the HR ceiling rule:
+- Gel brand/timing minutiae
+- Carb load gram counts
+- Breakfast composition
+- Kit selection
+- Course-guide course-by-course narrative
+
+Cover them, but make the HR rule the headline of every race-week conversation.
+
 ## Pace Conversion
 
 Garmin pace values are sec/km. Convert: `5:25/km = 325 sec/km`.
