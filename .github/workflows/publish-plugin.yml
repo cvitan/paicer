@@ -16,13 +16,18 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Verify tag matches package.json version
+      - name: Verify tag matches package.json and plugin.json versions
         run: |
           TAG="${{ github.event.release.tag_name }}"
           VERSION="${TAG#plugin-}"
           PKG_VERSION=$(node -p "require('./claude-plugin/package.json').version")
           if [ "$VERSION" != "$PKG_VERSION" ]; then
             echo "Tag '$TAG' (version '$VERSION') does not match package.json version '$PKG_VERSION'"
+            exit 1
+          fi
+          PLUGIN_VERSION=$(node -p "require('./claude-plugin/.claude-plugin/plugin.json').version")
+          if [ "$VERSION" != "$PLUGIN_VERSION" ]; then
+            echo "Tag '$TAG' (version '$VERSION') does not match plugin.json version '$PLUGIN_VERSION'"
             exit 1
           fi
 

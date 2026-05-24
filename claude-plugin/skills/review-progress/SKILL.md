@@ -25,10 +25,13 @@ Before anything else, verify paicer is installed:
 Read `units` from `~/.paicer/config` (default: `metric`). Present all values in the user's preferred system.
 
 1. Read `plan` path from `~/.paicer/config` (TOML format), then read the plan YAML using Read tool (do NOT write scripts to parse YAML).
-2. Pull review data:
+2. Pull review data (use `uv run python` if uv is available, otherwise `python`):
    ```
-   uv run python -m paicer.review_data <plan_path>    # most recently completed week
-   uv run python -m paicer.review_data <plan_path> 3  # specific week number
+   uv run python -m paicer.review_data <plan_path>    # most recently completed week (uv install)
+   python -m paicer.review_data <plan_path>           # most recently completed week (pip install)
+
+   uv run python -m paicer.review_data <plan_path> 3  # specific week number (uv install)
+   python -m paicer.review_data <plan_path> 3         # specific week number (pip install)
    ```
 3. Match activities by `activityName` against `W{week_num}: {name}` (prefixed format from Garmin upload). Do NOT match by date — users often shift days.
 4. Analyze using the `intervals` array — NOT overall activity averages. Each interval has `type` (INTERVAL_WARMUP, INTERVAL_ACTIVE, INTERVAL_RECOVERY, INTERVAL_COOLDOWN), `paceSecPerKm`, `averageHR`, `averagePower`, `distance`, `duration`.

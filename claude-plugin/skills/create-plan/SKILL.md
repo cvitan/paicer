@@ -52,7 +52,7 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 4. Build week-by-week with progressive volume
 5. Add Garmin structures with YAML comments in user's unit system
 6. Create YAML anchors for reusable sessions (swim, track)
-7. Preview: `paicer render --plan <path>` (saves plan path to `~/.paicer/config`, fails loudly if YAML is invalid)
+7. Preview: `paicer render --plan <path>` (fails loudly if YAML is invalid)
 8. Offer first week sync: `paicer sync w1`
 9. If Garmin set up: suggest `/paicer:review-progress` after first week of training
 

@@ -83,7 +83,7 @@ plan:
     | Easy run (HR zone) | W1D1 |
     | Tempo run (pace target) | W1D2 |
     | Track session (anchor) | W2D2 |
-    | Bike with power zones | W1D3 |
+    | Steady bike (HR zone) | W1D3 |
     | Swim session (anchor) | W2D1 |
     | Multisport brick | W2D5 |
     | Skip Garmin | W1D4 |
@@ -286,6 +286,6 @@ reviews:
     notes: |
       Easy run HR slightly elevated (avg 148 vs expected ~140).
       Tempo intervals felt controlled, pace on target.
-      Bike steady ride completed at target power.
+      Bike steady ride completed at target HR zone 2.
     adjustments:
       - "No changes. Week 1 baseline established."

@@ -81,7 +81,7 @@ Read the `examples/reference-metric.yaml` or `examples/reference-imperial.yaml` 
 **Common patterns:**
 - Easy run: single `interval` step + `heart.rate.zone` zone 2
 - Steady bike: single `interval` step + `heart.rate.zone` zone 2–3
-- Bike intervals: `warmup` (HR zone) + `repeat` group (HR recovery + power work) + `cooldown` (HR zone)
+- Bike intervals: `warmup` (`no.target` + description) + `repeat` group (`no.target` recovery + `no.target` work intervals) + `cooldown` (`no.target` + description)
 - Tempo: `warmup` + `repeat` group (work + recovery) + `cooldown`
 - Swim: `lap.button` + `description` per step, `rest` steps between sections
 - Multisport: `garmin.legs` array, each leg has `sport` + `steps`
