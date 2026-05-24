@@ -31,7 +31,20 @@ Interview the user **one question at a time**. Wait for each answer before askin
 5. Equipment? (Garmin watch model, power meter, pool access?)
 6. Current easy pace? (Adapt to their sport. Calculate race paces from any race results — don't ask them to do the math.)
 
-If they have a Garmin watch: tell them to run `paicer sync w1` after the plan is ready — it will prompt for Garmin credentials on first use. Do NOT ask for credentials directly.
+If the plan includes swimming, ask about pool tracking before building the plan (see Swim Tracking below).
+
+Do NOT ask for Garmin credentials directly — the sync command handles that interactively.
+
+## Swim Tracking
+
+Ask this only if the plan includes pool swimming:
+
+> "For pool swims, your watch can track distance two ways:
+> - **Auto** — the watch counts strokes and measures distance automatically. Works well if you have a consistent stroke.
+> - **Drill** — you tap the watch after each segment and enter the distance manually. More reliable if you're newer to swimming or do a lot of drills.
+> Which would you prefer?"
+
+Save the preference: `paicer config set swim_tracking auto` (or `drill`).
 
 ## Plan Length and Start Date
 
@@ -47,19 +60,46 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 ## Building the Plan
 
 1. Invoke `paicer:plan-authoring` — it has bundled reference examples. Read `examples/reference-metric.yaml` or `examples/reference-imperial.yaml` from that skill's base directory.
-2. Create plan file at a path the user chooses (e.g. `~/paicer-plans/my-plan.yaml`)
+2. Create plan file at a path the user chooses (suggest `~/Documents/paicer/my-plan.yaml`)
 3. Design phase structure (Base -> Build -> Peak -> Taper)
 4. Build week-by-week with progressive volume
 5. Add Garmin structures with YAML comments in user's unit system
 6. Create YAML anchors for reusable sessions (swim, track)
 7. Preview: `paicer render --plan <path>` (fails loudly if YAML is invalid)
-8. Offer first week sync: `paicer sync w1`
-9. If Garmin set up: suggest `/paicer:review-progress` after first week of training
+8. Save config so future commands need no flags:
+   ```
+   paicer config set plan <absolute_path>
+   paicer config set units metric   # or imperial
+   ```
+   Tell the user: "I've saved your plan path and unit preference — you can run `paicer sync w1` without any flags from now on."
+9. Explain what they can do with the plan:
+   - **Markdown:** `paicer render` — readable text version of the full plan
+   - **HTML:** `paicer render --html` — print-ready, one week per page. Good for putting on the fridge or taking to a race.
+   - **Garmin sync:** uploads structured workouts to Garmin Connect so they appear on the watch with step-by-step targets. See below.
+10. If they have a Garmin watch, explain Garmin sync (see below) and offer: `paicer sync w1`
+11. Suggest `/paicer:review-progress` after the first week of training
+
+## Garmin Sync
+
+**Important: run `paicer sync` in a terminal outside Claude Code** — it requires interactive input for credentials and MFA.
+
+On first run, paicer will prompt for:
+- **Garmin email and password** — stored securely in your system keychain (Keychain Access on Mac, Credential Manager on Windows). You won't be asked again on subsequent syncs.
+- **MFA code** — Garmin sends a one-time code to your email. Enter it when prompted.
+
+After that, syncing is silent. Workouts appear in Garmin Connect under "Workouts" and can be pushed to the watch from there or scheduled directly.
+
+Sync scope examples:
+```
+paicer sync w1      # week 1
+paicer sync w1d2    # week 1, day 2 only
+paicer sync p2      # entire phase 2
+```
 
 ## Modifying an Existing Plan
 
 1. Read plan path from `~/.paicer/config` (key: `plan` in TOML format)
 2. Back up: `cp <plan_path> <plan_path>.backup`
 3. Make edits, preserving sequential numbering and naming conventions
-4. Preview: `paicer render --plan <plan_path>` to confirm the YAML is valid
+4. Preview: `paicer render` to confirm the YAML is valid
 5. If Garmin workouts changed, remind user to re-sync affected weeks

@@ -3,6 +3,7 @@
 import os
 from garminconnect import Garmin as GarminAPI
 from .base import WorkoutIntegration
+from ..config import get_swim_tracking
 
 
 SPORT_TYPES = {
@@ -199,7 +200,7 @@ class GarminIntegration(WorkoutIntegration):
 
         if is_swim:
             exec_step["targetType"] = None
-            if os.getenv("SWIM_TRACKING", "auto") == "drill":
+            if get_swim_tracking() == "drill":
                 exec_step["drillType"] = DRILL_TYPES["drill"]
         else:
             exec_step["targetType"] = resolve_target_type(
