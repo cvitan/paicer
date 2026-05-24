@@ -6,7 +6,7 @@ Help the user create a new training plan or modify an existing one.
 
 ## First-Time Setup
 
-Check if `.env` exists. If not, copy `.env.example` to `.env`.
+No setup file needed — paicer saves config to `~/.paicer/config` automatically on first run.
 
 ## Creating a New Plan
 
@@ -19,7 +19,7 @@ Interview the user **one question at a time**. Wait for each answer before askin
 5. Equipment? (Garmin watch model, power meter, pool access?)
 6. Current easy pace? (Adapt to their sport. Calculate race paces from any race results — don't ask them to do the math.)
 
-If they have a Garmin watch: tell them to edit `.env` and uncomment the Garmin section. Do NOT ask for credentials directly.
+If they have a Garmin watch: tell them to run `paicer sync w1` after the plan is ready — it will prompt for credentials on first use. Do NOT ask for credentials directly.
 
 ## Plan Length and Start Date
 
@@ -40,16 +40,14 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 4. Build week-by-week with progressive volume
 5. Add Garmin structures with YAML comments in user's unit system
 6. Create YAML anchors for reusable sessions (swim, track)
-7. Set `PLAN=plans/new-plan.yaml` in `.env`
-8. Validate: `make test`
-9. Preview: `make markdown`
-10. Offer first week sync: `make workouts SCOPE=w1`
+7. Preview: `paicer render --plan plans/new-plan.yaml` (saves plan path to config, fails loudly if YAML is invalid)
+8. Offer first week sync: `paicer sync w1`
 11. If Garmin set up: suggest `/paicer:review-progress` after first week of training
 
 ## Modifying an Existing Plan
 
-1. Read plan from `PLAN` path in `.env`
+1. Read plan path from `~/.paicer/config` (key: `plan`)
 2. Back up: `cp plans/my-plan.yaml plans/my-plan.backup.yaml`
 3. Make edits, preserving sequential numbering and naming conventions
-4. Validate: `make test`
+4. Preview: `paicer render` to confirm the YAML is valid
 5. If Garmin workouts changed, remind user to re-sync affected weeks

@@ -1,11 +1,8 @@
 """Garmin Connect integration."""
 
 import os
-from dotenv import load_dotenv
 from garminconnect import Garmin as GarminAPI
 from .base import WorkoutIntegration
-
-load_dotenv()
 
 
 SPORT_TYPES = {
@@ -87,7 +84,7 @@ class GarminIntegration(WorkoutIntegration):
     """Garmin Connect workout integration."""
 
     def __init__(self):
-        self.api = None
+        self.client = None
         self.tokenstore = os.path.expanduser("~/.garmin_tokens")
 
     def build_workout(self, workout_def: dict) -> dict:
@@ -228,56 +225,52 @@ class GarminIntegration(WorkoutIntegration):
         return exec_step
 
     def authenticate(self):
-        """Authenticate with Garmin Connect."""
-        email = os.getenv("GARMIN_EMAIL")
-        password = os.getenv("GARMIN_PASSWORD")
+        import keyring
+        import click
+        from ..config import get_garmin_email, read_config, write_config
 
-        if not email or not password:
-            raise ValueError("Set GARMIN_EMAIL and GARMIN_PASSWORD in .env file")
+        email = get_garmin_email()
+        if not email:
+            email = click.prompt("Garmin email")
+            cfg = read_config()
+            cfg["garmin_email"] = email
+            write_config(cfg)
 
+        password = keyring.get_password("paicer", email)
+        if not password:
+            password = click.prompt(f"Garmin password for {email}", hide_input=True)
+            keyring.set_password("paicer", email, password)
+
+        self.client = GarminAPI(
+            email, password,
+            prompt_mfa=lambda: click.prompt("Garmin MFA code (check your email)"),
+        )
         try:
-            self.api = GarminAPI(
-                email=email, password=password, is_cn=False, return_on_mfa=True
-            )
-
-            # Try to load existing tokens
-            try:
-                self.api.login(tokenstore=self.tokenstore)
-            except Exception:
-                # No tokens or expired - do fresh login
-                result1, result2 = self.api.login()
-
-                if result1 == "needs_mfa":
-                    print("MFA required - check your email")
-                    mfa_code = input("Enter MFA code: ").strip()
-                    self.api.resume_login(result2, mfa_code)
-
-                # Save tokens for next time
-                self.api.garth.dump(self.tokenstore)
-
-        except Exception as e:
-            raise RuntimeError(f"Login failed: {e}")
+            self.client.login(tokenstore=self.tokenstore)
+        except FileNotFoundError:
+            self.client.login()
+            self.client.garth.dump(self.tokenstore)
 
     def upload_workout(self, workout_data: dict) -> str:
         """Upload workout to Garmin Connect."""
-        result = self.api.upload_workout(workout_data)
+        result = self.client.upload_workout(workout_data)
         return str(result.get("workoutId"))
 
     def schedule_workout(self, workout_id: str, date: str):
         """Schedule workout to Garmin calendar."""
         url = f"/workout-service/schedule/{workout_id}"
         data = {"date": date}
-        self.api.connectapi(url, method="POST", json=data)
+        self.client.connectapi(url, method="POST", json=data)
 
     def delete_workout(self, workout_name: str) -> bool:
         """Delete Garmin workout by name."""
         try:
-            workouts = self.api.get_workouts()
+            workouts = self.client.get_workouts()
             for workout in workouts:
                 if workout.get("workoutName") == workout_name:
                     workout_id = workout.get("workoutId")
                     url = f"/workout-service/workout/{workout_id}"
-                    self.api.connectapi(url, method="DELETE")
+                    self.client.connectapi(url, method="DELETE")
                     return True
             return False
         except Exception:

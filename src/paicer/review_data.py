@@ -23,12 +23,8 @@ import json
 import sys
 from datetime import datetime, timedelta
 
-from dotenv import load_dotenv
-
-from integrations.garmin import GarminIntegration
-from plan_utils import first_monday_on_or_after, load_plan
-
-load_dotenv()
+from .integrations.garmin import GarminIntegration
+from .plan_utils import first_monday_on_or_after, load_plan
 
 
 def find_current_week(start_date, today=None):
