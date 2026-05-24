@@ -1,0 +1,27 @@
+{
+  "name": "paicer",
+  "owner": {
+    "name": "Tome Cvitan",
+    "email": "tome.cvitan@gmail.com"
+  },
+  "description": "Claude Code skills for paicer — create and sync training plans to Garmin Connect",
+  "plugins": [
+    {
+      "name": "paicer",
+      "displayName": "paicer",
+      "description": "Create and review Garmin-connected training plans",
+      "source": {
+        "source": "npm",
+        "package": "paicer-claude-plugin"
+      },
+      "homepage": "https://github.com/cvitan/paicer",
+      "repository": "https://github.com/cvitan/paicer",
+      "author": {
+        "name": "Tome Cvitan",
+        "email": "tome.cvitan@gmail.com"
+      },
+      "license": "MIT",
+      "keywords": ["training", "garmin", "running", "triathlon", "paicer"]
+    }
+  ]
+}

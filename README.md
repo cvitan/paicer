@@ -1,16 +1,19 @@
 # p**ai**cer
 
-AI-powered training plan manager. Provide your race goals, schedule, and fitness level to create a plan, with structured workouts that can be synced to your Garmin watch. After each training week, run the progress review command to pull your Garmin activity and training status data, compare it against the plan, and adjust targets based on how your body is responding.
+AI-powered training plan manager for Claude Code. Provide your race goals, schedule, and fitness level to create a plan, with structured workouts that sync to your Garmin watch. After each training week, review your Garmin activity data against the plan and adjust targets based on how your body is responding — all through conversation.
 
 **Disclaimer:** This tool is not a substitute for professional coaching or medical advice. Always listen to your body and consult a qualified professional for health or injury concerns.
 
 ## Get Started
 
-```bash
-git clone https://github.com/cvitan/paicer && cd paicer
+Install the Claude Code plugin:
+
+```
+/plugin marketplace add cvitan/paicer
+/plugin install paicer@paicer
 ```
 
-Open the project in Claude Code and run `/paicer:create-plan` to create a YAML-based training plan through a guided conversation. It handles setup, configuration, and walks you through the process.
+Then run `/paicer:create-plan` to create a training plan through a guided conversation. It handles CLI setup, configuration, and walks you through the process.
 
 After each week of training, run `/paicer:review-progress` to review your plan progress and make any tweaks if needed. The review will also be appended to your plan for future reference.
 
@@ -19,25 +22,19 @@ After each week of training, run `/paicer:review-progress` to review your plan p
 - **HTML** — set up to print 1 wk/page
 - **Garmin** — sync scheduled structured workouts
 
-## Commands
+## CLI Commands
+
+If you prefer to run paicer directly rather than through the Claude plugin:
 
 ```bash
-make markdown               # Generate Markdown
-make html                   # Generate HTML (A4 for metric, letter for imperial)
-make workouts SCOPE=w7      # Sync week 7 to Garmin
-make workouts SCOPE=w7d2    # Sync specific workout
-make workouts SCOPE=p2      # Sync entire phase
-make test                   # Validate plan
+paicer render --plan my-plan.yaml               # Generate Markdown
+paicer render --html --plan my-plan.yaml        # Generate HTML
+paicer sync w7 --plan my-plan.yaml              # Sync week 7 to Garmin
+paicer sync w7d2 --plan my-plan.yaml            # Sync specific workout
+paicer sync p2 --plan my-plan.yaml              # Sync entire phase
 ```
 
 ## Supported Sports
 
 Running, cycling, swimming (pool and open water), track sessions, and multisport/brick workouts (bike + run with transition tracking). Requires a Garmin watch — multisport needs a compatible model (Fenix, Forerunner 570/970, Enduro).
 
-## Roadmap
-
-1. **Strava activity enrichment**
-2. **Zwift Integrations**
-3. **Additional Formats** - PDF, iCal, JSON, CSV export
-4. **HR-zone fallback for cycling** - generate bike workouts with `heart.rate.zone` targets for users without a power meter (current plans assume one)
-5. **Ad-hoc activity data tool** - extend `src/review_data.py` or add `src/activity_data.py` with `--activity-id`, `--latest N`, `--from-date/--to-date` flags so single-activity / cross-week queries don't require throwaway scripts. Expose `get_activity_typed_splits` as the primary intervals fetch.
