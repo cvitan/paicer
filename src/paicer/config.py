@@ -17,10 +17,14 @@ def read_config() -> dict:
         return tomllib.load(f)
 
 
+def _escape(v: str) -> str:
+    return v.replace("\\", "\\\\").replace('"', '\\"')
+
+
 def write_config(data: dict) -> None:
     path = _config_path()
     path.parent.mkdir(parents=True, exist_ok=True)
-    lines = [f'{k} = "{v}"' for k, v in data.items()]
+    lines = [f'{k} = "{_escape(v)}"' for k, v in data.items()]
     path.write_text("\n".join(lines) + "\n")
 
 

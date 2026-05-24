@@ -242,7 +242,7 @@ class GarminIntegration(WorkoutIntegration):
             keyring.set_password("paicer", email, password)
 
         self.client = GarminAPI(email, password)
-        self.client.login()
+        self.client.login(tokenstore=self.tokenstore)
 
     def upload_workout(self, workout_data: dict) -> str:
         """Upload workout to Garmin Connect."""
