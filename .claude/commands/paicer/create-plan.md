@@ -40,9 +40,8 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 4. Build week-by-week with progressive volume
 5. Add Garmin structures with YAML comments in user's unit system
 6. Create YAML anchors for reusable sessions (swim, track)
-7. Preview: `paicer render --plan plans/new-plan.yaml` (saves plan path to `~/.paicer/config` for future runs)
-8. Validate: `uv run pytest`
-9. Offer first week sync: `paicer sync w1`
+7. Preview: `paicer render --plan plans/new-plan.yaml` (saves plan path to config, fails loudly if YAML is invalid)
+8. Offer first week sync: `paicer sync w1`
 11. If Garmin set up: suggest `/paicer:review-progress` after first week of training
 
 ## Modifying an Existing Plan
@@ -50,5 +49,5 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 1. Read plan path from `~/.paicer/config` (key: `plan`)
 2. Back up: `cp plans/my-plan.yaml plans/my-plan.backup.yaml`
 3. Make edits, preserving sequential numbering and naming conventions
-4. Validate: `uv run pytest`
+4. Preview: `paicer render` to confirm the YAML is valid
 5. If Garmin workouts changed, remind user to re-sync affected weeks
