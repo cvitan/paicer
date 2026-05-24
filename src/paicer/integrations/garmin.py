@@ -84,7 +84,7 @@ class GarminIntegration(WorkoutIntegration):
     """Garmin Connect workout integration."""
 
     def __init__(self):
-        self.api = None
+        self.client = None
         self.tokenstore = os.path.expanduser("~/.garmin_tokens")
 
     def build_workout(self, workout_def: dict) -> dict:
@@ -246,24 +246,24 @@ class GarminIntegration(WorkoutIntegration):
 
     def upload_workout(self, workout_data: dict) -> str:
         """Upload workout to Garmin Connect."""
-        result = self.api.upload_workout(workout_data)
+        result = self.client.upload_workout(workout_data)
         return str(result.get("workoutId"))
 
     def schedule_workout(self, workout_id: str, date: str):
         """Schedule workout to Garmin calendar."""
         url = f"/workout-service/schedule/{workout_id}"
         data = {"date": date}
-        self.api.connectapi(url, method="POST", json=data)
+        self.client.connectapi(url, method="POST", json=data)
 
     def delete_workout(self, workout_name: str) -> bool:
         """Delete Garmin workout by name."""
         try:
-            workouts = self.api.get_workouts()
+            workouts = self.client.get_workouts()
             for workout in workouts:
                 if workout.get("workoutName") == workout_name:
                     workout_id = workout.get("workoutId")
                     url = f"/workout-service/workout/{workout_id}"
-                    self.api.connectapi(url, method="DELETE")
+                    self.client.connectapi(url, method="DELETE")
                     return True
             return False
         except Exception:
