@@ -22,6 +22,9 @@ output/
 # Garmin tokens
 .garmin_tokens
 
+# Claude session memory (local only)
+memory/
+
 # yaks data directory
 .yaks
 
