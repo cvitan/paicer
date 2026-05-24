@@ -134,10 +134,18 @@ def test_config_show_empty(config_home):
 
 def test_config_show_with_values(config_home):
     from paicer.cli import cli
+    from paicer.config import write_config
     runner = CliRunner()
-    runner.invoke(cli, ["config", "set", "units", "metric"])
-    runner.invoke(cli, ["config", "set", "swim_tracking", "drill"])
+    write_config({"units": "metric", "swim_tracking": "drill", "garmin_email": "x@y.com"})
     result = runner.invoke(cli, ["config", "show"])
     assert result.exit_code == 0
     assert "units = metric" in result.output
     assert "swim_tracking = drill" in result.output
+    assert "garmin_email" not in result.output
+
+
+def test_config_set_plan_nonexistent(config_home):
+    from paicer.cli import cli
+    runner = CliRunner()
+    result = runner.invoke(cli, ["config", "set", "plan", "/nonexistent/plan.yaml"])
+    assert result.exit_code != 0

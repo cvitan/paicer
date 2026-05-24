@@ -36,12 +36,18 @@ def config_set(key, value):
 
     Keys: plan, units (metric/imperial), format (a4/letter), swim_tracking (auto/drill)
     """
+    from pathlib import Path
     from .config import read_config, write_config
     if key not in VALID_KEYS:
         raise click.BadParameter(f"Unknown key '{key}'. Valid keys: {', '.join(VALID_KEYS)}")
     _, allowed = VALID_KEYS[key]
     if allowed and value not in allowed:
         raise click.BadParameter(f"Invalid value '{value}' for '{key}'. Allowed: {', '.join(allowed)}")
+    if key == "plan":
+        p = Path(value).expanduser()
+        if not p.exists() or p.is_dir():
+            raise click.BadParameter(f"Not a valid file path: {value}")
+        value = str(p.resolve())
     cfg = read_config()
     cfg[key] = value
     write_config(cfg)
@@ -57,7 +63,8 @@ def config_show():
         click.echo("No config file found.")
         return
     for k, v in read_config().items():
-        click.echo(f"{k} = {v}")
+        if k in VALID_KEYS:
+            click.echo(f"{k} = {v}")
 
 
 @cli.command()
