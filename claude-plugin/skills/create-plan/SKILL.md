@@ -72,8 +72,8 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 8. Save the plan path: `paicer config set plan <absolute_path>`
    Tell the user: "I've saved your plan path — you can run `paicer sync w1` without any flags from now on."
 9. Explain what they can do with the plan:
-   - **Markdown:** `paicer render` — readable text version of the full plan
-   - **HTML:** `paicer render --html` — print-ready, one week per page. Good for putting on the fridge or taking to a race. Ask: "For printing, do you want A4 or US Letter paper?" Then save: `paicer config set format a4` (or `letter`).
+   - **Markdown:** `paicer render` — prints to stdout. Pipe or redirect to save: `paicer render > my-plan.md`
+   - **HTML:** `paicer render --html -o my-plan.html` — saves a print-ready HTML file, one week per page. Good for putting on the fridge or taking to a race. (Without `-o`, it prints to stdout.) Ask: "For printing, do you want A4 or US Letter paper?" Then save: `paicer config set format a4` (or `letter`).
    - **Garmin sync:** uploads structured workouts to Garmin Connect so they appear on the watch with step-by-step targets. See below.
 10. If they have a Garmin watch, explain Garmin sync (see below) and offer: `paicer sync w1`
 11. Suggest `/paicer:review-progress` after the first week of training
