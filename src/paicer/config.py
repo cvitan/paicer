@@ -24,7 +24,7 @@ def _escape(v: str) -> str:
 def write_config(data: dict) -> None:
     path = _config_path()
     path.parent.mkdir(parents=True, exist_ok=True)
-    lines = [f'{k} = "{_escape(v)}"' for k, v in data.items()]
+    lines = [f'{k} = "{_escape(str(v))}"' for k, v in data.items()]
     path.write_text("\n".join(lines) + "\n")
 
 
@@ -42,7 +42,10 @@ def get_garmin_email() -> str | None:
 
 def prompt_and_save_plan_path() -> str:
     import click
-    plan = click.prompt("Path to your plan YAML file")
+    plan = click.prompt(
+        "Path to your plan YAML file",
+        type=click.Path(exists=True, dir_okay=False),
+    )
     cfg = read_config()
     cfg["plan"] = plan
     write_config(cfg)

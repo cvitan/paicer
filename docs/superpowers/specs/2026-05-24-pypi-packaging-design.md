@@ -52,7 +52,6 @@ dependencies = [
     "garminconnect>=0.2.40,<0.3.0",
     "keyring>=24.0",
     "markdown>=3.10.2",
-    "python-dotenv>=1.2.1",
     "pyyaml>=6.0",
 ]
 
