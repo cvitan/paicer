@@ -1,7 +1,7 @@
 """HTML formatter."""
 
 from typing import Dict
-from plan_utils import (
+from ..plan_utils import (
     calculate_workout_date,
     calculate_week_dates,
     calculate_phase_dates,
