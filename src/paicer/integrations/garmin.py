@@ -3,6 +3,7 @@
 import os
 from garminconnect import Garmin as GarminAPI
 from .base import WorkoutIntegration
+from ..config import get_swim_tracking
 
 
 SPORT_TYPES = {
@@ -86,6 +87,7 @@ class GarminIntegration(WorkoutIntegration):
     def __init__(self):
         self.client = None
         self.tokenstore = os.path.expanduser("~/.garmin_tokens")
+        self.swim_tracking = get_swim_tracking()
 
     def build_workout(self, workout_def: dict) -> dict:
         """Build Garmin workout JSON from YAML workout definition."""
@@ -199,7 +201,7 @@ class GarminIntegration(WorkoutIntegration):
 
         if is_swim:
             exec_step["targetType"] = None
-            if os.getenv("SWIM_TRACKING", "auto") == "drill":
+            if self.swim_tracking == "drill":
                 exec_step["drillType"] = DRILL_TYPES["drill"]
         else:
             exec_step["targetType"] = resolve_target_type(

@@ -1,6 +1,6 @@
 {
   "name": "paicer-claude-plugin",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Claude Code skills for paicer — create and sync training plans to Garmin Connect",
   "license": "MIT",
   "author": "Tome Cvitan",

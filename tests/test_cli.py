@@ -88,3 +88,64 @@ def test_sync_missing_scope():
     runner = CliRunner()
     result = runner.invoke(cli, ["sync"])
     assert result.exit_code != 0
+
+
+def test_config_set_valid(config_home):
+    from paicer.cli import cli
+    from paicer.config import read_config
+    runner = CliRunner()
+    result = runner.invoke(cli, ["config", "set", "units", "imperial"])
+    assert result.exit_code == 0
+    assert read_config()["units"] == "imperial"
+
+
+def test_config_set_plan(config_home, tmp_path):
+    from paicer.cli import cli
+    from paicer.config import read_config
+    plan = tmp_path / "plan.yaml"
+    plan.write_text("plan: {}")
+    runner = CliRunner()
+    result = runner.invoke(cli, ["config", "set", "plan", str(plan)])
+    assert result.exit_code == 0
+    assert read_config()["plan"] == str(plan)
+
+
+def test_config_set_invalid_key(config_home):
+    from paicer.cli import cli
+    runner = CliRunner()
+    result = runner.invoke(cli, ["config", "set", "bogus_key", "value"])
+    assert result.exit_code != 0
+
+
+def test_config_set_invalid_value(config_home):
+    from paicer.cli import cli
+    runner = CliRunner()
+    result = runner.invoke(cli, ["config", "set", "units", "furlongs"])
+    assert result.exit_code != 0
+
+
+def test_config_show_empty(config_home):
+    from paicer.cli import cli
+    runner = CliRunner()
+    result = runner.invoke(cli, ["config", "show"])
+    assert result.exit_code == 0
+    assert "No config file found" in result.output
+
+
+def test_config_show_with_values(config_home):
+    from paicer.cli import cli
+    from paicer.config import write_config
+    runner = CliRunner()
+    write_config({"units": "metric", "swim_tracking": "drill", "garmin_email": "x@y.com"})
+    result = runner.invoke(cli, ["config", "show"])
+    assert result.exit_code == 0
+    assert "units = metric" in result.output
+    assert "swim_tracking = drill" in result.output
+    assert "garmin_email" not in result.output
+
+
+def test_config_set_plan_nonexistent(config_home):
+    from paicer.cli import cli
+    runner = CliRunner()
+    result = runner.invoke(cli, ["config", "set", "plan", "/nonexistent/plan.yaml"])
+    assert result.exit_code != 0

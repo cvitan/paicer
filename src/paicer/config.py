@@ -40,6 +40,19 @@ def get_garmin_email() -> str | None:
     return read_config().get("garmin_email")
 
 
+def get_swim_tracking() -> str:
+    return read_config().get("swim_tracking", os.getenv("SWIM_TRACKING", "auto"))
+
+
+def get_format(units: str | None = None) -> str:
+    stored = read_config().get("format")
+    if stored:
+        return stored
+    if units is None:
+        units = get_units()
+    return "letter" if units == "imperial" else "a4"
+
+
 def prompt_and_save_plan_path() -> str:
     import click
     plan = click.prompt(
