@@ -11,7 +11,7 @@ Help the user create a new training plan or modify an existing one.
 
 ## Setup Check
 
-Before anything else, verify paicer is installed:
+Let's get your training plan set up. First I'll check that the paicer CLI is installed — it's a small tool that handles plan rendering and Garmin sync.
 
 - Run: `paicer version`
 - If the command is not found:
@@ -22,9 +22,11 @@ Before anything else, verify paicer is installed:
 
 ## Creating a New Plan
 
+The user starts with no config file. As they answer questions, save each preference immediately with `paicer config set` — it creates the config file on first use, no setup required.
+
 Interview the user **one question at a time**. Wait for each answer before asking the next.
 
-1. Do you use metric or imperial? (km/miles)
+1. Do you use metric or imperial? (km/miles) → immediately run: `paicer config set units <metric_or_imperial>`
 2. What are you training for? (race distance, goal date, first time?)
 3. Current fitness? (recent volume, longest recent run/ride, recent races?)
 4. How many days per week, and which days?
@@ -67,15 +69,11 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 5. Add Garmin structures with YAML comments in user's unit system
 6. Create YAML anchors for reusable sessions (swim, track)
 7. Preview: `paicer render --plan <path>` (fails loudly if YAML is invalid)
-8. Save config so future commands need no flags:
-   ```
-   paicer config set plan <absolute_path>
-   paicer config set units <metric_or_imperial>
-   ```
-   Tell the user: "I've saved your plan path and unit preference — you can run `paicer sync w1` without any flags from now on."
+8. Save the plan path: `paicer config set plan <absolute_path>`
+   Tell the user: "I've saved your plan path — you can run `paicer sync w1` without any flags from now on."
 9. Explain what they can do with the plan:
-   - **Markdown:** `paicer render` — readable text version of the full plan
-   - **HTML:** `paicer render --html` — print-ready, one week per page. Good for putting on the fridge or taking to a race. Ask: "For printing, do you want A4 or US Letter paper?" Then save: `paicer config set format a4` (or `letter`).
+   - **Markdown:** `paicer render` — prints to stdout. Use `-o` to save to a file: `paicer render -o my-plan.md`
+   - **HTML:** `paicer render --html -o my-plan.html` — print-ready, one week per page. Good for putting on the fridge or taking to a race. (Without `-o`, prints to stdout.) Ask: "For printing, do you want A4 or US Letter paper?" Then save: `paicer config set format a4` (or `letter`).
    - **Garmin sync:** uploads structured workouts to Garmin Connect so they appear on the watch with step-by-step targets. See below.
 10. If they have a Garmin watch, explain Garmin sync (see below) and offer: `paicer sync w1`
 11. Suggest `/paicer:review-progress` after the first week of training
