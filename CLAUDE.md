@@ -37,6 +37,6 @@ Skills live in `claude-plugin/skills/`. Edit them here and they take effect imme
 
 Invoke the `plan-authoring` skill for YAML structure rules, workout types, Garmin patterns, unit conventions, and periodization principles.
 
-Reference plans: `claude-plugin/skills/plan-authoring/examples/reference-metric.yaml` and `reference-imperial.yaml` demonstrate every pattern in a minimal 2-week plan.
+Reference plans: `claude-plugin/skills/plan-authoring/examples/reference-metric.yaml` and `claude-plugin/skills/plan-authoring/examples/reference-imperial.yaml` demonstrate every pattern in a minimal 2-week plan.
 
 Garmin API: `docs/garmin-api.md` for step types, end conditions, target types, pace conversions.
