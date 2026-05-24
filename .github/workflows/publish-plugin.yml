@@ -1,0 +1,38 @@
+name: Publish plugin to npm
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.release.tag_name, 'plugin-')
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Verify tag matches package.json and plugin.json versions
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          VERSION="${TAG#plugin-}"
+          PKG_VERSION=$(node -p "require('./claude-plugin/package.json').version")
+          if [ "$VERSION" != "$PKG_VERSION" ]; then
+            echo "Tag '$TAG' (version '$VERSION') does not match package.json version '$PKG_VERSION'"
+            exit 1
+          fi
+          PLUGIN_VERSION=$(node -p "require('./claude-plugin/.claude-plugin/plugin.json').version")
+          if [ "$VERSION" != "$PLUGIN_VERSION" ]; then
+            echo "Tag '$TAG' (version '$VERSION') does not match plugin.json version '$PLUGIN_VERSION'"
+            exit 1
+          fi
+
+      - name: Publish to npm
+        run: npm publish
+        working-directory: claude-plugin
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
