@@ -241,8 +241,15 @@ class GarminIntegration(WorkoutIntegration):
             password = click.prompt(f"Garmin password for {email}", hide_input=True)
             keyring.set_password("paicer", email, password)
 
-        self.client = GarminAPI(email, password)
-        self.client.login(tokenstore=self.tokenstore)
+        self.client = GarminAPI(
+            email, password,
+            prompt_mfa=lambda: click.prompt("Garmin MFA code (check your email)"),
+        )
+        try:
+            self.client.login(tokenstore=self.tokenstore)
+        except FileNotFoundError:
+            self.client.login()
+            self.client.garth.dump(self.tokenstore)
 
     def upload_workout(self, workout_data: dict) -> str:
         """Upload workout to Garmin Connect."""
