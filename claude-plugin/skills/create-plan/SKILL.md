@@ -46,7 +46,7 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 
 ## Building the Plan
 
-1. Read the appropriate reference plan from the `examples/` directory alongside this skill's `plan-authoring` skill (`examples/reference-metric.yaml` or `examples/reference-imperial.yaml`)
+1. Invoke `paicer:plan-authoring` — it has bundled reference examples. Read `examples/reference-metric.yaml` or `examples/reference-imperial.yaml` from that skill's base directory.
 2. Create plan file at a path the user chooses (e.g. `~/paicer-plans/my-plan.yaml`)
 3. Design phase structure (Base -> Build -> Peak -> Taper)
 4. Build week-by-week with progressive volume
@@ -58,8 +58,8 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 
 ## Modifying an Existing Plan
 
-1. Read plan path from `~/.paicer/config` (key: `plan`)
-2. Back up: `cp my-plan.yaml my-plan.backup.yaml`
+1. Read plan path from `~/.paicer/config` (key: `plan` in TOML format)
+2. Back up: `cp <plan_path> <plan_path>.backup`
 3. Make edits, preserving sequential numbering and naming conventions
-4. Preview: `paicer render` to confirm the YAML is valid
+4. Preview: `paicer render --plan <plan_path>` to confirm the YAML is valid
 5. If Garmin workouts changed, remind user to re-sync affected weeks
