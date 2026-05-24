@@ -146,17 +146,17 @@ phases:
                   targetType: "heart.rate.zone"
                   zoneNumber: 2
 
-          # Bike — power zone target
+          # Bike — steady ride, HR zone target
           - day: 3
             type: "bike"
             name: "Steady 10 mi"
-            description: "10 mi steady at RPE 5. Power zone 2."
+            description: "10 mi steady at RPE 5. HR zone 2."
             garmin:
               steps:
                 - stepType: "interval"
                   endCondition: "distance"
                   endConditionValue: 16093  # 10 mi
-                  targetType: "power.zone"
+                  targetType: "heart.rate.zone"
                   zoneNumber: 2
 
           # Optional workout — skip_garmin: no Garmin upload; optional: no calendar date
@@ -221,8 +221,8 @@ phases:
                 - stepType: "warmup"
                   endCondition: "distance"
                   endConditionValue: 4828  # 3 mi
-                  targetType: "power.zone"
-                  zoneNumber: 2
+                  targetType: "no.target"
+                  description: "3 mi @ Z2 (RPE 5)"
                 - numberOfIterations: 4
                   stepType: "repeat"
                   childStepId: 1
@@ -230,8 +230,8 @@ phases:
                     - stepType: "interval"
                       endCondition: "time"
                       endConditionValue: 180
-                      targetType: "power.zone"
-                      zoneNumber: 4
+                      targetType: "no.target"
+                      description: "3 min @ Z4 (RPE 8)"
                       childStepId: 1
                     - stepType: "recovery"
                       endCondition: "time"
@@ -241,8 +241,8 @@ phases:
                 - stepType: "cooldown"
                   endCondition: "distance"
                   endConditionValue: 4828  # 3 mi
-                  targetType: "power.zone"
-                  zoneNumber: 2
+                  targetType: "no.target"
+                  description: "3 mi @ Z2 (RPE 5)"
 
           # Easy run
           - day: 4
@@ -269,7 +269,7 @@ phases:
                     - stepType: "interval"
                       endCondition: "distance"
                       endConditionValue: 9656  # 6 mi
-                      targetType: "power.zone"
+                      targetType: "heart.rate.zone"
                       zoneNumber: 2
                 - sport: "run"
                   steps:

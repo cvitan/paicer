@@ -11,5 +11,8 @@
     "directory": "claude-plugin"
   },
   "keywords": ["claude", "paicer", "training", "garmin", "running", "triathlon"],
-  "files": [".claude-plugin", "skills"]
+  "files": [".claude-plugin", "skills"],
+  "scripts": {
+    "prepare": "cp ../examples/reference-metric.yaml skills/plan-authoring/examples/ && cp ../examples/reference-imperial.yaml skills/plan-authoring/examples/"
+  }
 }
