@@ -1,11 +1,8 @@
 """Garmin Connect integration."""
 
 import os
-from dotenv import load_dotenv
 from garminconnect import Garmin as GarminAPI
 from .base import WorkoutIntegration
-
-load_dotenv()
 
 
 SPORT_TYPES = {
@@ -228,35 +225,24 @@ class GarminIntegration(WorkoutIntegration):
         return exec_step
 
     def authenticate(self):
-        """Authenticate with Garmin Connect."""
-        email = os.getenv("GARMIN_EMAIL")
-        password = os.getenv("GARMIN_PASSWORD")
+        import keyring
+        import click
+        from ..config import get_garmin_email, read_config, write_config
 
-        if not email or not password:
-            raise ValueError("Set GARMIN_EMAIL and GARMIN_PASSWORD in .env file")
+        email = get_garmin_email()
+        if not email:
+            email = click.prompt("Garmin email")
+            cfg = read_config()
+            cfg["garmin_email"] = email
+            write_config(cfg)
 
-        try:
-            self.api = GarminAPI(
-                email=email, password=password, is_cn=False, return_on_mfa=True
-            )
+        password = keyring.get_password("paicer", email)
+        if not password:
+            password = click.prompt(f"Garmin password for {email}", hide_input=True)
+            keyring.set_password("paicer", email, password)
 
-            # Try to load existing tokens
-            try:
-                self.api.login(tokenstore=self.tokenstore)
-            except Exception:
-                # No tokens or expired - do fresh login
-                result1, result2 = self.api.login()
-
-                if result1 == "needs_mfa":
-                    print("MFA required - check your email")
-                    mfa_code = input("Enter MFA code: ").strip()
-                    self.api.resume_login(result2, mfa_code)
-
-                # Save tokens for next time
-                self.api.garth.dump(self.tokenstore)
-
-        except Exception as e:
-            raise RuntimeError(f"Login failed: {e}")
+        self.client = GarminAPI(email, password)
+        self.client.login()
 
     def upload_workout(self, workout_data: dict) -> str:
         """Upload workout to Garmin Connect."""
