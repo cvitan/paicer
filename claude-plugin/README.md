@@ -5,7 +5,8 @@ Claude Code skills for [paicer](https://github.com/cvitan/paicer) — create and
 ## Install
 
 ```
-claude mcp add npm:paicer-claude-plugin
+/plugin marketplace add cvitan/paicer
+/plugin install paicer@paicer
 ```
 
 ## Skills
