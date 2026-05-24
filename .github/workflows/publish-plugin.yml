@@ -8,10 +8,12 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     if: startsWith(github.event.release.tag_name, 'plugin-')
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
@@ -34,5 +36,3 @@ jobs:
       - name: Publish to npm
         run: npm publish
         working-directory: claude-plugin
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
