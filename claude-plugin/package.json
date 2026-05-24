@@ -10,5 +10,6 @@
     "url": "https://github.com/cvitan/paicer.git",
     "directory": "claude-plugin"
   },
-  "keywords": ["claude", "paicer", "training", "garmin", "running", "triathlon"]
+  "keywords": ["claude", "paicer", "training", "garmin", "running", "triathlon"],
+  "files": [".claude-plugin", "skills"]
 }
