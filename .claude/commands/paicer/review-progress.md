@@ -6,13 +6,13 @@ Compare last week's Garmin activities against the plan and discuss adjustments.
 
 ## Steps
 
-Read `UNITS` from `.env` (default: `metric`). Present all values in the user's preferred system.
+Read `units` from `~/.paicer/config` (default: `metric`). Present all values in the user's preferred system.
 
-1. Read the plan YAML from `PLAN` path in `.env` using Read tool (do NOT write scripts to parse YAML).
+1. Read `plan` path from `~/.paicer/config`, then read the plan YAML using Read tool (do NOT write scripts to parse YAML).
 2. Pull review data:
    ```
-   uv run python src/review_data.py $PLAN          # most recently completed week
-   uv run python src/review_data.py $PLAN 3        # specific week number
+   uv run python -m paicer.review_data <plan_path>    # most recently completed week
+   uv run python -m paicer.review_data <plan_path> 3  # specific week number
    ```
 3. Match activities by `activityName` against `W{week_num}: {name}` (prefixed format from Garmin upload). Do NOT match by date — users often shift days.
 4. Analyze using the `intervals` array — NOT overall activity averages. Each interval has `type` (INTERVAL_WARMUP, INTERVAL_ACTIVE, INTERVAL_RECOVERY, INTERVAL_COOLDOWN), `paceSecPerKm`, `averageHR`, `averagePower`, `distance`, `duration`.
@@ -47,7 +47,7 @@ Read `UNITS` from `.env` (default: `metric`). Present all values in the user's p
 
    **Notes content:** stick to training-relevant facts — pace, HR, power, distance, elevation, completion vs plan, perceived effort, weather if it affected execution, illness/injury that affected sessions. Allergies are fine to mention if they affected training. **Skip lifestyle context** like alcohol consumption, social events, work stress, or other personal details that are not training data — even when the user mentions them in chat. The plan log is a training record, not a journal.
 
-10. Validate: `make test`
+10. Validate: `uv run pytest`
 
 ## Race Week (special handling)
 
