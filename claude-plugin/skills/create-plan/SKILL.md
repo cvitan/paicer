@@ -24,12 +24,13 @@ Before anything else, verify paicer is installed:
 
 Interview the user **one question at a time**. Wait for each answer before asking the next.
 
-1. What are you training for? (race distance, goal date, first time?)
-2. Current fitness? (recent volume, longest recent run/ride, recent races?)
-3. How many days per week, and which days?
-4. What sports? (running only, triathlon, cycling?)
-5. Equipment? (Garmin watch model, power meter, pool access?)
-6. Current easy pace? (Adapt to their sport. Calculate race paces from any race results — don't ask them to do the math.)
+1. Do you use metric or imperial? (km/miles)
+2. What are you training for? (race distance, goal date, first time?)
+3. Current fitness? (recent volume, longest recent run/ride, recent races?)
+4. How many days per week, and which days?
+5. What sports? (running only, triathlon, cycling?)
+6. Equipment? (Garmin watch model, power meter, pool access?)
+7. Current easy pace? (Adapt to their sport. Calculate race paces from any race results — don't ask them to do the math.)
 
 If the plan includes swimming, ask about pool tracking before building the plan (see Swim Tracking below).
 
@@ -69,12 +70,12 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 8. Save config so future commands need no flags:
    ```
    paicer config set plan <absolute_path>
-   paicer config set units metric   # or imperial
+   paicer config set units <metric_or_imperial>
    ```
    Tell the user: "I've saved your plan path and unit preference — you can run `paicer sync w1` without any flags from now on."
 9. Explain what they can do with the plan:
    - **Markdown:** `paicer render` — readable text version of the full plan
-   - **HTML:** `paicer render --html` — print-ready, one week per page. Good for putting on the fridge or taking to a race.
+   - **HTML:** `paicer render --html` — print-ready, one week per page. Good for putting on the fridge or taking to a race. Ask: "For printing, do you want A4 or US Letter paper?" Then save: `paicer config set format a4` (or `letter`).
    - **Garmin sync:** uploads structured workouts to Garmin Connect so they appear on the watch with step-by-step targets. See below.
 10. If they have a Garmin watch, explain Garmin sync (see below) and offer: `paicer sync w1`
 11. Suggest `/paicer:review-progress` after the first week of training
