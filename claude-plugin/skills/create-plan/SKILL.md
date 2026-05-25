@@ -7,13 +7,12 @@ description: Create or edit a paicer training plan YAML — interviews user, bui
 
 Help the user create a new training plan or modify an existing one.
 
-**Invoke the `paicer:plan-authoring` skill** for YAML structure, unit conventions, Garmin patterns, and periodization principles.
-
 ## Setup Check
 
-Let's get your training plan set up. First I'll check that the paicer CLI is installed — it's a small tool that handles plan rendering and Garmin sync.
+Say to the user:
+> "Let's get your training plan set up! First I'll check that the paicer CLI is installed — it's a small tool that handles plan rendering and Garmin sync."
 
-- Run: `paicer version`
+Then run: `paicer version`
 - If the command is not found:
   - Run: `which uv`
   - If uv is available: run `uv tool install paicer`
@@ -22,19 +21,54 @@ Let's get your training plan set up. First I'll check that the paicer CLI is ins
 
 ## Creating a New Plan
 
-The user starts with no config file. As they answer questions, save each preference immediately with `paicer config set` — it creates the config file on first use, no setup required.
+The user starts with no config file. Two preferences are saved during the interview via `paicer config set` (which creates the config file on first use): `units` after Q2, and `swim_tracking` after the swim tracking question. Everything else is context for building the plan — not persisted.
 
-Interview the user **one question at a time**. Wait for each answer before asking the next.
+Ask each question **exactly as written** below, one at a time. Wait for the answer before asking the next. Do not rephrase the fixed wording — but do substitute bracketed placeholders (e.g. `[km / mile]`, `[run/ride/swim]`) based on their sport and units.
 
-1. Do you use metric or imperial? (km/miles) → immediately run: `paicer config set units <metric_or_imperial>`
-2. What are you training for? (race distance, goal date, first time?)
-3. Current fitness? (recent volume, longest recent run/ride, recent races?)
-4. How many days per week, and which days?
-5. What sports? (running only, triathlon, cycling?)
-6. Equipment? (Garmin watch model, power meter, pool access?)
-7. Current easy pace? (Adapt to their sport. Calculate race paces from any race results — don't ask them to do the math.)
+**Q1:**
+> "What sports will this plan cover? Paicer supports running, cycling, swimming, and triathlon (a combination of all three)."
 
-If the plan includes swimming, ask about pool tracking before building the plan (see Swim Tracking below).
+**Q2:**
+> "Do you think in kilometres or miles?"
+
+Immediately run: `paicer config set units metric` (or `imperial`).
+
+**Q3:**
+> "What are you training for, and when's the race?"
+
+If they don't mention whether it's their first time at this distance, follow up:
+> "Is this your first time racing this distance?"
+
+**Q4:**
+> "How old are you?"
+
+**Q5:**
+> "What does your training look like right now — how many hours or [km/miles] a week are you doing, and what's the longest [run/ride/swim] you've done recently?"
+
+Adapt the bracketed parts to their sport and units.
+
+**Q6:**
+> "Any injuries or physical limitations I should know about before we build your plan?"
+
+**Q7:**
+> "How many days a week can you train, and which days work best for you?"
+
+**Conditional — ask only if relevant based on Q1, before Q8:**
+
+If swimming is included: ask the Swim Tracking question (see Swim Tracking section) and save the preference before continuing.
+
+If cycling is included:
+> "Do you train with a power meter on the bike?"
+
+**Q8 — easy pace or power (adapt wording to sport and units):**
+- Running: > "What's your current easy running pace per [km / mile]?"
+- Cycling: > "What's your current easy power in watts? If you don't have a power meter, what heart rate zone feels comfortable on the bike?"
+- Triathlon: ask the running version, then the cycling version, one at a time.
+
+Calculate race paces from any race results they share — don't ask them to do the math.
+
+**Q9 — always last:**
+> "Do you have a Garmin watch, and if so what model?"
 
 Do NOT ask for Garmin credentials directly — the sync command handles that interactively.
 
@@ -68,12 +102,15 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 4. Build week-by-week with progressive volume
 5. Add Garmin structures with YAML comments in user's unit system
 6. Create YAML anchors for reusable sessions (swim, track)
-7. Preview: `paicer render --plan <path>` (fails loudly if YAML is invalid)
+7. Say to the user:
+   > "Let me do a quick validation to make sure the YAML is valid."
+
+   Then run: `paicer render --plan <path>` (fails loudly if YAML is invalid — fix any errors before continuing)
 8. Save the plan path: `paicer config set plan <absolute_path>`
    Tell the user: "I've saved your plan path — you can run `paicer sync w1` without any flags from now on."
 9. Explain what they can do with the plan:
    - **Markdown:** `paicer render` — prints to stdout. Use `-o` to save to a file: `paicer render -o my-plan.md`
-   - **HTML:** `paicer render --html -o my-plan.html` — print-ready, one week per page. Good for putting on the fridge or taking to a race. (Without `-o`, prints to stdout.) Ask: "For printing, do you want A4 or US Letter paper?" Then save: `paicer config set format a4` (or `letter`).
+   - **HTML:** `paicer render --html -o my-plan.html` — print-ready, one week per page. Good for putting on the fridge or taking to a race. Defaults to A4 for metric users, Letter for imperial. (Override with `paicer config set format a4` or `letter`.)
    - **Garmin sync:** uploads structured workouts to Garmin Connect so they appear on the watch with step-by-step targets. See below.
 10. If they have a Garmin watch, explain Garmin sync (see below) and offer: `paicer sync w1`
 11. Suggest `/paicer:review-progress` after the first week of training
