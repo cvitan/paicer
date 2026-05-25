@@ -26,7 +26,7 @@ The user starts with no config file. As they answer questions, save each prefere
 Ask each question **exactly as written** below, one at a time. Wait for the answer before asking the next. Do not rephrase.
 
 **Q1:**
-> "What sports will this plan cover — running, cycling, triathlon, or something else?"
+> "What sports will this plan cover? Paicer supports running, cycling, swimming, and triathlon (a combination of all three)."
 
 **Q2:**
 > "Do you think in kilometres or miles?"
