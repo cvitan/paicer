@@ -64,7 +64,7 @@ Read `units` from `~/.paicer/config` (default: `metric`). Present all values in 
 
    **Notes content:** stick to training-relevant facts — pace, HR, power, distance, elevation, completion vs plan, perceived effort, weather if it affected execution, illness/injury that affected sessions. **Skip lifestyle context** like alcohol consumption, social events, work stress, or other personal details that are not training data — even when the user mentions them in chat.
 
-10. Run `paicer render --plan <plan_path>` to confirm the YAML is valid after edits.
+10. Run `paicer render --plan <plan_path>` to confirm the YAML is valid after edits. Output is written next to the plan file (e.g. `<plan_stem>.md`); the path is echoed. Use `-o <path>` to override.
 
 ## Race Week (special handling)
 

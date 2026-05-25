@@ -46,6 +46,7 @@ def test_render_with_plan_flag(config_home, tmp_path):
     out_file = tmp_path / "plan.md"
     assert out_file.exists()
     assert "Easy run" in out_file.read_text()
+    assert str(out_file) in result.output
 
 
 def test_render_html_with_plan_flag(config_home, tmp_path):
@@ -67,6 +68,7 @@ def test_render_html_with_plan_flag(config_home, tmp_path):
     out_file = tmp_path / "plan.html"
     assert out_file.exists()
     assert "<html" in out_file.read_text().lower()
+    assert str(out_file) in result.output
 
 
 def test_render_output_flag(config_home, tmp_path):
