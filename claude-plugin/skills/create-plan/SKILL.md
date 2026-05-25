@@ -26,37 +26,48 @@ The user starts with no config file. As they answer questions, save each prefere
 Ask each question **exactly as written** below, one at a time. Wait for the answer before asking the next. Do not rephrase.
 
 **Q1:**
-> "Do you use metric (kilometres) or imperial (miles)?"
+> "What sports will this plan cover — running, cycling, triathlon, or something else?"
+
+**Q2:**
+> "Do you think in kilometres or miles?"
 
 Immediately run: `paicer config set units metric` (or `imperial`).
 
-**Q2:**
-> "What are you training for — race distance, goal date, and is it your first time at this distance?"
-
 **Q3:**
-> "What's your current fitness like? Tell me about your recent weekly volume, your longest recent run or ride, and any races in the past few months."
+> "What are you training for, and when's the race?"
+
+If they don't mention whether it's their first time at this distance, follow up:
+> "Is this your first time racing this distance?"
 
 **Q4:**
-> "How many days a week can you train, and which days?"
+> "How old are you?"
 
 **Q5:**
-> "What sports will this plan cover — running only, cycling, or triathlon?"
+> "What does your training look like right now — how many hours or [km/miles] a week are you doing, and what's the longest [run/ride/swim] you've done recently?"
 
-**Conditional — ask only if relevant based on Q5:**
+Adapt the bracketed parts to their sport and units.
 
-If swimming is included, ask the Swim Tracking question (see Swim Tracking section) and save the preference before continuing.
+**Q6:**
+> "Any injuries or physical limitations I should know about before we build your plan?"
+
+**Q7:**
+> "How many days a week can you train, and which days work best for you?"
+
+**Conditional — ask only if relevant based on Q1, before Q8:**
+
+If swimming is included: ask the Swim Tracking question (see Swim Tracking section) and save the preference before continuing.
 
 If cycling is included:
 > "Do you train with a power meter on the bike?"
 
-**Q6 — easy pace or power (adapt wording to their sport and units):**
+**Q8 — easy pace or power (adapt wording to sport and units):**
 - Running: > "What's your current easy running pace per [km / mile]?"
-- Cycling: > "What's your current easy power in watts? If no power meter, what heart rate zone feels easy on the bike?"
-- Triathlon: ask both the running and cycling versions above, one at a time.
+- Cycling: > "What's your current easy power in watts? If you don't have a power meter, what heart rate zone feels comfortable on the bike?"
+- Triathlon: ask the running version, then the cycling version, one at a time.
 
 Calculate race paces from any race results they share — don't ask them to do the math.
 
-**Q7 — always last:**
+**Q9 — always last:**
 > "Do you have a Garmin watch, and if so what model?"
 
 Do NOT ask for Garmin credentials directly — the sync command handles that interactively.
