@@ -11,9 +11,10 @@ Help the user create a new training plan or modify an existing one.
 
 ## Setup Check
 
-Let's get your training plan set up. First I'll check that the paicer CLI is installed — it's a small tool that handles plan rendering and Garmin sync.
+Say to the user:
+> "Let's get your training plan set up! First I'll check that the paicer CLI is installed — it's a small tool that handles plan rendering and Garmin sync."
 
-- Run: `paicer version`
+Then run: `paicer version`
 - If the command is not found:
   - Run: `which uv`
   - If uv is available: run `uv tool install paicer`
