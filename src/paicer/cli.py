@@ -154,6 +154,8 @@ def review(scope, plan_path):
         if not m:
             raise click.BadParameter(f"Invalid scope '{scope}'. Use w3 or w3d2.")
         week_num = int(m.group(1))
+        if week_num < 1:
+            raise click.BadParameter(f"Week number must be >= 1, got {week_num}.")
         day_num = int(m.group(2)) if m.group(2) else None
 
     if week_num is None:
@@ -162,13 +164,15 @@ def review(scope, plan_path):
     week_start, week_end, search_start, search_end = get_week_dates(start_date, week_num)
     planned = get_planned_workouts(plan_data, week_num)
 
-    garmin = GarminIntegration()
-    garmin.authenticate()
-
-    activities = garmin.client.get_activities_by_date(
-        search_start.strftime("%Y-%m-%d"),
-        search_end.strftime("%Y-%m-%d"),
-    )
+    try:
+        garmin = GarminIntegration()
+        garmin.authenticate()
+        activities = garmin.client.get_activities_by_date(
+            search_start.strftime("%Y-%m-%d"),
+            search_end.strftime("%Y-%m-%d"),
+        )
+    except Exception as e:
+        raise click.ClickException(f"Failed to fetch Garmin data: {e}")
 
     activity_data = []
     for a in activities:
@@ -216,9 +220,10 @@ def review(scope, plan_path):
     }
 
     if day_num is not None:
-        if day_num < 1 or day_num > len(planned):
-            raise click.BadParameter(f"Week {week_num} has {len(planned)} workouts, no day {day_num}.")
-        target = planned[day_num - 1]
+        matching = [w for w in planned if w.get("day") == day_num]
+        if not matching:
+            raise click.BadParameter(f"No workout found for day {day_num} in week {week_num}.")
+        target = matching[0]
         prefix = f"W{week_num}: {target['name']}"
         matched = next((a for a in activity_data if a.get("activityName") == prefix), None)
         output = {

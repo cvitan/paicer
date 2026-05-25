@@ -68,6 +68,7 @@ def get_planned_workouts(plan_data, week_num):
             if week["week"] == week_num:
                 for w in week["workouts"]:
                     workouts.append({
+                        "day": w["day"],
                         "name": w["name"],
                         "type": w.get("type", "run"),
                         "description": w.get("description", ""),

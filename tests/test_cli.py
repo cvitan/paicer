@@ -257,3 +257,21 @@ def test_review_invalid_scope(config_home, review_plan):
     with patch("paicer.integrations.garmin.GarminIntegration", return_value=_garmin_mock()):
         result = runner.invoke(cli, ["review", "xyz", "--plan", str(review_plan)])
     assert result.exit_code != 0
+
+
+def test_review_week_zero(config_home, review_plan):
+    from paicer.cli import cli
+    runner = CliRunner()
+    with patch("paicer.integrations.garmin.GarminIntegration", return_value=_garmin_mock()):
+        result = runner.invoke(cli, ["review", "w0", "--plan", str(review_plan)])
+    assert result.exit_code != 0
+
+
+def test_review_day_field_lookup(config_home, review_plan):
+    from paicer.cli import cli
+    runner = CliRunner()
+    with patch("paicer.integrations.garmin.GarminIntegration", return_value=_garmin_mock()):
+        result = runner.invoke(cli, ["review", "w1d1", "--plan", str(review_plan)])
+    assert result.exit_code == 0, result.output
+    data = json.loads(result.output)
+    assert data["planned"]["day"] == 1
