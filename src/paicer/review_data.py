@@ -84,7 +84,7 @@ def get_activity_intervals(garmin, activity_id):
     filtering out RWD_* noise (walk/run/stand detection).
     """
     try:
-        data = garmin.api.get_activity_typed_splits(activity_id)
+        data = garmin.client.get_activity_typed_splits(activity_id)
     except Exception as e:
         print(f"Warning: failed to fetch intervals for activity {activity_id}: {e}",
               file=sys.stderr)
@@ -223,7 +223,7 @@ def main():
     try:
         garmin = GarminIntegration()
         garmin.authenticate()
-        activities = garmin.api.get_activities_by_date(
+        activities = garmin.client.get_activities_by_date(
             search_start.strftime("%Y-%m-%d"),
             search_end.strftime("%Y-%m-%d"),
         )
@@ -270,7 +270,7 @@ def main():
     # Pull training status (load balance, acute/chronic ratio, VO2max)
     training_status = {}
     try:
-        status = garmin.api.get_training_status(
+        status = garmin.client.get_training_status(
             week_end.strftime("%Y-%m-%d"),
         )
         training_status = extract_training_status(status)

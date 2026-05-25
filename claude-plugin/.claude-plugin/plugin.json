@@ -1,7 +1,7 @@
 {
   "name": "paicer",
   "description": "Training plan skills for Claude Code: create and review Garmin-connected training plans",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "author": {
     "name": "Tome Cvitan",
     "email": "tome.cvitan@gmail.com"

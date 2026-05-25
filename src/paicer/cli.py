@@ -119,5 +119,117 @@ def sync(scope, no_schedule, plan_path):
     run_sync(plan_path, scope, no_schedule)
 
 
+@cli.command()
+@click.argument("scope", required=False, default=None, metavar="[SCOPE]")
+@click.option("--plan", "plan_path", type=click.Path(exists=True), default=None, help="Path to plan YAML (overrides config)")
+def review(scope, plan_path):
+    """Fetch Garmin activity data for a plan week or individual workout.
+
+    SCOPE examples: w3 (week 3), w3d2 (week 3 day 2).
+    Defaults to the most recently completed week.
+    Outputs JSON to stdout.
+    """
+    import json
+    import re
+    from .config import get_plan_path, prompt_and_save_plan_path
+    from .review_data import (
+        find_current_week, get_week_dates, get_planned_workouts,
+        get_activity_intervals, extract_training_status,
+    )
+    from .plan_utils import load_plan
+    from .integrations.garmin import GarminIntegration
+
+    if plan_path is None:
+        plan_path = get_plan_path()
+    if plan_path is None:
+        plan_path = prompt_and_save_plan_path()
+
+    plan_data = load_plan(plan_path)
+    start_date = plan_data["plan"]["start_date"]
+
+    week_num = None
+    day_num = None
+    if scope:
+        m = re.fullmatch(r"w(\d+)(?:d(\d+))?", scope, re.IGNORECASE)
+        if not m:
+            raise click.BadParameter(f"Invalid scope '{scope}'. Use w3 or w3d2.")
+        week_num = int(m.group(1))
+        day_num = int(m.group(2)) if m.group(2) else None
+
+    if week_num is None:
+        week_num = find_current_week(start_date)
+
+    week_start, week_end, search_start, search_end = get_week_dates(start_date, week_num)
+    planned = get_planned_workouts(plan_data, week_num)
+
+    garmin = GarminIntegration()
+    garmin.authenticate()
+
+    activities = garmin.client.get_activities_by_date(
+        search_start.strftime("%Y-%m-%d"),
+        search_end.strftime("%Y-%m-%d"),
+    )
+
+    activity_data = []
+    for a in activities:
+        activity_id = a.get("activityId")
+        entry = {
+            "activityName": a.get("activityName"),
+            "activityType": a.get("activityType", {}).get("typeKey", "unknown"),
+            "startTimeLocal": a.get("startTimeLocal"),
+            "distance": a.get("distance"),
+            "duration": a.get("duration"),
+            "averageSpeed": a.get("averageSpeed"),
+            "averageHR": a.get("averageHR"),
+            "maxHR": a.get("maxHR"),
+            "averagePower": a.get("averagePower"),
+            "maxPower": a.get("maxPower"),
+            "elevationGain": a.get("elevationGain"),
+            "elevationLoss": a.get("elevationLoss"),
+            "aerobicTrainingEffect": a.get("aerobicTrainingEffect"),
+            "hrTimeInZones": {
+                f"zone{i}": a.get(f"hrTimeInZone_{i}")
+                for i in range(1, 6)
+                if a.get(f"hrTimeInZone_{i}") is not None
+            },
+        }
+        if activity_id:
+            entry["intervals"] = get_activity_intervals(garmin, activity_id)
+        activity_data.append(entry)
+
+    training_status = {}
+    try:
+        status = garmin.client.get_training_status(week_end.strftime("%Y-%m-%d"))
+        training_status = extract_training_status(status)
+    except Exception as e:
+        click.echo(f"Warning: failed to fetch training status: {e}", err=True)
+
+    output = {
+        "week": week_num,
+        "week_dates": {
+            "start": week_start.strftime("%Y-%m-%d"),
+            "end": week_end.strftime("%Y-%m-%d"),
+        },
+        "planned": planned,
+        "activities": activity_data,
+        "trainingStatus": training_status,
+    }
+
+    if day_num is not None:
+        if day_num < 1 or day_num > len(planned):
+            raise click.BadParameter(f"Week {week_num} has {len(planned)} workouts, no day {day_num}.")
+        target = planned[day_num - 1]
+        prefix = f"W{week_num}: {target['name']}"
+        matched = next((a for a in activity_data if a.get("activityName") == prefix), None)
+        output = {
+            "week": week_num,
+            "day": day_num,
+            "planned": target,
+            "activity": matched,
+        }
+
+    click.echo(json.dumps(output, indent=2))
+
+
 def main():
     cli()
