@@ -92,11 +92,15 @@ def render(html, fmt, output, plan_path):
 
     result = render_plan(plan_path, html=html, paper_format=fmt)
 
-    if output:
-        with open(output, "w") as f:
-            f.write(result)
-    else:
-        click.echo(result)
+    if output is None:
+        from pathlib import Path
+        stem = Path(plan_path).stem
+        ext = ".html" if html else ".md"
+        output = str(Path(plan_path).parent / (stem + ext))
+
+    with open(output, "w") as f:
+        f.write(result)
+    click.echo(output)
 
 
 @cli.command()

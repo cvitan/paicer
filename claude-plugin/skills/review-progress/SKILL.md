@@ -7,7 +7,7 @@ description: Compare last week's Garmin activities against the training plan and
 
 Compare last week's Garmin activities against the plan and discuss adjustments.
 
-**Invoke the `paicer:plan-authoring` skill** for unit conventions and pace conversion reference.
+**Read the plan-authoring guide** at `../../guides/plan-authoring.md` relative to this skill's base directory for unit conventions and pace conversion reference.
 
 ## Setup Check
 
@@ -68,7 +68,7 @@ Read `units` from `~/.paicer/config` (default: `metric`). Present all values in 
 
 ## Race Week (special handling)
 
-When the upcoming week contains a race, the standard review flow still applies — but **race-week conversations must lead with the HR ceiling rule, not with fueling/kit/course details.** See the "Race Strategy and Execution Priorities" section of the `paicer:plan-authoring` skill for the priority order.
+When the upcoming week contains a race, the standard review flow still applies — but **race-week conversations must lead with the HR ceiling rule, not with fueling/kit/course details.** See the "Race Strategy and Execution Priorities" section of the plan-authoring guide for the priority order.
 
 The single highest-leverage piece of race-day advice is: *"Stay below the HR ceiling until the release km. Then push."* If that gets buried under gel timing, breakfast composition, and kit selection conversations, the user loses the race in execution even when training is fit. Make it the headline of every race-week message.
 

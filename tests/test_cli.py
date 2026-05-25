@@ -43,7 +43,9 @@ def test_render_with_plan_flag(config_home, tmp_path):
     runner = CliRunner()
     result = runner.invoke(cli, ["render", "--plan", str(plan_file)])
     assert result.exit_code == 0
-    assert "Easy run" in result.output
+    out_file = tmp_path / "plan.md"
+    assert out_file.exists()
+    assert "Easy run" in out_file.read_text()
 
 
 def test_render_html_with_plan_flag(config_home, tmp_path):
@@ -62,7 +64,9 @@ def test_render_html_with_plan_flag(config_home, tmp_path):
     runner = CliRunner()
     result = runner.invoke(cli, ["render", "--html", "--plan", str(plan_file)])
     assert result.exit_code == 0
-    assert "<html" in result.output.lower()
+    out_file = tmp_path / "plan.html"
+    assert out_file.exists()
+    assert "<html" in out_file.read_text().lower()
 
 
 def test_render_output_flag(config_home, tmp_path):

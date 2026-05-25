@@ -1,7 +1,3 @@
----
-name: plan-authoring
-description: Use when creating, editing, or reviewing training plan YAML - covers structure rules, unit conventions, Garmin patterns, workout types, and periodization principles
----
 
 # Plan Authoring
 

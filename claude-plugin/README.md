@@ -11,9 +11,10 @@ Claude Code skills for [paicer](https://github.com/cvitan/paicer) — create and
 
 ## Skills
 
-- `/paicer:create-plan` — Interview-driven plan creation; uploads workouts to Garmin Connect
-- `/paicer:review-progress` — Compare last week's Garmin activities against the plan and discuss adjustments
-- `/paicer:plan-authoring` — Reference for plan YAML structure, Garmin patterns, and periodization principles
+After installing, type `/create-plan` or `/review-progress` in Claude Code (skills appear without the `paicer:` prefix in the autocomplete list, but both forms work):
+
+- `/create-plan` — Interview-driven plan creation; uploads workouts to Garmin Connect
+- `/review-progress` — Compare last week's Garmin activities against the plan and discuss adjustments
 
 ## Requirements
 
