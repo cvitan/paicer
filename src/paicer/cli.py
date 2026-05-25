@@ -75,10 +75,10 @@ def config_show():
     default=None,
     help="Paper format for HTML output (default: a4 for metric, letter for imperial)",
 )
-@click.option("-o", "--output", type=click.Path(), default=None, help="Write to file instead of stdout")
+@click.option("-o", "--output", type=click.Path(), default=None, help="Output path (default: <plan_dir>/<plan_stem>.md/.html)")
 @click.option("--plan", "plan_path", type=click.Path(exists=True), default=None, help="Path to plan YAML (overrides config)")
 def render(html, fmt, output, plan_path):
-    """Render training plan to Markdown or HTML."""
+    """Render training plan to Markdown or HTML. Writes next to the plan file by default; echoes the output path."""
     from .config import get_plan_path, get_format, prompt_and_save_plan_path
     from .render import render_plan
 
@@ -92,11 +92,15 @@ def render(html, fmt, output, plan_path):
 
     result = render_plan(plan_path, html=html, paper_format=fmt)
 
-    if output:
-        with open(output, "w") as f:
-            f.write(result)
-    else:
-        click.echo(result)
+    if output is None:
+        from pathlib import Path
+        stem = Path(plan_path).stem
+        ext = ".html" if html else ".md"
+        output = str(Path(plan_path).parent / (stem + ext))
+
+    with open(output, "w", encoding="utf-8") as f:
+        f.write(result)
+    click.echo(output)
 
 
 @cli.command()

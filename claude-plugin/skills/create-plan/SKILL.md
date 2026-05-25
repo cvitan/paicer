@@ -96,7 +96,7 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 
 ## Building the Plan
 
-1. Invoke `paicer:plan-authoring` — it has bundled reference examples. Read `examples/reference-metric.yaml` or `examples/reference-imperial.yaml` from that skill's base directory.
+1. Read the plan-authoring guide at `../../guides/plan-authoring.md` relative to this skill's base directory. Read the relevant reference example from `../../guides/examples/reference-metric.yaml` or `../../guides/examples/reference-imperial.yaml`.
 2. Create plan file at a path the user chooses (suggest `~/Documents/paicer/my-plan.yaml`)
 3. Design phase structure (Base -> Build -> Peak -> Taper)
 4. Build week-by-week with progressive volume
