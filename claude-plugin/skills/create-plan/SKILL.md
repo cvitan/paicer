@@ -21,9 +21,9 @@ Then run: `paicer version`
 
 ## Creating a New Plan
 
-The user starts with no config file. As they answer questions, save each preference immediately with `paicer config set` — it creates the config file on first use, no setup required.
+The user starts with no config file. Two preferences are saved during the interview via `paicer config set` (which creates the config file on first use): `units` after Q2, and `swim_tracking` after the swim tracking question. Everything else is context for building the plan — not persisted.
 
-Ask each question **exactly as written** below, one at a time. Wait for the answer before asking the next. Do not rephrase.
+Ask each question **exactly as written** below, one at a time. Wait for the answer before asking the next. Do not rephrase the fixed wording — but do substitute bracketed placeholders (e.g. `[km / mile]`, `[run/ride/swim]`) based on their sport and units.
 
 **Q1:**
 > "What sports will this plan cover? Paicer supports running, cycling, swimming, and triathlon (a combination of all three)."
@@ -102,7 +102,10 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 4. Build week-by-week with progressive volume
 5. Add Garmin structures with YAML comments in user's unit system
 6. Create YAML anchors for reusable sessions (swim, track)
-7. Say to the user: "Let me do a quick validation to make sure the YAML is valid." Then run: `paicer render --plan <path>` (fails loudly if YAML is invalid — fix any errors before continuing)
+7. Say to the user:
+   > "Let me do a quick validation to make sure the YAML is valid."
+
+   Then run: `paicer render --plan <path>` (fails loudly if YAML is invalid — fix any errors before continuing)
 8. Save the plan path: `paicer config set plan <absolute_path>`
    Tell the user: "I've saved your plan path — you can run `paicer sync w1` without any flags from now on."
 9. Explain what they can do with the plan:
