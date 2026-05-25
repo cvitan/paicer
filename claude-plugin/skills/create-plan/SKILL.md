@@ -7,8 +7,6 @@ description: Create or edit a paicer training plan YAML — interviews user, bui
 
 Help the user create a new training plan or modify an existing one.
 
-**Invoke the `paicer:plan-authoring` skill** for YAML structure, unit conventions, Garmin patterns, and periodization principles.
-
 ## Setup Check
 
 Say to the user:
@@ -25,17 +23,37 @@ Then run: `paicer version`
 
 The user starts with no config file. As they answer questions, save each preference immediately with `paicer config set` — it creates the config file on first use, no setup required.
 
-Interview the user **one question at a time**. Wait for each answer before asking the next.
+Ask each question **exactly as written** below, one at a time. Wait for the answer before asking the next. Do not rephrase.
 
-1. Do you use metric or imperial? (km/miles) → immediately run: `paicer config set units <metric_or_imperial>`
-2. What are you training for? (race distance, goal date, first time?)
-3. Current fitness? (recent volume, longest recent run/ride, recent races?)
-4. How many days per week, and which days?
-5. What sports? (running only, triathlon, cycling?)
-6. Equipment? (Garmin watch model, power meter, pool access?)
-7. Current easy pace? (Adapt to their sport. Calculate race paces from any race results — don't ask them to do the math.)
+**Q1:**
+> "Do you use metric (kilometres) or imperial (miles)?"
 
-If the plan includes swimming, ask about pool tracking before building the plan (see Swim Tracking below).
+Immediately run: `paicer config set units metric` (or `imperial`).
+
+**Q2:**
+> "What are you training for — race distance, goal date, and is it your first time at this distance?"
+
+**Q3:**
+> "What's your current fitness like? Tell me about your recent weekly volume, your longest recent run or ride, and any races in the past few months."
+
+**Q4:**
+> "How many days a week can you train, and which days?"
+
+**Q5:**
+> "What sports will this plan cover — running only, cycling, or triathlon?"
+
+**Q6:**
+> "What Garmin watch model do you have, and do you have a power meter?"
+
+**Q7:**
+Ask about easy pace or power, adapted to their sport and units:
+- Running: > "What's your current easy running pace per [km / mile]?"
+- Cycling: > "What's your current easy power output in watts? If you don't have a power meter, what heart rate zone do you ride easy in?"
+- Triathlon: ask the running version, then the cycling version.
+
+Calculate race paces from any race results they share — don't ask them to do the math.
+
+If the plan includes swimming, ask the Swim Tracking question (below) before building the plan.
 
 Do NOT ask for Garmin credentials directly — the sync command handles that interactively.
 
