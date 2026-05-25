@@ -42,18 +42,22 @@ Immediately run: `paicer config set units metric` (or `imperial`).
 **Q5:**
 > "What sports will this plan cover — running only, cycling, or triathlon?"
 
-**Q6:**
-> "What Garmin watch model do you have, and do you have a power meter?"
+**Conditional — ask only if relevant based on Q5:**
 
-**Q7:**
-Ask about easy pace or power, adapted to their sport and units:
+If swimming is included, ask the Swim Tracking question (see Swim Tracking section) and save the preference before continuing.
+
+If cycling is included:
+> "Do you train with a power meter on the bike?"
+
+**Q6 — easy pace or power (adapt wording to their sport and units):**
 - Running: > "What's your current easy running pace per [km / mile]?"
-- Cycling: > "What's your current easy power output in watts? If you don't have a power meter, what heart rate zone do you ride easy in?"
-- Triathlon: ask the running version, then the cycling version.
+- Cycling: > "What's your current easy power in watts? If no power meter, what heart rate zone feels easy on the bike?"
+- Triathlon: ask both the running and cycling versions above, one at a time.
 
 Calculate race paces from any race results they share — don't ask them to do the math.
 
-If the plan includes swimming, ask the Swim Tracking question (below) before building the plan.
+**Q7 — always last:**
+> "Do you have a Garmin watch, and if so what model?"
 
 Do NOT ask for Garmin credentials directly — the sync command handles that interactively.
 
