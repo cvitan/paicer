@@ -15,7 +15,7 @@ Cloudflare Worker that auto-enriches your Strava activities with training plan d
 
 ## Prerequisites
 
-- **paicer + a training plan.** Install the CLI (`pip install paicer`), then create a plan with `/paicer:create-plan` in Claude Code (or point at an existing one: `paicer config set plan /path/to/plan.yaml`). The enricher reads your plan path and units from `~/.paicer/config` at deploy time — you don't need to clone the paicer repo.
+- **paicer + a training plan.** Create a plan with `/paicer:create-plan` in Claude Code, or point at an existing one (`paicer config set plan /path/to/plan.yaml`). The enricher reads your plan path and units from `~/.paicer/config` at deploy time — you don't need to clone the paicer repo.
 - [Node.js](https://nodejs.org/) 22+ (`brew install node`)
 - A free [Cloudflare account](https://dash.cloudflare.com/sign-up)
 - A [Strava API app](https://www.strava.com/settings/api) (set callback domain to `localhost`)
