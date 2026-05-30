@@ -15,20 +15,25 @@ Cloudflare Worker that auto-enriches your Strava activities with training plan d
 
 ## Prerequisites
 
-- A paicer training plan (run `/paicer:create-plan` in Claude Code)
+- **paicer + a training plan.** Install the CLI (`pip install paicer`), then create a plan with `/paicer:create-plan` in Claude Code (or point at an existing one: `paicer config set plan /path/to/plan.yaml`). The enricher reads your plan path and units from `~/.paicer/config` at deploy time — you don't need to clone the paicer repo.
 - [Node.js](https://nodejs.org/) 22+ (`brew install node`)
 - A free [Cloudflare account](https://dash.cloudflare.com/sign-up)
 - A [Strava API app](https://www.strava.com/settings/api) (set callback domain to `localhost`)
 
 ## Setup
 
-### 1. Install Wrangler and log in
+### 1. Get the enricher
+
+You don't need to clone the whole paicer repo — `degit` copies just this worker into a new directory:
 
 ```bash
-cd strava-enricher
+npx degit cvitan/paicer/strava-enricher my-strava-enricher
+cd my-strava-enricher
 npm install
 npx wrangler login
 ```
+
+(Already working inside the paicer repo? Just `cd strava-enricher && npm install && npx wrangler login` instead.)
 
 If this is your first Cloudflare worker, set up your workers.dev subdomain in the [Cloudflare dashboard](https://dash.cloudflare.com) under **Workers & Pages** → **Your subdomain**. Your worker will deploy to `https://paicer-strava-enricher.<your-subdomain>.workers.dev`.
 
@@ -50,10 +55,9 @@ This handles everything else: KV namespace creation, wrangler.toml generation, O
 
 ## Deploy
 
-After changing your training plan:
+After changing your training plan, from the worker directory:
 
 ```bash
-cd strava-enricher
 ./deploy.sh
 ```
 
