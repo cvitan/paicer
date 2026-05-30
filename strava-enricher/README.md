@@ -53,15 +53,24 @@ Edit `.dev.vars` with your client ID and secret from your [Strava API app](https
 
 This handles everything else: KV namespace creation, wrangler.toml generation, OAuth authorization, token storage, secrets, deployment, and webhook subscription. Follow the prompts — the worker URL is detected automatically from the deploy output.
 
-## Deploy
+## Keeping it up to date
 
-After changing your training plan, from the worker directory:
+**The worker bundles a copy of your plan at deploy time — it does not read your plan file live.** So whenever your plan changes, the worker keeps using the *old* plan until you redeploy. Redeploy from the worker directory:
 
 ```bash
 ./deploy.sh
 ```
 
-This copies your plan YAML (from `~/.paicer/config`) into the worker and redeploys with your configured units.
+This re-copies your plan YAML (from `~/.paicer/config`) into the worker and redeploys with your configured units.
+
+**Redeploy after any of these:**
+- You edited the plan (added/renamed workouts, changed dates, added weeks) — including edits made by `/paicer:create-plan`.
+- `/paicer:review-progress` adjusted upcoming workouts.
+- You changed your units (`paicer config set units …`).
+
+If you don't redeploy, activities will still be enriched — but matched against the stale plan (old names/descriptions, or no match for newly-added workouts).
+
+You only run `./setup.sh` **once**. After that, `./deploy.sh` is the only command you need. Token refresh is automatic — you never re-authorize unless you revoke access.
 
 ## How it works
 
