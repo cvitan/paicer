@@ -1,0 +1,5 @@
+# From https://www.strava.com/settings/api (Client ID and Client Secret)
+STRAVA_CLIENT_ID=your_client_id
+STRAVA_CLIENT_SECRET=your_client_secret
+# Used to verify webhook subscription — do not change
+STRAVA_VERIFY_TOKEN=paicer-strava-hook

@@ -28,6 +28,9 @@ memory/
 # yaks data directory
 .yaks
 
+# Wrangler local state (e.g. from running wrangler outside strava-enricher/)
+.wrangler/
+
 
 # IDE
 .vscode/

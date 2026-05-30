@@ -1,0 +1,48 @@
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { listActivities, updateActivity } from "./strava.js";
+
+afterEach(() => vi.restoreAllMocks());
+
+describe("listActivities", () => {
+  it("calls the athlete activities endpoint with the time range and returns the array", async () => {
+    const fakeActivities = [{ id: 1 }, { id: 2 }];
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => fakeActivities,
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await listActivities("tok", 100, 200);
+
+    expect(result).toEqual(fakeActivities);
+    const url = fetchMock.mock.calls[0]![0] as string;
+    expect(url).toContain("/athlete/activities");
+    expect(url).toContain("after=100");
+    expect(url).toContain("before=200");
+    expect(url).toContain("per_page=100");
+  });
+
+  it("returns [] on a non-ok response", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({ ok: false, status: 500, text: async () => "err" }),
+    );
+    expect(await listActivities("tok", 1, 2)).toEqual([]);
+  });
+});
+
+describe("updateActivity", () => {
+  it("PUTs only the name, never a description", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const ok = await updateActivity("tok", 42, "W14: Easy 9 km");
+
+    expect(ok).toBe(true);
+    const init = fetchMock.mock.calls[0]![1] as RequestInit;
+    expect(init.method).toBe("PUT");
+    const body = JSON.parse(init.body as string);
+    expect(body).toEqual({ name: "W14: Easy 9 km" });
+    expect(body).not.toHaveProperty("description");
+  });
+});
