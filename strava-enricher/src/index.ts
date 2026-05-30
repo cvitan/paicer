@@ -79,17 +79,6 @@ export default {
       return new Response("strava-worker ok");
     }
 
-    // KV diagnostic — remove after debugging
-    if (request.method === "GET" && url.pathname === "/debug/kv") {
-      // Write a test key through the binding, then list everything
-      await env.STRAVA_TOKENS.put("debug:test", "hello");
-      const keys = await env.STRAVA_TOKENS.list();
-      const keyNames = keys.keys.map((k) => k.name);
-      const debugVal = await env.STRAVA_TOKENS.get("debug:test");
-      await env.STRAVA_TOKENS.delete("debug:test");
-      return Response.json({ keys: keyNames, debugWrite: debugVal });
-    }
-
     return new Response("Not found", { status: 404 });
   },
 };
