@@ -26,7 +26,7 @@ After each week of training, run `/paicer:review-progress` to review your plan p
 
 Auto-label your Strava activities with your plan. When Garmin syncs a workout to Strava, a small Cloudflare Worker matches it to your plan by date and sport, renames it, and adds a planned-vs-actual description — turning "Afternoon Run" into "Tempo 2x15 min" with the week's targets and your actual stats.
 
-See [`strava-enricher/`](strava-enricher/README.md) for setup (scaffold it with `npx degit cvitan/paicer/strava-enricher` — no repo clone needed).
+See [`strava-enricher/`](strava-enricher/README.md) for setup.
 
 ## CLI Commands
 
