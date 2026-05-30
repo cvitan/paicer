@@ -1,5 +1,20 @@
 import yaml from "js-yaml";
-import type { PlanWorkout, PlanYaml } from "./types.js";
+import type { GarminStep, PlanWorkout, PlanYaml } from "./types.js";
+
+export function expandSteps(steps: GarminStep[]): GarminStep[] {
+  const out: GarminStep[] = [];
+  for (const step of steps) {
+    if (step.stepType === "repeat" && step.steps) {
+      const iterations = step.numberOfIterations ?? 1;
+      for (let i = 0; i < iterations; i++) {
+        out.push(...expandSteps(step.steps));
+      }
+    } else {
+      out.push(step);
+    }
+  }
+  return out;
+}
 
 const STRAVA_SPORT_TO_PLAN: Record<string, string[]> = {
   Run: ["run", "track", "race"],

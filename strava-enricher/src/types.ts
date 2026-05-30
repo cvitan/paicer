@@ -76,10 +76,19 @@ interface PlanWeek {
   workouts: PlanWeekWorkout[];
 }
 
+export interface GarminStep {
+  stepType: string;
+  endCondition?: string;
+  endConditionValue?: number;
+  numberOfIterations?: number;
+  steps?: GarminStep[];
+}
+
 interface PlanWeekWorkout {
   day: number;
   type: string;
   name: string;
   description?: string;
   optional?: boolean;
+  garmin?: { steps?: GarminStep[] };
 }
