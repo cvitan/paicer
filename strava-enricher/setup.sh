@@ -116,12 +116,12 @@ echo "Access token expires at: ${EXPIRES_AT}"
 echo ""
 echo "=== Step 3: Store tokens in KV ==="
 
-TOKEN_JSON=$(python3 -c "
-import json
+TOKEN_JSON=$(ACCESS_TOKEN="$ACCESS_TOKEN" REFRESH_TOKEN="$REFRESH_TOKEN" EXPIRES_AT="$EXPIRES_AT" python3 -c "
+import json, os
 print(json.dumps({
-    'access_token': '${ACCESS_TOKEN}',
-    'refresh_token': '${REFRESH_TOKEN}',
-    'expires_at': ${EXPIRES_AT}
+    'access_token': os.environ['ACCESS_TOKEN'],
+    'refresh_token': os.environ['REFRESH_TOKEN'],
+    'expires_at': int(os.environ['EXPIRES_AT']),
 }))
 ")
 
@@ -138,7 +138,8 @@ else
   echo "$VERIFY"
   echo ""
   echo "Try storing manually:"
-  echo "  npx wrangler kv key put \"tokens:${ATHLETE_ID}\" '${TOKEN_JSON}' --namespace-id \"${KV_ID}\""
+  echo "  echo \"\$TOKEN_JSON\" | npx wrangler kv key put \"tokens:${ATHLETE_ID}\" --namespace-id \"${KV_ID}\" --path /dev/stdin"
+  echo "  (the token JSON is in the TOKEN_JSON shell variable above; avoid pasting it into shared terminals)"
   exit 1
 fi
 
@@ -148,6 +149,7 @@ echo "=== Step 4: Set secrets ==="
 echo "${STRAVA_CLIENT_ID}" | npx wrangler secret put STRAVA_CLIENT_ID
 echo "${STRAVA_CLIENT_SECRET}" | npx wrangler secret put STRAVA_CLIENT_SECRET
 echo "${VERIFY_TOKEN}" | npx wrangler secret put STRAVA_VERIFY_TOKEN
+echo "${ATHLETE_ID}" | npx wrangler secret put STRAVA_ATHLETE_ID
 
 echo ""
 echo "=== Step 5: Deploy worker ==="

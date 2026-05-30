@@ -107,6 +107,12 @@ async function handleWebhookEvent(
     return new Response("Bad request", { status: 400 });
   }
 
+  // Reject events that aren't for the configured athlete. Strava does not
+  // sign webhook payloads, so owner_id is our only authenticity signal.
+  if (env.STRAVA_ATHLETE_ID && event.owner_id !== Number(env.STRAVA_ATHLETE_ID)) {
+    return new Response("Forbidden", { status: 403 });
+  }
+
   // Only process new activities
   if (event.object_type === "activity" && event.aspect_type === "create") {
     ctx.waitUntil(processActivity(env, event));

@@ -52,9 +52,16 @@ export async function getValidAccessToken(
   });
 
   if (!resp.ok) {
-    console.error(
-      `Token refresh failed: ${resp.status} ${await resp.text()}`,
-    );
+    const body = await resp.text();
+    if (resp.status === 400 || resp.status === 401) {
+      console.error(
+        `Token refresh rejected (${resp.status}) for athlete ${athleteId}: ` +
+        `refresh token is likely expired or revoked. Re-run ./setup.sh to ` +
+        `re-authorize. ${body}`,
+      );
+    } else {
+      console.error(`Token refresh failed: ${resp.status} ${body}`);
+    }
     return null;
   }
 
