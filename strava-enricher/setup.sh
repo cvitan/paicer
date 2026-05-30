@@ -47,19 +47,16 @@ fi
 
 if [[ -z "${KV_ID:-}" ]]; then
   echo "Creating KV namespace..."
-  KV_OUTPUT=$(npx wrangler kv namespace create STRAVA_TOKENS 2>&1)
-  KV_ID=$(echo "$KV_OUTPUT" | grep -o '"[a-f0-9]\{32\}"' | tr -d '"')
+  # `create` exits non-zero if the namespace already exists; `|| true` keeps
+  # `set -e` from killing the script so we can fall through to the lookup.
+  KV_OUTPUT=$(npx wrangler kv namespace create STRAVA_TOKENS 2>&1) || true
+  KV_ID=$(echo "$KV_OUTPUT" | grep -o '"[a-f0-9]\{32\}"' | tr -d '"' | head -1) || true
 
   if [[ -z "$KV_ID" ]]; then
     echo "Namespace may already exist, looking it up..."
-    KV_LIST=$(npx wrangler kv namespace list 2>&1)
-    KV_ID=$(echo "$KV_LIST" | python3 -c "
-import sys, json
-for ns in json.load(sys.stdin):
-    if 'STRAVA_TOKENS' in ns.get('title', ''):
-        print(ns['id'])
-        break
-" 2>/dev/null || true)
+    KV_LIST=$(npx wrangler kv namespace list 2>&1) || true
+    # Track the most recent "id" line, print it when the matching title appears.
+    KV_ID=$(echo "$KV_LIST" | awk -F'"' '/"id":/{id=$4} /"title": "STRAVA_TOKENS"/{print id; exit}') || true
   fi
 fi
 
