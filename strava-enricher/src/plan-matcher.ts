@@ -16,6 +16,39 @@ export function expandSteps(steps: GarminStep[]): GarminStep[] {
   return out;
 }
 
+const PACE_SEC_PER_METER: Record<string, number> = {
+  run: 0.36, // 6:00/km
+  bike: 0.12, // 30 km/h
+  swim: 1.2, // 2:00/100 m
+};
+const TOLERANCE = 0.35;
+
+export interface SessionTarget {
+  distance: number | null;
+  duration: number | null;
+}
+
+export function stepTargets(steps: GarminStep[], family: string): SessionTarget {
+  const pace = PACE_SEC_PER_METER[family];
+  let distance = 0;
+  let duration = 0;
+  for (const step of expandSteps(steps)) {
+    const v = step.endConditionValue;
+    if (v === undefined) continue;
+    if (step.endCondition === "distance") {
+      distance += v;
+      if (pace !== undefined) duration += v * pace;
+    } else if (step.endCondition === "time") {
+      duration += v;
+      if (pace !== undefined) distance += v / pace;
+    }
+  }
+  return {
+    distance: distance > 0 ? Math.round(distance) : null,
+    duration: duration > 0 ? Math.round(duration) : null,
+  };
+}
+
 const STRAVA_SPORT_TO_PLAN: Record<string, string[]> = {
   Run: ["run", "track", "race"],
   TrailRun: ["run", "track", "race"],
