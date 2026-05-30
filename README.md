@@ -22,6 +22,12 @@ After each week of training, run `/paicer:review-progress` to review your plan p
 - **HTML** — set up to print 1 wk/page
 - **Garmin** — sync scheduled structured workouts
 
+## Strava Enrichment (optional)
+
+Auto-label your Strava activities with your plan. When Garmin syncs a workout to Strava, a small Cloudflare Worker matches it to your plan by date and sport, renames it, and adds a planned-vs-actual description — turning "Afternoon Run" into "Tempo 2x15 min" with the week's targets and your actual stats.
+
+See [`strava-enricher/`](strava-enricher/README.md) for setup (scaffold it with `npx degit cvitan/paicer/strava-enricher` — no repo clone needed).
+
 ## CLI Commands
 
 If you prefer to run paicer directly rather than through the Claude plugin:
