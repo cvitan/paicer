@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { listActivities } from "./strava.js";
+import { listActivities, updateActivity } from "./strava.js";
 
 afterEach(() => vi.restoreAllMocks());
 

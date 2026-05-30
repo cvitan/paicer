@@ -119,7 +119,6 @@ export async function updateActivity(
   accessToken: string,
   activityId: number,
   name: string,
-  description: string,
 ): Promise<boolean> {
   const resp = await fetch(`${STRAVA_API}/activities/${activityId}`, {
     method: "PUT",
@@ -127,7 +126,8 @@ export async function updateActivity(
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, description }),
+    // Only the name is set; the description is left untouched.
+    body: JSON.stringify({ name }),
   });
 
   if (!resp.ok) {

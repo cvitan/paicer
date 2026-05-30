@@ -7,7 +7,6 @@ export interface Env {
   // Random per-deployment secret embedded in the webhook callback path
   // (/webhook/<WEBHOOK_SECRET>); authenticates incoming Strava events.
   WEBHOOK_SECRET?: string;
-  UNITS?: string;
 }
 
 export interface StravaWebhookEvent {

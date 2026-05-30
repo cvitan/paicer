@@ -22,8 +22,6 @@ read_config() {
 }
 
 PLAN_PATH=$(read_config plan)
-UNITS=$(read_config units)
-UNITS="${UNITS:-metric}"
 
 if [[ -z "$PLAN_PATH" || ! -f "$PLAN_PATH" ]]; then
   echo "Error: No training plan found in ~/.paicer/config."
@@ -34,7 +32,7 @@ fi
 echo "Copying plan: $PLAN_PATH -> plan.yaml"
 cp "$PLAN_PATH" plan.yaml
 
-echo "Running: npx wrangler deploy --var UNITS:${UNITS}"
-npx wrangler deploy --var "UNITS:${UNITS}"
+echo "Running: npx wrangler deploy"
+npx wrangler deploy
 
-echo "Deployed. Plan and units are now live."
+echo "Deployed. Plan is now live."

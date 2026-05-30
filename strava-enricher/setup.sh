@@ -173,8 +173,6 @@ read_config() {
 }
 
 PLAN_PATH=$(read_config plan)
-UNITS=$(read_config units)
-UNITS="${UNITS:-metric}"
 
 if [[ -z "$PLAN_PATH" || ! -f "$PLAN_PATH" ]]; then
   echo "Error: No training plan found in ~/.paicer/config."
@@ -185,8 +183,8 @@ fi
 echo "Copying plan: $PLAN_PATH -> plan.yaml"
 cp "$PLAN_PATH" plan.yaml
 
-echo "Running: npx wrangler deploy --var UNITS:${UNITS}"
-DEPLOY_OUTPUT=$(npx wrangler deploy --var "UNITS:${UNITS}" 2>&1)
+echo "Running: npx wrangler deploy"
+DEPLOY_OUTPUT=$(npx wrangler deploy 2>&1)
 echo "$DEPLOY_OUTPUT"
 
 # Detect the worker URL from the deploy output; fall back to a prompt.

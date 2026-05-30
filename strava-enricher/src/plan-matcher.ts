@@ -236,6 +236,10 @@ export function sessionsForWeek(
   return index.sessions.filter((s) => s.week === week && s.family === family);
 }
 
+export function formatTitle(session: PlanSession): string {
+  return `W${session.week}: ${session.name}`;
+}
+
 const STRAVA_SPORT_TO_FAMILY: Record<string, string> = {
   Run: "run",
   TrailRun: "run",

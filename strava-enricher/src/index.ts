@@ -1,7 +1,7 @@
-import { buildDescription, type Units } from "./description.js";
 import {
   assignWeek,
   buildPlanIndex,
+  formatTitle,
   sessionsForWeek,
   stravaFamily,
   weekBounds,
@@ -86,13 +86,11 @@ async function processActivity(
     return;
   }
 
-  const units: Units = env.UNITS === "imperial" ? "imperial" : "metric";
-  const description = buildDescription(workout, activity, units);
-  const ok = await updateActivity(accessToken, activity.id, workout.name, description);
+  const title = formatTitle(workout);
+  const ok = await updateActivity(accessToken, activity.id, title);
   if (ok) {
     console.log(
-      `Updated activity ${activity.id}: "${workout.name}" ` +
-        `(week ${workout.week}, phase ${workout.phaseNumber})`,
+      `Updated activity ${activity.id}: "${title}" (phase ${workout.phaseNumber})`,
     );
   }
 }

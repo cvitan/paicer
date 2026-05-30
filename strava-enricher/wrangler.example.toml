@@ -11,6 +11,3 @@ id = "YOUR_KV_NAMESPACE_ID"
 [[rules]]
 type = "Text"
 globs = ["**/*.yaml"]
-
-[vars]
-UNITS = "metric"
