@@ -122,12 +122,14 @@ print(json.dumps({
 }))
 ")
 
-npx wrangler kv key put "tokens:${ATHLETE_ID}" "$TOKEN_JSON" --namespace-id "$KV_ID"
+# --remote is required: without it wrangler writes to a local simulation, and
+# the deployed worker (which reads the real remote namespace) never sees it.
+npx wrangler kv key put "tokens:${ATHLETE_ID}" "$TOKEN_JSON" --namespace-id "$KV_ID" --remote
 echo "Tokens stored in KV as tokens:${ATHLETE_ID}"
 
-# Verify the token was actually stored
+# Verify the token was actually stored (also --remote, so we check the real store)
 echo "Verifying token storage..."
-VERIFY=$(npx wrangler kv key get "tokens:${ATHLETE_ID}" --namespace-id "$KV_ID" 2>&1)
+VERIFY=$(npx wrangler kv key get "tokens:${ATHLETE_ID}" --namespace-id "$KV_ID" --remote 2>&1)
 if echo "$VERIFY" | grep -q "access_token"; then
   echo "Verified: token is stored correctly."
 else
@@ -135,7 +137,7 @@ else
   echo "$VERIFY"
   echo ""
   echo "Try storing manually:"
-  echo "  echo \"\$TOKEN_JSON\" | npx wrangler kv key put \"tokens:${ATHLETE_ID}\" --namespace-id \"${KV_ID}\" --path /dev/stdin"
+  echo "  echo \"\$TOKEN_JSON\" | npx wrangler kv key put \"tokens:${ATHLETE_ID}\" --namespace-id \"${KV_ID}\" --remote --path /dev/stdin"
   echo "  (the token JSON is in the TOKEN_JSON shell variable above; avoid pasting it into shared terminals)"
   exit 1
 fi
