@@ -30,3 +30,19 @@ describe("listActivities", () => {
     expect(await listActivities("tok", 1, 2)).toEqual([]);
   });
 });
+
+describe("updateActivity", () => {
+  it("PUTs only the name, never a description", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const ok = await updateActivity("tok", 42, "W14: Easy 9 km");
+
+    expect(ok).toBe(true);
+    const init = fetchMock.mock.calls[0]![1] as RequestInit;
+    expect(init.method).toBe("PUT");
+    const body = JSON.parse(init.body as string);
+    expect(body).toEqual({ name: "W14: Easy 9 km" });
+    expect(body).not.toHaveProperty("description");
+  });
+});
