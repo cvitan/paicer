@@ -72,7 +72,9 @@ left untouched.
   rest of paicer uses. The worker is given the plan at deploy time and units as
   a Wrangler var.
 - Secrets via `wrangler secret put`: `STRAVA_CLIENT_ID`,
-  `STRAVA_CLIENT_SECRET`, `STRAVA_VERIFY_TOKEN`.
+  `STRAVA_CLIENT_SECRET`, `STRAVA_VERIFY_TOKEN`, `STRAVA_ATHLETE_ID`
+  (the last set by `setup.sh` after OAuth; used to reject webhook events
+  for other athletes since Strava does not sign payloads).
 
 ## Scope
 

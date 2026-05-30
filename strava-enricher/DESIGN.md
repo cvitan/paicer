@@ -115,6 +115,12 @@ Webhook POST payload:
 The worker only processes events where `object_type == "activity"` and
 `aspect_type == "create"`. All others return 200 immediately.
 
+Strava does not sign webhook payloads, so `owner_id` is the only
+authenticity signal available. When `STRAVA_ATHLETE_ID` is configured, the
+worker rejects events whose `owner_id` does not match it with a 403. This
+prevents an arbitrary caller who discovers the worker URL from triggering
+activity reads/writes on the authorized athlete's behalf.
+
 ## Plan matching
 
 The training plan YAML is bundled into the worker at deploy time
@@ -240,6 +246,9 @@ as a string at runtime.
 - `STRAVA_CLIENT_ID`
 - `STRAVA_CLIENT_SECRET`
 - `STRAVA_VERIFY_TOKEN`
+- `STRAVA_ATHLETE_ID` — set by `setup.sh` after OAuth; used to reject
+  webhook events for other athletes. Stored as a secret so it persists
+  across redeploys (`deploy.sh` does not re-supply it).
 
 ### .dev.vars (local development)
 
