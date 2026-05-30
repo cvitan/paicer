@@ -58,6 +58,14 @@ export function buildPlanLookup(
 
     for (const week of phase.weeks) {
       for (const workout of week.workouts) {
+        // Mirror paicer's scheduling (sync.py): an optional workout whose day
+        // exceeds the phase's training_days is an "extra" day that never gets
+        // scheduled, so it must not be matched here either. Without this the
+        // lookup throws on plans that use optional overflow days.
+        if ((workout.optional ?? false) && workout.day > phaseTrainingDays.length) {
+          continue;
+        }
+
         const date = calculateWorkoutDate(
           startDate,
           week.week,

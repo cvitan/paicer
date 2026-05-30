@@ -106,3 +106,31 @@ describe("matchActivity", () => {
     expect(matchActivity(lookup, "Run", "2026-01-06T00:30:00Z")).toBeNull();
   });
 });
+
+describe("buildPlanLookup optional overflow days", () => {
+  it("skips optional workouts whose day exceeds the phase training_days", () => {
+    const plan = `
+plan:
+  name: Overflow
+  start_date: "2026-01-01"
+  training_days: [2, 4, 5, 7]
+phases:
+  - phase: 1
+    name: Base
+    weeks:
+      - week: 1
+        workouts:
+          - day: 1
+            type: run
+            name: Easy Run
+          - day: 5
+            type: bike
+            name: Easy Ride
+            optional: true
+`;
+    const lookup = buildPlanLookup(plan);
+    const keys = [...lookup.keys()];
+    expect(keys.some((k) => k.endsWith(":bike"))).toBe(false);
+    expect(keys.some((k) => k.endsWith(":run"))).toBe(true);
+  });
+});
