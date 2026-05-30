@@ -55,15 +55,19 @@ Garmin Watch --> Garmin Connect --> Strava (auto-sync)
 ## Strava OAuth
 
 The worker acts on behalf of one athlete at a time. Each user
-completes the OAuth flow once; the worker stores refresh + access
-tokens as secrets.
+completes the OAuth flow once; the worker stores the refresh + access
+tokens in KV (see **Storage** below — they rotate, so they can't be
+Worker secrets, which are immutable at runtime). The Strava client
+credentials, by contrast, are stored as Worker secrets.
 
 ### Initial setup (one-time, per user)
 
 1. User creates a Strava API app at strava.com/settings/api
 2. User runs a local setup script that opens the OAuth consent page
 3. User authorizes; script exchanges the code for tokens
-4. Tokens are stored via `wrangler secret put`
+4. Tokens are written to KV (`tokens:{athlete_id}`); the client
+   id/secret, verify token, athlete id, and webhook secret are stored
+   via `wrangler secret put`
 
 ### Token refresh (automatic)
 

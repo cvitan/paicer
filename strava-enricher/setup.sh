@@ -186,12 +186,17 @@ echo "Copying plan: $PLAN_PATH -> plan.yaml"
 cp "$PLAN_PATH" plan.yaml
 
 echo "Running: npx wrangler deploy --var UNITS:${UNITS}"
-npx wrangler deploy --var "UNITS:${UNITS}"
+DEPLOY_OUTPUT=$(npx wrangler deploy --var "UNITS:${UNITS}" 2>&1)
+echo "$DEPLOY_OUTPUT"
 
-WORKER_NAME=$(grep '^name' wrangler.toml | head -1 | sed 's/.*= *"\(.*\)"/\1/')
-echo ""
-read -rp "Enter your workers.dev subdomain (the part before .workers.dev): " WORKERS_SUBDOMAIN
-WORKER_URL="https://${WORKER_NAME}.${WORKERS_SUBDOMAIN}.workers.dev"
+# Detect the worker URL from the deploy output; fall back to a prompt.
+WORKER_URL=$(echo "$DEPLOY_OUTPUT" | grep -oE 'https://[a-zA-Z0-9._-]+\.workers\.dev' | head -1)
+if [[ -z "$WORKER_URL" ]]; then
+  WORKER_NAME=$(grep '^name' wrangler.toml | head -1 | sed 's/.*= *"\(.*\)"/\1/')
+  echo ""
+  read -rp "Could not detect the worker URL. Enter your workers.dev subdomain (the part before .workers.dev): " WORKERS_SUBDOMAIN
+  WORKER_URL="https://${WORKER_NAME}.${WORKERS_SUBDOMAIN}.workers.dev"
+fi
 CALLBACK_URL="${WORKER_URL}/webhook/${WEBHOOK_SECRET}"
 echo "Worker URL: ${WORKER_URL}"
 echo "Callback URL (keep private): ${CALLBACK_URL}"
@@ -199,21 +204,42 @@ echo "Callback URL (keep private): ${CALLBACK_URL}"
 echo ""
 echo "=== Step 6: Create webhook subscription ==="
 
-SUB_RESPONSE=$(curl -s -X POST "https://www.strava.com/api/v3/push_subscriptions" \
-  -d "client_id=${STRAVA_CLIENT_ID}" \
-  -d "client_secret=${STRAVA_CLIENT_SECRET}" \
-  -d "callback_url=${CALLBACK_URL}" \
-  -d "verify_token=${VERIFY_TOKEN}")
+create_subscription() {
+  curl -s -X POST "https://www.strava.com/api/v3/push_subscriptions" \
+    -d "client_id=${STRAVA_CLIENT_ID}" \
+    -d "client_secret=${STRAVA_CLIENT_SECRET}" \
+    -d "callback_url=${CALLBACK_URL}" \
+    -d "verify_token=${VERIFY_TOKEN}"
+}
+
+SUB_RESPONSE=$(create_subscription)
+
+# Strava allows only one subscription per app. If one already exists it points
+# at an old callback URL (and, now that we use a secret path, an old secret the
+# redeployed worker no longer accepts). Replace it so the worker keeps working.
+if ! echo "$SUB_RESPONSE" | grep -q '"id"' && echo "$SUB_RESPONSE" | grep -qi "already exists"; then
+  echo "An existing subscription was found; replacing it with the new secret callback..."
+  EXISTING=$(curl -s -G "https://www.strava.com/api/v3/push_subscriptions" \
+    -d "client_id=${STRAVA_CLIENT_ID}" -d "client_secret=${STRAVA_CLIENT_SECRET}")
+  OLD_IDS=$(echo "$EXISTING" | python3 -c "import sys,json; [print(s['id']) for s in json.load(sys.stdin)]" 2>/dev/null || true)
+  for OLD_ID in $OLD_IDS; do
+    echo "Deleting old subscription ${OLD_ID}..."
+    curl -s -o /dev/null -X DELETE "https://www.strava.com/api/v3/push_subscriptions/${OLD_ID}?client_id=${STRAVA_CLIENT_ID}&client_secret=${STRAVA_CLIENT_SECRET}"
+  done
+  SUB_RESPONSE=$(create_subscription)
+fi
 
 if echo "$SUB_RESPONSE" | grep -q '"id"'; then
   SUB_ID=$(echo "$SUB_RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
   echo "Webhook subscription created: ${SUB_ID}"
 else
-  echo "Webhook subscription response:"
+  echo "ERROR: Could not create the webhook subscription:"
   echo "$SUB_RESPONSE" | python3 -m json.tool 2>/dev/null || echo "$SUB_RESPONSE"
   echo ""
-  echo "If you see 'callback url already registered', you already have a subscription."
-  echo "To delete it: curl -X DELETE 'https://www.strava.com/api/v3/push_subscriptions/{id}?client_id=${STRAVA_CLIENT_ID}&client_secret=${STRAVA_CLIENT_SECRET}'"
+  echo "Delete any existing subscription, then re-run ./setup.sh:"
+  echo "  curl -G https://www.strava.com/api/v3/push_subscriptions -d client_id=${STRAVA_CLIENT_ID} -d client_secret=${STRAVA_CLIENT_SECRET}"
+  echo "  curl -X DELETE 'https://www.strava.com/api/v3/push_subscriptions/{id}?client_id=${STRAVA_CLIENT_ID}&client_secret=${STRAVA_CLIENT_SECRET}'"
+  exit 1
 fi
 
 echo ""
