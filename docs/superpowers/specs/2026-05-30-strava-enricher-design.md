@@ -94,15 +94,21 @@ setup, setup script, metric + imperial descriptions.
 web UI, time-of-day disambiguation for same-day/same-sport conflicts, edit/
 delete events.
 
-## Known gaps to close (drives the implementation plan)
+## Gaps closed (drove the implementation plan)
 
-1. `setup.sh` reads the plan path from `../.env` (`PLAN=`) — stale. Must read
-   `~/.paicer/config` (TOML `plan`), and units from the same file.
-2. No deploy entry point. `README.md`/`DESIGN.md` reference
-   `make deploy-strava-enricher`, but there is no Makefile (repo is now a pip
-   package). Needs a real, self-contained deploy path.
-3. Leftover `/debug/kv` diagnostic endpoint in `index.ts`.
-4. No automated tests. Highest risk is the date-calc port matching
-   `plan_utils.py`.
-5. `description.ts` is metric-only; the rest of paicer supports imperial.
-6. Never deployed or run end-to-end against Strava — verification required.
+These were the gaps in the original draft; all are now resolved on this branch.
+
+1. ✅ `setup.sh` read the plan path from a stale `../.env` — now reads
+   `~/.paicer/config` (plan + units), parsed in pure bash (no Python `tomllib`).
+2. ✅ No deploy entry point — added `deploy.sh`; removed the dead
+   `make deploy-strava-enricher` references.
+3. ✅ Removed the leftover `/debug/kv` diagnostic endpoint.
+4. ✅ Added Vitest coverage (date-calc port vs `plan_utils.py`, collisions,
+   sport/date matching, metric + imperial description formatting).
+5. ✅ Added imperial unit support to descriptions (via the `UNITS` var).
+6. ✅ Deployed and verified end-to-end against Strava (2026-05-30).
+
+Additional fixes surfaced during testing: webhook `owner_id` filtering,
+optional-overflow training days, the local-vs-remote KV write in setup, and a
+fresh-checkout typecheck setup (`@cloudflare/workers-types` + a tracked
+`*.yaml` module declaration).
