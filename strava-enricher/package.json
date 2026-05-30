@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "types": "wrangler types"
+    "types": "wrangler types",
+    "test": "vitest run"
   },
   "dependencies": {
     "js-yaml": "4.1.0"
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@types/js-yaml": "4.0.9",
     "typescript": "5.7.3",
+    "vitest": "^4.1.7",
     "wrangler": "4.73.0"
   }
 }
