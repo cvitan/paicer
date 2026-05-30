@@ -337,3 +337,89 @@ const STRAVA_SPORT_TO_FAMILY: Record<string, string> = {
 export function stravaFamily(stravaSportType: string): string | null {
   return STRAVA_SPORT_TO_FAMILY[stravaSportType] ?? null;
 }
+
+export interface ActivityLite {
+  id: number;
+  distance: number;
+  movingTime: number;
+  startDateLocal: string;
+}
+
+export function assignWeek(
+  sessions: PlanSession[],
+  activities: ActivityLite[],
+): Map<number, PlanSession> {
+  const assignment = new Map<number, PlanSession>();
+  const usedSessions = new Set<PlanSession>();
+  const usedActivities = new Set<number>();
+
+  interface Pair {
+    activity: ActivityLite;
+    session: PlanSession;
+    err: number;
+  }
+  const pairs: Pair[] = [];
+  for (const activity of activities) {
+    for (const session of sessions) {
+      if (session.targetDistance === null && session.targetDuration === null) continue;
+      let err = Infinity;
+      if (session.targetDistance !== null) {
+        err = Math.min(
+          err,
+          Math.abs(activity.distance - session.targetDistance) / session.targetDistance,
+        );
+      }
+      if (session.targetDuration !== null) {
+        err = Math.min(
+          err,
+          Math.abs(activity.movingTime - session.targetDuration) / session.targetDuration,
+        );
+      }
+      if (err <= TOLERANCE) pairs.push({ activity, session, err });
+    }
+  }
+
+  pairs.sort(
+    (a, b) =>
+      a.err - b.err ||
+      a.activity.startDateLocal.localeCompare(b.activity.startDateLocal) ||
+      a.session.date.localeCompare(b.session.date),
+  );
+
+  for (const p of pairs) {
+    if (usedActivities.has(p.activity.id) || usedSessions.has(p.session)) continue;
+    assignment.set(p.activity.id, p.session);
+    usedActivities.add(p.activity.id);
+    usedSessions.add(p.session);
+  }
+
+  // Date fallback for sessions without any size target.
+  const targetlessSessions = sessions
+    .filter(
+      (s) => s.targetDistance === null && s.targetDuration === null && !usedSessions.has(s),
+    )
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  for (const session of targetlessSessions) {
+    let best: ActivityLite | undefined;
+    let bestDiff = Infinity;
+    for (const activity of activities) {
+      if (usedActivities.has(activity.id)) continue;
+      const diff = Math.abs(
+        new Date(activity.startDateLocal.slice(0, 10)).getTime() -
+          new Date(session.date).getTime(),
+      );
+      if (diff < bestDiff) {
+        bestDiff = diff;
+        best = activity;
+      }
+    }
+    if (best) {
+      assignment.set(best.id, session);
+      usedActivities.add(best.id);
+      usedSessions.add(session);
+    }
+  }
+
+  return assignment;
+}
