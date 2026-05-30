@@ -1,17 +1,26 @@
 import { buildDescription, type Units } from "./description.js";
-import { buildPlanLookup, matchActivity } from "./plan-matcher.js";
-import { getActivity, getValidAccessToken, updateActivity } from "./strava.js";
-import type { Env, PlanWorkout, StravaWebhookEvent } from "./types.js";
+import {
+  assignWeek,
+  buildPlanIndex,
+  sessionsForWeek,
+  stravaFamily,
+  weekBounds,
+  weekForDate,
+  type ActivityLite,
+  type PlanIndex,
+} from "./plan-matcher.js";
+import { getActivity, getValidAccessToken, listActivities, updateActivity } from "./strava.js";
+import type { Env, StravaWebhookEvent } from "./types.js";
 
 import planYamlText from "../plan.yaml";
 
-let planLookup: Map<string, PlanWorkout> | null = null;
+let planIndex: PlanIndex | null = null;
 
-function getPlanLookup(): Map<string, PlanWorkout> {
-  if (!planLookup) {
-    planLookup = buildPlanLookup(planYamlText as string);
+function getPlanIndex(): PlanIndex {
+  if (!planIndex) {
+    planIndex = buildPlanIndex(planYamlText as string);
   }
-  return planLookup;
+  return planIndex;
 }
 
 async function processActivity(
@@ -24,34 +33,66 @@ async function processActivity(
   const activity = await getActivity(accessToken, event.object_id);
   if (!activity) return;
 
-  const lookup = getPlanLookup();
-  const workout = matchActivity(
-    lookup,
-    activity.sport_type,
-    activity.start_date_local,
-  );
+  const index = getPlanIndex();
+  const family = stravaFamily(activity.sport_type);
+  if (!family) {
+    console.log(`No sport family for ${activity.sport_type} (activity ${activity.id})`);
+    return;
+  }
 
+  const activityDate = activity.start_date_local.slice(0, 10);
+  const week = weekForDate(index.startDate, activityDate);
+  if (week === null) {
+    console.log(`Activity ${activity.id} on ${activityDate} is outside the plan`);
+    return;
+  }
+
+  const sessions = sessionsForWeek(index, week, family);
+  if (sessions.length === 0) {
+    console.log(`No ${family} sessions planned in week ${week}`);
+    return;
+  }
+
+  const { after, before, monday, sunday } = weekBounds(index.startDate, week);
+  const raw = await listActivities(accessToken, after, before);
+  const weekActivities: ActivityLite[] = raw
+    .filter((a) => stravaFamily(a.sport_type) === family)
+    .map((a) => ({
+      id: a.id,
+      distance: a.distance,
+      movingTime: a.moving_time,
+      startDateLocal: a.start_date_local,
+    }))
+    .filter((a) => {
+      const d = a.startDateLocal.slice(0, 10);
+      return d >= monday && d <= sunday;
+    });
+
+  if (!weekActivities.some((a) => a.id === activity.id)) {
+    weekActivities.push({
+      id: activity.id,
+      distance: activity.distance,
+      movingTime: activity.moving_time,
+      startDateLocal: activity.start_date_local,
+    });
+  }
+
+  const assignment = assignWeek(sessions, weekActivities);
+  const workout = assignment.get(activity.id);
   if (!workout) {
     console.log(
-      `No plan match for activity ${activity.id} ` +
-      `(${activity.sport_type} on ${activity.start_date_local})`,
+      `No plan match for activity ${activity.id} (${family}, week ${week})`,
     );
     return;
   }
 
   const units: Units = env.UNITS === "imperial" ? "imperial" : "metric";
   const description = buildDescription(workout, activity, units);
-  const ok = await updateActivity(
-    accessToken,
-    activity.id,
-    workout.name,
-    description,
-  );
-
+  const ok = await updateActivity(accessToken, activity.id, workout.name, description);
   if (ok) {
     console.log(
       `Updated activity ${activity.id}: "${workout.name}" ` +
-      `(week ${workout.week}, phase ${workout.phaseNumber})`,
+        `(week ${workout.week}, phase ${workout.phaseNumber})`,
     );
   }
 }

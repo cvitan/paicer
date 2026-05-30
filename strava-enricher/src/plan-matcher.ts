@@ -1,5 +1,5 @@
 import yaml from "js-yaml";
-import type { GarminStep, PlanWorkout, PlanYaml } from "./types.js";
+import type { GarminStep, PlanYaml } from "./types.js";
 
 export function expandSteps(steps: GarminStep[]): GarminStep[] {
   const out: GarminStep[] = [];
@@ -86,15 +86,6 @@ export function resolveTargets(
   return parseNameTarget(workout.name, family);
 }
 
-const STRAVA_SPORT_TO_PLAN: Record<string, string[]> = {
-  Run: ["run", "track", "race"],
-  TrailRun: ["run", "track", "race"],
-  VirtualRun: ["run", "track", "race"],
-  Ride: ["bike"],
-  VirtualRide: ["bike"],
-  Swim: ["swim"],
-};
-
 function firstMondayOnOrAfter(dateStr: string): Date {
   const d = new Date(`${dateStr}T00:00:00`);
   const dayOfWeek = d.getDay(); // 0=Sun, 1=Mon, ...
@@ -160,65 +151,6 @@ export function weekBounds(
   return { after, before, monday: isoDate(monday), sunday: isoDate(sunday) };
 }
 
-export function buildPlanLookup(
-  yamlText: string,
-): Map<string, PlanWorkout> {
-  const plan = yaml.load(yamlText) as PlanYaml;
-  const globalTrainingDays = plan.plan.training_days ?? [1, 2, 3, 4, 5, 6, 7];
-  const startDate = plan.plan.start_date;
-
-  const lookup = new Map<string, PlanWorkout>();
-
-  for (const phase of plan.phases) {
-    const phaseTrainingDays = phase.training_days ?? globalTrainingDays;
-
-    for (const week of phase.weeks) {
-      for (const workout of week.workouts) {
-        // Mirror paicer's scheduling (sync.py): an optional workout whose day
-        // exceeds the phase's training_days is an "extra" day that never gets
-        // scheduled, so it must not be matched here either. Without this the
-        // lookup throws on plans that use optional overflow days.
-        if ((workout.optional ?? false) && workout.day > phaseTrainingDays.length) {
-          continue;
-        }
-
-        const date = calculateWorkoutDate(
-          startDate,
-          week.week,
-          workout.day,
-          phaseTrainingDays,
-        );
-
-        const sportKey = normalizePlanType(workout.type);
-        const key = `${date}:${sportKey}`;
-
-        if (lookup.has(key)) {
-          const existing = lookup.get(key);
-          throw new Error(
-            `Plan collision: "${workout.name}" and "${existing?.name}" ` +
-            `both map to ${key}. Two workouts on the same date with the ` +
-            `same sport type cannot be distinguished.`,
-          );
-        }
-
-        lookup.set(key, {
-          name: workout.name,
-          description: workout.description ?? "",
-          type: workout.type,
-          date,
-          week: week.week,
-          day: workout.day,
-          phaseNumber: phase.phase,
-          phaseName: phase.name,
-          optional: workout.optional ?? false,
-        });
-      }
-    }
-  }
-
-  return lookup;
-}
-
 function normalizePlanType(planType: string): string {
   switch (planType) {
     case "run":
@@ -232,27 +164,6 @@ function normalizePlanType(planType: string): string {
     default:
       return planType;
   }
-}
-
-function stravaToNormalized(stravaSportType: string): string | null {
-  const planTypes = STRAVA_SPORT_TO_PLAN[stravaSportType];
-  if (!planTypes || planTypes.length === 0) return null;
-  return normalizePlanType(planTypes[0] ?? "");
-}
-
-export function matchActivity(
-  lookup: Map<string, PlanWorkout>,
-  stravaSportType: string,
-  startDateLocal: string,
-): PlanWorkout | null {
-  const normalized = stravaToNormalized(stravaSportType);
-  if (!normalized) return null;
-
-  // startDateLocal is ISO 8601: "2026-03-14T18:30:00Z" — extract date
-  const date = startDateLocal.slice(0, 10);
-  const key = `${date}:${normalized}`;
-
-  return lookup.get(key) ?? null;
 }
 
 export interface PlanSession {

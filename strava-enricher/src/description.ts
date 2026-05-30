@@ -1,4 +1,5 @@
-import type { PlanWorkout, StravaActivity } from "./types.js";
+import type { StravaActivity } from "./types.js";
+import type { PlanSession } from "./plan-matcher.js";
 
 export type Units = "metric" | "imperial";
 
@@ -33,7 +34,7 @@ function formatDistance(meters: number, units: Units): string {
 }
 
 export function buildDescription(
-  workout: PlanWorkout,
+  workout: PlanSession,
   activity: StravaActivity,
   units: Units = "metric",
 ): string {

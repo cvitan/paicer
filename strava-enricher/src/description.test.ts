@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { buildDescription } from "./description.js";
-import type { PlanWorkout, StravaActivity } from "./types.js";
+import type { PlanSession } from "./plan-matcher.js";
+import type { StravaActivity } from "./types.js";
 
-const workout: PlanWorkout = {
+const workout: PlanSession = {
   name: "Tempo 2x15 min",
   description: "2x15 min @ 5:25/km + warmup/cooldown (~13 km)\nsecond line",
   type: "run",
@@ -11,7 +12,9 @@ const workout: PlanWorkout = {
   day: 1,
   phaseNumber: 1,
   phaseName: "HM Build",
-  optional: false,
+  family: "run",
+  targetDistance: null,
+  targetDuration: null,
 };
 
 const activity: StravaActivity = {
