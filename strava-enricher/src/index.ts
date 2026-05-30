@@ -1,4 +1,4 @@
-import { buildDescription } from "./description.js";
+import { buildDescription, type Units } from "./description.js";
 import { buildPlanLookup, matchActivity } from "./plan-matcher.js";
 import { getActivity, getValidAccessToken, updateActivity } from "./strava.js";
 import type { Env, PlanWorkout, StravaWebhookEvent } from "./types.js";
@@ -39,7 +39,8 @@ async function processActivity(
     return;
   }
 
-  const description = buildDescription(workout, activity);
+  const units: Units = env.UNITS === "imperial" ? "imperial" : "metric";
+  const description = buildDescription(workout, activity, units);
   const ok = await updateActivity(
     accessToken,
     activity.id,
