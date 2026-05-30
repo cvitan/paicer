@@ -1,7 +1,15 @@
 # Strava Enricher Design
 
 **Date:** 2026-05-30
-**Status:** Built (first draft) — pending end-to-end verification and gap closure
+**Status:** Verified end-to-end (2026-05-30) — deployed to Cloudflare and
+confirmed enriching a real Strava activity. Two bugs were found and fixed
+during live testing: (1) `buildPlanLookup` threw on optional workouts whose
+day exceeds the phase's `training_days`; (2) `setup.sh` wrote tokens to
+Wrangler's local KV simulation instead of the remote namespace the deployed
+worker reads (and `--remote` was also missing on the verification read, which
+masked it). `setup.sh` config parsing was also moved off Python `tomllib`
+(not present before 3.11) to pure bash, and Step 1 was hardened against an
+already-existing KV namespace under `set -euo pipefail`.
 
 ## Goal
 
