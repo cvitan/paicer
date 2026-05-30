@@ -1,10 +1,18 @@
 import type { PlanWorkout, StravaActivity } from "./types.js";
 
-function formatPace(metersPerSecond: number): string {
+export type Units = "metric" | "imperial";
+
+const METERS_PER_MILE = 1609.34;
+
+function formatPace(metersPerSecond: number, units: Units): string {
   if (metersPerSecond <= 0) return "--:--";
-  const secsPerKm = 1000 / metersPerSecond;
-  const mins = Math.floor(secsPerKm / 60);
-  const secs = Math.round(secsPerKm % 60);
+  const secsPerUnit =
+    units === "imperial"
+      ? METERS_PER_MILE / metersPerSecond
+      : 1000 / metersPerSecond;
+  const totalRounded = Math.round(secsPerUnit);
+  const mins = Math.floor(totalRounded / 60);
+  const secs = totalRounded % 60;
   return `${mins}:${String(secs).padStart(2, "0")}`;
 }
 
@@ -18,25 +26,30 @@ function formatDuration(totalSeconds: number): string {
   return `${mins}:${String(secs).padStart(2, "0")}`;
 }
 
-function formatDistance(meters: number): string {
-  const km = meters / 1000;
-  return km % 1 === 0 ? `${km}` : km.toFixed(1);
+function formatDistance(meters: number, units: Units): string {
+  const value =
+    units === "imperial" ? meters / METERS_PER_MILE : meters / 1000;
+  return value.toFixed(1);
 }
 
 export function buildDescription(
   workout: PlanWorkout,
   activity: StravaActivity,
+  units: Units = "metric",
 ): string {
   const header =
     `Week ${workout.week}, Phase ${workout.phaseNumber} (${workout.phaseName})`;
 
   const planned = workout.description.split("\n")[0] ?? "";
 
-  const dist = formatDistance(activity.distance);
-  const pace = formatPace(activity.average_speed);
+  const distUnit = units === "imperial" ? "mi" : "km";
+  const paceUnit = units === "imperial" ? "/mi" : "/km";
+
+  const dist = formatDistance(activity.distance, units);
+  const pace = formatPace(activity.average_speed, units);
   const duration = formatDuration(activity.moving_time);
 
-  let actual = `${dist} km | ${pace}/km | ${duration}`;
+  let actual = `${dist} ${distUnit} | ${pace}${paceUnit} | ${duration}`;
   if (activity.average_heartrate) {
     actual += ` | HR ${Math.round(activity.average_heartrate)}`;
   }
