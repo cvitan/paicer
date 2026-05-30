@@ -393,11 +393,12 @@ export function assignWeek(
     usedSessions.add(p.session);
   }
 
-  // Date fallback for sessions without any size target.
+  // Date fallback for sessions without any size target. Only pair within the
+  // same training week (≤7 days apart) so the function is safe to call even if
+  // the caller passes a wider activity set than one week.
+  const MAX_FALLBACK_MS = 7 * 86400000;
   const targetlessSessions = sessions
-    .filter(
-      (s) => s.targetDistance === null && s.targetDuration === null && !usedSessions.has(s),
-    )
+    .filter((s) => s.targetDistance === null && s.targetDuration === null)
     .sort((a, b) => a.date.localeCompare(b.date));
 
   for (const session of targetlessSessions) {
@@ -414,7 +415,7 @@ export function assignWeek(
         best = activity;
       }
     }
-    if (best) {
+    if (best && bestDiff <= MAX_FALLBACK_MS) {
       assignment.set(best.id, session);
       usedActivities.add(best.id);
       usedSessions.add(session);

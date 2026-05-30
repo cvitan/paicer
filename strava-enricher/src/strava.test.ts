@@ -19,6 +19,7 @@ describe("listActivities", () => {
     expect(url).toContain("/athlete/activities");
     expect(url).toContain("after=100");
     expect(url).toContain("before=200");
+    expect(url).toContain("per_page=100");
   });
 
   it("returns [] on a non-ok response", async () => {

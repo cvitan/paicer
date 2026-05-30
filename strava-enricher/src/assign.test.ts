@@ -38,10 +38,23 @@ describe("assignWeek", () => {
     expect(a.has(1)).toBe(false);
   });
 
+  it("matches at exactly the +35% tolerance boundary (inclusive)", () => {
+    const sessions = [session("Easy 8 km", 8000, null, "2026-01-06")];
+    // 10800 m is exactly +35% of 8000 m
+    const a = assignWeek(sessions, [activity(1, 10800, 9999, "2026-01-06")]);
+    expect(a.get(1)!.name).toBe("Easy 8 km");
+  });
+
   it("assigns a target-less session by nearest date", () => {
     const sessions = [session("Track Session #1", null, null, "2026-01-07")];
     const a = assignWeek(sessions, [activity(1, 6000, 1800, "2026-01-07")]);
     expect(a.get(1)!.name).toBe("Track Session #1");
+  });
+
+  it("does not assign a target-less session to an activity more than a week away", () => {
+    const sessions = [session("Track Session #1", null, null, "2026-01-07")];
+    const a = assignWeek(sessions, [activity(1, 6000, 1800, "2026-02-20")]);
+    expect(a.has(1)).toBe(false);
   });
 
   it("leaves extra activities unmatched when there are more activities than sessions", () => {
