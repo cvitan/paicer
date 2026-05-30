@@ -254,3 +254,86 @@ export function matchActivity(
 
   return lookup.get(key) ?? null;
 }
+
+export interface PlanSession {
+  name: string;
+  description: string;
+  type: string;
+  date: string;
+  week: number;
+  day: number;
+  phaseNumber: number;
+  phaseName: string;
+  family: string;
+  targetDistance: number | null;
+  targetDuration: number | null;
+}
+
+export interface PlanIndex {
+  startDate: string;
+  sessions: PlanSession[];
+}
+
+export function buildPlanIndex(yamlText: string): PlanIndex {
+  const plan = yaml.load(yamlText) as PlanYaml;
+  const globalTrainingDays = plan.plan.training_days ?? [1, 2, 3, 4, 5, 6, 7];
+  const startDate = plan.plan.start_date;
+  const sessions: PlanSession[] = [];
+
+  for (const phase of plan.phases) {
+    const phaseTrainingDays = phase.training_days ?? globalTrainingDays;
+    for (const week of phase.weeks) {
+      for (const workout of week.workouts) {
+        if ((workout.optional ?? false) && workout.day > phaseTrainingDays.length) {
+          continue;
+        }
+        const date = calculateWorkoutDate(
+          startDate,
+          week.week,
+          workout.day,
+          phaseTrainingDays,
+        );
+        const family = normalizePlanType(workout.type);
+        const targets = resolveTargets(
+          { name: workout.name, garmin: workout.garmin },
+          family,
+        );
+        sessions.push({
+          name: workout.name,
+          description: workout.description ?? "",
+          type: workout.type,
+          date,
+          week: week.week,
+          day: workout.day,
+          phaseNumber: phase.phase,
+          phaseName: phase.name,
+          family,
+          targetDistance: targets.distance,
+          targetDuration: targets.duration,
+        });
+      }
+    }
+  }
+  return { startDate, sessions };
+}
+
+export function sessionsForWeek(
+  index: PlanIndex,
+  week: number,
+  family: string,
+): PlanSession[] {
+  return index.sessions.filter((s) => s.week === week && s.family === family);
+}
+
+const STRAVA_SPORT_TO_FAMILY: Record<string, string> = {
+  Run: "run",
+  TrailRun: "run",
+  VirtualRun: "run",
+  Ride: "bike",
+  VirtualRide: "bike",
+  Swim: "swim",
+};
+
+export function stravaFamily(stravaSportType: string): string | null {
+  return STRAVA_SPORT_TO_FAMILY[stravaSportType] ?? null;
+}
