@@ -150,6 +150,15 @@ echo "${STRAVA_CLIENT_SECRET}" | npx wrangler secret put STRAVA_CLIENT_SECRET
 echo "${VERIFY_TOKEN}" | npx wrangler secret put STRAVA_VERIFY_TOKEN
 echo "${ATHLETE_ID}" | npx wrangler secret put STRAVA_ATHLETE_ID
 
+# Random per-deployment secret embedded in the webhook callback path. Strava
+# does not sign payloads, so this is what authenticates incoming events.
+if command -v openssl >/dev/null 2>&1; then
+  WEBHOOK_SECRET=$(openssl rand -hex 16)
+else
+  WEBHOOK_SECRET=$(head -c 16 /dev/urandom | xxd -p | tr -d '\n')
+fi
+echo "${WEBHOOK_SECRET}" | npx wrangler secret put WEBHOOK_SECRET
+
 echo ""
 echo "=== Step 5: Deploy worker ==="
 
@@ -183,8 +192,9 @@ WORKER_NAME=$(grep '^name' wrangler.toml | head -1 | sed 's/.*= *"\(.*\)"/\1/')
 echo ""
 read -rp "Enter your workers.dev subdomain (the part before .workers.dev): " WORKERS_SUBDOMAIN
 WORKER_URL="https://${WORKER_NAME}.${WORKERS_SUBDOMAIN}.workers.dev"
-CALLBACK_URL="${WORKER_URL}/webhook"
+CALLBACK_URL="${WORKER_URL}/webhook/${WEBHOOK_SECRET}"
 echo "Worker URL: ${WORKER_URL}"
+echo "Callback URL (keep private): ${CALLBACK_URL}"
 
 echo ""
 echo "=== Step 6: Create webhook subscription ==="

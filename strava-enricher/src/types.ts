@@ -4,6 +4,9 @@ export interface Env {
   STRAVA_CLIENT_SECRET: string;
   STRAVA_VERIFY_TOKEN: string;
   STRAVA_ATHLETE_ID?: string;
+  // Random per-deployment secret embedded in the webhook callback path
+  // (/webhook/<WEBHOOK_SECRET>); authenticates incoming Strava events.
+  WEBHOOK_SECRET?: string;
   UNITS?: string;
 }
 

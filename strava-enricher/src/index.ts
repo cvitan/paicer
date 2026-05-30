@@ -64,14 +64,18 @@ export default {
   ): Promise<Response> {
     const url = new URL(request.url);
 
-    // Webhook validation (GET)
-    if (request.method === "GET" && url.pathname === "/webhook") {
-      return handleWebhookValidation(url, env);
-    }
-
-    // Webhook events (POST)
-    if (request.method === "POST" && url.pathname === "/webhook") {
-      return handleWebhookEvent(request, env, ctx);
+    // The webhook lives at a secret path: /webhook/<WEBHOOK_SECRET>. Strava
+    // does not sign payloads, so this per-deployment secret (set at setup time
+    // and baked into the registered callback URL) is what actually
+    // authenticates incoming events — owner_id alone is caller-supplied and
+    // spoofable. Requests to the wrong path get a plain 404.
+    if (env.WEBHOOK_SECRET && url.pathname === `/webhook/${env.WEBHOOK_SECRET}`) {
+      if (request.method === "GET") {
+        return handleWebhookValidation(url, env);
+      }
+      if (request.method === "POST") {
+        return handleWebhookEvent(request, env, ctx);
+      }
     }
 
     // Health check

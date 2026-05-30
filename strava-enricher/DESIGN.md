@@ -94,8 +94,9 @@ POST https://www.strava.com/api/v3/push_subscriptions
   client_id, client_secret, callback_url, verify_token
 ```
 
-The worker must respond to the validation GET within 2 seconds by
-echoing `hub.challenge`.
+The `callback_url` is `https://<worker>/webhook/<WEBHOOK_SECRET>` — a random
+per-deployment secret path (see Event handling below). The worker must respond
+to the validation GET within 2 seconds by echoing `hub.challenge`.
 
 ### Event handling
 
@@ -115,11 +116,18 @@ Webhook POST payload:
 The worker only processes events where `object_type == "activity"` and
 `aspect_type == "create"`. All others return 200 immediately.
 
-Strava does not sign webhook payloads, so `owner_id` is the only
-authenticity signal available. When `STRAVA_ATHLETE_ID` is configured, the
-worker rejects events whose `owner_id` does not match it with a 403. This
-prevents an arbitrary caller who discovers the worker URL from triggering
-activity reads/writes on the authorized athlete's behalf.
+Strava does not sign webhook payloads, so authenticity rests on two checks:
+
+1. **Secret callback path.** The webhook is served only at
+   `/webhook/<WEBHOOK_SECRET>`, where `WEBHOOK_SECRET` is a random value
+   generated at setup, stored as a Worker secret, and baked into the
+   registered `callback_url`. Requests to any other path get a plain 404. An
+   attacker who doesn't know the secret URL cannot reach the handler. This is
+   the primary authentication (since `owner_id` in the body is caller-supplied
+   and therefore spoofable on its own).
+2. **Athlete filter (defense in depth).** When `STRAVA_ATHLETE_ID` is set, the
+   worker also rejects events whose `owner_id` doesn't match it (403) — useful
+   for ignoring stray events even if the secret path were known.
 
 ## Plan matching
 
