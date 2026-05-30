@@ -129,6 +129,37 @@ function calculateWorkoutDate(
   return `${y}-${m}-${d}`;
 }
 
+export function weekForDate(startDate: string, dateStr: string): number | null {
+  const firstMonday = firstMondayOnOrAfter(startDate);
+  const d = new Date(`${dateStr}T00:00:00`);
+  const diffDays = Math.round((d.getTime() - firstMonday.getTime()) / 86400000);
+  if (diffDays < 0) return null;
+  return Math.floor(diffDays / 7) + 1;
+}
+
+function isoDate(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+export function weekBounds(
+  startDate: string,
+  week: number,
+): { after: number; before: number; monday: string; sunday: string } {
+  const firstMonday = firstMondayOnOrAfter(startDate);
+  const monday = new Date(firstMonday);
+  monday.setDate(monday.getDate() + (week - 1) * 7);
+  const sunday = new Date(monday);
+  sunday.setDate(sunday.getDate() + 6);
+  // Padded ±1 day UTC epoch range for the Strava fetch; exact filtering is
+  // done by local date afterwards.
+  const after = Math.floor(monday.getTime() / 1000) - 86400;
+  const before = Math.floor(sunday.getTime() / 1000) + 2 * 86400;
+  return { after, before, monday: isoDate(monday), sunday: isoDate(sunday) };
+}
+
 export function buildPlanLookup(
   yamlText: string,
 ): Map<string, PlanWorkout> {
