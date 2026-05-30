@@ -150,8 +150,8 @@ async function handleWebhookEvent(
     return new Response("Bad request", { status: 400 });
   }
 
-  // Reject events that aren't for the configured athlete. Strava does not
-  // sign webhook payloads, so owner_id is our only authenticity signal.
+  // Reject events that aren't for the configured athlete. The secret callback
+  // path authenticates the request; this owner_id check is defense in depth.
   if (env.STRAVA_ATHLETE_ID && event.owner_id !== Number(env.STRAVA_ATHLETE_ID)) {
     return new Response("Forbidden", { status: 403 });
   }
