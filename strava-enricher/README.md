@@ -53,11 +53,11 @@ This handles everything else: KV namespace creation, wrangler.toml generation, O
 After changing your training plan:
 
 ```bash
-# From the repo root
-make deploy-strava-enricher
+cd strava-enricher
+./deploy.sh
 ```
 
-This copies your plan YAML into the worker and redeploys.
+This copies your plan YAML (from `~/.paicer/config`) into the worker and redeploys with your configured units.
 
 ## How it works
 

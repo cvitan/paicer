@@ -249,15 +249,11 @@ STRAVA_CLIENT_SECRET=xxxxx
 STRAVA_VERIFY_TOKEN=paicer-strava-hook
 ```
 
-## Makefile integration
+## Deploy script
 
-Add to the project Makefile:
-
-```makefile
-deploy-strava-enricher:
-    cp $(PLAN) strava-enricher/plan.yaml
-    cd strava-enricher && npx wrangler deploy
-```
+`deploy.sh` redeploys after a plan change. It reads the plan path and units
+from `~/.paicer/config` (TOML), copies the plan to `plan.yaml`, and runs
+`wrangler deploy --var UNITS:<units>`.
 
 ## Error handling
 
