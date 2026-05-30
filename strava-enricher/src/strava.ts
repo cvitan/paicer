@@ -99,6 +99,22 @@ export async function getActivity(
   return (await resp.json()) as StravaActivity;
 }
 
+export async function listActivities(
+  accessToken: string,
+  after: number,
+  before: number,
+): Promise<StravaActivity[]> {
+  const url = `${STRAVA_API}/athlete/activities?after=${after}&before=${before}&per_page=100`;
+  const resp = await fetch(url, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  if (!resp.ok) {
+    console.error(`List activities failed: ${resp.status} ${await resp.text()}`);
+    return [];
+  }
+  return (await resp.json()) as StravaActivity[];
+}
+
 export async function updateActivity(
   accessToken: string,
   activityId: number,
