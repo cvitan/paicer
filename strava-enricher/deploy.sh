@@ -14,20 +14,11 @@ if [[ ! -f wrangler.toml ]]; then
 fi
 
 read_config() {
-  python3 - "$1" <<'PY'
-import os, sys, tomllib
-from pathlib import Path
-key = sys.argv[1]
-home = os.environ.get("PAICER_HOME")
-base = Path(home) if home else Path.home() / ".paicer"
-path = base / "config"
-if not path.exists():
-    sys.exit(0)
-data = tomllib.load(open(path, "rb"))
-val = data.get(key)
-if val is not None:
-    print(val)
-PY
+  local key="$1"
+  local config="${PAICER_HOME:-$HOME/.paicer}/config"
+  [[ -f "$config" ]] || return 0
+  # paicer writes each entry as: key = "value"
+  sed -n "s/^${key}[[:space:]]*=[[:space:]]*\"\(.*\)\"[[:space:]]*\$/\1/p" "$config" | head -1
 }
 
 PLAN_PATH=$(read_config plan)
