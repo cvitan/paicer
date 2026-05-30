@@ -49,6 +49,43 @@ export function stepTargets(steps: GarminStep[], family: string): SessionTarget 
   };
 }
 
+export function parseNameTarget(name: string, family: string): SessionTarget {
+  const pace = PACE_SEC_PER_METER[family];
+  let distance: number | null = null;
+  let duration: number | null = null;
+
+  const distMatch = name.match(/(\d+(?:\.\d+)?)\s*(km|mi|m)\b/i);
+  if (distMatch) {
+    const value = parseFloat(distMatch[1]!);
+    const unit = distMatch[2]!.toLowerCase();
+    const meters = unit === "km" ? value * 1000 : unit === "mi" ? value * 1609.34 : value;
+    distance = Math.round(meters);
+  }
+
+  const durMatch = name.match(/(\d+)\s*min\b/i);
+  if (durMatch) {
+    duration = parseInt(durMatch[1]!, 10) * 60;
+  }
+
+  if (pace !== undefined) {
+    if (distance !== null && duration === null) duration = Math.round(distance * pace);
+    if (duration !== null && distance === null) distance = Math.round(duration / pace);
+  }
+  return { distance, duration };
+}
+
+export function resolveTargets(
+  workout: { name: string; garmin?: { steps?: GarminStep[] } },
+  family: string,
+): SessionTarget {
+  const steps = workout.garmin?.steps;
+  if (steps && steps.length > 0) {
+    const fromSteps = stepTargets(steps, family);
+    if (fromSteps.distance !== null || fromSteps.duration !== null) return fromSteps;
+  }
+  return parseNameTarget(workout.name, family);
+}
+
 const STRAVA_SPORT_TO_PLAN: Record<string, string[]> = {
   Run: ["run", "track", "race"],
   TrailRun: ["run", "track", "race"],
