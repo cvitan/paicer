@@ -8,6 +8,11 @@
 # resolved with `paicer exercises --search` — several plausible guesses were
 # wrong (there is no BARBELL_HIP_THRUST; it is BARBELL_HIP_THRUST_ON_FLOOR).
 #
+# Note there are no warmup steps. Garmin's own strength workouts contain
+# none, and adding one creates a phantom set the watch asks you to enter
+# reps and weight for at save time. Warmup guidance lives in the workout
+# description instead.
+#
 # See claude-plugin/guides/strength-coaching.md for the programming rationale.
 
 # Easy runs — identical every week. Running is support here, not the goal:
@@ -67,14 +72,9 @@ phases:
           - day: 1
             type: "strength"
             name: "Lower A 3x8"
-            description: "Lower A — Squat Focus. 3 sets of 8 on the main lift @ RPE 7."
+            description: "Warm up first: 8 min bike + hip and ankle mobility. 3 sets of 8 on the main lift @ RPE 7."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hip and ankle mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -155,14 +155,9 @@ phases:
           - day: 2
             type: "strength"
             name: "Upper A 3x8"
-            description: "Upper A — Push Focus. 3 sets of 8 on the main lift @ RPE 7."
+            description: "Warm up first: 8 min rower + shoulder mobility. 3 sets of 8 on the main lift @ RPE 7."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + shoulder mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -249,14 +244,9 @@ phases:
           - day: 4
             type: "strength"
             name: "Lower B 3x8"
-            description: "Lower B — Hinge Focus. 3 sets of 8 on the main lift @ RPE 7."
+            description: "Warm up first: 8 min bike + hamstring and glute activation. 3 sets of 8 on the main lift @ RPE 7."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hamstring and glute activation"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -337,14 +327,9 @@ phases:
           - day: 5
             type: "strength"
             name: "Upper B 3x8"
-            description: "Upper B — Pull Focus. 3 sets of 8 on the main lift @ RPE 7."
+            description: "Warm up first: 8 min rower + band pull-aparts. 3 sets of 8 on the main lift @ RPE 7."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + band pull-aparts"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -435,14 +420,9 @@ phases:
           - day: 1
             type: "strength"
             name: "Lower A 3x9"
-            description: "Lower A — Squat Focus. 3 sets of 9 on the main lift @ RPE 7-8."
+            description: "Warm up first: 8 min bike + hip and ankle mobility. 3 sets of 9 on the main lift @ RPE 7-8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hip and ankle mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -523,14 +503,9 @@ phases:
           - day: 2
             type: "strength"
             name: "Upper A 3x9"
-            description: "Upper A — Push Focus. 3 sets of 9 on the main lift @ RPE 7-8."
+            description: "Warm up first: 8 min rower + shoulder mobility. 3 sets of 9 on the main lift @ RPE 7-8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + shoulder mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -617,14 +592,9 @@ phases:
           - day: 4
             type: "strength"
             name: "Lower B 3x9"
-            description: "Lower B — Hinge Focus. 3 sets of 9 on the main lift @ RPE 7-8."
+            description: "Warm up first: 8 min bike + hamstring and glute activation. 3 sets of 9 on the main lift @ RPE 7-8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hamstring and glute activation"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -705,14 +675,9 @@ phases:
           - day: 5
             type: "strength"
             name: "Upper B 3x9"
-            description: "Upper B — Pull Focus. 3 sets of 9 on the main lift @ RPE 7-8."
+            description: "Warm up first: 8 min rower + band pull-aparts. 3 sets of 9 on the main lift @ RPE 7-8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + band pull-aparts"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -804,14 +769,9 @@ phases:
           - day: 1
             type: "strength"
             name: "Lower A 3x10"
-            description: "Lower A — Squat Focus. 3 sets of 10 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min bike + hip and ankle mobility. 3 sets of 10 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hip and ankle mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -892,14 +852,9 @@ phases:
           - day: 2
             type: "strength"
             name: "Upper A 3x10"
-            description: "Upper A — Push Focus. 3 sets of 10 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min rower + shoulder mobility. 3 sets of 10 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + shoulder mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -986,14 +941,9 @@ phases:
           - day: 4
             type: "strength"
             name: "Lower B 3x10"
-            description: "Lower B — Hinge Focus. 3 sets of 10 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min bike + hamstring and glute activation. 3 sets of 10 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hamstring and glute activation"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -1074,14 +1024,9 @@ phases:
           - day: 5
             type: "strength"
             name: "Upper B 3x10"
-            description: "Upper B — Pull Focus. 3 sets of 10 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min rower + band pull-aparts. 3 sets of 10 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + band pull-aparts"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -1173,14 +1118,9 @@ phases:
           - day: 1
             type: "strength"
             name: "Lower A Deload"
-            description: "Deload. 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
+            description: "Warm up first: 8 min bike + hip and ankle mobility. Deload — 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hip and ankle mobility"
                 - numberOfIterations: 2
                   stepType: "repeat"
                   childStepId: 1
@@ -1261,14 +1201,9 @@ phases:
           - day: 2
             type: "strength"
             name: "Upper A Deload"
-            description: "Deload. 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
+            description: "Warm up first: 8 min rower + shoulder mobility. Deload — 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + shoulder mobility"
                 - numberOfIterations: 2
                   stepType: "repeat"
                   childStepId: 1
@@ -1355,14 +1290,9 @@ phases:
           - day: 4
             type: "strength"
             name: "Lower B Deload"
-            description: "Deload. 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
+            description: "Warm up first: 8 min bike + hamstring and glute activation. Deload — 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hamstring and glute activation"
                 - numberOfIterations: 2
                   stepType: "repeat"
                   childStepId: 1
@@ -1443,14 +1373,9 @@ phases:
           - day: 5
             type: "strength"
             name: "Upper B Deload"
-            description: "Deload. 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
+            description: "Warm up first: 8 min rower + band pull-aparts. Deload — 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + band pull-aparts"
                 - numberOfIterations: 2
                   stepType: "repeat"
                   childStepId: 1
@@ -1548,14 +1473,9 @@ phases:
           - day: 1
             type: "strength"
             name: "Lower A 3x8"
-            description: "Lower A — Squat Focus. 3 sets of 8 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min bike + hip and ankle mobility. 3 sets of 8 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hip and ankle mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -1636,14 +1556,9 @@ phases:
           - day: 2
             type: "strength"
             name: "Upper A 3x8"
-            description: "Upper A — Push Focus. 3 sets of 8 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min rower + shoulder mobility. 3 sets of 8 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + shoulder mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -1730,14 +1645,9 @@ phases:
           - day: 4
             type: "strength"
             name: "Lower B 3x8"
-            description: "Lower B — Hinge Focus. 3 sets of 8 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min bike + hamstring and glute activation. 3 sets of 8 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hamstring and glute activation"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -1818,14 +1728,9 @@ phases:
           - day: 5
             type: "strength"
             name: "Upper B 3x8"
-            description: "Upper B — Pull Focus. 3 sets of 8 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min rower + band pull-aparts. 3 sets of 8 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + band pull-aparts"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -1916,14 +1821,9 @@ phases:
           - day: 1
             type: "strength"
             name: "Lower A 3x9"
-            description: "Lower A — Squat Focus. 3 sets of 9 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min bike + hip and ankle mobility. 3 sets of 9 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hip and ankle mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -2004,14 +1904,9 @@ phases:
           - day: 2
             type: "strength"
             name: "Upper A 3x9"
-            description: "Upper A — Push Focus. 3 sets of 9 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min rower + shoulder mobility. 3 sets of 9 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + shoulder mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -2098,14 +1993,9 @@ phases:
           - day: 4
             type: "strength"
             name: "Lower B 3x9"
-            description: "Lower B — Hinge Focus. 3 sets of 9 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min bike + hamstring and glute activation. 3 sets of 9 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hamstring and glute activation"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -2186,14 +2076,9 @@ phases:
           - day: 5
             type: "strength"
             name: "Upper B 3x9"
-            description: "Upper B — Pull Focus. 3 sets of 9 on the main lift @ RPE 8."
+            description: "Warm up first: 8 min rower + band pull-aparts. 3 sets of 9 on the main lift @ RPE 8."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + band pull-aparts"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -2285,14 +2170,9 @@ phases:
           - day: 1
             type: "strength"
             name: "Lower A 3x10"
-            description: "Lower A — Squat Focus. 3 sets of 10 on the main lift @ RPE 8-9."
+            description: "Warm up first: 8 min bike + hip and ankle mobility. 3 sets of 10 on the main lift @ RPE 8-9."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hip and ankle mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -2373,14 +2253,9 @@ phases:
           - day: 2
             type: "strength"
             name: "Upper A 3x10"
-            description: "Upper A — Push Focus. 3 sets of 10 on the main lift @ RPE 8-9."
+            description: "Warm up first: 8 min rower + shoulder mobility. 3 sets of 10 on the main lift @ RPE 8-9."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + shoulder mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -2467,14 +2342,9 @@ phases:
           - day: 4
             type: "strength"
             name: "Lower B 3x10"
-            description: "Lower B — Hinge Focus. 3 sets of 10 on the main lift @ RPE 8-9."
+            description: "Warm up first: 8 min bike + hamstring and glute activation. 3 sets of 10 on the main lift @ RPE 8-9."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hamstring and glute activation"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -2555,14 +2425,9 @@ phases:
           - day: 5
             type: "strength"
             name: "Upper B 3x10"
-            description: "Upper B — Pull Focus. 3 sets of 10 on the main lift @ RPE 8-9."
+            description: "Warm up first: 8 min rower + band pull-aparts. 3 sets of 10 on the main lift @ RPE 8-9."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + band pull-aparts"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -2654,14 +2519,9 @@ phases:
           - day: 1
             type: "strength"
             name: "Lower A Test"
-            description: "Test day. Barbell Back Squat and the second lift only, 5 reps @ RPE 9. Record your loads."
+            description: "Warm up first: 8 min bike + hip and ankle mobility. Test day — Barbell Back Squat and the second lift only, 5 reps @ RPE 9. Record your loads."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hip and ankle mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -2698,14 +2558,9 @@ phases:
           - day: 2
             type: "strength"
             name: "Upper A Test"
-            description: "Test day. Barbell Bench Press and the second lift only, 5 reps @ RPE 9. Record your loads."
+            description: "Warm up first: 8 min rower + shoulder mobility. Test day — Barbell Bench Press and the second lift only, 5 reps @ RPE 9. Record your loads."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + shoulder mobility"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -2748,14 +2603,9 @@ phases:
           - day: 4
             type: "strength"
             name: "Lower B Test"
-            description: "Test day. Barbell Deadlift and the second lift only, 5 reps @ RPE 9. Record your loads."
+            description: "Warm up first: 8 min bike + hamstring and glute activation. Test day — Barbell Deadlift and the second lift only, 5 reps @ RPE 9. Record your loads."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min bike + hamstring and glute activation"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -2792,14 +2642,9 @@ phases:
           - day: 5
             type: "strength"
             name: "Upper B Test"
-            description: "Test day. Pull Up and the second lift only, 5 reps @ RPE 9. Record your loads."
+            description: "Warm up first: 8 min rower + band pull-aparts. Test day — Pull Up and the second lift only, 5 reps @ RPE 9. Record your loads."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 480  # 8 min
-                  targetType: "no.target"
-                  description: "8 min rower + band pull-aparts"
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1

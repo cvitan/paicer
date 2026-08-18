@@ -199,15 +199,12 @@ phases:
           - day: 6
             type: "strength"
             name: "Full Body 3x8"
-            description: "Compound lifts, 3 sets of 8. Leave 2 reps in reserve."
+            description: "Warm up first: 5 min mobility + light cardio. Compound lifts, 3 sets of 8. Leave 2 reps in reserve."
             garmin:
               steps:
-                # Warmup carries no exercise — category/exerciseName omitted
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 300  # 5 min
-                  targetType: "no.target"
-                  description: "5 min mobility + light cardio"
+                # No warmup step — Garmin's own strength workouts have
+                # none, and one creates a phantom set to fill in on the watch.
+                # Warmup guidance goes in the workout description instead.
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1
@@ -328,14 +325,12 @@ phases:
           - day: 6
             type: "strength"
             name: "Upper + Core"
-            description: "Push/pull pairing plus core. 3 sets, RPE 7."
+            description: "Warm up first: 5 min mobility + light cardio. Push/pull pairing plus core. 3 sets, RPE 7."
             garmin:
               steps:
-                - stepType: "warmup"
-                  endCondition: "time"
-                  endConditionValue: 300  # 5 min
-                  targetType: "no.target"
-                  description: "5 min mobility + light cardio"
+                # No warmup step — Garmin's own strength workouts have
+                # none, and one creates a phantom set to fill in on the watch.
+                # Warmup guidance goes in the workout description instead.
                 - numberOfIterations: 3
                   stepType: "repeat"
                   childStepId: 1

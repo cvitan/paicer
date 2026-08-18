@@ -530,3 +530,34 @@ def _assert_steps_sane(steps, parent_child_id=None):
             _assert_steps_sane(step["workoutSteps"], step["childStepId"])
         elif step["stepType"]["stepTypeId"] == 5 and "category" not in step:
             assert step["targetType"] is None
+
+
+def test_no_strength_workout_has_a_warmup_step():
+    """The watch prompts for reps and weight on every non-rest step, so a
+    warmup with no exercise becomes a phantom set the athlete must edit
+    past before saving. Garmin's own strength workouts have none.
+    Confirmed on-watch 2026-08-18."""
+    import yaml
+    from pathlib import Path
+    root = Path(__file__).parent.parent
+    plans = [
+        "examples/strength-8week.yaml",
+        "examples/reference-metric.yaml",
+        "examples/reference-imperial.yaml",
+        "claude-plugin/guides/examples/reference-metric.yaml",
+        "claude-plugin/guides/examples/reference-imperial.yaml",
+    ]
+    checked = 0
+    for rel in plans:
+        plan = yaml.safe_load((root / rel).read_text())
+        for phase in plan["phases"]:
+            for week in phase["weeks"]:
+                for workout in week["workouts"]:
+                    if workout.get("type") != "strength":
+                        continue
+                    checked += 1
+                    for step in workout["garmin"]["steps"]:
+                        assert step.get("stepType") != "warmup", (
+                            f"{rel} '{workout['name']}' has a warmup step"
+                        )
+    assert checked == 40

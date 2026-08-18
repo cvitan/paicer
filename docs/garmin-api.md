@@ -126,11 +126,6 @@ Strength uses the same step structure as every other sport, plus exercise
 identity on each work step.
 
 ```yaml
-- stepType: "warmup"
-  endCondition: "time"
-  endConditionValue: 300
-  targetType: "no.target"
-  description: "5 min mobility + light cardio"
 - stepType: "repeat"
   numberOfIterations: 3
   childStepId: 1
@@ -156,6 +151,13 @@ omit `targetType` on strength rest steps rather than writing it.
 
 **Time-based exercises** (planks, carries, dead hangs) use
 `endCondition: "time"` instead of `"reps"`.
+
+**Do not add a warmup step.** The watch treats every non-rest step as a
+set and prompts for reps and weight on it at save time, so a warmup with
+no exercise becomes a phantom set the athlete has to edit past. Garmin's
+own strength workouts contain no warmup step — they open directly on the
+first repeat group. Put warmup guidance in the workout `description`
+instead. Confirmed on-watch, 2026-08-18.
 
 ### `category` and `exerciseName`
 

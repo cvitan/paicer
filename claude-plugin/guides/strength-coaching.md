@@ -81,11 +81,17 @@ work as accessories.
 
 ## Session shape
 
-1. **Warmup** — 5 min, `stepType: warmup`, no exercise fields, time-based
-2. **Compound lifts first** — heaviest and most technical while fresh
-3. **Accessories** — isolation, unilateral, core
-4. **Supersets** — pair non-competing movements (push with pull) in a
+1. **Compound lifts first** — heaviest and most technical while fresh
+2. **Accessories** — isolation, unilateral, core
+3. **Supersets** — pair non-competing movements (push with pull) in a
    repeat group to save time
+
+**Do not write a warmup step.** The watch asks for reps and weight on
+every non-rest step, so a warmup with no exercise shows up as an empty
+set the athlete has to edit past before saving. Garmin's own strength
+workouts have none. Write the warmup into the workout `description`
+instead — "Warm up first: 8 min bike + hip mobility" — and let the
+athlete do it before starting the timer.
 
 Rest steps go *between* exercises inside the repeat group. Rest length is
 the load prescription's other half — 90 s for hypertrophy, 3 min for

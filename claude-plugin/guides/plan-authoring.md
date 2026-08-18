@@ -128,6 +128,9 @@ The YAML shape:
    than `no.target`, and paicer applies that automatically.
 3. Prescribe load as RPE in `description`, not as `weightValue` — same
    reasoning as the cycling zone+RPE convention.
+4. **No warmup step.** The watch prompts for reps and weight on every
+   non-rest step, so a warmup becomes a phantom set to edit past. Put
+   warmup guidance in the workout `description`.
 
 Time-based exercises (planks, carries) use `endCondition: "time"` instead
 of `"reps"`.
