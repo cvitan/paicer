@@ -150,7 +150,12 @@ def normalize_exercise_sets(data, units="metric"):
     else:
         return []
 
-    divisor = GRAMS_PER.get(units, GRAMS_PER["metric"])
+    # An unrecognised units value falls back to metric, so the label has
+    # to key off the same decision — otherwise a bad config would report
+    # kilograms labelled "lb".
+    imperial = units == "imperial"
+    divisor = GRAMS_PER["imperial"] if imperial else GRAMS_PER["metric"]
+    label = "lb" if imperial else "kg"
     result = []
 
     for raw in raw_sets:
@@ -177,7 +182,7 @@ def normalize_exercise_sets(data, units="metric"):
             "exerciseName": name,
             "reps": raw.get("repetitionCount"),
             "weight": weight,
-            "weightUnit": "kg" if units == "metric" else "lb",
+            "weightUnit": label,
             "duration": raw.get("duration"),
             "confidence": best.get("probability"),
             "wktStepIndex": raw.get("wktStepIndex"),

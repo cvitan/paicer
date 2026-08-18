@@ -561,3 +561,51 @@ def test_no_strength_workout_has_a_warmup_step():
                             f"{rel} '{workout['name']}' has a warmup step"
                         )
     assert checked == 40
+
+
+def test_unknown_units_falls_back_to_metric_consistently():
+    """A bad units config must not report kilograms labelled as pounds."""
+    from paicer.review_data import normalize_exercise_sets
+    data = {"exerciseSets": [{
+        "setType": "ACTIVE", "repetitionCount": 8, "weight": 22687.0,
+        "exercises": [{"category": "SQUAT", "name": "BARBELL_BACK_SQUAT",
+                       "probability": 99.0}]}]}
+    out = normalize_exercise_sets(data, "nonsense")[0]
+    assert out["weight"] == 22.7
+    assert out["weightUnit"] == "kg"
+
+
+def test_rest_step_keeps_weight_unit_like_connect():
+    """Connect puts weightUnit on strength rest steps too — confirmed
+    against a Garmin-authored workout and a live round-trip."""
+    from paicer.integrations.garmin import GarminIntegration
+    import os
+    os.environ["PAICER_HOME"] = "/tmp/paicer-test-nocfg"
+    built = GarminIntegration().build_workout(STRENGTH_WORKOUT)
+    rest = next(s for s in _flatten(built["workoutSegments"][0]["workoutSteps"])
+                if s["stepType"]["stepTypeId"] == 5)
+    assert rest["weightUnit"]["unitKey"] in ("kilogram", "pound")
+    assert rest["weightValue"] is None
+    assert "category" not in rest
+
+
+def test_non_rest_step_without_exercise_is_rejected():
+    """A strength step with no exercise becomes a phantom set on the
+    watch — the bug that made warmup steps unusable."""
+    from paicer.plan_utils import validate_strength_exercises
+    plan = _plan_with([
+        {"stepType": "warmup", "endCondition": "time",
+         "endConditionValue": 300, "targetType": "no.target"},
+    ])
+    errors = validate_strength_exercises(plan)
+    assert len(errors) == 1
+    assert "category and exerciseName" in errors[0]
+
+
+def test_interval_step_without_exercise_is_rejected():
+    from paicer.plan_utils import validate_strength_exercises
+    plan = _plan_with([
+        {"stepType": "interval", "endCondition": "reps",
+         "endConditionValue": 8, "targetType": "no.target"},
+    ])
+    assert len(validate_strength_exercises(plan)) == 1

@@ -251,9 +251,12 @@ class GarminIntegration(WorkoutIntegration):
     def _apply_strength_fields(self, exec_step, step):
         """Attach exercise identity and prescribed load to a strength step.
 
-        Rest steps carry no exercise. Work steps carry category +
-        exerciseName; both are validated against the catalog before sync,
-        so they are passed through as-is here.
+        Applied to *every* strength step, rest included. That is
+        deliberate and matches Connect: a rest step in a Garmin-authored
+        strength workout carries `weightUnit` (and null `weightValue`)
+        just like a work step — only `category`/`exerciseName` are absent,
+        and those are omitted here because rest steps don't declare them.
+        Verified by round-tripping an uploaded workout, 2026-08-18.
         """
         for field in ("category", "exerciseName"):
             if field in step:

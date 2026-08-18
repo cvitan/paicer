@@ -263,9 +263,16 @@ def _iter_steps(steps):
 def validate_strength_exercises(plan_data: Dict) -> list[str]:
     """Check every strength step names a real Garmin exercise.
 
-    A bad category/exercise pair uploads without complaint and then shows
-    as a generic exercise on the watch, so this runs at render time as well
-    as sync time.
+    Two failure modes, both silent without this check:
+
+    - A bad category/exercise pair uploads without complaint and then
+      shows as a generic exercise on the watch.
+    - A non-rest step with *no* exercise becomes a phantom set: the watch
+      prompts for reps and weight on every non-rest step, so the athlete
+      has to edit past an empty entry before saving. This is why strength
+      workouts carry no warmup step.
+
+    Runs at render time as well as sync time.
 
     Returns list of error messages (empty if valid).
     """
@@ -284,13 +291,13 @@ def validate_strength_exercises(plan_data: Dict) -> list[str]:
                         continue
                     category = step.get("category")
                     name = step.get("exerciseName")
-                    if not category and not name:
-                        continue
                     if not category or not name:
                         errors.append(
                             f"Week {week_num} \"{workout.get('name')}\": "
-                            f"strength step needs both category and "
-                            f"exerciseName."
+                            f"{step.get('stepType')} step needs both "
+                            f"category and exerciseName — a strength step "
+                            f"without an exercise becomes an empty set on "
+                            f"the watch."
                         )
                         continue
                     problem = validate(category, name)
