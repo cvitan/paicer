@@ -1,7 +1,26 @@
 # Strength Training Design
 
 **Date:** 2026-08-17
-**Status:** Design approved, not yet implemented.
+**Status:** Phases 1-3 and 5 implemented and **verified end-to-end**
+(2026-08-18). A strength workout from `examples/strength-8week.yaml` was
+uploaded to Garmin Connect and fetched back: all 15 steps round-tripped
+identically — four repeat groups with correct `childStepId` association,
+every category/exerciseName pair preserved, `reps` resolved to
+conditionTypeId 10, rest durations exact including the superset's
+asymmetric 30s/75s pattern, and `weightUnit` honouring the imperial
+config.
+
+Two findings from that verification:
+- paicer numbers `stepOrder` per repeat group rather than globally as
+  Connect does. Garmin normalises it on upload, so this pre-existing
+  divergence is harmless and needs no change.
+- Plans containing strength YAML fail on older paicer versions with an
+  opaque `Error: 'targetType'`, because the pre-strength step builder
+  reads `step["targetType"]` unconditionally. Nothing hints that the tool
+  is simply out of date.
+
+**Phase 4 (review) remains unverified** — still no logged strength
+activity, so the `exerciseSets` shape is still inferred.
 
 ## Goal
 
