@@ -44,6 +44,33 @@ A 33-entry real response normalises to 15 training sets. The fixture in
 
 **All five phases are now implemented and verified.**
 
+### `weightUnit` resolved (2026-08-18)
+
+The kilogram unit id was carried as an open unknown. It turned out to be
+the wrong question. The Garmin account was switched to metric and a
+strength workout authored fresh in Connect: it still returned
+`{unitId: 9, unitKey: "pound", factor: 453.59237}` on all 16 steps.
+
+`weightUnit` therefore does not track the account's measurement system,
+and Garmin has never been observed emitting a kilogram unit at all. It is
+now a constant in the builder rather than something derived from paicer's
+`units` config — which also removes a latent mismatch, since paicer's
+units setting is independent of the Garmin account's.
+
+Two further findings from live upload probes:
+
+- Omitting `weightUnit` makes Garmin **silently discard** `weightValue`.
+  The field is required even though it doesn't control display.
+- `weightValue` is **not** in grams. Garmin renders it verbatim in the
+  account's display unit: a step sent as `27215.54` displays as
+  "27,215.5 kg", and one sent as `60` displays as "60.0 kg". paicer had
+  been multiplying by a grams factor, which would have shipped a
+  453x-wrong prescribed load. Now passed through unconverted.
+
+This is an asymmetry worth remembering: prescription (`weightValue` in a
+workout) is in display units, while measurement (`weight` in an
+`exerciseSets` response) is in grams.
+
 ## Goal
 
 Add strength training to paicer as a first-class workout type: authored in

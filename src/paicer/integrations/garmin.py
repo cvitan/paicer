@@ -23,12 +23,17 @@ SPORT_TYPES = {
     },
 }
 
-# Garmin weight units. Factor is grams per unit — Garmin's weight base unit
-# is grams. The pound entry is confirmed against a real Connect workout.
-WEIGHT_UNITS = {
-    "imperial": {"unitId": 9, "unitKey": "pound", "factor": 453.59237},
-    "metric": {"unitId": 8, "unitKey": "kilogram", "factor": 1000.0},
-}
+# Connect writes this exact dict on every strength step — verified against
+# two user-authored workouts, one created while the Garmin account was set
+# to statute_us and one while it was set to metric. It does *not* track the
+# account's measurement system, and Garmin has never been observed emitting
+# a kilogram unit at all, so it is a constant rather than something derived
+# from paicer's `units` config.
+#
+# It is also required: uploading a step without weightUnit makes Garmin
+# silently drop weightValue. Despite the name, it does not determine how
+# the weight is displayed — the account's measurement system does that.
+WEIGHT_UNIT = {"unitId": 9, "unitKey": "pound", "factor": 453.59237}
 
 STROKE_TYPES = {
     "free": {"strokeTypeId": 6, "strokeTypeKey": "free", "displayOrder": 6},
@@ -262,18 +267,18 @@ class GarminIntegration(WorkoutIntegration):
             if field in step:
                 exec_step[field] = step[field]
 
-        unit = WEIGHT_UNITS.get(self.units, WEIGHT_UNITS["metric"])
-        exec_step["weightUnit"] = unit
+        # weightUnit must be present even though it doesn't drive display:
+        # omitting it makes Garmin silently discard weightValue entirely.
+        exec_step["weightUnit"] = WEIGHT_UNIT
 
-        # Garmin's weight base unit is grams (the unit factor is grams per
-        # unit), mirroring how distance is stored in metres with a separate
-        # display unit. YAML weightValue is written in the user's own unit.
-        if step.get("weightValue") is not None:
-            exec_step["weightValue"] = round(
-                step["weightValue"] * unit["factor"], 2
-            )
-        else:
-            exec_step["weightValue"] = None
+        # Passed through unconverted. Garmin shows weightValue verbatim in
+        # the *account's* display unit — sending 27215.54 renders as
+        # "27,215.5 kg", not "60 lb". Confirmed on-screen 2026-08-18.
+        #
+        # Note this differs from the activity side, where logged weight
+        # really is in grams (a logged set came back as 22687 g = 50.0 lb).
+        # Prescription and measurement use different encodings.
+        exec_step["weightValue"] = step.get("weightValue")
 
     def authenticate(self):
         import keyring

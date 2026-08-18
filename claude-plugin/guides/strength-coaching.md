@@ -146,8 +146,11 @@ August is wrong by October. RPE stays correct. This mirrors the cycling
 convention of prescribing zone + RPE rather than watts.
 
 `weightValue` is supported for cases where a prescribed load is genuinely
-wanted — a percentage-based strength block with known 1RMs. It is written
-in the athlete's own unit and converted on upload.
+wanted — a percentage-based strength block with known 1RMs. It is sent
+unconverted and rendered in whatever unit the athlete's *Garmin account*
+uses, which is a separate setting from paicer's `units`. If the two
+disagree, a prescribed load reads as the wrong number. RPE has no such
+failure mode.
 
 ## Progression across weeks
 

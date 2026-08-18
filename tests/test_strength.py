@@ -106,31 +106,80 @@ def test_weight_omitted_by_default(integration):
     work = next(s for s in _flatten(built["workoutSegments"][0]["workoutSteps"])
                 if s["stepType"]["stepTypeId"] == 3)
     assert work["weightValue"] is None
-    assert work["weightUnit"]["unitKey"] == "kilogram"
+    # Connect writes pound on every strength step regardless of the
+    # account's measurement system — verified against two user-authored
+    # workouts, one created under statute_us and one under metric.
+    assert work["weightUnit"] == {
+        "unitId": 9, "unitKey": "pound", "factor": 453.59237,
+    }
 
 
-def test_weight_converted_to_grams(integration):
-    """Garmin stores weight in grams; YAML is written in the user's unit."""
+def test_weight_value_passed_through_unconverted():
+    """Garmin renders weightValue verbatim in the account's display unit.
+
+    Sending 27215.54 (60 lb expressed in grams) renders as "27,215.5 kg",
+    not "60 lb" — confirmed on-screen in Connect. So no conversion.
+    """
+    import os
+    os.environ["PAICER_HOME"] = "/tmp/paicer-test-nocfg"
+    from paicer.integrations.garmin import GarminIntegration
     workout = {"name": "x", "type": "strength", "garmin": {"steps": [
         {"stepType": "interval", "endCondition": "reps", "endConditionValue": 5,
          "targetType": "no.target", "category": "SQUAT",
          "exerciseName": "BARBELL_BACK_SQUAT", "weightValue": 60},
     ]}}
-    built = integration.build_workout(workout)
-    step = built["workoutSegments"][0]["workoutSteps"][0]
-    assert step["weightValue"] == 60000.0
+    built = GarminIntegration().build_workout(workout)
+    assert built["workoutSegments"][0]["workoutSteps"][0]["weightValue"] == 60
 
 
-def test_imperial_weight_unit(monkeypatch, tmp_path):
+def test_weight_unit_does_not_follow_paicer_units(monkeypatch, tmp_path):
+    """weightUnit is a Connect constant, not a paicer preference.
+
+    Garmin writes pound on strength steps under both measurement systems
+    and has never been observed emitting a kilogram unit, so deriving
+    this from paicer's config would invent a value Connect doesn't use.
+    """
     monkeypatch.setenv("PAICER_HOME", str(tmp_path))
     from paicer.config import write_config
-    write_config({"units": "imperial"})
+    from paicer.integrations.garmin import GarminIntegration
+    for units in ("imperial", "metric"):
+        write_config({"units": units})
+        built = GarminIntegration().build_workout(STRENGTH_WORKOUT)
+        work = next(
+            s for s in _flatten(built["workoutSegments"][0]["workoutSteps"])
+            if s["stepType"]["stepTypeId"] == 3
+        )
+        assert work["weightUnit"]["unitKey"] == "pound", units
+        assert work["weightUnit"]["unitId"] == 9, units
+
+
+def test_weight_value_ignores_paicer_units(monkeypatch, tmp_path):
+    """weightValue is not converted, so the units config must not touch it."""
+    monkeypatch.setenv("PAICER_HOME", str(tmp_path))
+    from paicer.config import write_config
+    from paicer.integrations.garmin import GarminIntegration
+    workout = {"name": "x", "type": "strength", "garmin": {"steps": [
+        {"stepType": "interval", "endCondition": "reps", "endConditionValue": 5,
+         "targetType": "no.target", "category": "SQUAT",
+         "exerciseName": "BARBELL_BACK_SQUAT", "weightValue": 100},
+    ]}}
+    for units in ("imperial", "metric"):
+        write_config({"units": units})
+        built = GarminIntegration().build_workout(workout)
+        step = built["workoutSegments"][0]["workoutSteps"][0]
+        assert step["weightValue"] == 100, units
+
+
+def test_weight_unit_always_present_even_when_weight_unset():
+    """Omitting weightUnit makes Garmin discard weightValue, so it is
+    always emitted — confirmed by a live upload that came back with the
+    prescribed weight stripped."""
+    import os
+    os.environ["PAICER_HOME"] = "/tmp/paicer-test-nocfg"
     from paicer.integrations.garmin import GarminIntegration
     built = GarminIntegration().build_workout(STRENGTH_WORKOUT)
-    work = next(s for s in _flatten(built["workoutSegments"][0]["workoutSteps"])
-                if s["stepType"]["stepTypeId"] == 3)
-    assert work["weightUnit"]["unitKey"] == "pound"
-    assert work["weightUnit"]["unitId"] == 9
+    for step in _flatten(built["workoutSegments"][0]["workoutSteps"]):
+        assert step["weightUnit"]["unitId"] == 9
 
 
 def test_other_sports_get_no_strength_fields(integration):

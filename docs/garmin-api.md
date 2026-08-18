@@ -183,9 +183,30 @@ every candidate endpoint returns 404 or 410.
 ### Weight
 
 `weightValue` is optional and omitted by default; prescribe load as RPE in
-`description` instead. When present, it is written in the athlete's own unit
-(kg or lb per `units` config) and converted to grams — Garmin's base unit —
-on upload. `weightUnit` is derived from config and never written in YAML.
+`description` instead. When present it is sent **verbatim, unconverted** —
+Garmin renders it in whatever unit the *Garmin account* is set to. Sending
+`60` displays as "60 kg" on a metric account and "60 lb" on an imperial one.
+Sending `27215.54` displays as "27,215.5 kg". Confirmed on-screen 2026-08-18.
+
+Because the number is interpreted by the Garmin account's measurement
+system, not paicer's `units` config, the two need to agree for a prescribed
+load to read correctly. This is one more reason the guide prescribes RPE
+rather than absolute weight.
+
+Note the asymmetry with the activity side: logged weight in an
+`exerciseSets` response really is in grams (a logged set came back as
+22687 g = 50.0 lb). Prescription and measurement use different encodings.
+
+`weightUnit` is never written in YAML and is **not** derived from the `units`
+config. Connect writes `{unitId: 9, unitKey: "pound", factor: 453.59237}` on
+every strength step regardless of the Garmin account's measurement system —
+verified against two user-authored workouts, one created while the account
+was `statute_us` and one while it was `metric`. Garmin has never been observed
+emitting a kilogram weight unit, so paicer emits Connect's constant rather
+than inventing one.
+
+Despite the name it does not control display. It is nonetheless **required**:
+uploading a step without it makes Garmin silently discard `weightValue`.
 
 ## Required vs Optional Fields
 
