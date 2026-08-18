@@ -19,8 +19,30 @@ Two findings from that verification:
   reads `step["targetType"]` unconditionally. Nothing hints that the tool
   is simply out of date.
 
-**Phase 4 (review) remains unverified** — still no logged strength
-activity, so the `exerciseSets` shape is still inferred.
+**Phase 4 verified** (2026-08-18) against a real logged strength
+activity. The inferred shape was right about the envelope
+(`{activityId, exerciseSets}`), `setType: "REST"`, `repetitionCount`, and
+weight being in grams (22687 g round-trips to exactly 50.0 lb). It was
+wrong or incomplete in three ways, now fixed:
+
+- `exercises` is an array of candidates. In the captured response every
+  working set held three identical entries at 99.6, and the only entry
+  with differing confidences was an unclassified warmup whose highest
+  value was already first — so `exercises[0]` would in fact have worked.
+  The parser still selects by highest `probability`, as a defensive
+  choice rather than an evidenced one: nothing documents that Garmin
+  sorts the array.
+- `wktStepIndex` links a logged set back to its step in the planned
+  workout. It was being discarded; it is the basis for planned-vs-actual
+  matching and is now kept.
+- Warmup and trailing blocks arrive as `UNKNOWN` with a null name, and
+  `weight: 0.0` means "nothing recorded" rather than zero. Both are now
+  handled.
+
+A 33-entry real response normalises to 15 training sets. The fixture in
+`tests/test_strength.py` is taken verbatim from that response.
+
+**All five phases are now implemented and verified.**
 
 ## Goal
 

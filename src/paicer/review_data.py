@@ -115,17 +115,33 @@ def get_activity_intervals(garmin, activity_id):
 GRAMS_PER = {"metric": 1000.0, "imperial": 453.59237}
 
 
+def _best_exercise(raw):
+    """Pick the most confident exercise guess from a set's candidates.
+
+    Garmin returns an `exercises` array per set — in the one real response
+    captured, three identical candidates for every working set. Only a
+    fumbled warmup block had differing confidences, and its highest was
+    already first. Nothing documents that the array is sorted, so pick by
+    probability rather than trusting order.
+    """
+    candidates = [e for e in (raw.get("exercises") or []) if isinstance(e, dict)]
+    if not candidates:
+        return {}
+    return max(candidates, key=lambda e: e.get("probability") or 0.0)
+
+
 def normalize_exercise_sets(data, units="metric"):
     """Normalize a Garmin exerciseSets response into per-set records.
 
-    Garmin returns each working set separately. Weight comes back in grams
-    (its base unit) and is converted to the athlete's own unit here.
+    Verified against a real response (2026-08-18). Garmin returns one
+    entry per set, interleaved with REST entries, plus UNKNOWN blocks for
+    warmup and any trailing unclassified time. Weight is in grams —
+    22687 g round-trips to exactly 50.0 lb.
 
-    NOTE: this shape is inferred, not confirmed — the account used to
-    develop this feature had no logged strength activities, so no real
-    response was available to check against. Every field is read
-    defensively so an unexpected payload degrades to nulls rather than
-    raising. Verify against a real response before trusting the output.
+    Rest entries and unidentifiable blocks are dropped; they carry no
+    training content and only add noise to a review. `wktStepIndex` is
+    kept because it links a logged set back to the step in the planned
+    workout, which is what makes planned-vs-actual matching possible.
     """
     if isinstance(data, dict):
         raw_sets = data.get("exerciseSets") or []
@@ -140,25 +156,31 @@ def normalize_exercise_sets(data, units="metric"):
     for raw in raw_sets:
         if not isinstance(raw, dict):
             continue
-        # Rest sets carry no exercise and are noise for review.
         if (raw.get("setType") or "").upper() == "REST":
             continue
 
-        exercises = raw.get("exercises") or []
-        first = exercises[0] if exercises and isinstance(exercises[0], dict) else {}
+        best = _best_exercise(raw)
+        name = best.get("name")
+        category = best.get("category")
+        # Warmup and trailing blocks come back as UNKNOWN with a null name.
+        if not name or category == "UNKNOWN":
+            continue
 
+        # 0.0 means "no weight recorded", not "zero kilograms".
         weight_grams = raw.get("weight")
         weight = None
-        if isinstance(weight_grams, (int, float)):
+        if isinstance(weight_grams, (int, float)) and weight_grams:
             weight = round(weight_grams / divisor, 1)
 
         result.append({
-            "category": first.get("category"),
-            "exerciseName": first.get("name"),
+            "category": category,
+            "exerciseName": name,
             "reps": raw.get("repetitionCount"),
             "weight": weight,
             "weightUnit": "kg" if units == "metric" else "lb",
             "duration": raw.get("duration"),
+            "confidence": best.get("probability"),
+            "wktStepIndex": raw.get("wktStepIndex"),
         })
 
     return result

@@ -70,8 +70,19 @@ Read `units` from `~/.paicer/config` (default: `metric`). Present all values in 
 ## Strength Sessions
 
 Strength activities carry an `exerciseSets` array instead of `intervals`.
-Each entry is one working set: `category`, `exerciseName`, `reps`,
-`weight`, `weightUnit`, `duration`. Rest sets are already filtered out.
+Each entry is one working set:
+
+| Field | Notes |
+|-------|-------|
+| `category` / `exerciseName` | Garmin's identification, highest-confidence guess |
+| `reps` | `0` means the watch failed to count, **not** zero reps done. `null` means a time-based exercise |
+| `weight` / `weightUnit` | In the athlete's own unit. `null` means none recorded |
+| `duration` | Seconds. The real measure for planks and carries |
+| `confidence` | Auto-detection probability. Below ~90 means Garmin was guessing — don't state the exercise as fact |
+| `wktStepIndex` | Index of the step in the planned workout. **Group sets by this** to compare against the plan — several sets share one index |
+
+Rest periods and unidentified warmup blocks are already filtered out, so
+every entry is real training content.
 
 Read `../../guides/strength-coaching.md` for the programming
 principles behind these judgements.
@@ -88,7 +99,8 @@ principles behind these judgements.
   suggesting more work.
 - **Dropoff within a session** — reps falling across sets (8/8/6) means the
   load was too heavy for the prescription. Hold load rather than
-  progressing.
+  progressing. Check `reps: 0` entries first though — an uncounted set
+  looks identical to a failed one in a naive read.
 - **Interference** — did lifting land the day before a quality run or long
   run? If a key endurance session underperformed, check what preceded it
   before blaming fitness.

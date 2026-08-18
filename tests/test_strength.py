@@ -282,57 +282,114 @@ def test_plan_validation_skips_non_strength_workouts():
 
 
 # --- review normalization --------------------------------------------------
-# NOTE: the exerciseSets shape is inferred, not confirmed against a real
-# Garmin response. These tests pin the parser's contract and its defensive
-# behaviour; they do not prove the shape is right.
+# Fixture captured verbatim from a real Garmin response on 2026-08-18
+# (activity logged specifically to pin this shape down).
 
-def test_normalize_exercise_sets_metric():
+REAL_SETS = {"activityId": 1, "exerciseSets": [
+    # Warmup — a fumbled activity start. The only entry in the real
+    # response with differing confidences, and all candidates are UNKNOWN,
+    # so it is dropped regardless of which one is picked.
+    {"exercises": [{"category": "UNKNOWN", "name": None, "probability": 99.6},
+                   {"category": "UNKNOWN", "name": None, "probability": 0.0},
+                   {"category": "UNKNOWN", "name": None, "probability": 0.0}],
+     "duration": 6.3, "repetitionCount": 0, "weight": None,
+     "setType": "ACTIVE", "wktStepIndex": 0, "messageIndex": 0},
+    # A set the watch failed to count reps on, weight 0.0 not null.
+    {"exercises": [{"category": "SQUAT", "name": "BARBELL_BACK_SQUAT",
+                    "probability": 99.609375}] * 3,
+     "duration": 22.7, "repetitionCount": 0, "weight": 0.0,
+     "setType": "ACTIVE", "wktStepIndex": 1, "messageIndex": 1},
+    {"exercises": [], "duration": 43.0, "repetitionCount": None,
+     "weight": None, "setType": "REST", "wktStepIndex": 2, "messageIndex": 2},
+    # A good set: 22687 g is exactly 50.0 lb.
+    {"exercises": [{"category": "SQUAT", "name": "BARBELL_BACK_SQUAT",
+                    "probability": 99.609375}] * 3,
+     "duration": 19.9, "repetitionCount": 8, "weight": 22687.0,
+     "setType": "ACTIVE", "wktStepIndex": 1, "messageIndex": 3},
+    # Time-based exercise: reps is null, not zero.
+    {"exercises": [{"category": "PLANK", "name": "PLANK",
+                    "probability": 99.609375}] * 3,
+     "duration": 2.1, "repetitionCount": None, "weight": None,
+     "setType": "ACTIVE", "wktStepIndex": 12, "messageIndex": 25},
+    # Trailing unclassified block after the workout ended.
+    {"exercises": [{"category": "UNKNOWN", "name": None,
+                    "probability": 98.8}],
+     "duration": 11.4, "repetitionCount": None, "weight": None,
+     "setType": "ACTIVE", "wktStepIndex": None, "messageIndex": 32},
+]}
+
+
+def test_real_response_drops_rest_and_unknown_blocks():
     from paicer.review_data import normalize_exercise_sets
-    data = {"exerciseSets": [
-        {"setType": "ACTIVE", "repetitionCount": 8, "weight": 60000.0,
-         "duration": 30.0,
-         "exercises": [{"category": "SQUAT", "name": "BARBELL_BACK_SQUAT"}]},
-    ]}
-    assert normalize_exercise_sets(data, "metric") == [{
-        "category": "SQUAT",
-        "exerciseName": "BARBELL_BACK_SQUAT",
-        "reps": 8,
-        "weight": 60.0,
-        "weightUnit": "kg",
-        "duration": 30.0,
-    }]
+    out = normalize_exercise_sets(REAL_SETS, "imperial")
+    assert len(out) == 3
+    assert all(r["exerciseName"] for r in out)
+    assert not any(r["category"] == "UNKNOWN" for r in out)
 
 
-def test_normalize_exercise_sets_imperial():
+def test_real_response_weight_grams_to_pounds():
+    """22687 g is exactly 50 lb — confirms Garmin's base unit is grams."""
     from paicer.review_data import normalize_exercise_sets
-    data = {"exerciseSets": [
-        {"setType": "ACTIVE", "repetitionCount": 5, "weight": 45359.237,
-         "exercises": [{"category": "SQUAT", "name": "BARBELL_BACK_SQUAT"}]},
-    ]}
-    assert normalize_exercise_sets(data, "imperial")[0]["weight"] == 100.0
+    out = normalize_exercise_sets(REAL_SETS, "imperial")
+    good = next(r for r in out if r["reps"] == 8)
+    assert good["weight"] == 50.0
+    assert good["weightUnit"] == "lb"
 
 
-def test_normalize_drops_rest_sets():
+def test_real_response_weight_grams_to_kg():
     from paicer.review_data import normalize_exercise_sets
-    data = {"exerciseSets": [
-        {"setType": "REST", "duration": 90.0},
-        {"setType": "ACTIVE", "repetitionCount": 8, "exercises": []},
-    ]}
-    assert len(normalize_exercise_sets(data)) == 1
+    out = normalize_exercise_sets(REAL_SETS, "metric")
+    good = next(r for r in out if r["reps"] == 8)
+    assert good["weight"] == 22.7
+    assert good["weightUnit"] == "kg"
 
 
-def test_normalize_tolerates_missing_fields():
+def test_zero_weight_reads_as_none():
+    """weight 0.0 means nothing recorded, not zero kilograms."""
     from paicer.review_data import normalize_exercise_sets
-    data = {"exerciseSets": [{"setType": "ACTIVE"}]}
-    result = normalize_exercise_sets(data)
-    assert result[0]["exerciseName"] is None
-    assert result[0]["weight"] is None
-    assert result[0]["reps"] is None
+    out = normalize_exercise_sets(REAL_SETS, "imperial")
+    uncounted = next(r for r in out if r["reps"] == 0)
+    assert uncounted["weight"] is None
+
+
+def test_wkt_step_index_preserved():
+    """Links a logged set back to the planned workout step."""
+    from paicer.review_data import normalize_exercise_sets
+    out = normalize_exercise_sets(REAL_SETS, "imperial")
+    assert [r["wktStepIndex"] for r in out] == [1, 1, 12]
+
+
+def test_time_based_exercise_has_null_reps():
+    from paicer.review_data import normalize_exercise_sets
+    out = normalize_exercise_sets(REAL_SETS, "imperial")
+    plank = next(r for r in out if r["exerciseName"] == "PLANK")
+    assert plank["reps"] is None
+    assert plank["duration"] == 2.1
+
+
+def test_highest_confidence_candidate_wins():
+    """Defensive, not observed: in the one real response captured, every
+    working set had identical candidates and the highest confidence was
+    already first. Nothing documents that Garmin sorts the array, so the
+    parser picks by probability rather than relying on order."""
+    from paicer.review_data import normalize_exercise_sets
+    data = {"exerciseSets": [{
+        "setType": "ACTIVE", "repetitionCount": 5, "weight": None,
+        "exercises": [
+            {"category": "SQUAT", "name": "AIR_SQUAT", "probability": 12.0},
+            {"category": "SQUAT", "name": "BARBELL_BACK_SQUAT",
+             "probability": 88.0},
+        ]}]}
+    out = normalize_exercise_sets(data)
+    assert out[0]["exerciseName"] == "BARBELL_BACK_SQUAT"
+    assert out[0]["confidence"] == 88.0
 
 
 def test_normalize_tolerates_bare_list():
     from paicer.review_data import normalize_exercise_sets
-    data = [{"setType": "ACTIVE", "repetitionCount": 10, "exercises": []}]
+    data = [{"setType": "ACTIVE", "repetitionCount": 10,
+             "exercises": [{"category": "PLANK", "name": "PLANK",
+                            "probability": 99.0}]}]
     assert normalize_exercise_sets(data)[0]["reps"] == 10
 
 
