@@ -3,7 +3,7 @@
 import os
 from garminconnect import Garmin as GarminAPI
 from .base import WorkoutIntegration
-from ..config import get_swim_tracking
+from ..config import get_swim_tracking, get_units
 
 
 SPORT_TYPES = {
@@ -11,11 +11,23 @@ SPORT_TYPES = {
     "track": {"sportTypeId": 1, "sportTypeKey": "running", "displayOrder": 1},
     "bike": {"sportTypeId": 2, "sportTypeKey": "cycling", "displayOrder": 2},
     "swim": {"sportTypeId": 4, "sportTypeKey": "swimming", "displayOrder": 3},
+    "strength": {
+        "sportTypeId": 5,
+        "sportTypeKey": "strength_training",
+        "displayOrder": 5,
+    },
     "multisport": {
         "sportTypeId": 10,
         "sportTypeKey": "multi_sport",
         "displayOrder": 4,
     },
+}
+
+# Garmin weight units. Factor is grams per unit — Garmin's weight base unit
+# is grams. The pound entry is confirmed against a real Connect workout.
+WEIGHT_UNITS = {
+    "imperial": {"unitId": 9, "unitKey": "pound", "factor": 453.59237},
+    "metric": {"unitId": 8, "unitKey": "kilogram", "factor": 1000.0},
 }
 
 STROKE_TYPES = {
@@ -47,6 +59,7 @@ CONDITION_TYPES = {
     "calories": 4,
     "power": 5,
     "iterations": 7,
+    "reps": 10,
 }
 
 TARGET_TYPES = {
@@ -88,6 +101,7 @@ class GarminIntegration(WorkoutIntegration):
         self.client = None
         self.tokenstore = os.path.expanduser("~/.garmin_tokens")
         self.swim_tracking = get_swim_tracking()
+        self.units = get_units()
 
     def build_workout(self, workout_def: dict) -> dict:
         """Build Garmin workout JSON from YAML workout definition."""
@@ -98,8 +112,8 @@ class GarminIntegration(WorkoutIntegration):
     def _build_single_sport(self, workout_def: dict) -> dict:
         """Build a single-sport Garmin workout."""
         garmin_steps = workout_def["garmin"]["steps"]
-        is_swim = workout_def.get("type") == "swim"
-        workout_steps, _ = self._convert_steps(garmin_steps, is_swim)
+        sport = workout_def.get("type", "run")
+        workout_steps, _ = self._convert_steps(garmin_steps, sport)
 
         sport_type = SPORT_TYPES.get(
             workout_def.get("type", "run"), SPORT_TYPES["run"]
@@ -125,10 +139,9 @@ class GarminIntegration(WorkoutIntegration):
 
         for i, leg in enumerate(legs):
             sport = leg["sport"]
-            is_swim = sport == "swim"
             sport_type = SPORT_TYPES.get(sport, SPORT_TYPES["run"])
             leg_steps, _ = self._convert_steps(
-                leg["steps"], is_swim, step_offset=global_step_order,
+                leg["steps"], sport, step_offset=global_step_order,
             )
             global_step_order += len(leg_steps)
 
@@ -147,7 +160,7 @@ class GarminIntegration(WorkoutIntegration):
         }
 
     def _convert_steps(
-        self, steps_list, is_swim,
+        self, steps_list, sport,
         parent_child_id=None, step_offset=0,
     ):
         """Convert YAML steps to Garmin JSON."""
@@ -162,7 +175,7 @@ class GarminIntegration(WorkoutIntegration):
                 current_child_id = child_id_counter
 
                 nested_steps, child_id_counter = self._convert_steps(
-                    step["steps"], is_swim, child_id_counter
+                    step["steps"], sport, child_id_counter
                 )
 
                 repeat_step = {
@@ -176,13 +189,15 @@ class GarminIntegration(WorkoutIntegration):
                 }
                 converted.append(repeat_step)
             else:
-                exec_step = self._build_exec_step(step, step_order, is_swim)
+                exec_step = self._build_exec_step(step, step_order, sport)
                 converted.append(exec_step)
 
         return converted, child_id_counter
 
-    def _build_exec_step(self, step, step_order, is_swim):
+    def _build_exec_step(self, step, step_order, sport):
         """Build a single executable step."""
+        is_swim = sport == "swim"
+        is_strength = sport == "strength"
         exec_step = {
             "type": "ExecutableStepDTO",
             "stepOrder": step_order,
@@ -203,6 +218,10 @@ class GarminIntegration(WorkoutIntegration):
             exec_step["targetType"] = None
             if self.swim_tracking == "drill":
                 exec_step["drillType"] = DRILL_TYPES["drill"]
+        elif is_strength and step.get("stepType") == "rest":
+            # Connect emits null — not no.target — for strength rest steps.
+            # Applied here so plan YAML omits targetType on rest steps.
+            exec_step["targetType"] = None
         else:
             exec_step["targetType"] = resolve_target_type(
                 step["targetType"]
@@ -213,6 +232,9 @@ class GarminIntegration(WorkoutIntegration):
                 exec_step["targetValueTwo"] = step["targetValueTwo"]
             if "zoneNumber" in step:
                 exec_step["zoneNumber"] = step["zoneNumber"]
+
+        if is_strength:
+            self._apply_strength_fields(exec_step, step)
 
         if "childStepId" in step:
             exec_step["childStepId"] = step["childStepId"]
@@ -225,6 +247,30 @@ class GarminIntegration(WorkoutIntegration):
             }
 
         return exec_step
+
+    def _apply_strength_fields(self, exec_step, step):
+        """Attach exercise identity and prescribed load to a strength step.
+
+        Rest steps carry no exercise. Work steps carry category +
+        exerciseName; both are validated against the catalog before sync,
+        so they are passed through as-is here.
+        """
+        for field in ("category", "exerciseName"):
+            if field in step:
+                exec_step[field] = step[field]
+
+        unit = WEIGHT_UNITS.get(self.units, WEIGHT_UNITS["metric"])
+        exec_step["weightUnit"] = unit
+
+        # Garmin's weight base unit is grams (the unit factor is grams per
+        # unit), mirroring how distance is stored in metres with a separate
+        # display unit. YAML weightValue is written in the user's own unit.
+        if step.get("weightValue") is not None:
+            exec_step["weightValue"] = round(
+                step["weightValue"] * unit["factor"], 2
+            )
+        else:
+            exec_step["weightValue"] = None
 
     def authenticate(self):
         import keyring

@@ -23,6 +23,7 @@ import json
 import sys
 from datetime import datetime, timedelta
 
+from .config import get_units
 from .integrations.garmin import GarminIntegration
 from .plan_utils import first_monday_on_or_after, load_plan
 
@@ -109,6 +110,77 @@ def get_activity_intervals(garmin, activity_id):
             "averagePower": split.get("averagePower"),
         })
     return intervals
+
+
+GRAMS_PER = {"metric": 1000.0, "imperial": 453.59237}
+
+
+def normalize_exercise_sets(data, units="metric"):
+    """Normalize a Garmin exerciseSets response into per-set records.
+
+    Garmin returns each working set separately. Weight comes back in grams
+    (its base unit) and is converted to the athlete's own unit here.
+
+    NOTE: this shape is inferred, not confirmed — the account used to
+    develop this feature had no logged strength activities, so no real
+    response was available to check against. Every field is read
+    defensively so an unexpected payload degrades to nulls rather than
+    raising. Verify against a real response before trusting the output.
+    """
+    if isinstance(data, dict):
+        raw_sets = data.get("exerciseSets") or []
+    elif isinstance(data, list):
+        raw_sets = data
+    else:
+        return []
+
+    divisor = GRAMS_PER.get(units, GRAMS_PER["metric"])
+    result = []
+
+    for raw in raw_sets:
+        if not isinstance(raw, dict):
+            continue
+        # Rest sets carry no exercise and are noise for review.
+        if (raw.get("setType") or "").upper() == "REST":
+            continue
+
+        exercises = raw.get("exercises") or []
+        first = exercises[0] if exercises and isinstance(exercises[0], dict) else {}
+
+        weight_grams = raw.get("weight")
+        weight = None
+        if isinstance(weight_grams, (int, float)):
+            weight = round(weight_grams / divisor, 1)
+
+        result.append({
+            "category": first.get("category"),
+            "exerciseName": first.get("name"),
+            "reps": raw.get("repetitionCount"),
+            "weight": weight,
+            "weightUnit": "kg" if units == "metric" else "lb",
+            "duration": raw.get("duration"),
+        })
+
+    return result
+
+
+def get_activity_exercise_sets(garmin, activity_id, units="metric"):
+    """Pull per-exercise sets for a strength activity.
+
+    Returns [] when the activity has no set data or the call fails —
+    strength activities recorded without exercise detection are normal.
+    """
+    try:
+        data = garmin.client.get_activity_exercise_sets(activity_id)
+    except Exception as e:
+        print(
+            f"Warning: failed to fetch exercise sets for activity "
+            f"{activity_id}: {e}",
+            file=sys.stderr,
+        )
+        return []
+
+    return normalize_exercise_sets(data, units)
 
 
 def extract_training_status(status):
@@ -260,11 +332,16 @@ def main():
             },
         }
 
-        # Pull structured workout intervals (matches Garmin Connect's Intervals tab)
+        # Strength activities carry per-exercise sets instead of intervals
         if activity_id:
-            entry["intervals"] = get_activity_intervals(
-                garmin, activity_id,
-            )
+            if entry["activityType"] == "strength_training":
+                entry["exerciseSets"] = get_activity_exercise_sets(
+                    garmin, activity_id, get_units(),
+                )
+            else:
+                entry["intervals"] = get_activity_intervals(
+                    garmin, activity_id,
+                )
 
         activity_data.append(entry)
 

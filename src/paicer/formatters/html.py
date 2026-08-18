@@ -5,7 +5,7 @@ from ..plan_utils import (
     calculate_workout_date,
     calculate_week_dates,
     calculate_phase_dates,
-    extract_swim_steps,
+    extract_step_lines,
     format_display_date,
     SPORT_EMOJI,
 )
@@ -87,9 +87,9 @@ class HTMLFormatter(DocumentFormatter):
     .workout-day {{ font-weight: bold; color: #1a1a2e; font-size: 11px; }}
     .workout-name {{ font-weight: bold; color: #1a1a2e; margin-bottom: 5px; }}
     .workout-desc {{ font-size: 11px; color: #1a1a2e; line-height: 1.4; }}
-    .swim-steps {{ margin: 4px 0 0 0; padding-left: 18px; font-size: 10px; color: #2c3e50; }}
-    .swim-steps li {{ margin: 1px 0; }}
-    .swim-steps ul {{ padding-left: 14px; margin: 1px 0; list-style-type: disc; }}
+    .workout-steps {{ margin: 4px 0 0 0; padding-left: 18px; font-size: 10px; color: #2c3e50; }}
+    .workout-steps li {{ margin: 1px 0; }}
+    .workout-steps ul {{ padding-left: 14px; margin: 1px 0; list-style-type: disc; }}
     .race-strategy {{ margin-top: 8px; padding: 8px; background-color: #fff4e6; border-left: 4px solid #e67e22; font-size: 11px; }}
     .race-strategy-header {{ font-weight: bold; color: #b9530b; margin-bottom: 4px; }}
     .race-strategy-rule {{ margin-bottom: 4px; }}
@@ -271,20 +271,19 @@ class HTMLFormatter(DocumentFormatter):
                             desc_html += "</div>"
                         desc_html += "</div>"
 
-                    if workout.get("type") == "swim":
-                        steps = extract_swim_steps(workout.get("garmin"))
-                        if steps:
-                            desc_html += "<ol class='swim-steps'>"
-                            for item in steps:
-                                if isinstance(item, tuple):
-                                    reps, nested = item
-                                    desc_html += f"<li>{reps}x:<ul>"
-                                    for n in nested:
-                                        desc_html += f"<li>{n}</li>"
-                                    desc_html += "</ul></li>"
-                                else:
-                                    desc_html += f"<li>{item}</li>"
-                            desc_html += "</ol>"
+                    steps = extract_step_lines(workout)
+                    if steps:
+                        desc_html += "<ol class='workout-steps'>"
+                        for item in steps:
+                            if isinstance(item, tuple):
+                                reps, nested = item
+                                desc_html += f"<li>{reps}x:<ul>"
+                                for n in nested:
+                                    desc_html += f"<li>{n}</li>"
+                                desc_html += "</ul></li>"
+                            else:
+                                desc_html += f"<li>{item}</li>"
+                        desc_html += "</ol>"
                     html.append(f"        <td class='workout-desc'>{desc_html}</td>")
                     html.append("      </tr>")
                     prev_day = day_num

@@ -71,7 +71,7 @@ track_sessions:
 plan:
   name: "Reference Plan (Sprint Tri)"
   start_date: "2026-06-01"
-  training_days: [1, 2, 3, 5, 6]  # Mon, Tue, Wed, Fri, Sat
+  training_days: [1, 2, 3, 4, 5, 6]  # Mon, Tue, Wed, Thu, Fri, Sat
   overview: |
     Minimal reference plan demonstrating all paicer patterns.
 
@@ -83,6 +83,7 @@ plan:
     | Steady bike (HR zone) | W1D3 |
     | Swim session (anchor) | W2D1 |
     | Multisport brick | W2D5 |
+    | Strength (reps + catalog) | W1D6, W2D6 |
     | Skip Garmin | W1D4 |
     | Weekly review | reviews section |
 
@@ -190,6 +191,50 @@ phases:
                       targetType: "no.target"
                       childStepId: 1
 
+          # Strength — reps end condition + exercise catalog names.
+          # Look up exact strings with: paicer exercises --search <term>
+          - day: 6
+            type: "strength"
+            name: "Full Body 3x8"
+            description: "Compound lifts, 3 sets of 8. Leave 2 reps in reserve."
+            garmin:
+              steps:
+                # Warmup carries no exercise — category/exerciseName omitted
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 300  # 5 min
+                  targetType: "no.target"
+                  description: "5 min mobility + light cardio"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_BACK_SQUAT"
+                      description: "8 reps @ RPE 7"
+                    # Rest steps omit targetType — the builder emits null
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 90
+                      childStepId: 1
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "ROW"
+                      exerciseName: "BARBELL_ROW"
+                      description: "8 reps @ RPE 7"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 90
+                      childStepId: 1
+
       - week: 2
         description: |
           Add swim and brick. Small volume increase.
@@ -275,6 +320,54 @@ phases:
                       endConditionValue: 3000  # 3 km
                       targetType: "heart.rate.zone"
                       zoneNumber: 2
+
+          # Strength — time-based exercise (plank) alongside rep-based work
+          - day: 6
+            type: "strength"
+            name: "Upper + Core"
+            description: "Push/pull pairing plus core. 3 sets, RPE 7."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 300  # 5 min
+                  targetType: "no.target"
+                  description: "5 min mobility + light cardio"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "BENCH_PRESS"
+                      exerciseName: "BARBELL_BENCH_PRESS"
+                      description: "8 reps @ RPE 7"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 90
+                      childStepId: 1
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "SHOULDER_PRESS"
+                      exerciseName: "BARBELL_SHOULDER_PRESS"
+                      description: "8 reps @ RPE 7"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 90
+                      childStepId: 1
+                # Time-based exercise — endCondition is time, not reps
+                - stepType: "interval"
+                  endCondition: "time"
+                  endConditionValue: 45
+                  targetType: "no.target"
+                  category: "PLANK"
+                  exerciseName: "PLANK"
 
 # Weekly reviews — added by /review after comparing Garmin data to plan
 reviews:
