@@ -3,6 +3,12 @@
 Programming reference for strength sessions in paicer plans. Read this
 whenever a plan includes `type: strength` workouts.
 
+For a full worked example, see
+[`examples/strength-8week.yaml`](https://github.com/cvitan/paicer/blob/main/examples/strength-8week.yaml)
+in the paicer repo — an upper/lower block showing rep progression, a
+deload week, phase structure, and endurance work kept subordinate to
+lifting.
+
 For YAML mechanics — step shape, `category`/`exerciseName`, the rest-step
 rule — see [plan-authoring.md](plan-authoring.md) and
 [docs/garmin-api.md](https://github.com/cvitan/paicer/blob/main/docs/garmin-api.md).

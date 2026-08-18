@@ -1,0 +1,2840 @@
+# 8-Week Strength Block — strength-primary example plan.
+#
+# Demonstrates what the two-week reference plans cannot: progression across
+# weeks, a deload, phase structure, and endurance work kept deliberately
+# subordinate to lifting. Imperial units.
+#
+# Exercise names come from the vendored Garmin catalog. Every pair here was
+# resolved with `paicer exercises --search` — several plausible guesses were
+# wrong (there is no BARBELL_HIP_THRUST; it is BARBELL_HIP_THRUST_ON_FLOOR).
+#
+# See claude-plugin/guides/strength-coaching.md for the programming rationale.
+
+# Easy runs — identical every week. Running is support here, not the goal:
+# fixed volume, zone 2 only, placed so it never precedes a lower-body day.
+run_sessions:
+  - &easy_3mi_garmin
+    steps:
+      - stepType: "interval"
+        endCondition: "distance"
+        endConditionValue: 4828  # 3 mi
+        targetType: "heart.rate.zone"
+        zoneNumber: 2
+  - &easy_4mi_garmin
+    steps:
+      - stepType: "interval"
+        endCondition: "distance"
+        endConditionValue: 6437  # 4 mi
+        targetType: "heart.rate.zone"
+        zoneNumber: 2
+
+plan:
+  name: "8-Week Strength Block"
+  start_date: "2026-09-07"
+  training_days: [1, 2, 3, 4, 5, 6]  # Mon, Tue, Wed, Thu, Fri, Sat
+  overview: |
+    Upper/lower split, four lifting days plus two easy runs. Lifting is the
+    priority — running is held at fixed easy volume so it never competes
+    with recovery.
+
+    | Day | Session |
+    |-----|---------|
+    | Mon | Lower A — squat focus |
+    | Tue | Upper A — push focus |
+    | Wed | Easy run 3 mi |
+    | Thu | Lower B — hinge focus |
+    | Fri | Upper B — pull focus |
+    | Sat | Easy run 4 mi |
+
+    Progression is one variable at a time. Weeks 1-3 add reps at a fixed
+    load, week 4 deloads, weeks 5-7 repeat the climb at a heavier load, and
+    week 8 tests. Load is prescribed as RPE rather than absolute weight so
+    the plan stays correct as you get stronger.
+
+phases:
+  - phase: 1
+    name: "Accumulation"
+    description: |
+      Build volume at a fixed load. Reps climb 8 -> 9 -> 10 across three
+      weeks, then week 4 deloads. Load does not change inside this phase —
+      the progression is reps, and only reps.
+    weeks:
+      - week: 1
+        description: |
+          Baseline week. Pick loads you could stop 2-3 reps short of failure on
+          every set — you are setting a starting point, not testing.
+        workouts:
+          - day: 1
+            type: "strength"
+            name: "Lower A 3x8"
+            description: "Lower A — Squat Focus. 3 sets of 8 on the main lift @ RPE 7."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hip and ankle mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_BACK_SQUAT"
+                      description: "8 reps @ RPE 7"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_STRAIGHT_LEG_DEADLIFT"
+                      description: "8 reps @ RPE 7"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LUNGE"
+                      exerciseName: "WALKING_DUMBBELL_LUNGE"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "CALF_RAISE"
+                      exerciseName: "STANDING_BARBELL_CALF_RAISE"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 45
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "PLANK"
+                      exerciseName: "PLANK"
+                      description: "45s hold"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 2
+            type: "strength"
+            name: "Upper A 3x8"
+            description: "Upper A — Push Focus. 3 sets of 8 on the main lift @ RPE 7."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + shoulder mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "BENCH_PRESS"
+                      exerciseName: "BARBELL_BENCH_PRESS"
+                      description: "8 reps @ RPE 7"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SHOULDER_PRESS"
+                      exerciseName: "BARBELL_SHOULDER_PRESS"
+                      description: "8 reps @ RPE 7"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "ROW"
+                      exerciseName: "DUMBBELL_ROW"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LATERAL_RAISE"
+                      exerciseName: "DUMBBELL_LATERAL_RAISE"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "TRICEPS_EXTENSION"
+                      exerciseName: "TRICEPS_PRESSDOWN"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 3
+            type: "run"
+            name: "Easy 3 mi"
+            garmin: *easy_3mi_garmin
+            description: "3 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+          - day: 4
+            type: "strength"
+            name: "Lower B 3x8"
+            description: "Lower B — Hinge Focus. 3 sets of 8 on the main lift @ RPE 7."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hamstring and glute activation"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_DEADLIFT"
+                      description: "8 reps @ RPE 7"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 210
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_FRONT_SQUAT"
+                      description: "8 reps @ RPE 7"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LEG_CURL"
+                      exerciseName: "LEG_CURL"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "HIP_RAISE"
+                      exerciseName: "BARBELL_HIP_THRUST_ON_FLOOR"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "LEG_RAISE"
+                      exerciseName: "HANGING_KNEE_RAISE"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 5
+            type: "strength"
+            name: "Upper B 3x8"
+            description: "Upper B — Pull Focus. 3 sets of 8 on the main lift @ RPE 7."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + band pull-aparts"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "PULL_UP"
+                      exerciseName: "PULL_UP"
+                      description: "8 reps @ RPE 7"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "ROW"
+                      exerciseName: "BARBELL_ROW"
+                      description: "8 reps @ RPE 7"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "BENCH_PRESS"
+                      exerciseName: "INCLINE_DUMBBELL_BENCH_PRESS"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "FLYE"
+                      exerciseName: "DUMBBELL_FLYE"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "CURL"
+                      exerciseName: "BARBELL_BICEPS_CURL"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 6
+            type: "run"
+            name: "Easy 4 mi"
+            garmin: *easy_4mi_garmin
+            description: "4 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+      - week: 2
+        description: |
+          Same loads as week 1, one more rep per set. Nothing else changes.
+        workouts:
+          - day: 1
+            type: "strength"
+            name: "Lower A 3x9"
+            description: "Lower A — Squat Focus. 3 sets of 9 on the main lift @ RPE 7-8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hip and ankle mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_BACK_SQUAT"
+                      description: "9 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_STRAIGHT_LEG_DEADLIFT"
+                      description: "9 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LUNGE"
+                      exerciseName: "WALKING_DUMBBELL_LUNGE"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "CALF_RAISE"
+                      exerciseName: "STANDING_BARBELL_CALF_RAISE"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 50
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "PLANK"
+                      exerciseName: "PLANK"
+                      description: "50s hold"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 2
+            type: "strength"
+            name: "Upper A 3x9"
+            description: "Upper A — Push Focus. 3 sets of 9 on the main lift @ RPE 7-8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + shoulder mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "BENCH_PRESS"
+                      exerciseName: "BARBELL_BENCH_PRESS"
+                      description: "9 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SHOULDER_PRESS"
+                      exerciseName: "BARBELL_SHOULDER_PRESS"
+                      description: "9 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "ROW"
+                      exerciseName: "DUMBBELL_ROW"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LATERAL_RAISE"
+                      exerciseName: "DUMBBELL_LATERAL_RAISE"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "TRICEPS_EXTENSION"
+                      exerciseName: "TRICEPS_PRESSDOWN"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 3
+            type: "run"
+            name: "Easy 3 mi"
+            garmin: *easy_3mi_garmin
+            description: "3 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+          - day: 4
+            type: "strength"
+            name: "Lower B 3x9"
+            description: "Lower B — Hinge Focus. 3 sets of 9 on the main lift @ RPE 7-8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hamstring and glute activation"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_DEADLIFT"
+                      description: "9 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 210
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_FRONT_SQUAT"
+                      description: "9 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LEG_CURL"
+                      exerciseName: "LEG_CURL"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "HIP_RAISE"
+                      exerciseName: "BARBELL_HIP_THRUST_ON_FLOOR"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "LEG_RAISE"
+                      exerciseName: "HANGING_KNEE_RAISE"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 5
+            type: "strength"
+            name: "Upper B 3x9"
+            description: "Upper B — Pull Focus. 3 sets of 9 on the main lift @ RPE 7-8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + band pull-aparts"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "PULL_UP"
+                      exerciseName: "PULL_UP"
+                      description: "9 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "ROW"
+                      exerciseName: "BARBELL_ROW"
+                      description: "9 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "BENCH_PRESS"
+                      exerciseName: "INCLINE_DUMBBELL_BENCH_PRESS"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "FLYE"
+                      exerciseName: "DUMBBELL_FLYE"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "CURL"
+                      exerciseName: "BARBELL_BICEPS_CURL"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 6
+            type: "run"
+            name: "Easy 4 mi"
+            garmin: *easy_4mi_garmin
+            description: "4 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+      - week: 3
+        description: |
+          Same loads again, one more rep. Top of the rep range — this should
+          feel hard by the last set.
+        workouts:
+          - day: 1
+            type: "strength"
+            name: "Lower A 3x10"
+            description: "Lower A — Squat Focus. 3 sets of 10 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hip and ankle mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_BACK_SQUAT"
+                      description: "10 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_STRAIGHT_LEG_DEADLIFT"
+                      description: "10 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LUNGE"
+                      exerciseName: "WALKING_DUMBBELL_LUNGE"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "CALF_RAISE"
+                      exerciseName: "STANDING_BARBELL_CALF_RAISE"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 55
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "PLANK"
+                      exerciseName: "PLANK"
+                      description: "55s hold"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 2
+            type: "strength"
+            name: "Upper A 3x10"
+            description: "Upper A — Push Focus. 3 sets of 10 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + shoulder mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "BENCH_PRESS"
+                      exerciseName: "BARBELL_BENCH_PRESS"
+                      description: "10 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SHOULDER_PRESS"
+                      exerciseName: "BARBELL_SHOULDER_PRESS"
+                      description: "10 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "ROW"
+                      exerciseName: "DUMBBELL_ROW"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LATERAL_RAISE"
+                      exerciseName: "DUMBBELL_LATERAL_RAISE"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "TRICEPS_EXTENSION"
+                      exerciseName: "TRICEPS_PRESSDOWN"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 3
+            type: "run"
+            name: "Easy 3 mi"
+            garmin: *easy_3mi_garmin
+            description: "3 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+          - day: 4
+            type: "strength"
+            name: "Lower B 3x10"
+            description: "Lower B — Hinge Focus. 3 sets of 10 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hamstring and glute activation"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_DEADLIFT"
+                      description: "10 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 210
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_FRONT_SQUAT"
+                      description: "10 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LEG_CURL"
+                      exerciseName: "LEG_CURL"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "HIP_RAISE"
+                      exerciseName: "BARBELL_HIP_THRUST_ON_FLOOR"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "LEG_RAISE"
+                      exerciseName: "HANGING_KNEE_RAISE"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 5
+            type: "strength"
+            name: "Upper B 3x10"
+            description: "Upper B — Pull Focus. 3 sets of 10 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + band pull-aparts"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "PULL_UP"
+                      exerciseName: "PULL_UP"
+                      description: "10 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "ROW"
+                      exerciseName: "BARBELL_ROW"
+                      description: "10 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "BENCH_PRESS"
+                      exerciseName: "INCLINE_DUMBBELL_BENCH_PRESS"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "FLYE"
+                      exerciseName: "DUMBBELL_FLYE"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "CURL"
+                      exerciseName: "BARBELL_BICEPS_CURL"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 6
+            type: "run"
+            name: "Easy 4 mi"
+            garmin: *easy_4mi_garmin
+            description: "4 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+      - week: 4
+        description: |
+          Deload. Two sets instead of three, back to 8 reps, loads cut to
+          something genuinely easy. Do not add work because you feel fresh.
+        workouts:
+          - day: 1
+            type: "strength"
+            name: "Lower A Deload"
+            description: "Deload. 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hip and ankle mobility"
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_BACK_SQUAT"
+                      description: "8 reps @ RPE 5"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_STRAIGHT_LEG_DEADLIFT"
+                      description: "8 reps @ RPE 5"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LUNGE"
+                      exerciseName: "WALKING_DUMBBELL_LUNGE"
+                      description: "10 reps @ RPE 5-6"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "CALF_RAISE"
+                      exerciseName: "STANDING_BARBELL_CALF_RAISE"
+                      description: "10 reps @ RPE 5-6"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "PLANK"
+                      exerciseName: "PLANK"
+                      description: "30s hold"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 2
+            type: "strength"
+            name: "Upper A Deload"
+            description: "Deload. 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + shoulder mobility"
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "BENCH_PRESS"
+                      exerciseName: "BARBELL_BENCH_PRESS"
+                      description: "8 reps @ RPE 5"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SHOULDER_PRESS"
+                      exerciseName: "BARBELL_SHOULDER_PRESS"
+                      description: "8 reps @ RPE 5"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "ROW"
+                      exerciseName: "DUMBBELL_ROW"
+                      description: "10 reps @ RPE 5-6"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LATERAL_RAISE"
+                      exerciseName: "DUMBBELL_LATERAL_RAISE"
+                      description: "10 reps @ RPE 5-6"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "TRICEPS_EXTENSION"
+                      exerciseName: "TRICEPS_PRESSDOWN"
+                      description: "10 reps @ RPE 5-6"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 3
+            type: "run"
+            name: "Easy 3 mi"
+            garmin: *easy_3mi_garmin
+            description: "3 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+          - day: 4
+            type: "strength"
+            name: "Lower B Deload"
+            description: "Deload. 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hamstring and glute activation"
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_DEADLIFT"
+                      description: "8 reps @ RPE 5"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 210
+                      childStepId: 1
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_FRONT_SQUAT"
+                      description: "8 reps @ RPE 5"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LEG_CURL"
+                      exerciseName: "LEG_CURL"
+                      description: "10 reps @ RPE 5-6"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "HIP_RAISE"
+                      exerciseName: "BARBELL_HIP_THRUST_ON_FLOOR"
+                      description: "10 reps @ RPE 5-6"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "LEG_RAISE"
+                      exerciseName: "HANGING_KNEE_RAISE"
+                      description: "10 reps @ RPE 5-6"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 5
+            type: "strength"
+            name: "Upper B Deload"
+            description: "Deload. 2 sets of 8 at roughly 60% of week 3's loads. Leave the gym feeling better than you arrived."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + band pull-aparts"
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "PULL_UP"
+                      exerciseName: "PULL_UP"
+                      description: "8 reps @ RPE 5"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "ROW"
+                      exerciseName: "BARBELL_ROW"
+                      description: "8 reps @ RPE 5"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "BENCH_PRESS"
+                      exerciseName: "INCLINE_DUMBBELL_BENCH_PRESS"
+                      description: "10 reps @ RPE 5-6"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "FLYE"
+                      exerciseName: "DUMBBELL_FLYE"
+                      description: "10 reps @ RPE 5-6"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 2
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "CURL"
+                      exerciseName: "BARBELL_BICEPS_CURL"
+                      description: "10 reps @ RPE 5-6"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 6
+            type: "run"
+            name: "Easy 4 mi"
+            garmin: *easy_4mi_garmin
+            description: "4 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+  - phase: 2
+    name: "Intensification"
+    description: |
+      Load goes up, reps reset to 8 and climb again. Week 8 tests at 5
+      reps to establish the loads for the next block.
+    weeks:
+      - week: 5
+        description: |
+          Load goes up, reps reset to 8. If week 3's top set felt like RPE 8,
+          add roughly 5% to the main lifts and 2-5 lb to accessories.
+        workouts:
+          - day: 1
+            type: "strength"
+            name: "Lower A 3x8"
+            description: "Lower A — Squat Focus. 3 sets of 8 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hip and ankle mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_BACK_SQUAT"
+                      description: "8 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_STRAIGHT_LEG_DEADLIFT"
+                      description: "8 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LUNGE"
+                      exerciseName: "WALKING_DUMBBELL_LUNGE"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "CALF_RAISE"
+                      exerciseName: "STANDING_BARBELL_CALF_RAISE"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 45
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "PLANK"
+                      exerciseName: "PLANK"
+                      description: "45s hold"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 2
+            type: "strength"
+            name: "Upper A 3x8"
+            description: "Upper A — Push Focus. 3 sets of 8 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + shoulder mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "BENCH_PRESS"
+                      exerciseName: "BARBELL_BENCH_PRESS"
+                      description: "8 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SHOULDER_PRESS"
+                      exerciseName: "BARBELL_SHOULDER_PRESS"
+                      description: "8 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "ROW"
+                      exerciseName: "DUMBBELL_ROW"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LATERAL_RAISE"
+                      exerciseName: "DUMBBELL_LATERAL_RAISE"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "TRICEPS_EXTENSION"
+                      exerciseName: "TRICEPS_PRESSDOWN"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 3
+            type: "run"
+            name: "Easy 3 mi"
+            garmin: *easy_3mi_garmin
+            description: "3 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+          - day: 4
+            type: "strength"
+            name: "Lower B 3x8"
+            description: "Lower B — Hinge Focus. 3 sets of 8 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hamstring and glute activation"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_DEADLIFT"
+                      description: "8 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 210
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_FRONT_SQUAT"
+                      description: "8 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LEG_CURL"
+                      exerciseName: "LEG_CURL"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "HIP_RAISE"
+                      exerciseName: "BARBELL_HIP_THRUST_ON_FLOOR"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "LEG_RAISE"
+                      exerciseName: "HANGING_KNEE_RAISE"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 5
+            type: "strength"
+            name: "Upper B 3x8"
+            description: "Upper B — Pull Focus. 3 sets of 8 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + band pull-aparts"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "PULL_UP"
+                      exerciseName: "PULL_UP"
+                      description: "8 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 8
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "ROW"
+                      exerciseName: "BARBELL_ROW"
+                      description: "8 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "BENCH_PRESS"
+                      exerciseName: "INCLINE_DUMBBELL_BENCH_PRESS"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "FLYE"
+                      exerciseName: "DUMBBELL_FLYE"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "CURL"
+                      exerciseName: "BARBELL_BICEPS_CURL"
+                      description: "10 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 6
+            type: "run"
+            name: "Easy 4 mi"
+            garmin: *easy_4mi_garmin
+            description: "4 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+      - week: 6
+        description: |
+          Hold the new loads, add a rep.
+        workouts:
+          - day: 1
+            type: "strength"
+            name: "Lower A 3x9"
+            description: "Lower A — Squat Focus. 3 sets of 9 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hip and ankle mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_BACK_SQUAT"
+                      description: "9 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_STRAIGHT_LEG_DEADLIFT"
+                      description: "9 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LUNGE"
+                      exerciseName: "WALKING_DUMBBELL_LUNGE"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "CALF_RAISE"
+                      exerciseName: "STANDING_BARBELL_CALF_RAISE"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 50
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "PLANK"
+                      exerciseName: "PLANK"
+                      description: "50s hold"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 2
+            type: "strength"
+            name: "Upper A 3x9"
+            description: "Upper A — Push Focus. 3 sets of 9 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + shoulder mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "BENCH_PRESS"
+                      exerciseName: "BARBELL_BENCH_PRESS"
+                      description: "9 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SHOULDER_PRESS"
+                      exerciseName: "BARBELL_SHOULDER_PRESS"
+                      description: "9 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "ROW"
+                      exerciseName: "DUMBBELL_ROW"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LATERAL_RAISE"
+                      exerciseName: "DUMBBELL_LATERAL_RAISE"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "TRICEPS_EXTENSION"
+                      exerciseName: "TRICEPS_PRESSDOWN"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 3
+            type: "run"
+            name: "Easy 3 mi"
+            garmin: *easy_3mi_garmin
+            description: "3 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+          - day: 4
+            type: "strength"
+            name: "Lower B 3x9"
+            description: "Lower B — Hinge Focus. 3 sets of 9 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hamstring and glute activation"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_DEADLIFT"
+                      description: "9 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 210
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_FRONT_SQUAT"
+                      description: "9 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LEG_CURL"
+                      exerciseName: "LEG_CURL"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "HIP_RAISE"
+                      exerciseName: "BARBELL_HIP_THRUST_ON_FLOOR"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "LEG_RAISE"
+                      exerciseName: "HANGING_KNEE_RAISE"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 5
+            type: "strength"
+            name: "Upper B 3x9"
+            description: "Upper B — Pull Focus. 3 sets of 9 on the main lift @ RPE 8."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + band pull-aparts"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "PULL_UP"
+                      exerciseName: "PULL_UP"
+                      description: "9 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 9
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "ROW"
+                      exerciseName: "BARBELL_ROW"
+                      description: "9 reps @ RPE 8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "BENCH_PRESS"
+                      exerciseName: "INCLINE_DUMBBELL_BENCH_PRESS"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "FLYE"
+                      exerciseName: "DUMBBELL_FLYE"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 11
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "CURL"
+                      exerciseName: "BARBELL_BICEPS_CURL"
+                      description: "11 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 6
+            type: "run"
+            name: "Easy 4 mi"
+            garmin: *easy_4mi_garmin
+            description: "4 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+      - week: 7
+        description: |
+          Peak week. Top of the rep range at the heavier loads. This is the
+          hardest week of the block.
+        workouts:
+          - day: 1
+            type: "strength"
+            name: "Lower A 3x10"
+            description: "Lower A — Squat Focus. 3 sets of 10 on the main lift @ RPE 8-9."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hip and ankle mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_BACK_SQUAT"
+                      description: "10 reps @ RPE 8-9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_STRAIGHT_LEG_DEADLIFT"
+                      description: "10 reps @ RPE 8-9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LUNGE"
+                      exerciseName: "WALKING_DUMBBELL_LUNGE"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "CALF_RAISE"
+                      exerciseName: "STANDING_BARBELL_CALF_RAISE"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "time"
+                      endConditionValue: 55
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "PLANK"
+                      exerciseName: "PLANK"
+                      description: "55s hold"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 2
+            type: "strength"
+            name: "Upper A 3x10"
+            description: "Upper A — Push Focus. 3 sets of 10 on the main lift @ RPE 8-9."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + shoulder mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "BENCH_PRESS"
+                      exerciseName: "BARBELL_BENCH_PRESS"
+                      description: "10 reps @ RPE 8-9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SHOULDER_PRESS"
+                      exerciseName: "BARBELL_SHOULDER_PRESS"
+                      description: "10 reps @ RPE 8-9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "ROW"
+                      exerciseName: "DUMBBELL_ROW"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LATERAL_RAISE"
+                      exerciseName: "DUMBBELL_LATERAL_RAISE"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "TRICEPS_EXTENSION"
+                      exerciseName: "TRICEPS_PRESSDOWN"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 3
+            type: "run"
+            name: "Easy 3 mi"
+            garmin: *easy_3mi_garmin
+            description: "3 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+          - day: 4
+            type: "strength"
+            name: "Lower B 3x10"
+            description: "Lower B — Hinge Focus. 3 sets of 10 on the main lift @ RPE 8-9."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hamstring and glute activation"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_DEADLIFT"
+                      description: "10 reps @ RPE 8-9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 210
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_FRONT_SQUAT"
+                      description: "10 reps @ RPE 8-9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "LEG_CURL"
+                      exerciseName: "LEG_CURL"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "HIP_RAISE"
+                      exerciseName: "BARBELL_HIP_THRUST_ON_FLOOR"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "LEG_RAISE"
+                      exerciseName: "HANGING_KNEE_RAISE"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 5
+            type: "strength"
+            name: "Upper B 3x10"
+            description: "Upper B — Pull Focus. 3 sets of 10 on the main lift @ RPE 8-9."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + band pull-aparts"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "PULL_UP"
+                      exerciseName: "PULL_UP"
+                      description: "10 reps @ RPE 8-9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 10
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "ROW"
+                      exerciseName: "BARBELL_ROW"
+                      description: "10 reps @ RPE 8-9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 3
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "BENCH_PRESS"
+                      exerciseName: "INCLINE_DUMBBELL_BENCH_PRESS"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 30
+                      childStepId: 3
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 3
+                      category: "FLYE"
+                      exerciseName: "DUMBBELL_FLYE"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 75
+                      childStepId: 3
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 4
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 12
+                      targetType: "no.target"
+                      childStepId: 4
+                      category: "CURL"
+                      exerciseName: "BARBELL_BICEPS_CURL"
+                      description: "12 reps @ RPE 7-8"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 60
+                      childStepId: 4
+
+          - day: 6
+            type: "run"
+            name: "Easy 4 mi"
+            garmin: *easy_4mi_garmin
+            description: "4 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+      - week: 8
+        description: |
+          Test week. Main and second lifts only at 5 reps, RPE 9 — accessories
+          and supersets are dropped. Record what you hit; it seeds the next block.
+        workouts:
+          - day: 1
+            type: "strength"
+            name: "Lower A Test"
+            description: "Test day. Barbell Back Squat and the second lift only, 5 reps @ RPE 9. Record your loads."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hip and ankle mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 5
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_BACK_SQUAT"
+                      description: "5 reps @ RPE 9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 5
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_STRAIGHT_LEG_DEADLIFT"
+                      description: "5 reps @ RPE 9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+
+          - day: 2
+            type: "strength"
+            name: "Upper A Test"
+            description: "Test day. Barbell Bench Press and the second lift only, 5 reps @ RPE 9. Record your loads."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + shoulder mobility"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 5
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "BENCH_PRESS"
+                      exerciseName: "BARBELL_BENCH_PRESS"
+                      description: "5 reps @ RPE 9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 5
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SHOULDER_PRESS"
+                      exerciseName: "BARBELL_SHOULDER_PRESS"
+                      description: "5 reps @ RPE 9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+
+          - day: 3
+            type: "run"
+            name: "Easy 3 mi"
+            garmin: *easy_3mi_garmin
+            description: "3 mi easy at RPE 4. Zone 2 only — this is recovery, not training."
+
+          - day: 4
+            type: "strength"
+            name: "Lower B Test"
+            description: "Test day. Barbell Deadlift and the second lift only, 5 reps @ RPE 9. Record your loads."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min bike + hamstring and glute activation"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 5
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "DEADLIFT"
+                      exerciseName: "BARBELL_DEADLIFT"
+                      description: "5 reps @ RPE 9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 210
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 5
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "SQUAT"
+                      exerciseName: "BARBELL_FRONT_SQUAT"
+                      description: "5 reps @ RPE 9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+
+          - day: 5
+            type: "strength"
+            name: "Upper B Test"
+            description: "Test day. Pull Up and the second lift only, 5 reps @ RPE 9. Record your loads."
+            garmin:
+              steps:
+                - stepType: "warmup"
+                  endCondition: "time"
+                  endConditionValue: 480  # 8 min
+                  targetType: "no.target"
+                  description: "8 min rower + band pull-aparts"
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 1
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 5
+                      targetType: "no.target"
+                      childStepId: 1
+                      category: "PULL_UP"
+                      exerciseName: "PULL_UP"
+                      description: "5 reps @ RPE 9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 180
+                      childStepId: 1
+                - numberOfIterations: 3
+                  stepType: "repeat"
+                  childStepId: 2
+                  steps:
+                    - stepType: "interval"
+                      endCondition: "reps"
+                      endConditionValue: 5
+                      targetType: "no.target"
+                      childStepId: 2
+                      category: "ROW"
+                      exerciseName: "BARBELL_ROW"
+                      description: "5 reps @ RPE 9"
+                    - stepType: "rest"
+                      endCondition: "time"
+                      endConditionValue: 120
+                      childStepId: 2
+
+          - day: 6
+            type: "run"
+            name: "Easy 4 mi"
+            garmin: *easy_4mi_garmin
+            description: "4 mi easy at RPE 4. Zone 2 only — this is recovery, not training."

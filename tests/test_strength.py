@@ -422,3 +422,54 @@ def test_render_rejects_invalid_exercise(tmp_path, monkeypatch):
 
     with pytest.raises(SystemExit):
         render_plan(str(path))
+
+
+# --- example plan ----------------------------------------------------------
+
+def test_example_strength_plan_is_valid(monkeypatch, tmp_path):
+    """examples/strength-8week.yaml must stay valid as the catalog changes."""
+    import yaml
+    from pathlib import Path
+    monkeypatch.setenv("PAICER_HOME", str(tmp_path))
+    from paicer.plan_utils import (
+        validate_strength_exercises, validate_training_days,
+    )
+
+    path = Path(__file__).parent.parent / "examples" / "strength-8week.yaml"
+    plan = yaml.safe_load(path.read_text())
+    assert validate_training_days(plan) == []
+    assert validate_strength_exercises(plan) == []
+
+
+def test_example_strength_plan_builds_garmin_json(monkeypatch, tmp_path):
+    """Every workout must produce uploadable JSON with aligned childStepIds."""
+    import yaml
+    from pathlib import Path
+    monkeypatch.setenv("PAICER_HOME", str(tmp_path))
+    from paicer.integrations.garmin import GarminIntegration
+
+    path = Path(__file__).parent.parent / "examples" / "strength-8week.yaml"
+    plan = yaml.safe_load(path.read_text())
+    integration = GarminIntegration()
+
+    count = 0
+    for phase in plan["phases"]:
+        for week in phase["weeks"]:
+            for workout in week["workouts"]:
+                built = integration.build_workout(workout)
+                count += 1
+                _assert_steps_sane(built["workoutSegments"][0]["workoutSteps"])
+
+    assert count == 48
+
+
+def _assert_steps_sane(steps, parent_child_id=None):
+    for step in steps:
+        if step.get("type") == "RepeatGroupDTO":
+            for child in step["workoutSteps"]:
+                assert child.get("childStepId") == step["childStepId"], (
+                    "nested step childStepId must match its repeat group"
+                )
+            _assert_steps_sane(step["workoutSteps"], step["childStepId"])
+        elif step["stepType"]["stepTypeId"] == 5 and "category" not in step:
+            assert step["targetType"] is None

@@ -3,7 +3,7 @@
 
 Reference for writing correct training plan YAML. Used by `/paicer:create-plan`, `/paicer:review-progress`, and ad-hoc plan edits.
 
-> For a full real-world example (half marathon + triathlon combo plan), see [`examples/hm-tri-combo.yaml`](https://github.com/cvitan/paicer/blob/main/examples/hm-tri-combo.yaml) in the paicer repo.
+> For full real-world examples, see [`examples/hm-tri-combo.yaml`](https://github.com/cvitan/paicer/blob/main/examples/hm-tri-combo.yaml) (half marathon + triathlon) and [`examples/strength-8week.yaml`](https://github.com/cvitan/paicer/blob/main/examples/strength-8week.yaml) (strength-primary block) in the paicer repo.
 
 ## Unit System
 

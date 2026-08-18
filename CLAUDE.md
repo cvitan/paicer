@@ -53,6 +53,8 @@ Strength programming — splits, set/rep schemes, equipment substitutions, inter
 
 Reference plans: `claude-plugin/guides/examples/reference-metric.yaml` and `reference-imperial.yaml` demonstrate every pattern in a minimal 2-week plan.
 
+Real-world examples: `examples/hm-tri-combo.yaml` (endurance) and `examples/strength-8week.yaml` (strength-primary, shows progression and deload across 8 weeks).
+
 Garmin API: `docs/garmin-api.md` for step types, end conditions, target types, pace conversions, and the strength step shape.
 
 **Strength exercise names** are exact uppercase enum strings from a vendored catalog (51 categories, 1,846 exercises). Never guess them — use `paicer exercises --search`. Plausible names are frequently wrong (`AIR_SQUAT`, not `BODYWEIGHT_SQUAT`). `paicer render` validates every pair.
