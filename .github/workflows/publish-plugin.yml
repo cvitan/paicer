@@ -16,9 +16,12 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
 
+      # npm trusted publishing needs npm >= 11.5.1, newer than the version
+      # bundled with Node. Keep node-version current enough for npm@latest —
+      # npm 12 requires ^22.22.2 || ^24.15.0 || >=26.0.0.
       - name: Upgrade npm
         run: npm install -g npm@latest
 
