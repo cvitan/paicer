@@ -124,6 +124,43 @@ def sync(scope, no_schedule, plan_path):
 
 
 @cli.command()
+@click.option("--search", "term", default=None, help="Find exercises matching a substring")
+@click.option("--category", "category", default=None, help="List all exercises in one category")
+def exercises(term, category):
+    """Look up Garmin strength exercise names.
+
+    Plan YAML needs exact category/exerciseName strings. With no options,
+    lists every category and its exercise count.
+    """
+    from .exercises import categories, exercises_in, load_catalog, search
+
+    if term and category:
+        raise click.BadParameter("Use --search or --category, not both.")
+
+    if term:
+        results = search(term)
+        if not results:
+            raise click.ClickException(f"No exercises matching '{term}'.")
+        for cat, name in results:
+            click.echo(f"{cat}/{name}")
+        return
+
+    if category:
+        names = exercises_in(category)
+        if not names:
+            from .exercises import _closest
+            hint = _closest(category.upper(), categories())
+            raise click.ClickException(f"Unknown category '{category}'{hint}")
+        for name in names:
+            click.echo(f"{category.upper()}/{name}")
+        return
+
+    catalog = load_catalog()
+    for cat in categories():
+        click.echo(f"{cat} ({len(catalog[cat])})")
+
+
+@cli.command()
 @click.argument("scope", required=False, default=None, metavar="[SCOPE]")
 @click.option("--plan", "plan_path", type=click.Path(exists=True), default=None, help="Path to plan YAML (overrides config)")
 def review(scope, plan_path):
@@ -138,8 +175,10 @@ def review(scope, plan_path):
     from .config import get_plan_path, prompt_and_save_plan_path
     from .review_data import (
         find_current_week, get_week_dates, get_planned_workouts,
-        get_activity_intervals, extract_training_status,
+        get_activity_intervals, get_activity_exercise_sets,
+        extract_training_status,
     )
+    from .config import get_units
     from .plan_utils import load_plan
     from .integrations.garmin import GarminIntegration
 
@@ -178,12 +217,14 @@ def review(scope, plan_path):
     except Exception as e:
         raise click.ClickException(f"Failed to fetch Garmin data: {e}")
 
+    units = get_units()
     activity_data = []
     for a in activities:
         activity_id = a.get("activityId")
+        activity_type = a.get("activityType", {}).get("typeKey", "unknown")
         entry = {
             "activityName": a.get("activityName"),
-            "activityType": a.get("activityType", {}).get("typeKey", "unknown"),
+            "activityType": activity_type,
             "startTimeLocal": a.get("startTimeLocal"),
             "distance": a.get("distance"),
             "duration": a.get("duration"),
@@ -202,7 +243,14 @@ def review(scope, plan_path):
             },
         }
         if activity_id:
-            entry["intervals"] = get_activity_intervals(garmin, activity_id)
+            if activity_type == "strength_training":
+                entry["exerciseSets"] = get_activity_exercise_sets(
+                    garmin, activity_id, units,
+                )
+            else:
+                entry["intervals"] = get_activity_intervals(
+                    garmin, activity_id,
+                )
         activity_data.append(entry)
 
     training_status = {}

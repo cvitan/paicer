@@ -3,7 +3,7 @@
 
 Reference for writing correct training plan YAML. Used by `/paicer:create-plan`, `/paicer:review-progress`, and ad-hoc plan edits.
 
-> For a full real-world example (half marathon + triathlon combo plan), see [`examples/hm-tri-combo.yaml`](https://github.com/cvitan/paicer/blob/main/examples/hm-tri-combo.yaml) in the paicer repo.
+> For full real-world examples, see [`examples/hm-tri-combo.yaml`](https://github.com/cvitan/paicer/blob/main/examples/hm-tri-combo.yaml) (half marathon + triathlon) and [`examples/strength-8week.yaml`](https://github.com/cvitan/paicer/blob/main/examples/strength-8week.yaml) (strength-primary block) in the paicer repo.
 
 ## Unit System
 
@@ -35,6 +35,7 @@ Garmin steps always use metric (meters, sec/km). Add comments in the user's syst
 | `track` | running (1) | Reusable via YAML anchors |
 | `bike` | cycling (2) | See cycling target rules below |
 | `swim` | swimming (4) | Lap-button cue cards with `description` per step |
+| `strength` | strength_training (5) | `reps` end condition + `category`/`exerciseName`. See [strength-coaching.md](strength-coaching.md) |
 | `multisport` | multi_sport (10) | `garmin.legs`, each with `sport` + `steps` |
 | `race` | — | Race day entry, typically `skip_garmin: true` |
 
@@ -82,6 +83,57 @@ Read the `examples/reference-metric.yaml` or `examples/reference-imperial.yaml` 
 - Swim: `lap.button` + `description` per step, `rest` steps between sections
 - Multisport: `garmin.legs` array, each leg has `sport` + `steps`
 - Reusable sessions: YAML anchors in `swim_sessions:` / `track_sessions:` blocks
+
+## Strength Sessions
+
+Programming — splits, set/rep schemes, equipment substitutions, and how
+lifting interacts with endurance training — lives in
+[strength-coaching.md](strength-coaching.md). Read it whenever a plan
+includes `type: strength`.
+
+The YAML shape:
+
+```yaml
+- day: 6
+  type: "strength"
+  name: "Full Body 3x8"
+  description: "Compound lifts, 3 sets of 8. Leave 2 reps in reserve."
+  garmin:
+    steps:
+      - stepType: "repeat"
+        numberOfIterations: 3
+        childStepId: 1
+        steps:
+          - stepType: "interval"
+            endCondition: "reps"
+            endConditionValue: 8
+            targetType: "no.target"
+            childStepId: 1
+            category: "SQUAT"
+            exerciseName: "BARBELL_BACK_SQUAT"
+            description: "8 reps @ RPE 7"
+          # Rest steps omit targetType — the builder emits null
+          - stepType: "rest"
+            endCondition: "time"
+            endConditionValue: 90
+            childStepId: 1
+```
+
+**Three rules that differ from the other sports:**
+
+1. Work steps need both `category` and `exerciseName`, as exact uppercase
+   enum strings. Never guess them — run `paicer exercises --search <term>`.
+   `paicer render` validates every pair and rejects unknown ones.
+2. Rest steps omit `targetType` entirely. Connect uses `null` there rather
+   than `no.target`, and paicer applies that automatically.
+3. Prescribe load as RPE in `description`, not as `weightValue` — same
+   reasoning as the cycling zone+RPE convention.
+4. **No warmup step.** The watch prompts for reps and weight on every
+   non-rest step, so a warmup becomes a phantom set to edit past. Put
+   warmup guidance in the workout `description`.
+
+Time-based exercises (planks, carries) use `endCondition: "time"` instead
+of `"reps"`.
 
 ## Periodization Principles
 

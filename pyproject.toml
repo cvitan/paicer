@@ -1,6 +1,6 @@
 [project]
 name = "paicer"
-version = "0.1.3"
+version = "0.2.0"
 description = "Training plan tool: YAML to Garmin workouts and readable documents"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -16,6 +16,9 @@ dependencies = [
 dev = [
     "pytest>=8.0",
     "ruff>=0.15.2",
+    # Source for the vendored exercise catalog. Build-time only —
+    # see scripts/generate_exercises.py.
+    "garmin-fit-sdk>=21.141",
 ]
 
 [build-system]
@@ -24,6 +27,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/paicer"]
+artifacts = ["src/paicer/data/*.json"]
 
 [project.scripts]
 paicer = "paicer.cli:main"

@@ -3,7 +3,7 @@
 import os
 from garminconnect import Garmin as GarminAPI
 from .base import WorkoutIntegration
-from ..config import get_swim_tracking
+from ..config import get_swim_tracking, get_units
 
 
 SPORT_TYPES = {
@@ -11,12 +11,29 @@ SPORT_TYPES = {
     "track": {"sportTypeId": 1, "sportTypeKey": "running", "displayOrder": 1},
     "bike": {"sportTypeId": 2, "sportTypeKey": "cycling", "displayOrder": 2},
     "swim": {"sportTypeId": 4, "sportTypeKey": "swimming", "displayOrder": 3},
+    "strength": {
+        "sportTypeId": 5,
+        "sportTypeKey": "strength_training",
+        "displayOrder": 5,
+    },
     "multisport": {
         "sportTypeId": 10,
         "sportTypeKey": "multi_sport",
         "displayOrder": 4,
     },
 }
+
+# Connect writes this exact dict on every strength step — verified against
+# two user-authored workouts, one created while the Garmin account was set
+# to statute_us and one while it was set to metric. It does *not* track the
+# account's measurement system, and Garmin has never been observed emitting
+# a kilogram unit at all, so it is a constant rather than something derived
+# from paicer's `units` config.
+#
+# It is also required: uploading a step without weightUnit makes Garmin
+# silently drop weightValue. Despite the name, it does not determine how
+# the weight is displayed — the account's measurement system does that.
+WEIGHT_UNIT = {"unitId": 9, "unitKey": "pound", "factor": 453.59237}
 
 STROKE_TYPES = {
     "free": {"strokeTypeId": 6, "strokeTypeKey": "free", "displayOrder": 6},
@@ -47,6 +64,7 @@ CONDITION_TYPES = {
     "calories": 4,
     "power": 5,
     "iterations": 7,
+    "reps": 10,
 }
 
 TARGET_TYPES = {
@@ -88,6 +106,7 @@ class GarminIntegration(WorkoutIntegration):
         self.client = None
         self.tokenstore = os.path.expanduser("~/.garmin_tokens")
         self.swim_tracking = get_swim_tracking()
+        self.units = get_units()
 
     def build_workout(self, workout_def: dict) -> dict:
         """Build Garmin workout JSON from YAML workout definition."""
@@ -98,8 +117,8 @@ class GarminIntegration(WorkoutIntegration):
     def _build_single_sport(self, workout_def: dict) -> dict:
         """Build a single-sport Garmin workout."""
         garmin_steps = workout_def["garmin"]["steps"]
-        is_swim = workout_def.get("type") == "swim"
-        workout_steps, _ = self._convert_steps(garmin_steps, is_swim)
+        sport = workout_def.get("type", "run")
+        workout_steps, _ = self._convert_steps(garmin_steps, sport)
 
         sport_type = SPORT_TYPES.get(
             workout_def.get("type", "run"), SPORT_TYPES["run"]
@@ -125,10 +144,9 @@ class GarminIntegration(WorkoutIntegration):
 
         for i, leg in enumerate(legs):
             sport = leg["sport"]
-            is_swim = sport == "swim"
             sport_type = SPORT_TYPES.get(sport, SPORT_TYPES["run"])
             leg_steps, _ = self._convert_steps(
-                leg["steps"], is_swim, step_offset=global_step_order,
+                leg["steps"], sport, step_offset=global_step_order,
             )
             global_step_order += len(leg_steps)
 
@@ -147,7 +165,7 @@ class GarminIntegration(WorkoutIntegration):
         }
 
     def _convert_steps(
-        self, steps_list, is_swim,
+        self, steps_list, sport,
         parent_child_id=None, step_offset=0,
     ):
         """Convert YAML steps to Garmin JSON."""
@@ -162,7 +180,7 @@ class GarminIntegration(WorkoutIntegration):
                 current_child_id = child_id_counter
 
                 nested_steps, child_id_counter = self._convert_steps(
-                    step["steps"], is_swim, child_id_counter
+                    step["steps"], sport, child_id_counter
                 )
 
                 repeat_step = {
@@ -176,13 +194,15 @@ class GarminIntegration(WorkoutIntegration):
                 }
                 converted.append(repeat_step)
             else:
-                exec_step = self._build_exec_step(step, step_order, is_swim)
+                exec_step = self._build_exec_step(step, step_order, sport)
                 converted.append(exec_step)
 
         return converted, child_id_counter
 
-    def _build_exec_step(self, step, step_order, is_swim):
+    def _build_exec_step(self, step, step_order, sport):
         """Build a single executable step."""
+        is_swim = sport == "swim"
+        is_strength = sport == "strength"
         exec_step = {
             "type": "ExecutableStepDTO",
             "stepOrder": step_order,
@@ -203,6 +223,10 @@ class GarminIntegration(WorkoutIntegration):
             exec_step["targetType"] = None
             if self.swim_tracking == "drill":
                 exec_step["drillType"] = DRILL_TYPES["drill"]
+        elif is_strength and step.get("stepType") == "rest":
+            # Connect emits null — not no.target — for strength rest steps.
+            # Applied here so plan YAML omits targetType on rest steps.
+            exec_step["targetType"] = None
         else:
             exec_step["targetType"] = resolve_target_type(
                 step["targetType"]
@@ -213,6 +237,9 @@ class GarminIntegration(WorkoutIntegration):
                 exec_step["targetValueTwo"] = step["targetValueTwo"]
             if "zoneNumber" in step:
                 exec_step["zoneNumber"] = step["zoneNumber"]
+
+        if is_strength:
+            self._apply_strength_fields(exec_step, step)
 
         if "childStepId" in step:
             exec_step["childStepId"] = step["childStepId"]
@@ -225,6 +252,33 @@ class GarminIntegration(WorkoutIntegration):
             }
 
         return exec_step
+
+    def _apply_strength_fields(self, exec_step, step):
+        """Attach exercise identity and prescribed load to a strength step.
+
+        Applied to *every* strength step, rest included. That is
+        deliberate and matches Connect: a rest step in a Garmin-authored
+        strength workout carries `weightUnit` (and null `weightValue`)
+        just like a work step — only `category`/`exerciseName` are absent,
+        and those are omitted here because rest steps don't declare them.
+        Verified by round-tripping an uploaded workout, 2026-08-18.
+        """
+        for field in ("category", "exerciseName"):
+            if field in step:
+                exec_step[field] = step[field]
+
+        # weightUnit must be present even though it doesn't drive display:
+        # omitting it makes Garmin silently discard weightValue entirely.
+        exec_step["weightUnit"] = WEIGHT_UNIT
+
+        # Passed through unconverted. Garmin shows weightValue verbatim in
+        # the *account's* display unit — sending 27215.54 renders as
+        # "27,215.5 kg", not "60 lb". Confirmed on-screen 2026-08-18.
+        #
+        # Note this differs from the activity side, where logged weight
+        # really is in grams (a logged set came back as 22687 g = 50.0 lb).
+        # Prescription and measurement use different encodings.
+        exec_step["weightValue"] = step.get("weightValue")
 
     def authenticate(self):
         import keyring

@@ -9,6 +9,7 @@ Technical reference for Garmin Connect workout JSON. Use when editing `garmin.st
 | 1 | running | Running (also used for track) |
 | 2 | cycling | Cycling |
 | 4 | swimming | Pool Swimming (cue card pattern) |
+| 5 | strength_training | Strength (exercise catalog pattern) |
 | 10 | multi_sport | Multisport/Brick (multiple legs) |
 
 ## Step Types
@@ -34,6 +35,7 @@ Use the string name in YAML — automatically converted to the ID:
 | `"calories"` | 4 | kcal | End after calories |
 | `"power"` | 5 | watts | End at power |
 | `"iterations"` | 7 | count | For repeat groups only |
+| `"reps"` | 10 | count | End after N repetitions (strength only) |
 
 **Special cases:**
 - **Lap button:** Omit `endConditionValue`
@@ -118,13 +120,103 @@ Every swim workout needs rest steps between sections:
 
 Inside repeat groups, rest steps also need `childStepId: 1`.
 
+## Strength Workouts
+
+Strength uses the same step structure as every other sport, plus exercise
+identity on each work step.
+
+```yaml
+- stepType: "repeat"
+  numberOfIterations: 3
+  childStepId: 1
+  steps:
+    - stepType: "interval"
+      endCondition: "reps"
+      endConditionValue: 8
+      targetType: "no.target"
+      childStepId: 1
+      category: "SQUAT"
+      exerciseName: "BARBELL_BACK_SQUAT"
+      description: "8 reps @ RPE 7"
+    # Rest steps omit targetType entirely
+    - stepType: "rest"
+      endCondition: "time"
+      endConditionValue: 90
+      childStepId: 1
+```
+
+**Rest steps take `targetType: null`, not `no.target`.** This is a real
+asymmetry in Connect's own output, and paicer applies it automatically — so
+omit `targetType` on strength rest steps rather than writing it.
+
+**Time-based exercises** (planks, carries, dead hangs) use
+`endCondition: "time"` instead of `"reps"`.
+
+**Do not add a warmup step.** The watch treats every non-rest step as a
+set and prompts for reps and weight on it at save time, so a warmup with
+no exercise becomes a phantom set the athlete has to edit past. Garmin's
+own strength workouts contain no warmup step — they open directly on the
+first repeat group. Put warmup guidance in the workout `description`
+instead. Confirmed on-watch, 2026-08-18.
+
+### `category` and `exerciseName`
+
+Both are uppercase enum strings from Garmin's catalog, and both must be
+present on a work step. A wrong name uploads without error and then shows
+as a generic exercise on the watch, so paicer validates every pair at render
+and sync time — including whether the exercise actually belongs to the
+category it is filed under.
+
+Never guess these strings. Look them up:
+
+```
+paicer exercises                    # 51 categories with counts
+paicer exercises --search bench     # substring search
+paicer exercises --category SQUAT   # everything in one category
+```
+
+The catalog is vendored at `src/paicer/data/exercises.json` (51 categories,
+1,846 exercises), generated from the FIT SDK profile by
+`scripts/generate_exercises.py`. Connect does not expose it over the API —
+every candidate endpoint returns 404 or 410.
+
+### Weight
+
+`weightValue` is optional and omitted by default; prescribe load as RPE in
+`description` instead. When present it is sent **verbatim, unconverted** —
+Garmin renders it in whatever unit the *Garmin account* is set to. Sending
+`60` displays as "60 kg" on a metric account and "60 lb" on an imperial one.
+Sending `27215.54` displays as "27,215.5 kg". Confirmed on-screen 2026-08-18.
+
+Because the number is interpreted by the Garmin account's measurement
+system, not paicer's `units` config, the two need to agree for a prescribed
+load to read correctly. This is one more reason the guide prescribes RPE
+rather than absolute weight.
+
+Note the asymmetry with the activity side: logged weight in an
+`exerciseSets` response really is in grams (a logged set came back as
+22687 g = 50.0 lb). Prescription and measurement use different encodings.
+
+`weightUnit` is never written in YAML and is **not** derived from the `units`
+config. Connect writes `{unitId: 9, unitKey: "pound", factor: 453.59237}` on
+every strength step regardless of the Garmin account's measurement system —
+verified against two user-authored workouts, one created while the account
+was `statute_us` and one while it was `metric`. Garmin has never been observed
+emitting a kilogram weight unit, so paicer emits Connect's constant rather
+than inventing one.
+
+Despite the name it does not control display. It is nonetheless **required**:
+uploading a step without it makes Garmin silently discard `weightValue`.
+
 ## Required vs Optional Fields
 
-**All steps require:** `stepType`, `endCondition`, `targetType` (swim steps auto-set to `null`)
+**All steps require:** `stepType`, `endCondition`, `targetType` (swim steps auto-set to `null`; strength *rest* steps auto-set to `null`)
 
 **Optional:** `endConditionValue`, `targetValueOne`, `targetValueTwo`, `childStepId` (required inside repeats), `description` (watch display note)
 
-**Auto-added by script:** `strokeType`, `equipmentType`, `drillType` (when `SWIM_TRACKING=drill`), `type` (ExecutableStepDTO/RepeatGroupDTO), `stepOrder`
+**Strength work steps also require:** `category`, `exerciseName`
+
+**Auto-added by script:** `strokeType`, `equipmentType`, `drillType` (when `SWIM_TRACKING=drill`), `weightUnit` (strength), `type` (ExecutableStepDTO/RepeatGroupDTO), `stepOrder`
 
 ## Swim Distance Tracking (`SWIM_TRACKING`)
 
@@ -146,5 +238,6 @@ Available drill types (for future use): `kick` (1), `pull` (2), `drill` (3).
 | Distance | meters | 1km = 1000, 5km = 5000 |
 | Time | seconds | 1min = 60, 8min = 480, 15min = 900 |
 | Speed | m/s | `1000 / pace_seconds` |
+| Weight | grams | 60 kg = 60000, 100 lb = 45359.237 |
 
 Source: [python-garminconnect](https://github.com/cyberjunky/python-garminconnect/blob/master/garminconnect/workout.py)

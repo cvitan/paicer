@@ -1,6 +1,11 @@
 import os
 import re
-from .plan_utils import calculate_workout_date, load_plan, validate_training_days
+from .plan_utils import (
+    calculate_workout_date,
+    load_plan,
+    validate_strength_exercises,
+    validate_training_days,
+)
 
 
 def parse_filter(filter_str: str) -> tuple[int | None, int | None, int | None]:
@@ -35,7 +40,7 @@ def run_sync(plan_file: str, filter_str: str, no_schedule: bool = False) -> None
     filter_phase, filter_week, filter_day = parse_filter(filter_str)
 
     data = load_plan(plan_file)
-    errors = validate_training_days(data)
+    errors = validate_training_days(data) + validate_strength_exercises(data)
     if errors:
         for e in errors:
             print(f"Error: {e}")

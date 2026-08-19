@@ -38,9 +38,18 @@ paicer render --html --plan my-plan.yaml        # Generate HTML
 paicer sync w7 --plan my-plan.yaml              # Sync week 7 to Garmin
 paicer sync w7d2 --plan my-plan.yaml            # Sync specific workout
 paicer sync p2 --plan my-plan.yaml              # Sync entire phase
+paicer exercises --search bench                 # Look up Garmin strength exercise names
 ```
 
 ## Supported Sports
 
-Running, cycling, swimming (pool and open water), track sessions, and multisport/brick workouts (bike + run with transition tracking). Requires a Garmin watch — multisport needs a compatible model (Fenix, Forerunner 570/970, Enduro).
+Running, cycling, swimming (pool and open water), track sessions, strength training, and multisport/brick workouts (bike + run with transition tracking). Requires a Garmin watch — multisport needs a compatible model (Fenix, Forerunner 570/970, Enduro).
+
+### Strength training
+
+Strength sessions sync as structured Garmin workouts with the exercise, set and rep count, and rest timer on each step, so the watch guides you through the session and logs what you actually lifted. Plans can be strength-only or mix lifting with endurance work.
+
+Exercise names come from Garmin's own catalog (51 categories, 1,846 exercises), vendored so it works offline. Paicer validates every exercise before upload — a wrong name would otherwise upload without complaint and show as a generic exercise on the watch. Look names up with `paicer exercises --search bench`.
+
+Plans that include lifting get coaching guidance on splits, set and rep schemes, equipment substitutions, and — the part general lifting advice misses — how to place strength work so it doesn't compromise key runs or rides.
 

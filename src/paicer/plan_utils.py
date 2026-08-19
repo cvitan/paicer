@@ -8,6 +8,7 @@ SPORT_LABELS = {
     "track": "Track",
     "bike": "Bike",
     "swim": "Swim",
+    "strength": "Strength",
     "multisport": "Brick",
     "race": "Race",
 }
@@ -17,6 +18,7 @@ SPORT_EMOJI = {
     "track": "🏃",
     "bike": "🚴",
     "swim": "🏊",
+    "strength": "🏋️",
     "multisport": "🏃🚴",
     "race": "🏁",
 }
@@ -108,15 +110,67 @@ def calculate_phase_dates(start_date: str, phase_weeks: list[Dict]) -> str:
     return f"{start_str} – {end_str}"
 
 
-def extract_swim_steps(garmin_data: dict) -> list:
-    """Extract swim step descriptions for display.
+def _swim_step_label(step: Dict) -> str | None:
+    """Swim steps are cue cards — the description is the whole content."""
+    return step.get("description")
+
+
+def _format_duration(seconds) -> str:
+    """45 -> '45s', 90 -> '1:30'."""
+    seconds = int(seconds)
+    if seconds < 60:
+        return f"{seconds}s"
+    return f"{seconds // 60}:{seconds % 60:02d}"
+
+
+def _strength_step_label(step: Dict) -> str | None:
+    """Build 'Barbell Bench Press — 8 reps' from an exercise step.
+
+    An explicit description replaces the generated quantity, so a plan can
+    say '5 reps @ RPE 8' and keep the load cue.
+    """
+    from .exercises import humanize
+
+    name = step.get("exerciseName")
+    if not name:
+        return step.get("description")
+
+    label = humanize(name)
+    detail = step.get("description")
+    if not detail:
+        value = step.get("endConditionValue")
+        if value is None:
+            return label
+        if step.get("endCondition") == "time":
+            detail = _format_duration(value)
+        else:
+            detail = f"{int(value)} reps"
+
+    return f"{label} — {detail}"
+
+
+_STEP_LABELS = {
+    "swim": _swim_step_label,
+    "strength": _strength_step_label,
+}
+
+
+def extract_step_lines(workout: Dict) -> list:
+    """Extract per-step display lines for a workout.
 
     Returns a flat list where each item is either:
-    - str: a step description
-    - tuple: (repeat_count, [nested descriptions])
+    - str: a step line
+    - tuple: (repeat_count, [nested lines])
 
-    Rest steps are excluded (only relevant to the watch).
+    Rest steps are excluded (only relevant to the watch). Sports with no
+    per-step display (run, bike, track, race) return an empty list — their
+    content lives in the workout description.
     """
+    label_for = _STEP_LABELS.get(workout.get("type"))
+    if label_for is None:
+        return []
+
+    garmin_data = workout.get("garmin")
     if not garmin_data or "steps" not in garmin_data:
         return []
 
@@ -127,20 +181,27 @@ def extract_swim_steps(garmin_data: dict) -> list:
 
         if "numberOfIterations" in step:
             reps = step["numberOfIterations"]
-            nested = [
-                s["description"]
-                for s in step.get("steps", [])
-                if s.get("stepType") != "rest" and s.get("description")
-            ]
+            nested = []
+            for s in step.get("steps", []):
+                if s.get("stepType") == "rest":
+                    continue
+                label = label_for(s)
+                if label:
+                    nested.append(label)
             if nested:
                 result.append((reps, nested))
             continue
 
-        desc = step.get("description")
-        if desc:
-            result.append(desc)
+        label = label_for(step)
+        if label:
+            result.append(label)
 
     return result
+
+
+def extract_swim_steps(garmin_data: dict) -> list:
+    """Deprecated alias for extract_step_lines on a swim workout."""
+    return extract_step_lines({"type": "swim", "garmin": garmin_data})
 
 
 def validate_training_days(plan_data: Dict) -> list[str]:
@@ -187,6 +248,64 @@ def validate_training_days(plan_data: Dict) -> list[str]:
                     f"optional: true or add training days."
                 )
 
+    return errors
+
+
+def _iter_steps(steps):
+    """Yield every executable step, flattening repeat groups."""
+    for step in steps or []:
+        if "numberOfIterations" in step:
+            yield from _iter_steps(step.get("steps", []))
+        else:
+            yield step
+
+
+def validate_strength_exercises(plan_data: Dict) -> list[str]:
+    """Check every strength step names a real Garmin exercise.
+
+    Two failure modes, both silent without this check:
+
+    - A bad category/exercise pair uploads without complaint and then
+      shows as a generic exercise on the watch.
+    - A non-rest step with *no* exercise becomes a phantom set: the watch
+      prompts for reps and weight on every non-rest step, so the athlete
+      has to edit past an empty entry before saving. This is why strength
+      workouts carry no warmup step.
+
+    Runs at render time as well as sync time.
+
+    Returns list of error messages (empty if valid).
+    """
+    from .exercises import validate
+
+    errors = []
+    for phase in plan_data.get("phases", []):
+        for week_data in phase.get("weeks", []):
+            week_num = week_data.get("week")
+            for workout in week_data.get("workouts", []):
+                if workout.get("type") != "strength":
+                    continue
+                garmin = workout.get("garmin") or {}
+                for step in _iter_steps(garmin.get("steps")):
+                    if step.get("stepType") == "rest":
+                        continue
+                    category = step.get("category")
+                    name = step.get("exerciseName")
+                    if not category or not name:
+                        errors.append(
+                            f"Week {week_num} \"{workout.get('name')}\": "
+                            f"{step.get('stepType')} step needs both "
+                            f"category and exerciseName — a strength step "
+                            f"without an exercise becomes an empty set on "
+                            f"the watch."
+                        )
+                        continue
+                    problem = validate(category, name)
+                    if problem:
+                        errors.append(
+                            f"Week {week_num} \"{workout.get('name')}\": "
+                            f"{problem}"
+                        )
     return errors
 
 

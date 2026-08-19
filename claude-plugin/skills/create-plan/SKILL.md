@@ -26,7 +26,7 @@ The user starts with no config file. Two preferences are saved during the interv
 Ask each question **exactly as written** below, one at a time. Wait for the answer before asking the next. Do not rephrase the fixed wording — but do substitute bracketed placeholders (e.g. `[km / mile]`, `[run/ride/swim]`) based on their sport and units.
 
 **Q1:**
-> "What sports will this plan cover? Paicer supports running, cycling, swimming, and triathlon (a combination of all three)."
+> "What sports will this plan cover? Paicer supports running, cycling, swimming, triathlon (a combination of all three), and strength training — which can be added alongside any of them, or trained on its own."
 
 **Q2:**
 > "Do you think in kilometres or miles?"
@@ -60,6 +60,9 @@ If swimming is included: ask the Swim Tracking question (see Swim Tracking secti
 If cycling is included:
 > "Do you train with a power meter on the bike?"
 
+If strength is included: ask the Strength Training questions (see the
+Strength Training section) before continuing.
+
 **Q8 — easy pace or power (adapt wording to sport and units):**
 - Running: > "What's your current easy running pace per [km / mile]?"
 - Cycling: > "What's your current easy power in watts? If you don't have a power meter, what heart rate zone feels comfortable on the bike?"
@@ -83,6 +86,40 @@ Ask this only if the plan includes pool swimming:
 
 Save the preference: `paicer config set swim_tracking auto` (or `drill`).
 
+## Strength Training
+
+Ask these only if the plan includes strength. Both answers are required —
+goal determines sets/reps/rest, equipment determines which exercises can be
+prescribed at all. Ask one at a time.
+
+**S1:**
+> "What are you after with the lifting — general strength, muscle growth, or
+> supporting your endurance training and staying injury-free?"
+
+**S2:**
+> "What do you have access to? A full gym with barbells and machines, some
+> dumbbells or kettlebells at home, or just bodyweight?"
+
+**S3:**
+> "How much lifting have you done before — are you comfortable with barbell
+> movements like squats and deadlifts, or starting fresh?"
+
+**S4:**
+> "How many days a week do you want to lift?"
+
+These are context for building the plan, not persisted to config.
+
+Before programming anything, read
+`../../guides/strength-coaching.md` relative to this skill's base
+directory. Resolve every exercise name with `paicer exercises --search
+<term>` — plan YAML needs exact enum strings, and plausible-sounding
+guesses are usually wrong.
+
+If the athlete wants a serious strength or hypertrophy block *and* has a
+race in the plan, say plainly that both at full volume compromises each
+other, and ask which is primary. Then program accordingly — scale the
+other one, don't quietly do both.
+
 ## Plan Length and Start Date
 
 Calculate weeks until race day, then recommend:
@@ -101,7 +138,7 @@ Present: "You have N weeks until race day. I'd recommend an X-week plan starting
 3. Design phase structure (Base -> Build -> Peak -> Taper)
 4. Build week-by-week with progressive volume
 5. Add Garmin structures with YAML comments in user's unit system
-6. Create YAML anchors for reusable sessions (swim, track)
+6. Create YAML anchors for reusable sessions (swim, track, strength)
 7. Say to the user:
    > "Let me do a quick validation to make sure the YAML is valid."
 

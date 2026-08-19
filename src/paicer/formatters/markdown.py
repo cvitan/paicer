@@ -5,7 +5,7 @@ from ..plan_utils import (
     calculate_workout_date,
     calculate_week_dates,
     calculate_phase_dates,
-    extract_swim_steps,
+    extract_step_lines,
     format_display_date,
     SPORT_LABELS,
 )
@@ -80,19 +80,18 @@ class MarkdownFormatter(DocumentFormatter):
                 for n_line in notes.strip().splitlines():
                     line += f"> {n_line}\n"
 
-        # Render swim session steps
-        if workout.get("type") == "swim":
-            steps = extract_swim_steps(workout.get("garmin"))
-            if steps:
-                line += "\n"
-                for item in steps:
-                    if isinstance(item, tuple):
-                        reps, nested = item
-                        line += f"- {reps}x:\n"
-                        for n in nested:
-                            line += f"  - {n}\n"
-                    else:
-                        line += f"- {item}\n"
+        # Render per-step breakdown (swim cue cards, strength exercises)
+        steps = extract_step_lines(workout)
+        if steps:
+            line += "\n"
+            for item in steps:
+                if isinstance(item, tuple):
+                    reps, nested = item
+                    line += f"- {reps}x:\n"
+                    for n in nested:
+                        line += f"  - {n}\n"
+                else:
+                    line += f"- {item}\n"
 
         return line
 

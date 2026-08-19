@@ -40,6 +40,7 @@ Read `units` from `~/.paicer/config` (default: `metric`). Present all values in 
    - **Running with HR targets:** compare INTERVAL_ACTIVE HR vs target zone
    - **Cycling with power targets:** compare INTERVAL_ACTIVE power vs target zone
    - **Swimming:** completion check (did the session happen?)
+   - **Strength:** use the `exerciseSets` array, not `intervals` — see the Strength Sessions section below
    - **Distance:** actual vs planned
    - **HR time in zones** (`hrTimeInZones`): Use to verify easy runs stayed in Zone 1–2. If zone 3+ time exceeds ~10% of duration on an easy run, flag it (accounting for elevation). For tempo/interval workouts, zone distribution confirms effort matched intent.
    - **Aerobic training effect** (`aerobicTrainingEffect`): 1–5 scale. Easy runs should be 2.0–3.0 ("maintaining"). Tempo/intervals 3.0–4.0 ("improving"). Long runs 3.0–4.5. Flag if an easy run scores >3.5 (too hard) or a key session scores <2.5 (too easy). Useful as a weekly load summary — sum or average across sessions to gauge overall training stress.
@@ -65,6 +66,51 @@ Read `units` from `~/.paicer/config` (default: `metric`). Present all values in 
    **Notes content:** stick to training-relevant facts — pace, HR, power, distance, elevation, completion vs plan, perceived effort, weather if it affected execution, illness/injury that affected sessions. **Skip lifestyle context** like alcohol consumption, social events, work stress, or other personal details that are not training data — even when the user mentions them in chat.
 
 10. Run `paicer render --plan <plan_path>` to confirm the YAML is valid after edits. Output is written next to the plan file (e.g. `<plan_stem>.md`); the path is echoed. Use `-o <path>` to override.
+
+## Strength Sessions
+
+Strength activities carry an `exerciseSets` array instead of `intervals`.
+Each entry is one working set:
+
+| Field | Notes |
+|-------|-------|
+| `category` / `exerciseName` | Garmin's identification, highest-confidence guess |
+| `reps` | `0` means the watch failed to count, **not** zero reps done. `null` means a time-based exercise |
+| `weight` / `weightUnit` | In the athlete's own unit. `null` means none recorded |
+| `duration` | Seconds. The real measure for planks and carries |
+| `confidence` | Auto-detection probability. Below ~90 means Garmin was guessing — don't state the exercise as fact |
+| `wktStepIndex` | Index of the step in the planned workout. **Group sets by this** to compare against the plan — several sets share one index |
+
+Rest periods and unidentified warmup blocks are already filtered out, so
+every entry is real training content.
+
+Read `../../guides/strength-coaching.md` for the programming
+principles behind these judgements.
+
+**Analyse:**
+
+- **Progressive overload** — compare load and reps against the same
+  exercise in previous weeks. This is the main signal; a strength block
+  that isn't progressing isn't working.
+- **Prescribed vs actual** — did they hit the planned sets and reps? Read
+  the planned session from the plan YAML's `garmin.steps`.
+- **Stalls** — same load and reps for two or three consecutive weeks means
+  recovery is the limiter, not programming. Check endurance load before
+  suggesting more work.
+- **Dropoff within a session** — reps falling across sets (8/8/6) means the
+  load was too heavy for the prescription. Hold load rather than
+  progressing. Check `reps: 0` entries first though — an uncounted set
+  looks identical to a failed one in a naive read.
+- **Interference** — did lifting land the day before a quality run or long
+  run? If a key endurance session underperformed, check what preceded it
+  before blaming fitness.
+- **Completion** — strength is the first thing athletes silently drop.
+  Missing sessions are worth raising directly.
+
+**If `exerciseSets` is empty**, the watch recorded the session without
+exercise detection — normal for manually-started strength activities.
+Fall back to duration, HR and training effect, and note that set detail
+wasn't available rather than treating it as a missed session.
 
 ## Race Week (special handling)
 

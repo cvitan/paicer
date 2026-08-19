@@ -16,6 +16,8 @@ After installing, type `/create-plan` or `/review-progress` in Claude Code (skil
 - `/create-plan` — Interview-driven plan creation; uploads workouts to Garmin Connect
 - `/review-progress` — Compare last week's Garmin activities against the plan and discuss adjustments
 
+Covers running, cycling, swimming, track, strength training, and multisport. Strength plans get programming guidance on splits, set and rep schemes, and how lifting interacts with endurance training.
+
 ## Requirements
 
 - [Claude Code](https://claude.ai/code)
