@@ -87,10 +87,13 @@ def run_sync(plan_file: str, filter_str: str, no_schedule: bool = False) -> None
                         start_date, week_num, day_num, phase_training_days
                     )
 
-                if len(uploaded_names) == 0:
-                    if filter_day:
-                        print(f"Syncing {garmin_name}")
-                    elif filter_week:
+                # A single day can hold more than one session — a run and a
+                # lift, say — so name each one. Wider scopes print a header
+                # once and report a count at the end instead.
+                if filter_day:
+                    print(f"Syncing {garmin_name}")
+                elif len(uploaded_names) == 0:
+                    if filter_week:
                         print(f"Syncing Week {filter_week}")
                     elif filter_phase:
                         print(f"Syncing Phase {filter_phase}")
@@ -122,16 +125,20 @@ def run_sync(plan_file: str, filter_str: str, no_schedule: bool = False) -> None
         raise SystemExit(1)
 
     count = len(uploaded_names)
+    plural = f"{count} workouts " if count > 1 else ""
     if no_schedule:
         if filter_day:
-            print("✓ Uploaded to Garmin Connect")
+            print(f"✓ Uploaded {plural}to Garmin Connect")
         else:
             print(f"✓ Uploaded {count} workout{'s' if count > 1 else ''} to Garmin Connect")
     else:
         if filter_day and uploaded_dates:
-            print(f"✓ Synced to Garmin Connect and scheduled for {uploaded_dates[0]}")
+            print(
+                f"✓ Synced {plural}to Garmin Connect and scheduled for "
+                f"{uploaded_dates[0]}"
+            )
         elif filter_day:
-            print("✓ Uploaded to Garmin Connect")
+            print(f"✓ Uploaded {plural}to Garmin Connect")
         elif filter_week or filter_phase:
             print(f"✓ Synced {count} workout{'s' if count > 1 else ''} to Garmin Connect")
         else:
