@@ -204,6 +204,39 @@ def extract_swim_steps(garmin_data: dict) -> list:
     return extract_step_lines({"type": "swim", "garmin": garmin_data})
 
 
+def strength_exercise_names(workout: Dict) -> list[str]:
+    """List the distinct exercises in a strength workout, in order.
+
+    A printed plan doesn't need every set spelled out — a session with
+    four exercises across three sets each renders as twelve near-identical
+    lines. What's useful at a glance is *which* lifts the session covers;
+    the sets and reps live in the workout description.
+
+    Returns humanized names, first occurrence order, no repeats. Empty
+    for any non-strength workout.
+    """
+    from .exercises import humanize
+
+    if workout.get("type") != "strength":
+        return []
+
+    garmin_data = workout.get("garmin")
+    if not garmin_data or "steps" not in garmin_data:
+        return []
+
+    seen = set()
+    names = []
+    for step in _iter_steps(garmin_data["steps"]):
+        if step.get("stepType") == "rest":
+            continue
+        name = step.get("exerciseName")
+        if not name or name in seen:
+            continue
+        seen.add(name)
+        names.append(humanize(name))
+    return names
+
+
 def validate_training_days(plan_data: Dict) -> list[str]:
     """Check that non-optional workouts don't exceed training_days per week.
 

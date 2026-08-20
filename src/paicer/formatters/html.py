@@ -6,6 +6,7 @@ from ..plan_utils import (
     calculate_week_dates,
     calculate_phase_dates,
     extract_step_lines,
+    strength_exercise_names,
     format_display_date,
     SPORT_EMOJI,
 )
@@ -90,6 +91,8 @@ class HTMLFormatter(DocumentFormatter):
     .workout-steps {{ margin: 4px 0 0 0; padding-left: 18px; font-size: 10px; color: #2c3e50; }}
     .workout-steps li {{ margin: 1px 0; }}
     .workout-steps ul {{ padding-left: 14px; margin: 1px 0; list-style-type: disc; }}
+    .exercise-list {{ margin: 4px 0 0 0; font-size: 10px; color: #2c3e50; line-height: 1.35; }}
+    .exercise-label {{ font-weight: bold; }}
     .race-strategy {{ margin-top: 8px; padding: 8px; background-color: #fff4e6; border-left: 4px solid #e67e22; font-size: 11px; }}
     .race-strategy-header {{ font-weight: bold; color: #b9530b; margin-bottom: 4px; }}
     .race-strategy-rule {{ margin-bottom: 4px; }}
@@ -271,19 +274,31 @@ class HTMLFormatter(DocumentFormatter):
                             desc_html += "</div>"
                         desc_html += "</div>"
 
-                    steps = extract_step_lines(workout)
-                    if steps:
-                        desc_html += "<ol class='workout-steps'>"
-                        for item in steps:
-                            if isinstance(item, tuple):
-                                reps, nested = item
-                                desc_html += f"<li>{reps}x:<ul>"
-                                for n in nested:
-                                    desc_html += f"<li>{n}</li>"
-                                desc_html += "</ul></li>"
-                            else:
-                                desc_html += f"<li>{item}</li>"
-                        desc_html += "</ol>"
+                    # Strength collapses to a single inventory line. Every
+                    # set spelled out costs a dozen near-identical lines on
+                    # a page that fits one week; the sets and reps are in
+                    # the description already.
+                    exercises = strength_exercise_names(workout)
+                    if exercises:
+                        desc_html += (
+                            "<div class='exercise-list'>"
+                            f"<span class='exercise-label'>Exercises:</span> "
+                            f"{', '.join(exercises)}</div>"
+                        )
+                    else:
+                        steps = extract_step_lines(workout)
+                        if steps:
+                            desc_html += "<ol class='workout-steps'>"
+                            for item in steps:
+                                if isinstance(item, tuple):
+                                    reps, nested = item
+                                    desc_html += f"<li>{reps}x:<ul>"
+                                    for n in nested:
+                                        desc_html += f"<li>{n}</li>"
+                                    desc_html += "</ul></li>"
+                                else:
+                                    desc_html += f"<li>{item}</li>"
+                            desc_html += "</ol>"
                     html.append(f"        <td class='workout-desc'>{desc_html}</td>")
                     html.append("      </tr>")
                     prev_day = day_num

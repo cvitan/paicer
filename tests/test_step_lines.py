@@ -132,3 +132,75 @@ def test_other_sports_produce_no_lines(sport):
 def test_missing_garmin_section():
     from paicer.plan_utils import extract_step_lines
     assert extract_step_lines({"type": "strength"}) == []
+
+
+# --- strength exercise inventory (HTML) ------------------------------------
+
+def test_strength_exercise_names_dedupes_in_order():
+    from paicer.plan_utils import strength_exercise_names
+    workout = {"type": "strength", "garmin": STRENGTH_GARMIN}
+    assert strength_exercise_names(workout) == [
+        "Barbell Bench Press", "Dumbbell Flye", "Barbell Biceps Curl",
+    ]
+
+
+def test_strength_exercise_names_dedupes_repeated_exercise():
+    """Three sets of one lift is one entry, not three."""
+    from paicer.plan_utils import strength_exercise_names
+    step = {"stepType": "interval", "endCondition": "reps",
+            "endConditionValue": 8, "targetType": "no.target",
+            "category": "SQUAT", "exerciseName": "BARBELL_BACK_SQUAT"}
+    workout = {"type": "strength", "garmin": {"steps": [step, step, step]}}
+    assert strength_exercise_names(workout) == ["Barbell Back Squat"]
+
+
+def test_strength_exercise_names_skips_rest():
+    from paicer.plan_utils import strength_exercise_names
+    workout = {"type": "strength", "garmin": {"steps": [
+        {"stepType": "rest", "endCondition": "time", "endConditionValue": 60},
+    ]}}
+    assert strength_exercise_names(workout) == []
+
+
+def test_strength_exercise_names_empty_for_other_sports():
+    from paicer.plan_utils import strength_exercise_names
+    assert strength_exercise_names({"type": "swim", "garmin": SWIM_GARMIN}) == []
+    assert strength_exercise_names({"type": "strength"}) == []
+
+
+def test_html_renders_strength_as_one_inventory_line():
+    from paicer.formatters.html import HTMLFormatter
+    plan = {
+        "plan": {"name": "T", "start_date": "2026-01-05", "overview": "x",
+                 "training_days": [1]},
+        "phases": [{"phase": 1, "name": "P", "description": "d",
+                    "weeks": [{"week": 1, "description": "d", "workouts": [
+                        {"day": 1, "type": "strength", "name": "Lift",
+                         "description": "d",
+                         "garmin": STRENGTH_GARMIN},
+                    ]}]}],
+    }
+    out = HTMLFormatter("a4").render(plan)
+    assert "Exercises:</span> Barbell Bench Press, Dumbbell Flye, " \
+           "Barbell Biceps Curl" in out
+    # the per-set breakdown must not also be emitted
+    assert "8 reps" not in out
+    assert "workout-steps'>" not in out
+
+
+def test_html_still_lists_swim_steps():
+    """Swim keeps the detailed cue-card list — only strength collapses."""
+    from paicer.formatters.html import HTMLFormatter
+    plan = {
+        "plan": {"name": "T", "start_date": "2026-01-05", "overview": "x",
+                 "training_days": [1]},
+        "phases": [{"phase": 1, "name": "P", "description": "d",
+                    "weeks": [{"week": 1, "description": "d", "workouts": [
+                        {"day": 1, "type": "swim", "name": "Swim",
+                         "description": "d", "garmin": SWIM_GARMIN},
+                    ]}]}],
+    }
+    out = HTMLFormatter("a4").render(plan)
+    assert "workout-steps'>" in out
+    assert "200m easy freestyle" in out
+    assert "exercise-list" not in out.split("</style>")[1]
