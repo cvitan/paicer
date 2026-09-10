@@ -10,13 +10,13 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "js-yaml": "^4.1.1"
+    "js-yaml": "^4.3.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260530.1",
     "@types/js-yaml": "4.0.9",
     "typescript": "5.7.3",
     "vitest": "^4.1.7",
-    "wrangler": "^4.95.0"
+    "wrangler": "^4.130.0"
   }
 }
