@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "click>=8.0",
-    "garminconnect>=0.2.40,<0.3.0",
+    "garminconnect>=0.2.40,<0.4.0",
     "keyring>=24.0",
     "markdown>=3.10.2",
     "pyyaml>=6.0",
